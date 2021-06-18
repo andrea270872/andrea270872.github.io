@@ -1,0 +1,239 @@
+<html>
+<head>
+   
+<style type="text/css">
+    * {
+       font-family:   "Lucida Console", Monaco, monospace;
+    }
+    
+   #screen {
+      margin: 0px;
+      padding: 0px;
+      font-size: 8px;
+   }   
+    
+   
+   label{
+    display:inline-block;
+    width: 10%;
+   }
+    
+    input[type="range"]{
+        width: 80%;
+    }
+   
+   
+   .color_0 {
+      background-color: black;
+      color: black;
+   }
+   .color_1 {
+      background-color: darksalmon;
+      color: darksalmon;
+   }
+   .color_2 {
+      background-color: sandybrown;
+      color: sandybrown;
+   }
+   .color_3 {
+      background-color: rgb(244, 220, 40);
+      color: rgb(244, 220, 40);
+   }
+   .color_4 {
+      background-color: #5fff2f;
+      color: #5fff2f;
+   }
+   .color_5 {
+      background-color: #219878;
+      color: #219878;
+   }
+   .color_6 {
+      background-color: darkcyan;
+      color: darkcyan;
+   }
+   .color_7 {
+      background-color: #1f1fff;
+      color: #1f1fff;
+   }
+       
+</style>
+
+<script>
+   
+// ----------------------------   
+   var FRAME = {
+      iMax: 70, // height
+      jMax: 140  // width
+   };
+
+   function setFrame(xMin,xMax, yMin,yMax){
+      FRAME.xMin = xMin;
+      FRAME.xMax = xMax;
+      FRAME.yMin = yMin;
+      FRAME.yMax = yMax;
+      FRAME.kx = (FRAME.xMax-FRAME.xMin)/FRAME.iMax;
+      FRAME.ky = (FRAME.yMax-FRAME.yMin)/FRAME.jMax;
+   }
+   setFrame(-2,+2, -2,+2);
+   
+   function toFrameCoord(i,j){
+      return {x: i * FRAME.kx + FRAME.xMin,
+              y: j * FRAME.ky + FRAME.yMin
+             };
+   }
+   
+   // change FRAME to center around the current point, and zoom in x2
+   function centerFRAMEandZoom(p){
+      var dx = FRAME.xMax-FRAME.xMin;
+      var dy = FRAME.xMax-FRAME.xMin;
+      setFrame( p.x - dx/3 , p.x + dx/3 ,
+                p.y - dy/3 , p.y + dy/3 );
+   }
+
+   // change FRAME to center around the current point, and zoom out
+   function centerFRAMEandZoomOut(p){
+      var dx = FRAME.xMax-FRAME.xMin;
+      var dy = FRAME.xMax-FRAME.xMin;
+      setFrame( p.x - dx*0.8 , p.x + dx*0.8 ,
+                p.y - dy*0.8 , p.y + dy*0.8 );
+   }
+
+// ----------------------------   
+   
+   var dithering = '.-:=+*#@';
+    
+   // (x.re + i * x.im)^2 = x.re^2 - x.im^2 + i *2*x.re*x.im
+   function julia(x,c){
+      return {re: x.re * x.re - x.im * x.im + c.re,
+              im: 2 * x.re * x.im + c.im
+             };
+   }
+   
+   function iteratedJulia(max,x0re,x0im,cre,cim){
+      var x = {re:x0re,im:x0im};
+      var c = {re:cre,im:cim};
+      for (var i=0;i<max;i++){
+         x = julia(x,c);
+         if ( (x.re*x.re) + (x.im*x.im) > 25){
+            return i;
+         }
+      }
+      return max;
+   }
+</script>
+   
+   
+<script>   
+   // julia
+   
+   var c_re = 0.0;
+   var c_im = 0.0;
+   var timer = null;
+   
+   function drawInColorUnless(){
+      var $screen = document.getElementById('screen');
+      $screen.innerHTML = '';
+      
+      for (var i=0;i<=FRAME.iMax;i++){
+        var line = '';
+        for (var j=0;j<=FRAME.jMax;j++){
+            var p = toFrameCoord(i,j);
+            var color = iteratedJulia(255, p.x, p.y,
+                                           c_re,c_im );       
+            var colIndex = ~~(color>>5);
+			line += '<span class="color_'+colIndex+'">' + dithering[0] + '</span>';
+		}
+		$screen.innerHTML += line+'<br/>';
+      }
+   }
+
+
+   function refresh(){
+      var $screen = document.getElementById('screen');
+      $screen.innerHTML = '';
+      
+	  //var a = performance.now();
+      for (var i=0;i<=FRAME.iMax;i++){
+        var line = '';
+        for (var j=0;j<=FRAME.jMax;j++){
+            var p = toFrameCoord(i,j);
+            var color = iteratedJulia(255, p.x, p.y,
+                                               c_re,c_im );           
+
+		   line += dithering[ ~~(color>>5) ];  // 256/8 -> 32
+		}
+		$screen.innerHTML += line+'<br/>';
+      }
+      //var b = performance.now();
+	  //console.log('It took ' + (b - a) + ' ms.');
+      
+      if (timer==null){
+         timer = setTimeout(drawInColorUnless, 2000);
+      } else {
+         clearTimeout(timer);
+         timer = setTimeout(drawInColorUnless, 2000);
+      }
+   }
+	
+   window.onload = function() {
+      
+      var onChangeHandler = function(){
+         c_re = (~~(document.getElementById('cre').value)-300)/150.0;
+         c_im = (~~(document.getElementById('cim').value)-300)/150.0;
+          
+		 document.getElementById('cre_value').innerHTML = c_re.toFixed(3);
+		 document.getElementById('cim_value').innerHTML = c_im.toFixed(3);
+		 
+         //console.log( c_re, c_im );
+         refresh();
+      }
+      
+      document.getElementById('cre').addEventListener('input',onChangeHandler);
+      document.getElementById('cim').addEventListener('input',onChangeHandler);
+	  
+	  document.getElementById('screen').addEventListener('mousedown',function(evt){
+		evt.preventDefault();
+		var x = ~~((evt.clientX - document.getElementById('screen').offsetLeft) / 5);
+        var y = ~~((evt.clientY - document.getElementById('screen').offsetTop) / 8);
+		if (x < FRAME.jMax){
+			//console.log( x,y );
+			 
+			 var p = toFrameCoord(y,x);
+			 if (event.button==0){ //left button
+				// change FRAME to center around the current point, and zoom in x2
+				centerFRAMEandZoom(p);      
+			 } else {
+				// change FRAME to center around the current point, and zoom in x2
+				centerFRAMEandZoomOut(p);            
+			 }
+		}
+		refresh();
+        document.getElementById("cre").focus();
+	  });
+      
+      onChangeHandler();
+      document.getElementById("cre").focus();	  
+   };
+</script>
+
+</head>
+
+<body oncontextmenu="return false;">
+   <label>C real</label>
+      <input type="range" id="cre" min="0" max="600" step="1" value="188"/><span id="creVal"></span>
+	  <span id="cre_value">0</span>
+   <br/>
+   <label>C imaginary</label> 
+      <input type="range" id="cim" min="0" max="600" step="1" value="289"/><span id="cimVal"></span>
+	  <span id="cim_value">0</span>
+   <br/>
+    
+   <div id="screen"></div>   
+   
+   <div>
+   left click = zoom in
+   <br/>
+   right click = zoom out
+   </div>
+</body>
+</html>
