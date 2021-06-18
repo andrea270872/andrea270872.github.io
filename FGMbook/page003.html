@@ -1,0 +1,303 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <title>Chapter 3</title>  
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="page002.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<a href="page004.html">&gt;</a>
+</div>
+
+<h1>Chapter 3 - Take away and cut in pieces</h1>
+<h2>Subtraction and negative numbers</h2>
+<p>
+Subtraction is more or less just the opposite of addition. When we think of numbers in unary, subtracting is very simple: just remove as many Is from your number as needed. For example: <span style="background: #FCC;">IIIII</span> - <span style="background: #CFC;">II</span> = III<strike>II</strike> = <span style="background: #CCF;">III</span>, which means that subtracting two from five, you are left with three. 
+Sheep-wise, that is:
+<center>
+  <div class="img_group" style="padding: 5px; background: #FCC;">
+    <img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+  </div> 
+  -
+  <div class="img_group" style="padding: 5px; background: #CFC;">
+    <img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+  </div> 
+  =
+  <div class="img_group" style="padding: 5px; background: #CCF;">
+    <img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+  </div> 
+</center>
+Interestingly, subtraction is not commutative, meaning that the order counts! And since we are still only working with positive numbers or zero (the so called natural numbers), we don't even know what to do with: II - IIIII.
+<br>The simplest way to work with negative numbers might be to add a <i>sign</i> to a number and extend the rules for adding and multiplying to work for numbers with a sign. The sign could be <i>+</i> for the numbers we have used so far (AKA natural) and <i>-</i> for the new, negative numbers; zero stays the same.
+<br>Historically, negative numbers where invented for commerce: I need to remember if you owe me sheeps! 
+Hence, we can have 2 boxes: one for the sheeps that I have, and owe for those I owe somebody else. In commerce, the box with owed sheeps is usually associated with the color red, as if: my balance is in the red. 
+<br>In math the usual way to show negative numbers together with positive ones (AKA integers), is to draw the <i>number line</i>:
+<div>
+  <img src="imgs/number-line.png" style="width:90%;margin-left:5%;">
+</div>
+(image from <a href="https://en.wikipedia.org/wiki/Number_line">wikipedia</a>).
+Adding and subtracting becomes moving to the right or the left on the line.
+
+<br>Usually Peano numbers (see <a href="page002.html">chatper 2</a>) are not used to work also with negative numbers, but we could invent an extension of Peano's notation, where 3 is still SSSZ and -3 is ZSSS. Of course the normal form here is that no number should have Ss on both sides of Z: SSZS cannot be a <i>correct</i> number. Given this new notation, I can try to add 3+(-4): SSSZ +  ZSSSS, and the rule might be:
+<ul>
+<li>merge the two numbers, so they have the Z character in common: SSSZSSSS</li> 
+<li>then simply be to remove one S from each side, until no Ss are left on one of the two sides (AKA until the number is in normal form)</li>
+</ul>
+That is: SSSZSSSS &rarr; SSZSSS &rarr; SZSS &rarr; ZS , so the result should be the number -1.
+<br>And since you can see that Z is used to separate two unary numbers, we have precisely the two boxes that the commerce intrepretation required. Finally, addition and subtraction can be both seen as repetition of "adding 1" or "subtracting 1", and they can somehow be mixed: if numbers remember their <i>sign</i> I can just write all my plus and minus operations as additions (where some terms are negative numbers).
+</p>
+
+<h2>From subtraction to division</h2>
+<p>
+One way to look at a division is to see it as many subtractions, repeated. Take for example: <b>8:2</b>, which we can read as "eight divided by two", or "I have eight sheeps, and I want to give them to two friends, so each gets the same number of sheeps". So to calculate the result, I could do like this: start with my sheeps and try to give one sheep to each friend; then I can repeat the process until there are zero sheeps, or until there are less sheeps than friends, in which case I will have some leftover sheeps. Here I would start with:
+<span class="formula">
+my sheeps = 10 &nbsp; and &nbsp; friend1 sheeps = 0 &nbsp; and &nbsp; friend2 sheeps = 0
+</span>
+I give one sheep to each friend, and I get:
+<span class="formula">
+my sheeps = 8 &nbsp; and &nbsp; friend1 sheeps = 1 &nbsp; and &nbsp; friend2 sheeps = 1
+<br>
+my sheeps = 6 &nbsp; and &nbsp; friend1 sheeps = 2 &nbsp; and &nbsp; friend2 sheeps = 2
+<br>
+my sheeps = 4 &nbsp; and &nbsp; friend1 sheeps = 3 &nbsp; and &nbsp; friend2 sheeps = 3
+<br>
+my sheeps = 2 &nbsp; and &nbsp; friend1 sheeps = 4 &nbsp; and &nbsp; friend2 sheeps = 4
+<br>
+my sheeps = 0
+</span>
+and I have to stop, because I cannot give one sheep to nobody. The result is that both my friends get 4 sheeps each and there are no sheeps left: so <b>8:2 = 4</b> and no <i>reminder</i> (the math name for <i>lefover sheeps</i>).
+<br>
+This procedure to calculate divisions by means of repeated subtractions was first presented by <a href="https://en.wikipedia.org/wiki/Euclid">Euclid</a> <img class="face" src="faces/Euklid-from-Alexandria.jpg"></span>, an ancient Greek mathematician, in his mathematical text <i>Elements</i>.
+
+<div class="task">
+With the playground below, try these division: <b>8:2</b> and <b>22:7</b>.
+<br>
+Then take a look at the reminders of these divisions: <b>1:3</b>, <b>2:3</b>, <b>3:3</b>, <b>4:3</b>,
+<b>5:3</b>, <b>6:3</b> and <b>7:3</b>. What happend there?
+<br>
+And what about <b>0:3</b>? And <b>3:0</b>?
+</div>
+</p>
+
+<p>
+  <div class="playground" id="playground1"></div>
+  <img id="one_sheep" src="imgs/sheep.gif" style="display:none">
+  <script src="js/003_01.js"></script>
+  <script>prepare_003_01('playground1','one_sheep')</script>
+</p>
+
+
+<p>
+I think method for dividing is clear, but of course it is too long (or too slow if you like), hence, as often with math we have to trade clarity for ease of use (or speed of calculation).
+<br>
+But what can we do about it? Repeated subtraction is just what it is... how can I express this any different?
+<br>
+Well, we could try to see if there is any way to related division to some other operation, that we already know. After all subtraction is the <i>opposite</i> of addition, and multiplication is repeated addition, while division is repeated subtraction. It makes sense to think that division might be the opposite of multiplication. 
+For example, we could see that if <b>6*4 = 24</b>, then <b>24:6 = 4</b> and <b>24:4 = 6</b>, so the idea of opposite seems to hold. (Note: in math addition and subtraction are <i>opposites</i>, while multiplication and division are <i>inverse operations</i>).
+<br>
+Yet another way to see division is as a way to "rewrite" a number as dependent on another, a kind of <i>templating</i> where a number is rewritten to <i>look more like</i> another.
+For example in the playground above, you have that <b>13</b> is also <b>3 * 4 + 1</b>, so <b>13</b> rewritten as a number <i>based on</i> 4 is 3, with a leftover of 1. The meaning of this is "thirteen is the same as three times four, and then you have to add one".
+<br>
+Interesting... it is like trying to fit a number into a template: rewrite <b>n</b> as <b>q * m + r</b>, where all numbers are whole, and I only know <b>n</b> and <b>m</b>; also <b>r</b> should be less than <b>m</b>.
+<div class="task">Why? Why can I be sure that <b>r</b> will always be less than <b>m</b>? What would happen to my division if <b>r</b> was the same or more than <b>m</b>?
+</div>
+<br>
+It kind of looks like we are trying to find a linear combination, but backwards. Like when I have a number in base 10 and I would like to find its digits in base 2 (as we did in <a href="page002.html">chapter 2</a>). Also, if we see division as form of rewriting, we can ask: what is the normal form (that is, the correct way to write a number in this notation), in which other ways can the same number be written, and how can we transform a number by changing its syntax but not its value (semantics). Let's see with an example: I take <b>13</b> and try to divide it by <b>4</b>. In the beginning I can only be sure that <b>13 = 0 * 4 + 13</b>, and with a few steps I could get to the result of the division:
+<span class="formula">
+13 = 0 * 4 + 13 &rarr; 
+<br>
+13 = 1 * 4 + (13-4) &nbsp; which is &nbsp; 13 = 1 * 4 + 9 &rarr; 
+<br>
+13 = 2 * 4 + (9-4) &nbsp; which is &nbsp; 13 = 2 * 4 + 5 &rarr; 
+<br>
+13 = 3 * 4 + (5-4) &nbsp; which is &nbsp; 13 = 3 * 4 + 1
+</span>
+repeating the process until I reach the normal form (where <b>r</b> the reminder, is less than four, and a positive number). In fact, the next step would have been: <b>13 = 4 * 4 + (1-4)</b> which is <b>13 = 4 * 4 + (-3)</b> which means something like "thirteen is (also) the same as four times four, and then you have to subtract three"... and it is true: <b>13 = 16-3</b>, but it <i>looks</i> wrong, because of our idea of what is the <i>correct</i> way to express <b>13</b> as a number that depends on <b>4</b> (AKA our normal form for this rewriting technique).
+<br>
+This two ways of looking at division, as inverse of multiplication and as a number rewritten as dependent on another, suggest an alternative, faster way to calculate divisions: when calculating <b>n:m</b>, try to get as close as possible to <b>n</b> by multiplying <b>m</b> by larger and larger numbers, and stop before you exceed <b>n</b>. So for our example: <b>13:4</b>, I could ask myself "what is the largest number that I can multiply by four and get 13 or something just a bit smaller?". That number would be my estimate of <b>q</b>. Here I might try with <b>1*4</b>, <b>2*4</b>, <b>3*4 = 12</b> and <b>4*4 = 16</b>. But <b>16</b> is too much, then I will choose <b>12</b>, which gives me <b>q = 3</b>. Now that I know <b>q</b>, I can easily find <b>r</b>, because <b>r = 13 - 3*4 = 1</b> or in the general case:
+<div class="formula">r = n - q*m</div>
+<br>This explains why they teach us the multiplication tables in math class: it is because we need them not only for multiplying but also perform <i>fast</i> division between whole numbers (by <i>trying</i> to find the right number for <b>q</b> and then work out <b>r</b>).
+</p>
+
+<h2>Seeing division</h2>
+<p>
+When you divide two numbers written in untary (tally notation, see <a href="page001.html">chapter 1</a>) the results have a surprising aesthetic quality.
+
+
+<div class="task">In the playground above, try one <i>prime number</i>, and then with the number before and after, for example: 7, 6 and 8. Or: 11, 10, and 12.
+<br>
+Can you see what is going on with the prime? Look at all the numbers smaller than your prime...
+<br>A <i>prime number</i> is defined as a whole number <i> that cannot be formed by multiplying two smaller natural numbers</i> (<a href="https://en.wikipedia.org/wiki/Prime_number">source wikipedia</a>). Did you notice anything when looking at prime numbers in unary, and how they behave when divided by other numbers? 
+<br>Hint: look at the reminder of the divisions... and how many times do you get a zero...</div>
+</p>
+
+<p>
+  <div class="playground" id="playground2"></div>  
+  <script src="js/003_02.js"></script>
+  <script>prepare_003_02('playground2')</script>
+</p>
+
+<p>
+Take a number and divide it by all numbers smaller than itself. For example: take <b>6</b>, and divide it by all numbers smaller than 6:
+<div style="text-align: center;"><b>6:1 = 6</b>, <b>6:2 = 3</b>, <b>6:3 = 2</b>, 
+<br><b>6:4 = 1 with a reminder of 2</b>, <b>6:5 = 1 with a reminder of 1</b>, and <b>6:6 = 1</b>
+</div>
+OK, so sometimes we have lefovers and sometimes a good, crisp division. However, there are some numbers that have some leftover when you divide them for every number before them: these numbers ARE NOT divided by any number smaller than themselves. You migth remember them as <i>prime numbers</i>.
+
+<a class="appendix_note" href="appendixA.html#appendixA04">Prime and composite numbers</a>
+</p>
+
+<h2>Numbers with decimals</h2>
+<p>
+Divisions are boring and more difficult than say multiplications. Also have seen that not all divisions give just a one-number answer: sometimes you get a result and then some lefover (AKA a <i>quotient</i> and a <i>reminder</i>). For example <b>22:7</b> (which is sometimes used as an approximation of <b>&pi;</b>), results in <b>3</b> and then <b>1</b> leftover, because: <b>22 = 3*7+1</b>.
+<br>But... we know that another way to write <b>22:7</b> and it involves using decimals; it should give <b>3.142857 142857 ...</b> ect. forever. The problem is that so far we have not defined these kinds of numbers: numbers with decimals. If the other numbers are called whole numbers, these could be called <i>broken numbers</i>.
+<br>
+Let's try to see what it means for a number to be broken, before we start thinking of ways to write it down properly (let's look at the semantics before we look at the syntax). A broken number can be in between two whole numbers: for example, if the result of <b>5:2</b> was a single number (instead of a quotient and a reminer), it would be a number that is larger than two and smaller than three.
+<br>
+Unary or Peano numbers will not cut it here... There is no way I can use one of those to represent whatever number <b>5:2</b> is. But I could go back to the abacus (as we used it in <a href="page001.html">chapter 1</a>); however, also the abacus can only represent whole numbers, and if we add the idea of a sign, we could perhaps express natural numbers on an abacus... but broken numbers?
+<br>I can start by considering numbers that are between zero and one, for example <b>1:2</b> or <b>1:3</b>.
+At this point I cannot really write them as numbers, but I could try to rephrase the question "what is one divide by two?" into something more understandable. A trick that springs to mind is to make the question more general, think larger, since the problem is more or less than <b>1</b> is too small for this division. So I could ask instead "what is ... divided by two?":
+<ul>
+<li>"what is <b>two</b> divided by two?" &nbsp; &nbsp; &rarr; <b>1</b></li>
+<li>"what is <b>three</b> divided by two?" &nbsp; &rarr; <b>1</b> and <b>1</b> leftover</li>
+<li>"what is <b>ten</b> divided by two?" &nbsp; &nbsp; &rarr; <b>5</b></li>
+</ul>
+and that means that:
+<ul>
+<li><b>1</b> must be two times larger than the number I'm looking for;</li>
+<li>this is a bit confusing: the only thing that this question tells me is that <b>3 = 1*2+1</b>, not very useful here;
+<li>this is more useful: it tells me that <b>5</b> must be ten times larger than the number I'm looking for.</li>
+</ul>
+Why is the last one so interesting? Because dividing and multiplying by ten (or powers of ten) is very simple on an abacus (since the abacus works with base 10).
+Multiplying by ten means that the number on the abacus <i>shifts</i> to the left of one spike: this means that all beads on all spikes move to the next spike to the left. This operation can be called a left-shift, and it corresponds to 10-times the original number. 
+<br>Following this idea, a right-shift of one spike corresponds to dividing by ten. However, if I divide <b>5</b> by ten on my abacus, I will get zero... which makes sense, since the abacus only works with whole numbers.
+
+<div class="task">
+In the abacus below, look at these numbers: <b>23</b>, <b>230</b>, <b>2300</b>, and <b>2</b>.
+<br>Then write <b>5</b> on the abacus and multiply it by ten, and then by ten again.
+</div>
+</p>
+
+<p>
+  <div class="playground" id="playground3"></div>
+  <script src="js/003_03.js"></script>
+  <script>prepare_003_03('playground3',4)</script>
+</p>
+
+<p>
+When I right-shift too much, the laest-significant digits of my numbers (AKA the beads to the far right) are lost by the abacus... so how can we fix this? We can expand the abacus, add more spikes to the right. But wait a second: how can an abacus with more spikes be the solution here?
+It will just be able to represent LARGER WHOLE NUMBERS, not broken numbers. Well, what about remembering where the <i>unit spike</i> is BEFORE I exetend the abacus?!
+<br>Wait... what? Let me explain in another way: my abacus is not enough, so I can add a second abacus to the RIGHT of my usual abacus. And I <i>connect</i> them by deciding on a rule that says: "when a number is right-shifted too much in the first abacus (the left one), move the beads that would have fallen off the abacus on the left-most spike of the second abacus".
+That should do it. If I <i>paint</i> a decimal point (or comma if you prefer) in between the two abaci, I have a NEW way to write numbers, that can represent whole AND broken numbers!
+</p>
+<p>
+
+<div class="task">
+In the expanded abacus below, try to divide <b>23</b> by ten and by one hundred.
+<br>Then write <b>5</b> on the abacus and DIVIDE it by ten, and then by ten again.
+</div>
+
+  <div class="playground" id="playground4"></div>
+  <script src="js/003_04.js"></script>
+  <script>prepare_003_04('playground4')</script>
+</p>
+
+<p>
+That was cool. We have effectively expanded the notation base 10 to include also broken numbers.
+So now I know what <b>23:10</b> looks like: it is <span class="open_box">2</span><span class="open_box">3</span>.<span class="open_box">0</span> right-shifted of one spike, which gives me: <span class="open_box">2</span>.<span class="open_box">3</span>!
+<br>
+In <a href="page002.html">chapter 2</a> we wrote that a number in based 10, that looks like
+<span class="open_box">a</span><span class="open_box">b</span><span class="open_box">c</span><span class="open_box">d</span> 
+really <i>means</i> (as a value of) a specific number <i>n</i>, that we can calculate with a weighted sum of powers of ten:
+<span class="formula">
+  a * 10<sup>3</sup> + b * 10<sup>2</sup> + c * 10<sup>1</sup> + d * 10<sup>0</sup> = n
+</span>
+Now, playing a bit with the properties of the power operation I can convice myself that (again see <a href="page002.html">chapter 2</a>) <b>1:10</b> is <b>10<sup>-1</sup></b>, and <b>1:100</b> is <b>10<sup>-2</sup></b>. 
+
+<div class="task">
+Go back to <a href="page002.html">chapter 2</a> and see if you can verify that it must be so: the power operation can work with negative numbers, and that for example <b>2<sup>-3</sup></b> is just <b>1:2<sup>3</sup></b>.
+</div>
+<br>
+
+Anyway, the interesting thing here is that if I can write negative powers of ten, then I can redefine base 10 as: <span class="open_box">a</span><span class="open_box">b</span><span class="open_box">c</span>.<span class="open_box">d</span><span class="open_box">e</span> as the number:
+<span class="formula">
+  a * 10<sup>2</sup> + b * 10<sup>1</sup> + c * 10<sup>0</sup> 
+  + d * 10<sup>-1</sup> + e * 10<sup>-2</sup> 
+</span>
+so that <i>d</i> represents how many TENTHS of <b>1</b> there are in my number, and <i>e</i> represents how many HUNDREDTHS there are in my number.
+</p>
+<p>
+All this is fine, but we have forgotten about <b>1:3</b>. What broken number is that?
+<br>I can try with some approximations: <b>1:3 = 0 and a reminder of 1</b>, 
+<b>10:3 = 3 and a reminder of 1</b>, <b>100:3 = 33 and a reminder of 1</b>, ... . 
+<br>
+Differently from <b>1:2</b> that eventually gives 
+<span class="open_box">0</span>.<span class="open_box">5</span>
+this one seems to go on for ever with the same reminder for every attempt I make with ten times larger numbers; it seems that this number, the result of <b>1:3</b> looks something like:
+<span class="open_box">0</span>.<span class="open_box">3</span><span class="open_box">3</span><span class="open_box">3</span> ... and more threes forever. Which is OK if I believe that I could use a very very large abacus to represent this number.
+</p>
+
+<h2>Long division</h2>
+<p>
+Using my newly defined <i>expanded abacus</i> I can now ask this question: how can I continue a division between two whole numbers, and get a number with decimals (AKA broken number)?
+<br>
+The main idea of this <i>longer</i> type of division is really just spike swapping in an abacus! 
+And we know now that:
+<ul>
+<li>multiply by <b>10</b> is a shift to the left of all beads on all spikes,</li>
+<li>divide by <b>10</b> is a shift to the right of all beads on all spikes</li>
+</ul>
+
+OK, and I want to use these two facts in my division, and hopefully CONTINUE my division beyond whole numbers, and extend it to give me results that are broken numbers, when needed. 
+<br>
+For this let's look at <b>10:4</b>. The best I can do with whole numbers is <b>2</b> with a leftover of <b>2</b>, because ten rewritten as a multiple of four gives <b>10 = 2 * 4 + 2</b>. However, I could shift my number on the abacus, and ask instead: "what is <b>100:4</b>" ?
+If that was not enough, I can keep shifting left (AKA multiply more times by ten) my original number <b>10</b>, until I can <i>see</i> how to divide it by <b>4</b>. 
+<br>
+Surely the solution to <b>100:4</b> IS NOT the same as the solution to <b>10:4</b>, but the two solutions are RELATED! In fact the solutuon to <b>100:4</b> has to be ten time larger than that to <b>10:4</b>. So: <b>100:4 = (10:4) * 10</b>, but <b>100:4</b> has a whole number solution, it is <b>25</b>. And this means that: <b>10:4 = 25:10</b>, which means "the result of <b>10:4</b> is ten times smaller than <b>25</b>". 
+<div><i>
+Interesting: so again we find that in math we need to uses multiple ways to write the same thing, to help us find a solution. Here we are using the fact that: <b>10 = (100):10</b>, so instead of calculating <b>10:4</b> I can solve <b>(100:4):10</b>, and since the last division by ten is just a right shift on the abacus, I don't really have to do any calculations for it.
+<br>And in general any number <b>n</b> is also <b>(n*10):10</b> and <b>(n*100):100</b>, ect.
+</i>
+</div>
+Back to our example. To find the number that is the result of <b>25:10</b>, I can just write <b>25</b> on my abacus, then right-shift of one spike:
+<span class="open_box">2</span><span class="open_box">5</span>.<span class="open_box">0</span><span class="open_box">0</span> &rarr; 
+<span class="open_box">0</span><span class="open_box">2</span>.<span class="open_box">5</span><span class="open_box">0</span>
+or "two dot five" on my abacus with decimals.
+<br>
+So finally: <b>10:4 = 2.5</b>, done!
+
+<br>
+<div class="task">
+Go back to the expanded abacus above, and confirm that <b>25:10</b> is in fact <b>2.5</b>. 
+<br>Then using the same idea, find our what <b>3:4</b> looks like as a broken number.
+<br>HINT: think of thirty, instead of three, divided by four.
+</div>
+</p>
+
+Note: the <a href="https://en.wikipedia.org/wiki/Long_division">long division</a> that we were tought at school is a manual, step-by-step way to calculate divisions using similar ideas 
+(multiplying by ten and reasoning about reminders). Interestingly, different countries teach the long division in different ways.
+</p>
+
+<p>
+Moral of the story so far: subtraction is the opposite of addition, and we can define negative numbers (extending Peano's natural numbers), so we can make sense of adding and subtraction.
+Then we realize that if multiplication is a repetition of addition, then we can look at division as a repetition of subtraction. But as in the case of subtraction, also division forces us to extend our number system: what happens when a division does not have a crisp result, but instead we are left with a reminder? And also what is the number that corresponds to divisions like <b>1:2</b>.
+We kind of assumed so far that every operation would give a single result, but division seems different. To make things rigth we find a way to represent more than whole numbers on an abacus: we decide to call this larger family of numbers <i>broken numbers</i>. So we can write <b>1:2 = 0.5</b>, where 0.5 is a number that we can visualize on a special abacus (an expanded abacus) that has a <i>dot</i> to separate the <i>whole</i> part of a number from its decimals, the <i>broken</i> part.
+<br>Now that we have convinced ourselves that broken numbers work just like whole numbers, we still have to find a way to calculate divisions like <b>1:2</b> in a practical way. So instead of looking at the two whole numbers <b>1</b> and <b>2</b>, we focus on how they look on our expanded abacus; then we use a trick: divide and multiply by ten on the abacus means shifting all the beads right or left of one spike. So instead of calculating <b>1:2</b> we shift the first number one spike to the left (AKA we multiply it by ten) and calculate <b>10:2 = 5</b> instead. The result <b>5</b> is ten times too big, so we shift it back, with one left-shift (AKA divide by ten), and when we read the number on our expanded abacus it is <b>0.5</b>... bingo!
+</p>
+
+
+<h2>Puzzles</h2>
+bla bla
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+<script src="js/make_links.js"></script>
+</body>  

@@ -1,0 +1,161 @@
+<html>
+<head>
+<style>
+pre {
+   font-family: "Courier New", Courier, monospace;
+   font-size: 10px;
+}
+
+.gameScreen {
+   border-radius: 10px;
+   background: #76a1ff;
+   padding: 10px;
+   width: 650px;
+   height: 400px; 
+}
+    
+.interpreterStyle {
+   border-radius: 10px;
+   background: #e7efff;
+   color: darkblue;
+   font-family: Consolas;
+}    
+   
+.sprite{
+   position: absolute;
+   left: 0px;
+   top:  0px;   
+   width:  50px;
+   height: 50px;
+   
+   background-size: 50px 50px;
+}   
+</style>
+   
+<script src="jquery.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="tbps_v03_3.js"></script>
+<script>
+
+jQuery.fn.rotate = function(degrees) {
+    $(this).css({'transform' : 'rotate('+ degrees +'deg)'});
+    return $(this);
+};
+   
+$(document).ready(function(){
+    
+   var visualBoard =$("#visualBoard");
+   var output = $("#outDiv");
+   var interpreterDiv = $("#interpreter"); 
+   var instructionsTextArea = $("#instructions");
+   
+   var initData = null; 
+   $.getJSON( 'interpreterSettings.json', function( data ) {
+   //$.getJSON( 'tbps_gameset001Boy.json', function( data ) { // DEBUG
+      //console.log('reading from json file ... ' , data );
+      initData = data;
+       
+      // restart the game 
+      deserializeAndRebuild(initData);
+      eval( $('#setupRule').val() );
+       
+      loop();
+    });
+
+   
+   // **********************************************
+
+   var playerChoice = null;
+   $('#runScript').on('click',function(evt){       
+       //console.log( instructionsTextArea.val() );
+       
+       if (initData){
+           // run the current rule
+           eval(  $('#instructions').val() );
+           loop();
+       }
+   });
+    
+   $('#resetGame').on('click',function(evt){
+       if (initData){
+           // restart the game 
+           deserializeAndRebuild(initData);
+           eval( $('#setupRule').val() );
+           turn = 0;
+           $('#textOutput').empty();
+           loop();
+       }
+   });
+
+    
+
+   //var action = "";
+   var turn = 0;
+   var gameOver = false;
+   var movements = [];
+   
+   function loop(){
+      // render new view
+      var out = board.toString();
+      turn++;
+      var textToOutput = 'Turn:'+turn+'\n\nBoard:\n' +out+'\n';
+      $("#outDiv").text(textToOutput);
+
+      renderOnVisualBoard(board);
+
+      board.endTurnReset();
+   }
+    
+    function say(text){
+        $('#textOutput').append( text+'<br/>' );
+    }
+
+});
+</script>
+   
+</head>
+   
+   
+   
+<body>
+
+<table>
+<tr>
+    <td>
+        <div id="visualBoard" class="gameScreen"></div>
+    </td>
+    <td>
+        <div id="interpreter" class="interpreterStyle">
+Setup rule:
+<br/><textarea id="setupRule" rows="5" cols="60">
+board.placeAt( 1,2, decks['hero'][0].clone() ); // H2
+board.placeAt( 1,7, decks['sword'][1].clone() ); // S3
+board.placeAt( 2,5, decks['standard'][0].clone() ); // wall
+board.placeAt( 7,1, decks['live'][2].clone() ); // 3 lives
+board.placeAt( 4,2, decks['monster'][1].clone() ); // M3
+board.placeCardAtRandomNear(decks['monster'][2].clone(), new Position(2,2) ); // M4
+</textarea>
+<br/><br/><br/>
+Rule
+<br/><textarea id="instructions" rows="5" cols="60">
+
+var heroCard = board.findFirstFromDeck('hero');
+board.moveDirection(heroCard,'right');
+            
+var monsterCard = board.findFirstFromDeckNear('monster',heroCard);
+if (monsterCard){
+  say( 'attacking...' , monsterCard );
+}
+</textarea><br/>
+            <button id="runScript" class="controls">run</button>
+            <button id="resetGame" class="controls">reset</button>
+        </div>
+    </td>
+</tr>
+</table>   
+
+<pre id="outDiv"></pre>
+<div id="textOutput"></div>
+    
+</body>
+</html>

@@ -1,0 +1,173 @@
+<html>
+<head>
+<style>
+pre {
+   font-family: "Courier New", Courier, monospace;
+   font-size: 10px;
+}
+
+.gameScreen {
+   border-radius: 10px;
+   background: #76a1ff;
+   padding: 10px;
+   width: 650px;
+   height: 400px; 
+}
+   
+.sprite{
+   position: absolute;
+   left: 0px;
+   top:  0px;   
+   width:  50px;
+   height: 50px;
+   
+   background-size: 50px 50px;
+}   
+</style>
+   
+<script src="jquery.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="sound.js"></script>
+<script src="tbps_v03.js"></script>
+<script src="tbps_gameset001Girl.js"></script>
+<script>
+   
+function playSound(soundName){
+    var music = sounds[soundName];
+    music.loop = false;
+    music.volume = 0.7;      
+    music.play();
+}
+
+jQuery.fn.rotate = function(degrees) {
+    $(this).css({'transform' : 'rotate('+ degrees +'deg)'});
+    return $(this);
+};
+   
+$(document).ready(function(){
+
+   // =============== SOUNDS ======================
+
+   //Load the sounds
+   sounds.load([
+     "sounds/infinite_loop.mp3",
+     "sounds/ouch.mp3",
+     "sounds/splat.mp3"
+   ]);
+
+   //Assign the callback function that should run
+   //when the sounds have loaded
+   sounds.whenLoaded = audioSetup;
+
+   function audioSetup() {
+       var music = sounds["sounds/infinite_loop.mp3"];
+       music.loop = true;
+       music.volume = 0.7;
+       music.play();
+   }   
+   // ==============================================
+   
+   
+   // **********************************************
+
+   var visualBoard = document.getElementById("visualBoard");
+   var output = document.getElementById("outDiv");
+
+   window.onkeydown = function (e) {
+      //e.preventDefault();
+      var code = e.keyCode ? e.keyCode : e.which;
+      if (code === 38) { //up key
+         document.getElementById('upBtn').click();
+      } else if (code === 40) { //down key
+         document.getElementById('downBtn').click();
+      } else if (code === 37) { //left key
+         document.getElementById('leftBtn').click();
+      } else if (code === 39) { //right key
+         document.getElementById('rightBtn').click();
+      } else if (code === 13) { //enter key
+         document.getElementById('skipBtn').click();
+      } else if (code === 32) { //space key
+         document.getElementById('sliceBtn').click();
+      }
+   };
+
+   var playerChoice = null;
+   var buttons = document.getElementsByClassName("controls");
+   for (var i=0;i<buttons.length;i++){
+       var b = buttons[i];
+       // DEBUG console.log( b.id );
+       b.addEventListener("click", function(evt){
+           playerChoice = 'Hero-' + evt.target.innerHTML; //evt.target.id;
+           // DEBUG console.log( evt.target.innerHTML );
+           loop();
+       });
+   }
+
+   //var action = "";
+   var turn = 0;
+   var gameOver = false;
+   var movements = [];
+   
+   function loop(){
+
+      if (gameOver){ return; }
+
+      // execute all gamerules
+      for (var ruleIndex in gameRules){
+         gameRules[ruleIndex].execute();
+      }
+
+      // execute 1 playerRule of choice
+      if (playerChoice){
+         var r = playerRules.filter(function(rule){
+            return rule.name === playerChoice;
+         });
+         if (r.length>0){
+            r[0].execute();
+         }
+      }
+      playerChoice = null;
+
+
+      // render new view
+      var out = board.toString();
+      turn++;
+      output.innerHTML = 'Turn:'+turn+'<br/><br/>world:<br/>' +out+'<br/>';
+
+      renderOnVisualBoard(board);
+
+      board.endTurnReset();
+   }
+
+   // === main part of the game ===
+   
+   deserializeAndRebuild(JSON_LIKE_DATA);
+   startUpRule.execute(); // must be called when the Board has been de-serialized
+   loop();    // start the game
+
+});
+</script>
+   
+</head>
+   
+   
+   
+<body>
+
+<div id="visualBoard" class="gameScreen"></div>
+
+   
+<pre id="outDiv"></pre>
+   
+<div class="control">
+	<button id="leftBtn" class="controls">left</button>
+	<button id="rightBtn" class="controls">right</button>
+	<button id="upBtn" class="controls">up</button>
+	<button id="downBtn" class="controls">down</button>
+	<button id="sliceBtn" class="controls">slice</button>
+	<button id="skipBtn" class="controls">skip</button>
+    <p>Key commands: ARROW KEYS to move, ENTER to skip, SPACE to slice</p>
+</div>
+
+</body>
+</html>

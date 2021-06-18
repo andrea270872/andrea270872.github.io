@@ -1,0 +1,456 @@
+<html>
+<head>    
+	<style>
+        #container {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        
+		
+        #mainArea{
+            font-size: 70%;
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        #mainArea li { 
+            text-indent: -5px;
+            margin-left: -20px;
+        }
+        
+        
+		#visualAreaWrapper{
+			background-color: WhiteSmoke;
+            grid-column: 2 / 5;
+            grid-row: 1;
+
+            height: 500px;
+		}
+		#visualArea {
+			width: 100%;
+			height: 45%;
+		}
+
+
+		#buttonsArea{
+			background-color: lightgray;
+            grid-column: 2 / 4;
+            grid-row: 2;
+		}
+
+		#historyArea{
+            grid-column: 1 / 2;
+            grid-row: 2;
+			height: 180px;
+			overflow-y: scroll;
+        }
+        
+        
+        
+		.title {
+			font-weight: bold;
+            font-size: 150%;
+		}
+		
+		.slide {
+			width: 250px;
+			border: 1px solid black;
+			margin: 1px;
+		}
+		
+		.edge {
+			margin: 2px;
+			border: 1px solid black;
+			border-radius:8px;
+			padding: 4px;
+			background-color: red;
+			color: white;
+			display: inline-block;
+			height: 40px;
+            min-width: 100px;
+
+			font-size: 200%;
+		}
+		.edge div {
+			font-size: 80%;
+			font-style: italic;
+		}
+        
+        .edge.backBtn{
+            background-color: green;
+            float: right;
+        }
+		
+		.room{ 
+			color: blue;
+		}
+		.person{ 
+			color: darkorange;
+		}
+		.thing{ 
+			color: gold;
+		}
+		
+
+
+
+        
+		* {box-sizing: border-box;}
+
+		
+		#visualArea table {
+			table-layout: fixed; /* all columns same width*/
+			width: 98%;
+			height: 90%;
+		}
+
+		.visualWorld {
+			background-color: DodgerBlue;
+		    border: 2px solid black;
+		}		
+
+		.visualRoom {
+            height: 100%;
+
+			background-color: LightSkyBlue;
+            border: 2px solid black;
+            box-shadow: 3px 3px 2px #717171;
+
+            background-image: url(imgs/default_room.png);
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: 100% 100%;
+		}
+
+		.visualPerson{ 
+            height: 70%;
+
+			background-color: rgba(243,150,150, 0.3); // LightCoral;
+            border-radius: 5px;
+            border: 3px solid #F39696; // LightCoral;
+            
+            background-image: url(imgs/default_person.png);
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: auto 100%;
+		}		
+		.visualThing{ 
+            height: 60%;
+
+			background-color: rgba(240,230,140, 0.3); // Khaki;
+            border: 2px solid #c0b870;
+            border-radius: 5px;
+
+            background-image: url(imgs/default_thing.png);
+            background-repeat: no-repeat;
+            background-position: right top;
+            background-size: auto 100%;
+		} 		
+
+	</style>
+    <script src="js/fable.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div style="display: inline-block;" id="mainArea"></div>
+        <div style="display: inline-block;" id="visualAreaWrapper">
+        	<div style="display: inline-block;" id="visualArea"></div>
+        </div>
+        <div style="display: inline-block;" id="buttonsArea"></div>
+
+        <div id="historyArea"></div>
+    </div>
+    
+<script>
+	var mainArea = document.getElementById('mainArea');
+	var visualArea = document.getElementById('visualArea');
+	var historyArea = document.getElementById('historyArea');
+	
+    // *******************************************************
+    // visualArea functions
+
+	// as nested tables
+    function renderBlock(aBlock,isWorldLevel){
+		var st = '';
+		
+        var typeName = aBlock.type;
+        typeName = typeName.charAt(0).toUpperCase() + typeName.slice(1); // 1st char to uppercase
+        //console.log( typeName + '  ' +aBlock.name);
+        
+        var colorClassName = 'visual'+typeName;
+        if (isWorldLevel){
+            colorClassName = 'visualWorld';
+        }
+
+		st += '<table class="'+colorClassName+'  '+
+                    'item_'+aBlock.name+'">';
+        if (!isWorldLevel){ // only if this is not the World
+            st += '<span class="blockname">'+aBlock.name+'</span>';
+        }
+		st += '<tr>';
+
+		aBlock.children.forEach(function(block,index){
+            st += '<td>' + renderBlock(block) + '</td>';
+        });
+
+		st += '</tr>';
+		st += '</table>';
+        return st; 
+	}
+
+	function render(aFable){
+        var slide,index;
+        visualArea.innerHTML = '';
+        var visibleRoomBlock;
+        
+        // render previous slide
+        if (historyList.length>1){
+            index = historyListSlideIndex[historyList.length-2];
+            slide = aFable.slides[ index ];
+            visibleRoomBlock = getVisibleRoomInSlide(slide);
+
+			visualArea.innerHTML += '<span>step '+(historyList.length-2)+'</span>';
+            visualArea.innerHTML += ' [ <span>AT '+visibleRoomBlock.name+'</span> ]'; 
+            visualArea.innerHTML += renderBlock(visibleRoomBlock,true);
+            visualArea.innerHTML += '<br/><br/>';
+        }
+                
+        index = aFable.currentSlideIndex;
+        slide = aFable.slides[ index ];
+        visibleRoomBlock = getVisibleRoomInSlide(slide);
+		visualArea.innerHTML += '<span>step '+(historyList.length-1)+'</span>';
+        visualArea.innerHTML += ' [ <span>AT '+visibleRoomBlock.name+'</span> ]'; 
+        visualArea.innerHTML += renderBlock(visibleRoomBlock,true);
+        visualArea.innerHTML += '<br/><br/>';
+    }
+    
+    // *******************************************************
+    // mainArea functions
+    
+	function buildBlock(aBlock){
+		var st = '';
+		//st = JSON.stringify(aBlock);
+		st += '<li class="'+aBlock.type+'">'+ aBlock.name; // + ':' + aBlock.type;
+
+		st += '<ul>';
+		aBlock.children.forEach(function(block,index){
+			st += buildBlock(block);
+		});
+		st += '</ul></li>';
+
+		return st; 
+	}
+	
+	function buildEdge(edgeName,edgeToIndex){
+		var st = '';
+		st += '<button class="edge" data-goto="'+edgeToIndex+'">' + edgeName +
+				'</button>';
+		return st;
+	}
+
+    function computeAjdList(fable){
+		// compute adjacency list
+		var adjList = [];
+		fable.slides.forEach(function(slide,index){
+			adjList[index] = [];
+		});		
+		fable.edges.forEach(function(edge,index){
+			adjList[ edge.fromIndex ].push( edge );
+		});
+		//console.log( adjList );
+        return adjList;        
+    }
+    
+	function buildTree(aFable){
+	
+		// compute adjacency list
+		var adjList = computeAjdList(fable);
+
+		mainArea.innerHTML = '';
+		mainArea.innerHTML += '<div class="title">'+aFable.title+'</div>';
+
+		var slide = aFable.slides[aFable.currentSlideIndex];
+        var index = aFable.currentSlideIndex;
+        
+        mainArea.innerHTML += '<ul class="slide">Slide #'+index+' '+
+                (slide.description?slide.description:'') + ' ' + 
+                buildBlock(slide.world) +
+                '</ul>';
+        console.log( 'buttons -> ' , adjList[ index ]);
+        console.log( 'buttons -> ' , adjList);
+
+        // consolidate the adjList per action name
+        var actions = {};
+        adjList[ index ].forEach(function(edge,index){
+        	var a = actions[ edge.name ];
+        	if (a==null){ // create new action
+        		actions[ edge.name ] = [];
+        	} 
+        	// append to existing action
+        	actions[ edge.name ].push( [edge.fromIndex,edge.toIndex] ); // [fromIndex,toIndex]
+        });
+        console.log( 'actions -> ' , actions);
+		
+		var buttonsArea = document.getElementById('buttonsArea');		
+		buttonsArea.innerHTML = '';
+		// create a random button for repeated actions, and deterministic button for unique actions
+		Object.keys(actions).forEach(function(key) {
+			var toIndexes = actions[key];
+			var i = ~~(Math.random()*toIndexes.length);
+			var toIndex = toIndexes[i][1]; // only the toIndex part
+        	buttonsArea.innerHTML += buildEdge( key, toIndex );
+        	console.log('created button ',key, toIndex, "=>" , i,toIndexes,toIndexes.length);
+        });
+        
+        // add a "back" button
+        if (historyList.length-1>0){
+// !!!!!!!!!!!!!!!!!  EXPERIMENTAL ONLY!!!
+            //mainArea
+			buttonsArea.innerHTML += '<button class="edge backBtn" data-goto="'+
+                        (historyListSlideIndex[historyList.length-1])+'">BACK'+
+                    '</button>';
+        }
+
+        mainArea.innerHTML += '<hr/>';
+    			
+	}
+	
+	function cloneFable(aFableSlide){
+		return JSON.parse( JSON.stringify( aFableSlide ) );
+	}
+	
+	function historyListToString(){
+		return historyList.map(function(line,index){
+            return '<div>(step '+index+') '+line+' -> slide#'+historyListSlideIndex[index]+'</div>';
+        }).join('');
+	}
+	
+	function executeJump(aFable,jumpToSlideIndex,text){
+        historyList.push( text );
+        historyListSlideIndex.push( jumpToSlideIndex );
+		historyArea.innerHTML = historyListToString();
+        
+		aFable.currentSlideIndex = jumpToSlideIndex;
+        buildTree(aFable);
+        render(aFable);
+	}
+
+	function rollHistoryBack(aFable){
+        historyList.pop();
+        historyListSlideIndex.pop();
+        
+        var jumpToSlideIndex = 
+                historyListSlideIndex[historyListSlideIndex.length-1];
+		aFable.currentSlideIndex = jumpToSlideIndex;
+        buildTree(aFable);
+        render(aFable);
+        
+		historyArea.innerHTML = historyListToString();
+	}
+    
+    
+	// *********************************************************
+	
+	// *** 
+//window.onload = function() {
+    
+    var allStoredData = Object.keys(localStorage);
+    var fablesNames = allStoredData.filter(function(value,index){
+        return (value.startsWith('aFable_'));
+    });
+    fablesNames = fablesNames.map( function(fableName){
+        return fableName.slice('aFable_'.length);
+    });
+    
+    
+    var workingOnFableName = localStorage.getItem('fables_workingOnFable');
+    var fName = '';
+    if (workingOnFableName){
+            fName = workingOnFableName;
+    } else {
+        fName = prompt(
+            'Available F4BL3s are: '+fablesNames+'\n'+
+            'Load F4BL3:' , fablesNames[0]);
+    }
+    
+	var fable = JSON.parse( localStorage.getItem('aFable_'+fName) );
+    console.log( JSON.stringify(fable) );
+    console.log( 'palette = ' , fable.palette );
+
+    if (fable.skin!=null){
+        // alert("there is a skin for this fable!");
+        // Load and set the skin
+
+        // JUST FOR DEBUGGING !
+//        console.log( "skin:" , fable.skin );
+/*        
+        // add thumbnail for all names in the skin
+        Object.keys(fable.skin).forEach(function(skinName){
+            var span = document.createElement('span');
+            span.innerHTML = [skinName,
+                            '<img class="thumb" src="data:image/png;base64,', 
+                                fable.skin[skinName],
+                            '"></img>'].join('');
+            document.body.appendChild( span );
+        });
+*/
+
+        // create a style for each of the items in the skin
+        var styleEl = document.createElement('style');
+        document.head.appendChild(styleEl);
+        var styleSheet = styleEl.sheet;
+
+        Object.keys(fable.skin).forEach(function(skinName){
+            styleSheet.insertRule('.item_'+skinName+
+                            ' { '+
+                            'background-image: url(data:image/png;base64,'+
+                            fable.skin[skinName]+
+                            ') }');
+        });
+
+    }
+    
+	historyArea.innerHTML = ''; 
+    var historyList = [];
+    var historyListSlideIndex = [];
+	executeJump(fable,0,'start');
+//}
+    
+// *********************************************************
+   // global event listener for slide buttons
+
+   // !!!!!!!!!!!!!!!!!  EXPERIMENTAL ONLY!!!   
+	//mainArea.addEventListener('click',function(evt){
+	document.getElementById('buttonsArea').addEventListener('click',function(evt){
+		//console.log( evt.target );
+		var jumpToSlideIndex = parseInt( evt.target.getAttribute('data-goto') );
+		if (!isNaN(jumpToSlideIndex)){
+            
+            if (evt.target.innerHTML==='BACK'){
+                //console.log( 'back button!');
+                rollHistoryBack(fable);
+            } else {
+				var text = '';				//evt.target.innerHTML;
+				var list = document.getElementsByClassName('edge');
+				for (var tag of list) {
+					if ( tag.innerHTML !== 'BACK'){
+						if ( evt.target === tag){
+							text += '['+tag.innerHTML + '] ';
+						} else {
+							text += tag.innerHTML + ' ';
+						}
+					}
+				}
+
+				executeJump(fable,jumpToSlideIndex, text );
+            }
+		} // else you did not click on a button        
+	});
+    
+// *********************************************************       
+</script>
+    
+    <p>[<a href="index.html">backToIndex</a>]</p>
+</body>
+</html>

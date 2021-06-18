@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stick&Click</title>
+  <meta name="author" content="Andrea_Valente">
+
+  <style>
+  	body{
+  		background-color: #6C5EB5; //#959595;
+  		color: white;
+  	}
+
+  	a {
+  		color: white;
+  	}
+
+	.grid {
+  		display: grid;
+	  	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  		grid-gap: 1rem;
+	}
+	.grid > div {
+		color: white;
+  		background: #70A4B2; //#EDE7F6;
+  		font-size: 3rem;
+  		text-align: center;
+
+  		padding: 1.5rem;
+  		border-radius: .5rem;
+  		height: 150px;
+	}
+
+	.note {
+		font-size: .5em;
+	}
+  </style>
+</head>
+<body>
+	<div style="text-align: center;font-size: 5rem;">Stick&Click Assets</div>
+
+	<div class="grid" id="container">
+		<!--div><a href="images/boy face.png" download><img src="images/boy face.png" height="150"></a></div-->
+	</div>
+
+  <script>
+  let names = 
+`box_broken.png
+box_closed.png
+box_open.png
+boy_face.png
+boy_with_key.png
+brian_condor.png
+chest_closed.png
+chest_open.png
+door_closed.jpg
+door_open.jpg
+enemy.png
+giraffe.jpg
+key.png
+lion.jpg
+pie.png
+pigs.jpg
+sword.png
+tetsuya.png`.split('\n');
+  //console.log(names);
+
+  let container = document.getElementById('container');
+  names.forEach((name)=>{
+    container.innerHTML += `<div><a href="images/${name}" download><img src="images/${name}" style="max-height:150px;max-width:120px;"></a></div>`;
+  });
+  </script>
+
+</body>
+</html>

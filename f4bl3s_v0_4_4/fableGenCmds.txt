@@ -1,0 +1,14 @@
+
+
+FABLE := title INSTRUCTIONS
+INSTRUCTIONS := INSTRUCTION | INSTRUCTION,INSTRUCTIONS
+INSTRUCTION := AT roomName,COMMANDS
+COMMANDS := COMMAND | COMMAND,COMMANDS
+COMMAND := personName PICKUP thingName |
+	   personName GIVES thingName TO personName |
+	   personName GOTO roomName | 
+           PERSON personName | THING thingName
+
+NOTE
+====
+title, personName, thingName, roomName are strings

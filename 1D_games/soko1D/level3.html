@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Soko1D - a 1D sokoban derivative</title>
+		<style type="text/css">		
+		.myButton {
+			background:blue;
+			color:white;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		.disabledButton{
+			background:lightgray;
+			color:gray;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		</style>
+	</head>
+	<body>
+		<h1>Level 3 - Switch </h1>
+
+<script src="js/game.js"></script>
+<script src="js/level3.js"></script>	
+<script>
+// Let's play this game!
+var then = Date.now();
+setInterval(main, 30);
+</script>
+
+
+	<p>
+	<table cols="3" style="width:600px;">
+	<tr><td style="width:100px;"></td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="0" id="button0">left</button>
+	</td>
+	<td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:200px;" class="myButton"
+			name="1" id="button1">space</button>
+	</td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="2" id="button2">right</button>
+	</td></tr>	
+	</table>
+	</p>
+<p><b>Soko1D</b> - A mono-dimensional version of the <a href="http://en.wikipedia.org/wiki/Sokoban">sokoban</a>-style games.
+<br><b><i>Main concept: the level is an acyclic graph, and the player can fold part of the graph away. 
+Pushing and folding are the only available actions.</i></b> 
+<br>- To win place all the boxes in the platforms.
+<br>- <i>Left</i> and <i>Right</i> to move and push boxes
+<br>- <i>Space</i> to fold/unfold the level
+<p>By <a href="http://www.create.aau.dk/av">Andrea Valente</a>.
+<hr>
+[<a href="soko1D.html">Back to main soko1D page</a>]
+</body>
+</html>

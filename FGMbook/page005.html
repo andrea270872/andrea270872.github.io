@@ -1,0 +1,787 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <script src="js/algebra-0.2.6.min.js"></script>
+
+  <title>Chapter 5</title>   
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="page004.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<a href="page006.html">&gt;</a>
+</div>
+
+<h1>Chapter 5 - Apples and bananas</h1>
+<h2>When is 5+5 not equal 10?</h2>
+<p>
+So 5+5 = 10 ... dah!
+<br>But it is also true that 5+5 = 2*5 ... OK, right?!
+In math there usually many ways to write the same thing, so that it looks different but it means the same (syntax & semantics, like in <a href="page001.html">chapter 1</a>).
+<br>Sure sure, but when is 5+5 not the same as 10? How could I have five things and five things again, and when I put them all together they are not 10 things...? Too philosophical? Oops.
+<br>Let me find a concrete example. I can say "I have 5 fruits and other 5 fruits, so I have 10 fruits". Fine. But what if I have 5 apples and 5 bananas? What have I got? Ten... what? Ten fruits, OK, but that is neither apples nor bananas. I can I write this mathematically, to keep apples and bananas <i>separated</i>? 
+I can try like:
+<span class="formula"> 5 * apple + 5 * banana</span>
+and it could mean for example "5 times the weight of an apple and 5 times the weight of a banana". It is a linear combination (a mix of additions and multiplications) that two variables <i>apple</i> and <i>banana</i> as a way to keep two other numbers separated: 5 and 5 in this example.
+You can also see the expression above as a weigthed sum, where <i>apple</i> and <i>banana</i> are the weights of 5 and 5, so that each <i>5</i> could have a different importance.
+<br>
+The idea is similar to the notation for writing numbers based on the abacus (<a href="page001.html">chapter 1</a>). Only that here I'm not interested in actually finding a single number summing up two quantities, and because of that I don't really care what are the values of the two variables <i>apple</i> and <i>banana</i>. I could write something like:
+<span class="formula"> 5 * 1000 + 5 * 1 = 5005 </span>
+where i picked 1000 as the value for <i>apple</i> and 1 for <i>banana</i>, but how good is to have found 5005? You might say that it represents 5 apples and 5 banana in a nice, reversible way, and it does.
+However, sometimes it is more interesting NOT to calculate something, keep it a bit longer, and see where that gets me. In <a href="page004.html">chapter 4</a> for example we wanted to avoid calculationg too many divisions and we ended up <i>inventing</i> fractions. And here I want to think more in this way:
+say that you have 2 kinds of fruits, apples and bananas. I want to put all the apples in a box, and all the bananas in another, or make an abacus with two spikes, one for apples and the other for bananas.
+The difference with a usual abacus is that here I DON'T WANT to add them all up! Consider this: you go to buy one apple, but the shop only has bananas. How many banans should they offer you to replace that single apple you cannot buy? If you really just need an apple, no amount of bananas would do. In this situation 
+the word I'm looking for is <i>incommensurable</i>: there is no conversion rate between these two things. And that can happen, if you want to make an apple pie, good luck compensating apples with any amount of bananas! 
+<br>Finally, this idea works also to keep separated more than two numbers, like in a recipe: 
+<span class="formula">
+1 * egg + 3 * milk + 4 * flour
+</span>
+and again this has a meaning because you cannot replace milk with eggs.
+</p>
+<p>
+Moral of the story so far: not only 5+5 can be "not 10" sometimes, but I can write it as:
+<span class="formula"> 5 * a + 5 * b</span> 
+for some variables <i>a</i> and <i>b</i> (because writing apples and bananas EVERY TIME gets boring fast), and I don't have a particular value in mind for neither variables.
+<br>And this is why math uses <i>letters</i> as well as <i>numbers</i>.
+</p>
+
+<h2>Calculate it all, some, or not at all</h2>
+<p>
+What else can I do here, with this idea that 5+5 is not always 10?
+<br>I could see 5+5 as an example where I know that the two 5s are the same kind of things, therefore I can calculate the result, and I get 10.
+<br>Or I could have 5*a+5*b and then there is nothing more I can do. Maybe if I knew what were the values of <i>a</i> and <i>b</i>... otherwise stopping here is the best I can do.
+<br>And what about something like:
+<span class="formula"> 5 * a + 5 * b + 3 * a</span> 
+which might mean "I have 5 apples and 5 bananas, and 3 more apples". Here I can at least put all apples in the same basket! 
+<span class="formula"> 5 * a + 5 * b + 3 * a = (5 * a + 3 * a) + 5 * b</span>
+I would expect that <b>5 * a + 3 * a</b> is simply <b>(5+3)*a = 8*a</b> because, after all, it means "I have 5 apples and also 3 apples", so I know I must have <b>8</b> apples in total.
+<br>
+But can I be sure that the math here says the same? Well... from the properties of 
+multiplication (<a href="page002.html">chapter 2</a>) I know:
+<span class="formula"> (x*y + z*y) = (x+z)*y</span>
+for any numbers x, y and z. And here I can use this:
+<span class="formula"> (<span data-bracket="x * y">5 * a</span> + <span data-bracket="z * y">3 * a</span>) +
+ 5 * b = (<span data-bracket="x+z">5+3</span>) * <span data-bracket="y">a</span> + 5 * b
+ <br><br>
+ = 8 * a + 5 * b
+</span>
+So I was right: I just have to add together all apples and all bananas. But can I do more than this?
+Not in this case: this is the best I can do with this expression. So sometimes I can calculate all, until I get a number as a result, but in other cases the best I can do is put some stuff together, and clean up a bit the expression. And in some cases there is just nothing to do, for example with <b>8*a+5*b</b>.
+<br>
+Wait... does this smell like a <i>normal form</i> or what? 
+Here we have expressions with variables <i>a</i> and <i>b</i>, and we can write the same expression in multiple ways (<b>5*a+5*b+3*a</b> or <b>8*a+5*b</b>). And we find ourselves asking: what is the <i>simplest</i> way to write an expression with <i>a</i> and <i>b</i>? So simple that I cannot simplify it further? 
+<br>Yes, that sounds just like the normal forms discussed in <a href="page001.html">chapter 1</a>; the normal form here would be that I put together as much as possible the amounts of <i>a</i>s and <i>b</i>s, and possibly get my expression to a form like:
+<span class="formula"> smtg * a + smtgElse * b</span>
+where  <i>smtg</i> is a number (whole or broken, positive or negative, or a fraction if you like) and 
+<i>smtgElse</i> is a possibly different number. To bring the expression in this form, I might have to calculate something, perhaps remove brackets, and put together all the multiples of <i>a</i> and all the multiples of <i>b</i>.
+When we discussed normal forms in <a href="page001.html">chapter 1</a> we also talked about transformations: operations that change the look but not the meaning of the things we were working with. 
+Here we are working with expressions contaning <i>a</i>s and <i>b</i>s, and we already know that a 
+possible transformation is to put together all <i>a</i>s; so the rule should be:
+<span class="formula"> smtg * a + smtgElse * a &rarr; (smtg + smtgElse) * a</span>
+
+<br>
+Since we are talking about normal forms, we might even rewrite our two boxes with apples and bananas as a pair of numbers, so that <b>5 * a + 5 * b</b> would look like 
+<span class="open_box">5</span><span class="open_box">5</span>, and when I add three more apples I get:
+<span class="formula"> 
+	<span class="open_box">5</span><span class="open_box">5</span> + 
+	<span class="open_box">3</span><span class="open_box">0</span> = 
+	<span class="open_box">5+3</span><span class="open_box">5</span> =
+	<span class="open_box">8</span><span class="open_box">5</span>
+</span>
+meaning "eight apples and five bananas", as we expected. Really, what we are doing here with <i>a</i>
+and <i>b</i> is give names to the two boxes:
+<span class="label_box"><sup>a</sup><sub>8</sub></span><span class="label_box"><sup>b</sup><sub>5</sub></span>.
+
+<br>Using labeled boxes, I can write the addition above as:
+<span class="formula"><br>
+
+<span class="label_box"><sup>a</sup><sub>5</sub></span><span class="label_box"><sup>b</sup><sub>5</sub></span>
++
+<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>0</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>5+3</sub></span><span class="label_box"><sup>b</sup><sub>5</sub></span>
+ = 
+
+<span class="label_box"><sup>a</sup><sub>8</sub></span><span class="label_box"><sup>b</sup><sub>5</sub></span>
+
+</span><br>
+
+So the general rule for adding linear combinations of apples and bananas is: 
+<span class="formula"><br>
+
+<span class="label_box"><sup>a</sup><sub>someA</sub></span><span class="label_box"><sup>b</sup><sub>someB</sub></span>
++
+<span class="label_box"><sup>a</sup><sub>moreA</sub></span><span class="label_box"><sup>b</sup><sub>moreB</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>someA+moreA</sub></span><span class="label_box"><sup>b</sup><sub>someB+moreB</sub></span>
+
+</span><br>
+where <i>someA</i>, <i>someB</i>, and <i>moreA</i>, <i>moreB</i> are numbers (of any kind we have encountered so far).
+
+<br>
+Good, so we have discovered how to add apples and bananas to other apples and bananas: you just add 
+apples to apples and bananas to bananas. Let's use this new addition rule on the expression <b>(2*a+3*b) + (4*a+5*b)</b>. To calculate the result I should just drop the brackets, then re-grouping apples with apples and bananas with bananas:
+<span class="formula"> 
+	2*a + 3*b + 4*a + 5*b = 2*a+4*a + 3*b+5*b =
+<br>
+	(2+4)*a + (3+5)*b = 6*a + 8*b
+</span>
+or if you prefer our labeled boxes:
+<span class="formula"> 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> +
+<span class="label_box"><sup>a</sup><sub>4</sub></span><span class="label_box"><sup>b</sup><sub>5</sub></span> =
+<span class="label_box"><sup>a</sup><sub>2+4</sub></span><span class="label_box"><sup>b</sup><sub>3+5</sub></span> = 
+<span class="label_box"><sup>a</sup><sub>6</sub></span><span class="label_box"><sup>b</sup><sub>8</sub></span> 
+</span>
+and that is the same result. Done.
+<br>
+As a final note: when the expression as only one apple (or banana) I can write <b>a</b> instead of <b>1*a</b>, so for example: <b>1*a+3*b</b> can be written simply as <b>a+3*b</b>.
+
+<div class="task">
+Play with the playground below. Generate a random expression with <i>a</i>s and <i>b</i>s, and see if you can figure out the result before clicking on the <i>solve</i> button.
+<br>
+Look at the fruits below: do they help visualizing the addition rule?
+</div>
+</p>
+
+<p>
+  <div class="playground" id="playground1"></div>
+  <img id="one_apple" src="imgs/apple.jpg" style="display:none">
+  <img id="one_banana" src="imgs/banana.jpg" style="display:none">
+  <script src="js/005_01.js"></script>
+  <script>prepare_005_01('playground1','one_apple','one_banana')</script>
+</p>
+
+<p>
+Interestingly, having introduced a new notation (the labeled boxes for apples and bananas), we end up with multiple ways to write the same meaning. For example, I can write "I have 2 apples and 3 bananas" in more than one way with labeled boxes:
+<span class="formula"><br>
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>0</sub></span> +
+<span class="label_box"><sup>a</sup><sub>0</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> =
+
+<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>0</sub></span> +
+<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> =
+
+... = 
+<span class="label_box"><sup>a</sup><sub>2</sub></span> +
+<span class="label_box"><sup>b</sup><sub>3</sub></span> 
+</span><br>
+and all these different notations mean the same thing: <b>2*a+3*b</b>, and that is because of the addition rule.
+</p>	
+
+<h2>Quadruple my fruits</h2>
+<p>
+At the end of <a href="page001.html">chapter 1</a> we established that math is a language to talk about counting. Good. Here I want to talk count pairs of boxes (one of apples and the other of bananas). For example I might want to say that "I have 2 apples and 3 bananas (in my two boxes)" and you might add that you want to buy "four times the amount of apples and bananas in the boxes". How do I <i>translate</i> that into a math expression?
+And how many apples and bananas is that?
+<br>
+Well I can translate that sentence into math one part at the time. First "I have 2 apples and 3 bananas" can be translated as <b>2*a+3*b</b>. And then you want four times that amount, so:
+
+
+<!--ul>
+  <li>add (or remove) a few apples and bananas to (from) both boxes?
+  	<br>An example could be: <b>(2*a+3*b) + (4*a+5*b)</b> = ?</li>
+  <li>quadruple the amount of apples and bananas in the boxes?
+  	<br>For example: <b>(2*a+3*b) * 4</b> = ?</li>
+  <li>add (or remove) a few cherries to my two boxes?
+  	<br>Example: <b>(2*a+3*b) + 4*c</b> = ?</li></li>
+  <li>multiply apples by bananas? Does it even make sense? In which scenario?
+  	  And can I say that by using my mathematical expressions about <i>a</i>s and <i>b</i>s?
+  	  <br>The example here could be: <b>(2*a) * (3*b)</b> = ?</li>
+</ul-->
+
+<span class="formula"> ( 2*a + 3*b ) * 4</span>
+and after I have done the multiplication by four, I would like a result that looks something like:
+<b> smtg * a + smtgElse * b </b> or 
+<b><span class="label_box"><sup>a</sup><sub>smtg</sub></span><span class="label_box"><sup>b</sup><sub>smtgElse</sub></span></b>.
+
+<br>
+In this situation you want to buy four boxes, and so you will find yourself buying two apples times four, and three bananas times four: that gives you eight apples and twelve bananas, still separated in their two boxes. Therefore, you should expect the solution of our calculation to be:
+<span class="formula"> 8*a + 12*b </span>
+
+Right. But how do we proceed mathematically? I could argue that:
+<b> ( 2*a + 3*b ) * 4 </b> is the same as <b>2*a * 4 </b> added to <b>3*b * 4</b>, which gives:
+<span class="formula"> 2*4*a + 3*4*b = 8*a + 12*b</span>
+because you have to multiply the apples by four and separately the bananas by four too, then add them all up again.
+
+<br>
+Another way to say this is to consider that <b>aNumber * 4 = aNumber + aNumber + aNumber + aNumber</b> and here it means:
+<span class="formula"> ( 2*a + 3*b ) * 4 = (2*a+3*b) + (2*a+3*b) + (2*a+3*b) + (2*a+3*b)</span>
+and them I could just put apples with apples and bananas with bananas: 
+<span class="formula"> (2+2+2+2)*a + (3+3+3+3)*b = 8*a + 12*b </span>
+Wow, I get it: no matter what I do, I get the same result, so it must be correct, fine.
+<br>When I studied math, I was told many times that "math is precise"... I don't know about <i>precise</i> but surely it is consistent, even <i>stubborn</i>: (provided I do my calculations correctly) I find myself getting the same results, no matter what weird road I take to calculate.
+Another way to look at it could be: math has been created to represent numbers and similar things, and those are just what they are. And math does such a good job at it that I can never find a way to trick it into coming up with inconsistent results. And historically, when it really does happen that some things come out different than expected thanks to some tricks, it usually brings on a new and more powerful kind of math.
+</p>
+
+<h2>Baskets of apples</h2>
+<p>
+I just conviced you (hopefully) that <b>( 2*a + 3*b ) * 4  = 2*4 * a + 3*4 * b</b>.
+But what if you wanted to buy an unspecified number of pairs of boxes, say <i>k</i> pairs of boxes? 
+You could expect this:
+<span class="formula"> ( 2*a + 3*b ) * k = 2*k * a + 3*k * b </span>
+and in fact it makes sense. 
+<br>
+But how can an expression like <b>2*k*a + 3*k*b</b> be a result? Isn't a result supposed to be an <i>answer</i> to some question? Something that has been completely calculated? 
+Simplified to the smallest, simplest form possible?
+<br>
+Well, in this case... that's it. 
+Later, when you will tell me what is the value of <i>k</i>, I will be able to quickly calculate the value of that expression. Again, the idea here is to calculate <i>as much as I can</i>, but stop if I cannot go any further, and more or less wait for the variables to be known.
+<br>
+An interesting thing happened in this expression: now I have <b>k*a</b> as a "new" variable.
+But is it really "new"? Can I mix (add for example) <b>2*a</b> and <b>k*a</b>? Or do I have to keep them separated? Let's see:
+<span class="formula"> 2*a + k*a = (2+k) * a </span>
+and this expression tells me: "I have two apples and I add a basket of apples. How many apples is that?", where the basket contains <i>k</i> apples in our case. You could reply: "that makes two-and-a-basket of apples". 
+So <i>k</i> cannot go away from my expression, and the expression cannot be simplified further, because I need to know something about <i>k</i> or <i>a</i> to calculate further.
+<br>
+The fact is that <i>a</i> and <i>k*a</i> are both variables that somehow are measured in apples, or <i>count</i> apples if you like; when I mix them in an expression, <i>k</i> will not go away in the result, which suggests that they are not the same KIND of numbers and I have to keep them separated as I try to calculate my expression.
+<br>
+On the other hand I can add apples to apples (for example <b>2*a+3*a = 5*a</b>) and also k-apples to other k-apples (AKA add baskets of apples to same-size baskets of apples). For example:
+<span class="formula"> 2*k*a + 3*k*a = 2 * k*a + 3 * k*a = (2+3) * k*a = 5*k*a </span>
+and you could read this expression like: "I add two baskets of apples with three baskets of apples. How many apples is that?", and the answer can only be "five baskets of apples", provided that all the baskets had the same amount of apples (<i>k</i> in this example).
+<br>
+It's worth looking at this last calculation, <b>(2*a+3*b)*k</b>, using the labeled boxes notation:
+<span class="formula"><br>
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> * k =  
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> * 
+<span class="label_box"><sup>k</sup><sub>1</sub></span> =  
+
+(<span class="label_box"><sup>a</sup><sub>2</sub></span> * 
+<span class="label_box"><sup>k</sup><sub>1</sub></span>) + 
+(<span class="label_box"><sup>b</sup><sub>3</sub></span> * 
+<span class="label_box"><sup>k</sup><sub>1</sub></span>) =  <br><br>
+
+<span class="label_box"><sup>a*k</sup><sub>2*1</sub></span> + 
+(<span class="label_box"><sup>b</sup><sub>3</sub></span> * 
+<span class="label_box"><sup>k</sup><sub>1</sub></span>) =  
+
+<span class="label_box"><sup>a*k</sup><sub>2*1</sub></span> + 
+<span class="label_box"><sup>b*k</sup><sub>3*1</sub></span> =  
+
+<span class="label_box"><sup>a*k</sup><sub>2</sub></span><span class="label_box"><sup>b*k</sup><sub>3</sub></span>
+</span><br>
+OK, but how to <i>read</i> this? It should mean something like "I have two apples and 3 bananas", and "I want to get a basket of each", and by <i>a basket</i> I mean exaclty <i>k</i> fruits. How many apples and bananas will I have? The answer is "two k-apples and three k-bananas", or if you like "two baskets of apples and three baskets of bananas". And that is what <b>a*k</b> is, it is "one basket-load of apples".
+
+<br><br>
+I have been considering only addition and multiplication so far, but of course the same rules also work for subtraction and division:
+<span class="formula"> 5*a + 5*b - 3*a = (5-3) * a + 5 * b = 2*a + 5*b
+<br> ( 2*a + 3*b ) : 4 = (2:4) * a + (3:4) * b = 
+<span class="frac"><sup>1</sup><sub>2</sub></span>*a + 
+<span class="frac"><sup>3</sup><sub>4</sub></span>*b
+</span> 
+
+</p>
+
+<h2>Add a few cherries...</h2>
+<p>
+Here we want to ask "I have two apples and three bananas, and I add four cherries. What is the result?".
+In math terms I can write: <b>2*a + 3*b + <span style="color:red;">4*cherry</span> = 
+<span style="color:blue;">?</span> </b>
+<br>
+It looks to me like we need to create a new box, specific for cherries, and then we can say:
+"You will have two apples and three bananas... and four cherries", dah! 
+<br>
+Another way to <i>see</i> this is to write the expression above using our labeled boxes:
+<br><br>
+<span class="formula"> 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> + 
+<span class="label_box" style="color:red;"><sup>cherry</sup><sub>4</sub></span> =
+
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>cherry</sup><sub>0</sub></span> + 
+
+<span style="color:red;">
+<span class="label_box"><sup>a</sup><sub>0</sub></span><span class="label_box"><sup>b</sup><sub>0</sub></span><span class="label_box"><sup>cherry</sup><sub>4</sub></span> </span>= 
+
+<span style="color:blue;">
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>cherry</sup><sub>4</sub></span> </span>
+
+</span><br>
+
+Can we do better than that? Not really. But it is important to see that we can extend our <i>world</i> from two boxes (or types of fruit) to as many as we need. And if you look at the rules we have defined so far, they are still valid. Even better: they automatically scale to this new situation with three boxes!
+
+<div class="task">
+For example, what do you think the results of these are? 
+<br><b>2*a + 3*b + 4*c + 2*c + 10*b = ? </b>
+<br><b>( 2*a + 3*b + 4*c ) * 5 = ?? </b>
+<br>
+</div>
+
+The fact that <b><span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span></b> is also the same as 
+<b><span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>c</sup><sub>0</sub></span></b>
+when the new variable <i>c</i> (not already present in the expression) is considered, suggest that there are even more ways to write one of these labeled boxes. For instance:
+<span class="formula"><br>
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span> +
+<span class="label_box"><sup>b</sup><sub>3</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>c</sup><sub>0</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>d</sup><sub>0</sub></span> = 
+
+<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>3</sub></span><span class="label_box"><sup>c</sup><sub>0</sub></span><span class="label_box"><sup>d</sup><sub>0</sub></span> = ... ect.
+</span><br>
+provived that <i>c</i> and <i>d</i> are NEW variables, AKA new boxes. So to specify the normal form for my labeled boxes, I will have to say explicilty that I should remove all the boxes with zero items in them.
+A situtation where I might need to remember this rule, could be a calculation like:
+<span class="formula"> 2*a + 3*b -2*a = 0*a + 3*b </span>
+Clearly it would LOOK better to write it as <b>3*b</b> instead, dropping the box with zero apples.
+</p>
+
+<h2>Fruit salads</h2>
+<p>
+Since I know that I can write <b>k*a</b>, what about <b>a*a</b> or <b>a*b</b>?
+<br>
+Would that make sense? And when would I need them? 
+<br>
+To see what <b>a*a</b> and <b>a*b</b> actually mean, I will to go back and re-consider what multiplication actually is. Then I will be able to extend multiplication beyond numbers, to include variables and expression (AKA linear combination of variables and numbers).
+
+<br>
+Since this stuff is complicated, let's start as simple as possible. 
+When we defined multiplication (in <a href="page002.html">chapter 2</a>) we used tally numbers (or Peano numbers) and we were interested in find out how many <i>I</i>s was <b>II * III</b>. Spoiler: it is six. Fine, but... why? Or better: how do I know it is six (or <b>IIIIII</b> to be precise)?
+<br>
+Because, we said in chapter 2, multiplication is just repeated addition, so here we have:
+<b>II * III = III + III = IIIIII</b>. But how do we know that we need TWO copies of <b>III</b>?
+Oh, sure: it is because <b>II</b> has two <i>I</i>s. So really what we are doing is combine, mix the second number with the pieces of the first... Something like:
+<div class="todo">DRAW SOME IMAGE FOR THESE 2 DIAGRAMS</div>
+<pre>
+(the first)  I -> III
+(the second) I -> III
+</pre>
+or if it helps to SEE it better, I could write it like:
+<pre>
+               /> I (the first digit of the second number)
+(the first)  I -> I (the second digit of the second number)
+               \> I (...)
++
+               /> I 
+(the second) I -> I 
+               \> I 
+</pre>
+In both cases the total is six, so the multiplication still works as we expect.
+And remember that with tally numbers we are just counting and all the <i>I</i>s are the same, they each mean "one sheep" or something like that.
+<br>
+Let me try to see even better who is composed with who in the intrepretation of the multiplication.
+To to that I can give a <i>personality</i> (a different look for example) to each <i>I</i> in both numbers. What I get is:
+<span class="formula">
+	I<span style="font-style: oblique 15deg;">I</span> *
+	<span style="font-style: oblique -15deg;">I</span><span style="font-size:.70em;">I</span><span style="font-size:1.3em;">I</span>
+
+	= <br><br>
+
+	I &nbsp <i>with</i> &nbsp <span style="font-style: oblique -15deg;">I</span> &nbsp<i>and</i><br>
+	I &nbsp <i>with</i> &nbsp <span style="font-size:.70em;">I</span> &nbsp<i>and</i><br>
+	I &nbsp <i>with</i> &nbsp <span style="font-size:1.3em;">I</span> &nbsp<i>and</i><br>
+	<br>
+	<span style="font-style: oblique -15deg;">I</span> &nbsp <i>with</i> &nbsp <span style="font-style: oblique -15deg;">I</span> &nbsp<i>and</i><br>
+	<span style="font-style: oblique -15deg;">I</span> &nbsp <i>with</i> &nbsp <span style="font-size:.70em;">I</span> &nbsp<i>and</i><br>
+	<span style="font-style: oblique -15deg;">I</span> &nbsp <i>with</i> &nbsp <span style="font-size:1.3em;">I</span>
+
+</span>
+and surely it makes six, but six what? Six couples of <i>I</i>s. So... wait! What the multipication ACTUALLY does is to create all possible couples of <i>I</i>s in the two numbers being multiplied, and then count how many couples there are?! Only that usually all the <i>I</i>s are exaclty the same, so I never noticed, and simplify the story saying "II times III is IIIIII".
+<br>
+Personally I find this reveleation a bit mind blowing. 
+But... can I use it here, with apples and bananas?
+Let's see. 
+<br>
+Say that I want to multiply two apples by three bananas... and since I don't want to BREAK math, I still want six to come out as part of the result. But I also want more information about my apples and bananas.
+<span class="formula">
+<img src="imgs/apple.jpg" style="width:2em;"><img src="imgs/apple.jpg" style="width:2em;"> * 
+<img src="imgs/banana.jpg" style="width:2em;"><img src="imgs/banana.jpg" style="width:2em;"><img src="imgs/banana.jpg" style="width:2em;"> = <br><br>
+
+( <img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">,
+<img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">,
+<img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">,
+<br>
+<img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">,
+<img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">,
+<img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;">
+= <br><br>
+6 * ( <img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;"> )
+</span>
+OK... perhaps... but what does it mean? 
+<br>
+Let me try to read the steps of the calculation: 
+<i><div style="margin-left:2em;">"take two apples and combine them (AKA multiply) with three bananas" &rarr;
+<br>"first apple combines with first banana", 
+<br>"first apple combines with second banana", 
+<br>"first apple combines with third banana", 
+<br>"second apple combines with first banana", 
+<br>"second apple combines with second banana", 
+<br>"second apple combines with third banana"
+</div></i>
+And since I don't want to distinguish the first apple from the second, nor any of the bananas from any other banana, there are really just six couples (or pairs), each one a combination of an apple and a banana. So the result is "six couples, each couple has one apple and one banana". 
+<br>
+Note: here I don't care if a couple is <b>(apple,banana)</b> or <b>(banana,apple)</b>, and that means that 
+"two apples multiplied by three bananas" gives the same result as "three bananas multiplied by two apples". Even "three apples by two bananas" gives the same result: "six (apple,banana) couples".
+<br>
+Now, I want to see how this looks in our labeled boxes notation:
+<span class="formula">
+<span class="label_box"><sup>a</sup><sub>2</sub></span> * <span class="label_box"><sup>b</sup><sub>3</sub></span> = 
+<span class="label_box"><sup>a*b</sup><sub>2*3</sub></span>
+</span>
+where <b>a*b</b> stands for "a couple with an apple and a banana", or "apple-banana couple" for short. So I can say that "two apples multiplied by three bananas is six apple-banana couples".
+
+<br>
+A final question: "is an apple-banana couple the same kind of thing as an apple or a banana?" 
+Or if you like: "could I add an apple-banana to an apple or to a banana? And what would be the result?".
+The situation can be represented like this:
+
+<span class="formula">
+<img src="imgs/apple.jpg" style="width:2em;"> VS &nbsp;
+<img src="imgs/banana.jpg" style="width:2em;"> VS &nbsp;
+( <img src="imgs/apple.jpg" style="width:2em;"> with <img src="imgs/banana.jpg" style="width:2em;"> )
+</span>
+
+which is also this, with labeled boxes:
+<br>
+<span class="formula">
+<span class="label_box"><sup>a</sup><sub>1</sub></span> &nbsp; VS &nbsp;
+<span class="label_box"><sup>b</sup><sub>2</sub></span> &nbsp; VS &nbsp;
+<span class="label_box"><sup>a*b</sup><sub>3</sub></span>
+</span><br>
+and in both cases it looks like an apple-banana couple cannot be an apple or a banana. Earlier we discovered that <b>k*a</b> is not the same kind of variable as <b>a</b>. After all a <i>fruit salad</i> is NOT an apple or a banana!
+
+<a class="appendix_note" href="appendixA.html#appendixA06">Fruit salad multiplication</a>
+
+<br>
+The great thing about this "fruit salad" approach to multiplication is that it mixes the fruits AND keeps them separated at the same time. In fact the answer to what is "two apples times three bananas" is not simply "six" but it is "six apple-banana couples", which keeps the information about where the six came from.
+<br>
+The other spectacular property of the "fruit salad" approach is that it works EXACLTY like the normal interpretation of multiplication, if we DROP the variables <i>a</i> and <i>b</i>. Take our example:
+<b>(2*a)*(3*b) = 6*a*b</b>, I can decide to get rid of <i>a</i> by replacing it with <b>1</b>, and the same for <b>b</b>, and the equivalence should still be true:
+<span class="formula"> (2*1)*(3*1) = 6*1*1 
+<br> 2*3 = 6
+</span>
+and it is true!
+
+</p>
+
+<h3>Apples time apples</h3>
+<p>
+We still haven't looked at <b>a*a</b>. What would that be?
+Well, accoring to our "fruit salad" multiplication it should simply be:
+<span class="formula">
+	(1*a) * (1*a) = (1*1) * a*a = 1*a<sup>2</sup>
+</span>
+where <b>a*a</b> (AKA <b>a<sup>2</sup></b>) is an apple-apple couple of fruits.
+And <b>a*a</b> is different from <b>a</b>, <b>b*b</b> and even <b>a*b</b>, because in a fruit salad, the kinds of fruits that your add to the mix, do count.
+
+<div class="task">
+We got very far with this "fruit salad" interpretation of the multiplication. Using the rule we discovered thanks to it, try to calculate:
+<span class="formula">
+	(2*a) * (3*a)
+</span>
+</div>
+
+<br>
+One last thing. What happens if we try a slightly more complex expression? For example:
+<span class="formula">
+(2*a + 4*b) * (3*b)</span>
+Well, this is just another case of the distributive property of the multiplication. Luckily we did not really alter the way multiplication works, even with our new "fruit salad" interepratation, so all the properties of the multiplication that we knew are still true, including this one!
+<br>
+I can <i>distribute the multiplication</i> across the addition, and get:
+<span class="formula">
+(2*a + 4*b) * (3*b) = (2*a)*(3*b) + (4*b)*(3*b)
+</span>
+and now each part can be calculated with our "fruit salad" rule for multiplication:
+<span class="formula">
+(2*a)*(3*b) + (4*b)*(3*b) = 2*3*a*b + 4*3*b*b = 6 * a*b + 12 * b<sup>2</sup>
+</span>
+so we can even solve these weird-looking type of expressions.
+
+<br>
+The same calculation looks like this, when written with the labeled boxes:
+<span class="formula"><br>
+
+(<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>4</sub></span>)
+*
+<span class="label_box"><sup>b</sup><sub>3</sub></span> = 
+
+(<span class="label_box"><sup>a</sup><sub>2</sub></span>
+*
+<span class="label_box"><sup>b</sup><sub>3</sub></span>) +
+
+(<span class="label_box"><sup>b</sup><sub>4</sub></span>
+*
+<span class="label_box"><sup>b</sup><sub>3</sub></span>) = <br><br>
+
+<span class="label_box"><sup>a*b</sup><sub>2*3</sub></span> +
+<span class="label_box"><sup>b*b</sup><sub>4*3</sub></span> = 
+
+<span class="label_box"><sup>a*b</sup><sub>6</sub></span> +
+<span class="label_box"><sup>b*b</sup><sub>12</sub></span>
+
+</span><br>
+and both notations agree on the result: six apple-banana couples and twelve banana-banana couples.
+
+</p>
+
+<h2>Everything comes together</h2>
+<p>
+Finally, I can try to multiply two expressions, both containing <i>a</i> and <i>b</i>, for example:
+<span class="formula"> (3*a+2*b) * (5*a+6*b) </span> 
+How to proceed here? I can remember the distributive property of the multiplcation (from chapter 2), and PRETEND that <b>(5*a+6*b)</b> is just some number, do the <i>distribution</i> of the multiplcation, and then STOP PRETENDING, and put the bracket back in the expression! 
+What is get in this way is:
+<span class="formula"> (3*a+2*b) * <span style="font-size:1.5em;">someNumber</span> = <br>
+ (3*a) * <span style="font-size:1.5em;">someNumber</span>
+ + (2*b) * <span style="font-size:1.5em;">someNumber</span> = <br>
+ (3*a) * <span style="font-size:1.5em;">(5*a+6*b)</span>
+ + (2*b) * <span style="font-size:1.5em;">(5*a+6*b)</span>
+</span> 
+This time however the two parts of my addition are not that simple (as in the previous example)... but they are NOT totally new either. Both <b>(3*a) * (5*a+6*b)</b> and <b>(2*b) * (5*a+6*b)</b> are multiplications with like the one I just solved (see previous paragraph), so I actually should know how to treat them. Let's see:
+<span class="formula"> 
+	 <span style="color:blue">(3*a) * (5*a+6*b)</span> + <span class="blur">(2*b) * (5*a+6*b)</span> = <br>
+	 <span style="color:blue">(3*a)*(5*a)+(3*a)*(6*b)</span> + 
+	 		<span class="blur">(2*b) * (5*a+6*b)</span> = <br>
+	 <span style="color:blue">(3*5*a*a)+(3*6*a*b)</span> + 
+	 		<span class="blur">(2*b) * (5*a+6*b)</span> = <br>
+	 <span style="color:blue">3*5*a*a + 3*6*a*b</span> + 
+	 		<span style="color:red">(2*b)*(5*a)+(2*b)*(6*b)</span> = <br>
+	 <span class="blur">3*5*a*a + 3*6*a*b</span> +
+	 		<span style="color:red">(2*5*b*a)+(2*6*b*b)</span> = <br>
+	 <span class="blur">3*5*a*a + 3*6*a*b</span> + 
+	 		<span style="color:red">2*5*b*a + 2*6*b*b</span> = <br>
+	 15 * a*a + 18 * a*b + 10 * b*a + 12 * b*b
+</span>
+
+And now I can put together all the <b>(a*a)</b>s, the <b>(b*b)</b>s and the <b>(a*b)</b>s (which by the way is the same as <b>b*a</b>):
+<span class="formula"> 
+	 15 * a*a + <span style="color:green">18 * a*b + 10 * b*a</span> + 12 * b*b = <br>
+	 15 * a*a + <span style="color:green">(18 + 10) * a*b</span> + 12 * b*b = <br>
+	 15 * a*a + <span style="color:green">28 * a*b</span> + 12 * b*b <br>
+	 <i>= (3*a+2*b) * (5*a+6*b) </i>
+</span> 
+and that is all I can do, because <b>a*a</b> cannot be mixed with <b>b*b</b>, nor with <b>a*b</b>. Done.
+
+<br>
+Wow, that was along thing to figure out. But the important point is: it is entirely possible to multiply expressions together, and the result is another expression, with some new mix of variables. 
+
+<!-- NOTE: perhaps color-code the steps below to help the reader -->
+
+<br>
+The same calculation written using the labeled boxes, looks like this:
+<span class="formula"><br>
+
+(<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span>)
+*
+(<span class="label_box"><sup>a</sup><sub>5</sub></span><span class="label_box"><sup>b</sup><sub>6</sub></span>) = 
+
+(<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span>)
+*
+<span class="label_box"><sup>a</sup><sub>5</sub></span> +
+(<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span>)
+*
+<span class="label_box"><sup>b</sup><sub>6</sub></span> = <br><br>
+
+<span class="label_box"><sup>a*a</sup><sub>3*5</sub></span><span class="label_box"><sup>b*a</sup><sub>2*5</sub></span>
++
+(<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span>)
+*
+<span class="label_box"><sup>b</sup><sub>6</sub></span> = <br><br>
+
+<span class="label_box"><sup>a*a</sup><sub>15</sub></span><span class="label_box"><sup>b*a</sup><sub>10</sub></span>
++
+<span class="label_box"><sup>a*b</sup><sub>3*6</sub></span><span class="label_box"><sup>b*b</sup><sub>2*6</sub></span> = 
+
+<span class="label_box"><sup>a*a</sup><sub>15</sub></span><span class="label_box"><sup>b*a</sup><sub>10</sub></span>
++
+<span class="label_box"><sup>a*b</sup><sub>18</sub></span><span class="label_box"><sup>b*b</sup><sub>12</sub></span> = <br><br>
+
+<span class="label_box"><sup>a*a</sup><sub>15</sub></span><span class="label_box"><sup>a*b</sup><sub>10</sub></span>
++
+<span class="label_box"><sup>a*b</sup><sub>18</sub></span><span class="label_box"><sup>b*b</sup><sub>12</sub></span> = 
+
+<span class="label_box"><sup>a*a</sup><sub>15</sub></span><span class="label_box"><sup>a*b</sup><sub>10+18</sub></span><span class="label_box"><sup>b*b</sup><sub>12</sub></span> = <br><br>
+
+<span class="label_box"><sup>a*a</sup><sub>15</sub></span><span class="label_box"><sup>a*b</sup><sub>28</sub></span><span class="label_box"><sup>b*b</sup><sub>12</sub></span>
+
+</span><br>
+
+</p>
+
+<p>	
+Moral of the story so far: linear combinations of variables can be treated as numerical expressions; we can add them, multipliy by a number or even multiply an entire linear combination by another. 
+Some of these operations give a result that has the same variables as the expressions that were involved in the calculation, but with different weights. In other cases we get new variables or multiplications of variables. 
+<br>To understand what happens with variables and multiplication we can take a slightly weir interpretation of multiplication that takes into account not only the numbers but also the kind of things we multiply together. We called this approach "fruit salad", and it has the interesting side effect: it helps see why different kinds of fruit salad might not mix. For example a bowl with an apple and a banana is a different kind with respect to one with an orange and a pineapple. And even more interesting a bowl wit a banana is not the same kind as a bowl with an apple and a banana. The new interepretation of multiplication allows to keep the variables separated and at the same time combine them, that is to say "multiply them".
+<br>
+Finally, a principle seems to emerge from our fooling around with expressions: you can PRETEND that variables are numbers and calculate all that you can, using the usual rules for the operation. Of course sometimes you will have to stop the calculation because it will be impossible to reach a single-number result. So we have to accept that a <i>result</i> can be an expression sometimes, and not always a number.
+In <a href="page004.html">chapter 4</a> we worked with lazy, un-calculated divisions and called them fractions; here you might say that a variable is a <i>lazy number</i>, a number that will remain un-calculated, separated from others, only to be revealed later (perhaps, or not if we just wanted to keep things separated).
+</p>
+
+<p>
+<div class="task">In the playground below, try the following shop situations:
+<br>&nbsp; 2 apples, 3 bananas and 5 florins on the floor,
+<br>&nbsp; 3 bananas, 4 cherries,
+<br>&nbsp; 2 apples, 3 bananas and 5 florins on the floor,
+<br>&nbsp; 10 florins on the floor,
+<br>for each, test what happens in all four "And then" cases.
+<br>
+<br>Now, try with: 3 apples and 2 bananas. What happens in the last of the "And then" cases?
+</div>
+
+  <div class="playground" id="playground2" style="position: relative;">
+	  <div style="position:absolute;right:.5em;bottom:.5em;">
+	  	<i>Thanks to <a href="https://algebra.js.org/">algebra.js by nicolewhite</a></i>
+	  </div>  	
+  </div>
+  <img id="one_apple" src="imgs/apple.jpg" style="display:none">
+  <img id="one_banana" src="imgs/banana.jpg" style="display:none">
+  <script src="js/005_02.js"></script>
+  <script>prepare_005_02('playground2','one_apple','one_banana')</script>
+
+</p>
+
+
+<h3>Simpler and stranger cases</h3>
+<p>
+Now that we have a way to calculate a multiplication between two math expressions, both containing <i>a</i> and <i>b</i>, I would like to consider the special case:
+<span class="formula"> 
+	(a+b)*(a+b)
+</span>
+where <b>a+b</b> is math shorthand for <b>1*a+1*b</b>. 
+<br>We can calculate this simply by using the rule we figured out in the previous section:
+<span class="formula"> 
+	(a+b)*(a+b) = <br>
+	(a+b)*a + (a+b)*b = <br>
+	a*a + b*a + a*b + b*b = <br>
+	a<sup>2</sup> + 2*a*b + b<sup>2</sup> 
+</span>
+Wait a second... This looks familiar. It is in fact the well known rule to calculate <b>(a+b)<sup>2</sup></b> that you might remember from school. Here we discovered it again using our rules for math expressions with variables... not bad.
+<br>Let me just write the rule using the labeled boxes, in case it becomes more easy to understand:
+<span class="formula">
+
+(<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span>)
+<sup>2</sup> = 
+
+<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span>
+*
+<span class="label_box" style="color:blue"><sup>a</sup><sub>1</sub></span><span class="label_box" style="color:firebrick"><sup>b</sup><sub>1</sub></span> =  <br><br>
+
+(<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span> * 
+<span class="label_box" style="color:blue"><sup>a</sup><sub>1</sub></span>)
++
+(<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span> * 
+<span class="label_box" style="color:firebrick"><sup>b</sup><sub>1</sub></span>)
+ =  
+
+(<span class="label_box"><sup>a*<span style="color:blue">a</span></sup><sub>1*<span style="color:blue">1</span></sub></span><span class="label_box"><sup>b*<span style="color:blue">a</span></sup><sub>1*<span style="color:blue">1</span></sub></span>)
++
+(<span class="label_box"><sup>a*<span style="color:firebrick">b</span></sup><sub>1*<span style="color:firebrick">1</span></sub></span><span class="label_box"><sup>b*<span style="color:firebrick">b</span></sup><sub>1*<span style="color:firebrick">1</span></sub></span>)
+ =  <br><br>
+<span class="label_box"><sup>a*a</sup><sub>1</sub></span><span class="label_box"><sup>a*b</sup><sub>1+1</sub></span><span class="label_box"><sup>b*b</sup><sub>1</sub></span> =
+
+<span class="label_box"><sup>a*a</sup><sub>1</sub></span><span class="label_box"><sup>a*b</sup><sub>2</sub></span><span class="label_box"><sup>b*b</sup><sub>1</sub></span>
+
+</span> 
+
+<br>
+Note: this expression will come up again in a completely different situation in <a href="page007.html">chapter 7</a>.
+</p>
+
+
+<p>
+A more general case is  the following expression where we want to multiply two additions; the expression contains four different variables:
+<span class="formula"> 
+	(a+b)*(c+d) = ? 
+</span>
+So what we want to find out here is what is the result of:
+<span class="formula"><br>
+
+<span class="label_box"><sup>a</sup><sub>1</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span>
+*
+<span class="label_box"><sup>c</sup><sub>1</sub></span><span class="label_box"><sup>d</sup><sub>1</sub></span>
+</span>
+or if you prefer to go all the way back to our initial idea of boxes of fruits, you could read the expression as: "I have one apple in the apple-box and one banana in the banana-box, I want to combine them (multiply) with other two boxes, one with a cherry and the other with a date".
+<br>
+We could use the rule defined in the previous section, or... you might remember this rule from your school math. Whichever the case, we need to multiply each term in the first bracket with both terms in the second, and add the results; or something like this:
+<span class="formula"> 
+	(a+b)*(c+d) =<br>
+	(a+b)*c + (a+b)*d =<br>
+	(a*c + b*c) + (a+b)*d =<br>
+	(a*c + b*c) + (a*d + b*d) =<br>
+	a*c + b*c + a*d + b*d
+</span>
+So I started with an apple, a banana, a cherry, and a date, and by composing them two-by-two in all possible ways (using our "fruit salad" multiplcation) I got <i>four couples</i> of fruits: apple-cherry couples, banana-cherry couples, apple-date couples, and banana-date cuples. They are all differnt kinds of fruits salads, so I cannot put the togheter: I have to stop my calculation here.
+<br>
+An interesting fact is that all of these calculations are valid in general; that means that for ANY four numbers that you might pick, it will be true that:
+<span class="formula"> 
+	(a+b)*(c+d) = a*c + b*c + a*d + b*d
+</span>
+Let's try, just to get an idea how <i>solid</i> this equivalence is. If we pick <b>a=1, b=2, c=3 and d=4</b> we should have:
+<span class="formula"> 
+	(1+2)*(3+4) &rarr; 1*3 + 2*3 + 1*4 + 2*4 = 3+6+4+8 = 21
+</span>
+without even thinking about the fact that for instance <b>(1+2)</b> can be simplified to <b>3</b>, I get this result <i>automatically</i>. But if did the calculation step-by-step, manually, I would get:<span class="formula"> 
+	(1+2)*(3+4) = 3 * 7 = 21
+</span>
+... the same result. Right. Because math is stubborn. And here you clearly see that we are being lazy: we try to do the multiplication between the two brackets without even bothering to simplify the contents of the brackets first! And if you remember the <i>calculation diagrams</i> from <a href="page004.html">chapter 4</a> you see just what I mean by <i>lazy</i> here.
+
+<table cols="2" width="100%">
+  <tr><td valign="top">
+    <table class="centered_table" width="33%,33%,33%">
+    <tr><td>(1+2)</td><td> * </td><td>(3+4)</td></tr>
+    <tr><td><b>&Downarrow; +</b></td><td>  </td><td><b>&Downarrow; +</b></td></tr>
+    <tr><td> 3 </td><td> + </td><td> 7 </td></tr>
+    <tr><td></td><td><b>&Downarrow; *</b></td><td></td></tr>
+    <tr><td></td><td> 21 </td><td></td></tr>
+    </table>
+  </td>
+  <td valign="top">
+    <table class="centered_table" width="33%,33%,33%">
+    <tr><td>(1+2)</td><td> * </td><td>(3+4)</td></tr>
+    <tr><td></td><td><b>&Downarrow; *</b></td><td></td></tr>
+    <tr><td></td><td><div style="width:8em;">1*3 + 2*3 + 1*4 + 2*4 = 3+6+4+8</div></td><td></td></tr>
+    <tr><td></td><td><b>&Downarrow; +</b></td><td></td></tr>
+    <tr><td></td><td> 21 </td><td></td></tr>
+  </table>
+  </td></tr>
+</table>
+
+and this is because when we work with variables we have to delay some calculations and keep the variables separated from the rest of the numbers. <i>Remember my claim that a variable is a "lazy" number...?!</i>
+
+</p>
+
+<p>
+To conclude, we have still to consider situations in which ordinary numbers are present in the expression, as in this example:
+<span class="formula"> 
+	(a+b)*(c+5)
+</span>
+Could I simply use the rule we have for multiplication of fruit salads? Let's try, starting from distributing the multiplication:
+<span class="formula"> 
+	(a+b)*(c+5) = (a+b)*c + (a+b)*5 = (a*c+b*c) + (a*5+b*5) =
+<br> a*c + b*c + a*5 + b*5
+</span>
+and that is all I can do. The calculation cannot go any further. But the result looks a bit odd, it is not in our usual normal form for these kinds of expressions. For example, we should write <b>a*5</b> as <b>5*a</b> because five is a constant number, while <i>a</i> is the variable, and we want to keep the format as: <b>number*variable + otherNumber*otherVariable +  ect.</b>. Sometimes the "*" sign is dropped, and you could find the expression written like: <b>number variable + otherNumber otherVariable +  ect.</b>. Or more concretly: <b>5a + 5b + ac + bc</b>.
+Also, terms with only one variable should be placed before those with two variables, and then those with three and so no.
+And when possible the variables should be ordered alphabetically: so it is better to write <b>b*c</b> than <b>c*b</b>, and <b>a</b> should come before <b>b</b> and also before <b>a*c</b>. 
+So the <i>best</i> way to write <b>a*c + b*c + a*5 + b*5</b> should be:
+<span class="formula"> 
+	5*a + 5*b + a*c + b*c
+</span>
+
+</p>
+
+<p>
+A final note on terminology: linear combination of variables and numbers (AKA expressions with variables) are usually called <i>polynomals</i> in math (see <a href="https://en.wikipedia.org/wiki/Polynomial">wikipedia</a> for an intro and more terminology).
+
+<a class="appendix_note" href="appendixA.html#appendixA05">Polynomials as linear combinations of variables and numbers</a>
+</p>	
+
+<h2>Puzzles</h2>
+bla bla
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+<script src="js/make_links.js"></script>
+</body>  

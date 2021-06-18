@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Soko1D - a 1D sokoban derivative</title>
+		<style type="text/css">		
+		.myButton {
+			background:blue;
+			color:white;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		.disabledButton{
+			background:lightgray;
+			color:gray;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		</style>
+	</head>
+	<body>
+		<script src="js/game.js"></script>
+	<p>
+	<table cols="3" style="width:600px;">
+	<tr><td style="width:100px;"></td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="0" id="button0">left</button>
+	</td>
+	<td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:200px;" class="myButton"
+			name="1" id="button1">space</button>
+	</td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="2" id="button2">right</button>
+	</td></tr>	
+	</table>
+	</p>
+<p><b>Soko1D</b> - A mono-dimensional version of the <a href="http://en.wikipedia.org/wiki/Sokoban">sokoban</a>-style games.
+<br><b><i>Main concept: sorting items in a warehouse</i></b> - try to sort the numbers as 1,2,3.
+<br>V0.2
+<br>- <i>Left</i> and <i>Right</i> to move and push boxes
+<br>- <i>Space</i> swap left and right boxes
+<p>By <a href="http://www.create.aau.dk/av">Andrea Valente</a>.
+<hr>
+</body>
+</html>

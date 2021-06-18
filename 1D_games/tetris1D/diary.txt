@@ -1,0 +1,19 @@
+10:03 AM 6/22/2012
+
+- removed "the zone", so now swap, fall and reverse work at all times
+- added audio
+	- a sound when the game starts
+	- another for when you make 3 in a row
+- added levels.Now there are 3 levels, the speed increases and the background color changes at each level.
+- you can win if you finish all levels
+- every 500 points you change level
+
+2:04 PM 6/22/2012
+
+- re-implemented 3 buttons as HTML buttons, instead of canvas drawings. They should work on any browser now (SHOULD! :> )
+
+21:06 22/06/2012
+
+- added special effects
+	- the piece rotates on itself while swapping
+	- the pile oscillates in a sinusoidal way, while reversing

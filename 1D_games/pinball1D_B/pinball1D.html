@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Pinball 1D</title>
+		<style type="text/css">
+		.myButton {background:blue;
+					color:white;
+					height:60px;
+					-moz-border-radius:10px;
+					-webkit-border-radius:10px;
+					font-size: 150%;
+				}
+		</style>
+	</head>
+	<body>
+		<script src="js/game.js"></script>
+	<p>
+	<table cols="1" style="width:200px;">
+	<tr><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:90px;" class="myButton"
+			name="0">Paddle</button>
+	</td></tr><tr>
+	<td><button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:90px;"
+			class="myButton"
+			name="1">Tilt</button>
+	</td></tr>
+	</table>
+	</p>
+<p><b>Pinball 1D</b>
+<br>V0.4
+<br>- Space bar to control the paddle
+<br>- UP    key to tilt
+<p>By <a href="http://www.create.aau.dk/av">Andrea Valente</a> 
+(idea by <a href="http://www.linkedin.com/pub/s%C3%B8ren-r-frimodt-m%C3%B8ller/2b/459/591">Søren</a>).
+</body>
+</html>

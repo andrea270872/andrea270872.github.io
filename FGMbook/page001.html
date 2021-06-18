@@ -1,0 +1,373 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <title>Chapter 1</title>  
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<span class="disabled">&lt;</span>
+	<a href="page000.html">^</a>
+	<a href="page002.html">&gt;</a>
+</div>
+
+<h1>Chapter 1 - Counting</h1>
+<h2>If math is a language... what is it talking about?</h2>
+<p>
+It is said that math is a language, or as <a href="https://en.wikipedia.org/wiki/Galileo_Galilei">Galileo</a> <img class="face" src="faces/Galileo_Galilei_1636.jpg"></span> said it <span class="quote">"mathematics is the language with which God has written the universe"</span>, which sounds really cool. But if math is a language, then it should be possible to express oneself with it.
+For instance, I can say: "the dog ate my math homework", or "my homework? I think the dog ate it...", or even "Oh no! My big, bad dog must have eaten my math homework!". The meaning of all three sentences is the same, but they have different <i>tone</i> or <i>personal style</i>, and some can sound more convincing to, say, a teacher than others (just saying).
+<br>This idea is important: things can be written in various ways (syntax) but they might mean the same thing (semantics). Also, writing something in a certain way can be helpful: if I write a sentence as subject-verb-object, it might be simpler to analyze it or translate it into another language; so one might decide that "dog ate homework" is a really good representative of all possible sentences about dogs and homeworks, so to use a fancy term for it we could call it the <i>normal form</i> for sentences. A normal form is then a kind of template, a good representative, for a bunch of things that look different (syntax) but mean the same (semantics).
+</p>
+<p>In math there are plenty of examples of normal forms. A fraction like 
+	<span class="frac"><sup>3</sup><sub>4</sub></span>
+actually means <b>0.75</b>, but it can be written in many other ways, such as:
+	<span class="frac"><sup>6</sup><sub>8</sub></span> , 
+	<span class="frac"><sup>9</sup><sub>12</sub></span> , 
+	<span class="frac"><sup>12</sup><sub>16</sub></span> , 
+	<span class="frac"><sup>30</sup><sub>40</sub></span> , 	
+	<span class="frac"><sup>-3</sup><sub>-4</sub></span> , 
+	<span class="frac"><sup>1.5</sup><sub>2</sub></span> , ect.
+The do not look the same (syntax) but they have the same meaning (semantics)... but which one should I use as "the fraction whose value is <b>0.75</b>"? Or, what is the <i>normal form</i> for a fraction? 
+It makes sense for a normal form to be the <i>simplest</i> notation possible for a certain mathematical entity: here we can take the fraction that has the smallest values (so surely not <span class="frac"><sup>30</sup><sub>40</sub></span>), and would like positive values if possible (so not <span class="frac"><sup>-3</sup><sub>-4</sub></span>), and since we are looking for something clear and simple, let's avoid also numbers that are not whole (that is numbers without decimals, so we would like to exclude <span class="frac"><sup>1.5</sup><sub>2</sub></span>). And the winner is: <span class="frac"><sup>3</sup><sub>4</sub></span>, because there is no smaller pair of whole numbers that would do.
+</p>
+<p>
+The next question might be what transformations are <i>legal</i> on something, so that its look changes, but not its meaning. In my sentences I can change the tone, and the meaning more or less stays the same. 
+In a fraction multiplying both numerator (the top number) and the denominator (the bottom number) leaves the faction's value the same; unless I multiply by 0, in which case the fraction loses meaning.
+However, some ways to rewrite my fraction <span class="frac"><sup>3</sup><sub>4</sub></span> are more informative than others, for example: <span class="frac"><sup>3</sup><sub>4</sub></span> = <span class="frac"><sup>75</sup><sub>100</sub></span> = <span class="frac"><sup>300</sup><sub>400</sub></span> . Saying that something is <b>75</b> over <b>100</b> reminds me that <span class="frac"><sup>3</sup><sub>4</sub></span> is also the <b>75%</b> of something. On the other hand, if I have <b>400</b> people in a group, saying that <b>300</b> of them have brown eyes, might be more interesting than saying that <span class="frac"><sup>3</sup><sub>4</sub></span> of them has brown eyes. So syntax has its importance too.
+</p>
+<p>
+In this book I will argue that normal forms and transformations, syntax and semantics, are really most of what we do when we work with math, and than we could rewrite our math books making more explicit that math is mostly about manipulating syntax to learn something about semantics. Furthermore, like any other language, math was constructed by people with and for other people, so historically math changed when we needed to talk about new or different problems, as our human world got more and more complex. Math also changed when it was not working properly and it needed fixing. So not only math looked different in the past, but also this historical perspective tells us that math (and math notation) was INVENTED at some point, was changed to be better, and eventually formalized into a standard. This in turn means that we should be able to look back and re-create the need for the various notations and rules in math, and hopefully <i>understand</i> it not just in the sense of "how do I do something", but also in the sense of "where does this come from?" and "why is it useful to express something like that?", and even "how can I be sure that this is right?". All <i>forbidden</i> questions in school math.
+</p>
+<h2>Finding a name for every number</h2>
+<p>
+Ok, syntax and semantics, fine, but fractions are already a bit complex, not simple as whole numbers. A number like <b>25</b> is just what it is right? No syntax VS semantics here, right? How can there be a normal form and alternative syntaxes for a number?
+</p>
+<p>
+We can start from the meaning: counting should be about working with things. For example, if I have <span style="background: #FCC;">these</span> sheeps and add <span style="background: #CFC;">these</span> other sheeps, I get a total of <span style="background: #CFC;">these</span> many sheeps. I could DRAW this situation like:
+<center>
+	<div class="img_group" style="padding: 5px; background: #FCC;">
+		<img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+	</div> 
+	+
+	<div class="img_group" style="padding: 5px; background: #CFC;">
+		<img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+	</div> 
+	=
+	<div class="img_group" style="padding: 5px; background: #CCF;">
+		<img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif"><img src="imgs/sheep.gif">
+	</div> 
+</center>
+but, drawing a sheep every time I want to count it gets tedious very soon. So let's INVENT a notation for representing a sheep:
+<ul>
+<li>I could use the word <i>"sheep"</i>,</li>
+<li>or a <a href="https://en.wikipedia.org/wiki/Bulla_(seal)">clay token</a> <img class="icon_text" src="imgs/sheep_cuneiform_token.gif"> </li>
+<li>or a pictogram representing the token <img class="icon_text" src="imgs/sheep_cuneiform_pictogram.gif"> </li>
+<li>or simply <i>I</i>, in what is called the tally system or <a href="https://en.wikipedia.org/wiki/Unary_numeral_system">unary system</a>.</li>
+</ul>
+So my addition becomes: <span style="background: #FCC;">IIIII</span> + <span style="background: #CFC;">II</span> = <span style="background: #CCF;">IIIIIII</span> which is shorter to write down.
+At this point I have a way to associate meaning to the names of small numbers: one can be I, two II, until perhaps twelve which is III III III III, ect. This is not very good if I want to work with larger numbers; also my definition of addition as "putting all sheeps together" here becomes "putting all <i>I</i>s together" is fine and meaningful, but again does not SCALE well to large numbers.
+<br>Note: we can also define subtraction in this <i>direct</i> way, so that if adding is "putting together" then subtracting is "taking away" from a flock of sheeps.
+</p>
+
+<h2>Counting with tallies</h2>
+<p>
+Remember that we were talking about syntax and semantics in math? Our numbers so far are more or less only semantics: <i>III</i> is really a short name for "I have three things". And this (unary or tally) notation has a major problem: the more things I want to count, the more <i>I</i> characters I will need to write.
+A trick could be to group the <i>I</i>s to ease counting them: it seems easy to recognize up to five things, so we could decide to represent five things into a special symbol, perhaps <i>F</i>. 
+Something like this is done in <a href="https://en.wikipedia.org/wiki/Maya_numerals">Maya numbers</a> and <a href="https://en.wikipedia.org/wiki/Roman_numerals">Roman numbers</a>).
+My numbers can then be written as:
+I, II, III, IIII, F, FI, FII, FIII, FIIII, FIIIII, FF, FFI, ect. 
+<br>
+Much better, shorter and easier to read. However, for numbers larger than a few hundreds this notation will still be very long. Also, what happens to adding? I cannot simply "put together" my numbers anymore.
+Consider: FII +  FFIIII , which is seven plus fourteen. Putting together the two numbers I would get: FIIFFIIII, which is now a meaningless number in my system. Why? Because it is not in normal form!
+The normal form here is that you should never have more than five <i>I</i> in your numbers, because otherwise you should replace some with a <i>F</i> character; moreover, you should not write Fs and Is intermixed, because in the list of all numbers we had above, we always placed the Fs at the beginning of a number, and the Is after the Fs. So FIIFFIIII is wrong in many ways. Let's transform it to fix it. First I can rewrite it with all Fs in the beginning, then every time I can remove five Is and will, and place an F at the beginning instead:
+<br>
+FIIFFIIII &rarr; FFFIIIIII &rarr; FFFFI
+which is twenty-one. How can I be sure it is twenty-one? I could do it the "semantic way", converting both numbers to their value, as a sequence of Is, add them by putting the Is together, and then see what I get:
+<br>
+FII &rarr; IIIII II
+<br>
+FFIIII &rarr; IIIII IIIII IIII
+<br>
+And together they are: IIIII II IIIII IIIII IIII = IIIIIIIIIIIIIIIIIIIII , which can be grouped by five, and becomes: IIIII IIIII IIIII IIIII I , so twenty-one!
+
+<div class="task">
+To get the feeling of unary numbers, play with the playground below. 
+<br>Try to see how our friend twenty-one looks. And what about <b>210</b>?
+<br>
+What would zero look like?
+</div>
+</p>
+
+<p>
+	<div class="playground" id="playground2"></div>
+	<script src="js/001_02.js"></script>
+	<script>prepare_001_02('playground2')</script>
+</p>
+
+<p>
+Moral of the story so far: unary works, but numbers get too long. Defining a short-hand notation for numbers helps, but we then have to redefine what it means to add. Adding <i>means</i> putting things together, but when we have a particular notation for numbers (other than unary) we are forced to define special rules to add numbers using only they way they look, not what they mean, because we want to add numbers using their syntax and not their semantics. 
+And we must make sure that the two ways of adding give the same results in any possible case.
+</p>
+<h2>The need for zero</h2>
+<p>
+Instead of sticking to the Is only, which is the unary system, we could go another way. We could try using <i>boxes</i> to write our I-numbers in a shorter way.
+<br>
+For example say that every <b>10</b> sheeps is a flock. Then if I have thirty-four sheeps I also have three flocks and four sheeps. 
+<div class="task">Use the playgroung above to check what thirty-four looks like in unary</div>
+
+<br>
+Using boxes, this number could be represented as:
+<pre>
++-FLOCK-+ +-SHEEP-+
+|   III | |  IIII |
+|       | |       |
++-------+ +-------+ 
+</pre>
+Again, drawing the two boxes every time I want to write a number is too much work... I could simply write my number like this: <span class="open_box">III</span><span class="open_box">IIII</span>. Interestingly, the order of the boxes counts, since <span class="open_box">III</span><span class="open_box">IIII</span> IS NOT the same as <span class="open_box">IIII</span><span class="open_box">III</span>! (spoiler! The first is <b>34</b> and the second <b>43</b>)
+<br>
+Let's see what we can express with this new notation (AKA syntax). What about one, or I? It could be like this:
+<span class="formula"><span class="open_box">???</span><span class="open_box">I</span></span>
+But what should I put in the <i>flock</i> box? Nothing for sure, but we DON'T HAVE a symbol for nothing in our unary notation; so we need to decide how to say "zero" in our notation. For example we could just use an empty box, and one would look like 
+<span class="open_box">&nbsp;</span><span class="open_box">I</span> .
+Good, so now I can write some numbers: 
+zero = <span class="open_box">&nbsp;</span><span class="open_box">&nbsp;</span>, 
+one = <span class="open_box">&nbsp;</span><span class="open_box">I</span>, 
+two = <span class="open_box">&nbsp;</span><span class="open_box">II</span>,
+<span class="open_box">&nbsp;</span><span class="open_box">III</span>,
+<span class="open_box">&nbsp;</span><span class="open_box">IIII</span>,
+<span class="open_box">&nbsp;</span><span class="open_box">IIIII</span>,
+
+<span class="open_box">&nbsp;</span><span class="open_box">IIIII I</span>,
+<span class="open_box">&nbsp;</span><span class="open_box">IIIII II</span>,
+<span class="open_box">&nbsp;</span><span class="open_box">IIIII III</span>,
+nine = <span class="open_box">&nbsp;</span><span class="open_box">IIIII IIII</span>,
+
+ten = <span class="open_box">I</span><span class="open_box">&nbsp;</span>, 
+eleven = <span class="open_box">I</span><span class="open_box">I</span>, 
+twelve = <span class="open_box">I</span><span class="open_box">II</span>,
+<span class="open_box">I</span><span class="open_box">III</span>, ect.,
+<br>
+<span class="open_box">III</span><span class="open_box">II</span>, 
+<span class="open_box">IIIII II</span><span class="open_box">III</span>, ect.,
+ninety-nine = <span class="open_box">IIIII IIII</span><span class="open_box">IIIII IIII</span>.
+<br>
+This is definite improvement over unary notation! 
+Compare <span class="open_box">IIIII IIII</span><span class="open_box">IIIII IIII</span> with its unary version: 
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIIII
+IIIIIIIII !
+<br>
+<br>
+Note: we might want to impose a rule at this point, that in our new <i>box</i> notation we are only allowed to have zero, one, ..., nine <i>I</i>s in each box, no more. Otherwise I could write <span class="open_box">&nbsp;</span><span class="open_box">IIIII IIIII II</span> and that would have the same meaning (semantics) as <span class="open_box">I</span><span class="open_box">II</span>. Do we want to have two (or more) ways to write the same number? Is it a good idea? More on this later.
+</p>
+<p>
+Moral of the story so far: using ordered boxes (AKA a positional system) to arrange numbers in unary, we get a much shorter notation, but we have to define a convention for representing zero. And of course, now we don't know how to add two <i>box</i> numbers without going back to their unary expressions. That is, we do now know how to calculate <span class="open_box">I</span><span class="open_box">II</span> + 
+<span class="open_box">III</span><span class="open_box">II</span> using only the way these two numbers look (their syntax).
+</p>
+
+<h2>Enter the spike abacus</h2>
+<p>
+Of course we don't want to use Fs and Is, but digits: <b>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</b>. But what to do when there are more than <b>9</b> (IIIII IIII that is) things? 
+<br>
+Instead of inventing new symbols (like F), we could group our symbols and give a meaning to their position: just like with the sheep-box and flock-box, only here we make our boxes for units, tens, hundreds, ect. The result is the same as using a <a href="https://en.wikipedia.org/wiki/Abacus"><i>spike abacus</i></a>.
+
+<div class="task">
+Use the playground below to see how different numbers are represented on a spike abacus. You could start from zero and go up. What happens when you reach <b>10</b>? 
+<br>
+How does our old friend twenty-one look like here? 
+<br>
+Does the order count on the abacus? Try with <b>34</b> and <b>43</b>...
+</div>
+</p>
+<p>
+	<div class="playground" id="playground1"></div>
+	<script src="js/001_01.js"></script>
+	<script>prepare_001_01('playground1')</script>
+</p>
+<p>
+So we can define numbers using the abacus; note that the spikes increase of <b>10</b> times for every spike going from right to left, and that is the reason this notation is called <i>base 10</i>. 
+<br>
+How can I convert a number in this notation to my original tally (AKA unary) notation? What is <b>23</b> in Is?
+<br>
+We need to look at <b>23</b> as some kind of text, not really a number, because semantically only unary numbers are <i>true</i> numbers. So <b>23</b> is really <span class="open_box">2</span><span class="open_box">3</span>, where the digits <b>2</b> and <b>3</b> are just short names for II and III. 
+To find the actual value of <span class="open_box">2</span><span class="open_box">3</span> we have to calculate <span class="formula">2 * 10 + 3 * 1</span> where "*" stands for "times" or  multiplication. This kind of mathematical expression is a <a href="https://en.wikipedia.org/wiki/Weight_function">weighted sum</a>, or <a href="https://en.wikipedia.org/wiki/Linear_combination">linear combination</a>, and I will argue in this book that linear combinations are another of the hidden-but-central ideas in math.
+<br>
+Still, the result of <b>2 * 10 + 3 * 1</b> will NOT a unary number, so we have to calculate some more steps. For example we could start replacing the <i>base 10</i> numbers with their <i>unary</i> counterparts: 
+<span class="formula">
+2 * 10 + 3 * 1 &rarr; 
+<br>2 * IIIII IIIII + 3 * I &rarr; 
+<br>II * IIIII IIIII + III * I
+</span>
+and we can easily define multiplication for unary numbers. In fact, 
+<b>II * <span style="color:blue">someUnaryNumber</span></b> is just 
+<b><span style="color:blue">someUnaryNumber</span><span style="color:lightblue">someUnaryNumber</span></b>, and any number multiplied by <i>I</i> simply remains the same. Hence, 
+<span class="formula">II * <span style="color:blue">IIIII IIIII</span> + III * I &rarr; 
+<br>
+<span style="color:blue">IIIII IIIII</span> <span style="color:lightblue">IIIII IIIII</span> + III </span> 
+which is <b>23</b> in our notation. Bingo!
+</p>
+
+<p>
+In general any number that fits the template <span class="open_box">A</span><span class="open_box">B</span><span class="open_box">C</span><span class="open_box">D</span> means 
+<span class="formula">A * 1000 + B * 100 + C * 10 + D *1</span>
+eventually written as a unary number, or expressed via a bunch of sheeps. 
+And because of the abacus, we are assuming that A, B, C and D can only be single digit numbers, so each of them is <b>0, 1,... , 9</b>.
+<br>
+This style of numbers is very common: <a href="https://en.wikipedia.org/wiki/Unit_of_time">days-hours-minutes</a> work this way, degrees of angles also work in this way (and they are use <a href="https://en.wikipedia.org/wiki/Sexagesimal">powers of 60</a> on their abacus, not <i>powers of 10</i> as we do).
+</p>
+<p>
+What is the <i>normal form</i> for these abacus-numbers? Can we even write the a number in multiple ways?
+And what happens to addition (and subtraction) with the abacus-notation?
+<br>
+Let's take the number <b>13</b> as an example, or <span class="open_box">1</span><span class="open_box">3</span>. It is in normal form with respect to the abacus, because I can put <b>1</b> and <b>3</b> beads on two spikes, and I will not violate the restriction that every spike in the abacus must have between <b>0</b> and <b>9</b> beads at any given time.
+<br>
+How can <b>13</b> be written in other ways? If we drop the restriction, I could write <b>13</b> as 
+<span class="open_box">0</span><span class="open_box">13</span>, and still mean IIIII IIIII III.
+This might look weird, but it is a common way to work with numbers. For instance in <a href="https://en.wikipedia.org/wiki/Imperial_units#Length"><i>imperial units</i></a> you can write: <b>2</b> yards and <b>4</b> feet, or <b>2.4</b>. With our boxes that would be <span class="open_box">2</span><span class="open_box">4</span>, and in feet that gives <b>2 * 3 + 4</b> (since <b>1</b> yard is defined as <b>3</b> feet), which is <b>10</b> feet, or 
+<span class="open_box">0</span><span class="open_box">10</span>. So in imperial units <span class="open_box">2</span><span class="open_box">4</span> is the same as <span class="open_box">0</span><span class="open_box">10</span>.
+<br>
+OK. Now about the addition. Following our previous strategy for defining addition, we could simply say: <i>simply add box by box, then fix the number so it is in normal form</i> (for the abacus in this case). You can play with this idea by trying to add some numbers with the two abaci below.
+<br>
+When you select the "Normal form?" option, you will see the result corrected to be in normal form (the result is represented in the abacus on the right).
+</p>
+
+<!-- addition -->
+<p>
+	<div class="playground" id="playground3"></div>
+	<script src="js/001_03.js"></script>
+	<script>prepare_001_03('playground3')</script>
+</p>
+
+<p>
+So, what is the rule for adding two numbers? Just add digit by digit; however, you might obtain a result that is not written correctly (that is, it is not in normal form), and in that case you will have to <i>fix it</i>. And while you are fixing a digit, you might create problems for the next one. Hence, it is better to start fixing the digits from the lower one (the right-most one) and then consider the next digit (to the left), and keep going until all digits are fixed.
+Example: 
+<span class="formula">
+
+<span class="open_box">2</span><span class="open_box">3</span><span class="open_box">4</span> + 
+<span class="open_box">5</span><span class="open_box">6</span><span class="open_box">7</span> = ? 
+= <span class="open_box">2+5</span><span class="open_box">3+6</span><span class="open_box">4+7</span>
+= <span class="open_box">7</span><span class="open_box">9</span><span class="open_box">11</span>. 
+
+</span>
+
+<span class="task">Use the abacus-adder above to check what the result looks like, with and without fixing the normal form of the result.</span> 
+<br>
+
+Unfortunately this number is NOT in normal form for an abacus, so I have to fix it: 
+<span class="formula">
+<span class="open_box">7</span><span class="open_box">9</span><span class="open_box">11</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">9</span><span class="open_box">11 -10+10</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">9</span><span class="open_box">11-10 +10</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">9</span><span class="open_box">1 +10</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">9+1</span><span class="open_box">1</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">10</span><span class="open_box">1</span> 
+</span>
+<br>
+I'm using a trick to help me see how much than <b>10</b> there is in the <b>11</b>. I subtract and add <b>10</b> to my number, <b>11</b>, and I REWRITE a bit the result, which I'm sure will still be <b>11</b>. In fact: <b>11 = 11+(-10+10) = (11-10)+10 = (1)+10</b>, so now I know that <b>11</b> was <b>1</b> more than it should have been, for the abacus spike to take it.
+<br>
+At this point I am left with 
+<span class="open_box">7</span><span class="open_box">10</span><span class="open_box">1</span>, which is still not in normal form, so I can continue with the tens, and eventually the hundreds:
+<span class="formula">
+
+<span class="open_box">7</span><span class="open_box">10</span><span class="open_box">1</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">10 -10+10</span><span class="open_box">1</span> &rarr; 
+<span class="open_box">7</span><span class="open_box">0+10</span><span class="open_box">1</span> &rarr; 
+<span class="open_box">7+1</span><span class="open_box">0</span><span class="open_box">1</span> &rarr; 
+<span class="open_box">8</span><span class="open_box">0</span><span class="open_box">1</span>
+
+</span>
+
+Done. Fixed.
+<br>
+This procedure might look vaguely familiar. It is in fact more or less what we are told in elementary school when we first face additions: it is adding with carryover. And it is all because adding two numbers written in this way (instead of unary numbers made of <i>I</i>s) might generate a result that is not in normal form, hence we need a special way to rewrite it back to normal form.
+In our example we pass through a few representations of the result, which stand for the same value, but look different, and only one of them is acceptable (AKA in normal form): 
+<span class="open_box">7</span><span class="open_box">9</span><span class="open_box">11</span>,  
+<span class="open_box">7</span><span class="open_box">10</span><span class="open_box">1</span>,  
+<span class="open_box">8</span><span class="open_box">0</span><span class="open_box">1</span>.
+Interestingly, the value of all three numbers is the same (using our linear combination with powers of 10): 
+<span class="formula">7 * 100 + 9 * 10 + 11 * 1 &rarr; 700 + 90 + 11 &rarr; 801</span>
+<span class="formula">7 * 100 + 10 * 10 + 1 * 1 &rarr; 700 + 100 + 1 &rarr; 801</span>
+<span class="formula">8 * 100 + 0 * 10 + 1 * 1 &rarr; 800 + 0 + 1 &rarr; 801</span>
+<br>
+<span class="task">How would you define subtraction using the abacus? 
+<br>
+Try with few examples to see if you definition breaks the normal form.</span> 
+</p>
+
+<p>
+Moral of the story so far: <i>if math is a language... what is it talking about?</i>
+<br>Mainly math talks about counting, and counting has to do with numbers (because sheeps take up too much space). The only <i>true</i> numbers are unary numbers, because the way they look (syntax) tells immediately what they mean (semantics). Addition and even multiplication are pretty simple with numbers made of <i>I</i>s. 
+<br>But unary is too long and tedious to work with. Therefore, we want to invent shorter notations. When we do we have to redefine addition (and subtraction and multiplication), so that it works on the way numbers look in our new notations (their syntax).
+<br>
+Grouping numbers into boxes, or representing the groups as spikes on an abacus makes for good syntaxes for numbers. Using these notations we have to find a way to express that some group can be empty, hence we invent ways to write zero.
+<br>
+For every notation we have to ask: what is the normal form (that is, the correct way to write a number in that notation), in which other ways can the same number be written, and how can we transform a number by changing its syntax but not its value (semantics). We use these ideas to redefine addition (and other operaions) in any new notation we invent.
+<br>
+Finally, we might need a weighted sum (AKA linear combination) to find out the actual meaning of a number. For example with the abacus, we need <i>linear combination of powers of 10</i> to find out what number is represented by a specific set of beads on its spikes. Weigthed sums are an interesting way to blend addition and multiplication. But isn't multiplication BUILT ON TOP of addition? Isn't multiplication a sort of <i>repeated addition</i>? If so, how much sense does it make to mix the two operations? Sure, OK, but this is stuff for the another chapter.
+</p>
+
+<h2>Puzzles</h2>
+
+<h3>(1) Work with days-hours-minutes.</h3>
+Rewrite the following time-numbers in the correct normal form (which is: no more than 23 hours and no more than 59 minutes in any number), without changing their meaning. Then rewrite each in minutes.
+<ul>
+	<li><span class="open_box">0</span><span class="open_box">1</span><span class="open_box">85</span> in days-hours-minutes = <span class="open_box">?</span><span class="open_box">??</span><span class="open_box">???</span> = ? minutes
+		<br>The questions here are: "how to correctly write 1 hour and 85 minutes?", and "how many minutes are there in 1 hour and 85 minutes?"
+	</li>
+	<li><span class="open_box">1</span><span class="open_box">28</span><span class="open_box">125</span></li>
+	<li><span class="open_box">7</span><span class="open_box">23</span><span class="open_box">70</span></li>
+</ul>
+Be sure to use a calculator if you need to.
+
+<br><br>(1.1) Add the following pairs of time-numbers, and write the results in the correct normal form:
+<ul>
+	<li><span class="open_box">0</span><span class="open_box">20</span><span class="open_box">40</span>	+ 
+	<span class="open_box">2</span><span class="open_box">3</span><span class="open_box">21</span> = 
+	<span class="open_box">? day</span><span class="open_box">?? hour</span><span class="open_box">??? minutes</span> </li>
+	<li><span class="open_box">1</span><span class="open_box">12</span><span class="open_box">25</span>	+ 
+	<span class="open_box">2</span><span class="open_box">18</span><span class="open_box">55</span> = ?	</li>	
+</ul>
+
+<h3>(2) Counting dogs, or create a new kind of number system.</h3>
+Say that in your neighborhood there are many dogs. Instead of counting them by using tallies (AKA using unary numbers), you want to create your own shorthand for dog-numbers. So you decide that: D stands for 1 dog, when 3 dogs are together they will start barking, so B stands for 3 dogs. 
+And if you put 2 groups of barking dogs together you can make a small musical performance, so M is for 2 Bs.
+We can also agree that the order of the letters does not matter in this notation: so DDB (which is 1+1+3=5 dogs) is the same as DBD or BDD. The normal form here is that there shoud not be more than 2 Ds in any number (because 3 times D is B), and there should not be more than 1 B in any number.
+Rewrite the following numbers in normal form if needed, and find out how many dogs each number represents (AKA their value in uniary or in ordinary base 10 if you prefer):
+<ul>
+	<li>DDDDD = <span class="open_box">? M</span><span class="open_box">?? B</span><span class="open_box">??s? D</span> = ? dogs</li>
+	<li>DM</li>
+	<li>MBDMDMM</li>
+	<li>BMD</li>
+	<li>MDDM</li>
+	<li>BD</li>
+	<li>BDBD</li>
+	<li>BMDBMD</li>
+</ul>	
+
+<br>(2.1) Create a rule to add two dog-numbers. Try your rule with:
+<ul>
+	<li> DD + DD = <span class="open_box">? M</span><span class="open_box">?? B</span><span class="open_box">??? D</span> </li>
+	<li> BMD + BMD </li>
+	<li> MBDMDMM + BMD </li>
+</ul>
+To see if your rule works correctly on these examples, convert the numbers into base 10 (or unary if your prefer) and check the results.
+<br>
+What happens if/when you have to fix the result of an addition? Do you need to consider carrying in your rule?
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+<script src="js/make_links.js"></script>
+</body>  

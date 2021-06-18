@@ -1,0 +1,27 @@
+var JSON_LIKE_DATA = 
+{"stripDecks":
+   {"hero":["H2","H3"],
+    "monster":["M2","M3","M4","M6"],
+    "sword":["S2","S3"],
+    "live":["1L","2L","3L"],
+    "standard":["WA","HP"]},
+ "imageSet":         
+    {"H2":"images/hero2.png","H3":"images/hero3.png",
+     "M2":"images/monster-2-medium.png",
+     "M3":"images/monster-3-medium.png",
+     "M4":"images/monster-4-medium.png",
+     "M6":"images/monster-6-medium.png",
+     "S2":"images/sword2.png",
+     "S3":"images/sword3.png",
+     "3L":"images/3L.png",
+     "2L":"images/2L.png",
+     "1L":"images/1L.png",
+     "WA":"images/wall.png"},
+ 
+ "stripBoard":{"rows":8,"cols":13},
+ 
+ "gameRules":[{"ruleGroup":"_gameRules","name":"MonsterMove"},      
+              {"ruleGroup":"_gameRules","name":"Respawn"}],
+ 
+ "playerRules":[{"ruleGroup":"_playerRules","name":"Hero-right"},{"ruleGroup":"_playerRules","name":"Hero-left"},{"ruleGroup":"_playerRules","name":"Hero-up"},{"ruleGroup":"_playerRules","name":"Hero-down"},{"ruleGroup":"_playerRules","name":"Hero-slice"}]
+}

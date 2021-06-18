@@ -1,0 +1,137 @@
+<html>
+<head>
+  <title>simpleTextModeGame</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+  <style>
+  body {
+    font-family: "Lucida Console", Monaco, monospace;
+  }
+  #renderingPanel {
+	display: block;
+	height: 50px;
+	text-align: center;
+	padding: 20px;
+    border-style: solid;
+    border-width: 1px;
+	border-color: #DAEEF5;
+  }
+  
+  .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  #UIPanel {
+	display: block;
+	text-align: center;
+	padding: 20px;
+  }
+  </style>
+  
+</head>
+<body ng-app="textModeGame">
+<h1>Simple Text-Mode Game</h1>
+
+<div ng-controller="GameController">
+    	
+	<div id="renderingPanel" class="noselect"
+		ng-swipe-left="left(); swiping=true" 
+		ng-swipe-right="right(); swiping=true"
+		
+		ng-mouseup="jump()"
+		ng-click="swiping=false"
+		>{{ render() }}</div>
+	
+	<p id="UIPanel">
+    <button ng-click="left()">Left</button>
+	<button ng-click="jump()">Jump</button>
+	<button ng-click="right()">Right</button>
+	</p>
+</div>
+
+<p>
+<h1>Instructions</h1>
+Move your character (the 'P') left and right. Try to jump on the button (the 'T') to lower the brigde (the sequence of '*' characters). 
+To win, reach the exit (marked as 'E').
+<br>
+On mobile devices: swipe left and right on the display area above; tap to jump.
+</p>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-touch.js"></script>
+
+
+<script>
+// read query-string from URL
+const urlParams = new URLSearchParams(location.search);
+const params = urlParams.toString().split('&').map( e=> unescape(e) );
+console.log( urlParams.toString().split('&') );
+let lvl,pos;
+eval(params[0]);
+eval(params[1]);
+console.log( lvl,pos );
+let theLevel = [lvl,pos];
+// ----------------------------
+
+String.prototype.replaceAt = function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+angular.module('textModeGame', ['ngTouch']).controller('GameController', function($scope) {
+
+	$scope.swiping = false;
+
+    $scope.playerX = theLevel[1]; //3;
+	$scope.tiles = theLevel[0]; //'x--------T------********-----E-x';
+	$scope.walkableTiles = '-=TtE';
+	$scope.gameOver = false;
+		
+	$scope.render = function(){
+		if ($scope.tiles[$scope.playerX]=='E'){
+			$scope.gameOver = true;
+			$scope.jump = $scope.right = $scope.left = function(){};
+		} 
+		
+		var t = $scope.tiles.replaceAt($scope.playerX,'P');
+		if ($scope.gameOver) {
+			t += '   *** VICTORY !!! ***';
+		}
+		return t;
+	}
+
+    $scope.left = function () {
+		var newX = $scope.playerX-1;
+		if ($scope.walkableTiles.indexOf($scope.tiles[newX])!=-1){
+			$scope.playerX = newX;
+		}
+    }
+
+    $scope.right = function () {
+		var newX = $scope.playerX+1;
+		if ($scope.walkableTiles.indexOf($scope.tiles[newX])!=-1){
+			$scope.playerX = newX;
+		}
+    }
+
+	$scope.jump = function () {
+		if ($scope.swiping){ return; }
+		
+		console.log("JUMPING");
+		if ( $scope.tiles[$scope.playerX]=='T' ){
+			$scope.tiles = $scope.tiles.replaceAt($scope.playerX,'t');
+			$scope.tiles = $scope.tiles.replace(/\*/g,'=');
+		}
+    }
+		
+});
+</script>
+
+</body>
+</html>
+

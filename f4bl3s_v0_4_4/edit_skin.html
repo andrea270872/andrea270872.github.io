@@ -1,0 +1,220 @@
+<html>
+<head>
+  <style>
+    .drop_zone {
+      display: inline-block;
+      border: 2px dashed #bbb;
+      border-radius: 5px;
+      padding: 25px;
+      text-align: center;
+      color: #bbb;
+      
+      width: 200px;
+      height: 50px;
+    }
+
+  .thumb {
+    height: 50px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }    
+  </style>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/fable.js"></script>
+<script>
+    
+$(document).ready(function(){
+
+    var workingOnFableName = localStorage.getItem('fables_workingOnFable');
+    var fName = '';
+    if (workingOnFableName){
+            fName = workingOnFableName;
+    } else {
+        fName = prompt(
+            'Available F4BL3s are: '+fablesNames+'\n'+
+            'Load F4BL3:' , fablesNames[0]);
+    }
+
+    fable = JSON.parse( localStorage.getItem('aFable_'+fName) );
+    // DEBUG console.log(  '|'+fName+'|' , JSON.stringify(fable));
+    // DEBUG console.log(  fable.palette.rooms );
+    if (fable.palette.rooms==null){
+        fable.palette.rooms = new FableSlide();
+    }
+
+    $('#palette').empty();
+    $('#palette').append('<p>Title: '+fable.title+'</p>');
+    
+    // people
+    var $list = $('<ul></ul>');
+    $('#palette').append('People:').append($list);
+    fable.palette.people.forEach(function(name,index){
+        $list.append(
+            '<li>'+name+
+                //' <button id="person'+index+'">setImg</button>'+
+                '<div class="drop_zone" data-name="'+name+'">Drop image file here</div>'+
+            '</li>'
+        );
+    });    
+    
+    var $list = $('<ul></ul>');
+    $('#palette').append('Things:').append($list);
+    fable.palette.things.forEach(function(name,index){
+        $list.append(
+            '<li>'+name+
+//                ' <button id="thing'+index+'">setImg</button>'+
+                '<div class="drop_zone" data-name="'+name+'">Drop image file here</div>'+
+            '</li>'
+        );
+    });
+
+    /*
+    console.log( fable.palette.rooms );
+    $('#palette').append('Rooms:<br/>');
+    $('#palette').append(JSON.stringify(fable.palette.rooms)); // TO DO
+    */
+
+
+
+
+// ***  drag&drop uploading for images *******************************
+  // it's a table: itemName->imageBase64 , default is null
+  var skinIconsDiv = document.getElementById('skinIcons');
+  //skinIcons
+  if (fable.skin!=null){
+  	console.log( "skin:" , fable.skin );
+  	// add thumbnail for all names in the skin
+  	Object.keys(fable.skin).forEach(function(skinName){
+		var span = document.createElement('span');
+    	span.innerHTML = [skinName,
+    					'<img class="thumb" src="data:image/png;base64,', 
+    						fable.skin[skinName],
+    					'"></img>'].join('');
+		skinIconsDiv.insertBefore( span , skinIconsDiv.firstChild);
+	});
+  } else
+  	fable.skin = {};
+
+  function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var files = evt.dataTransfer.files; // FileList object
+
+    // accept only 1 file at the time
+    if (files.length!=1)
+        return;
+
+    // Only process image files.
+    var f = files[0];
+    if (!f.type.match('image.*')) {
+      return;
+    }
+	// check file size: if the file is too big, do not process it
+	if (f.size>20000){ // no more than 20 kb
+		alert('File is too large... \nUpload a smaller file, less than 20kb');
+		return;
+	}
+
+    var reader = new FileReader();
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+      localStorage.removeItem('img_base64');
+
+      return function(e) {
+        // Render thumbnail.
+        var span = document.createElement('span');
+        span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                          '" title="', escape(theFile.name), '"/>'].join('');
+        evt.target.appendChild(span);
+        //console.log( evt.target );
+
+        var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
+        //console.log( evt.target.dataset );
+        // DEBUG console.log( evt.target.dataset.name + ' ---> ' + base64result );
+
+        // it's a table: itemName->imageBase64 , default is null
+        fable.skin[evt.target.dataset.name] = base64result;
+        console.log( "fable.skin ===> ", fable.skin );
+/*        
+        var name = 'image';
+        var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({base64:base64result}));
+        document.getElementById('list').innerHTML += '<br>'+
+          '<a title="download img base64"'+
+          'href="data:' + data + '" download="'+name+'.json"'+
+          '>[<u>&dArr;</u>]</a>';
+
+        // also store the image in localstorage
+        localStorage.setItem('img_base64',base64result);
+*/
+      };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
+  }
+
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+
+  // Setup the dnd listeners.  
+  var dropZoneDivs = document.getElementsByClassName('drop_zone');  
+  for (var i=0;i<dropZoneDivs.length;i++){
+    var d = dropZoneDivs[i];
+    d.addEventListener('dragover', handleDragOver, false);
+    d.addEventListener('drop', handleFileSelect, false);
+  }
+
+
+  // *** save button **********************************************
+	$('#saveBtn').on('click',function(evt){
+		// if no skin defined => skin is null!
+		if ( JSON.stringify(fable.skin) === JSON.stringify({}) ){
+			fable.skin = null;
+		}
+
+		var saveFable = fable;
+		// DEBUG  console.log( JSON.stringify(saveFable) );
+		if (confirm('Are you sure you want to save the new version of the F4BL3?')) {
+			// Save it!
+			
+			// DEBUG saveFable.title = 'test';			
+			localStorage.setItem('aFable_'+saveFable.title,JSON.stringify(saveFable));
+
+			window.location.reload();
+		}
+	});
+
+	$('#resetBtn').on('click',function(evt){
+		fable.skin = {};
+		$('.thumb').remove();
+		$('#skinIcons').empty();
+	});
+
+});
+</script>
+</head>
+<body>
+    <center><h1>F4BL3 skin editor</h1></center>
+    <h2>Create and edit a skin for a F4BL3</h2>
+	
+    <div>
+    	<button id="saveBtn" type="button" >save fable</button> 
+    	<span> </span>
+    	<button id="resetBtn" type="button" >reset skin</button>
+    </div>
+
+	<div id="container">
+		<div id="skinIcons">
+		</div>
+        <div id="palette"></div>	    
+    </div>
+
+	<hr/>
+	<p>[<a href="index.html">backToIndex</a>]</p>    
+</body>
+</html>

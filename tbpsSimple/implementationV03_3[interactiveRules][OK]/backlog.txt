@@ -1,0 +1,10 @@
+09:44 29-03-2017
+
+Just a simple testpage to:
+- setup a few cards
+- then test selecting and moving cards around
+
+It helps defining/testing new rules
+
+=> it will become the rule editor, but it needs to show the DLS more visually!
+

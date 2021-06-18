@@ -1,0 +1,301 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <title>Appendix A</title>  
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="page006.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<!--a href="page005.html">&gt;</a-->
+	<span class="disabled">&gt;</span>
+</div>
+
+<h1>Appendix A - The weird stuff that did not fit</h1>
+
+<a name="appendixA01"></a>
+<h2>Money as linear combination</h2>
+<div class="todo">
+
+Money works this way too.. You can have many ways to combine the various coin denominations to reach a specific amount. Denominations is just a fancy term for the types of coins that there are in a currency. For example US Dollars have these denominations: cent, nickel, dime, quarter, half dollar, and dollar.
+...
+<br>
+If we drop take the formula
+<span class="formula">
+a * 10 + b
+</span>	
+and drop the restriction that a and b must be between 0 and 9, I get a situation similar to what happens with money. The same amount can be created from different combination of coins (and banknotes eventually).
+
+... to do ...
+
+US money: 1c , 5c, 10c, 25c, 50c, 100c=1$ -> the same amount can be represented in multiple ways...
+How to find the value of a certain combination ...
+
+
+</div>
+</p>
+
+<a name="appendixA02"></a>
+<h2>Proper, improper and apparent fractions</h2>
+<p>
+<div class="todo">
+	to do 
+<br>	
+bla bla
+</div>
+</p>
+
+<a name="appendixA03"></a>
+<h2>Sum of numbers from 1 to n</h2>
+<div class="todo">
+	to do 
+<br>	
+bla bla
+</div>
+</p>
+
+<a name="appendixA04"></a>
+<h2>Prime and composite numbers</h2>
+<div class="todo">
+	to do 
+<br>	
+<a href="https://en.wikipedia.org/wiki/Prime_number">def</a> ... examples of primes and composites, a few historical pointers ...
+</div>
+</p>
+
+<a name="appendixA05"></a>
+<h2>Polynomials as linear combinations of variables and numbers</h2>
+<p>
+<div class="todo">
+	to do 
+<br>	
+
+a<sub>n</sub>*x<sup>n</sup> + a<sub>n-1</sub>*x<sup>n-1</sup> + ... + a<sub>2</sub>*x<sup>2</sup> +
+a<sub>1</sub> * x + a<sub>0</sub>
+
+"A polynomial is an expression that can be built from constants and symbols called indeterminates or variables by means of addition, multiplication and exponentiation to a non-negative integer power. Two such expressions that may be transformed, one to the other, by applying the usual properties of commutativity, associativity and distributivity of addition and multiplication are considered as defining the same polynomial."
+
+https://en.wikipedia.org/wiki/Polynomial
+
+
+"Polynomials are linear combinations of powers of x. The highest power is the order of the polynomial. For example, a cubic is a polynomial of order 3."
+from https://studywell.com/maths/pure-maths/algebra-functions/polynomials/
+
+</div>
+
+<br>
+Base 10 numbers and polynomials are similar. Let me give you an example:
+<span class="formula">
+	3 * 10<sup>2</sup> + 2 * 10<sup>1</sup> + 5 * 10<sup>0</sup> = 325
+</span>
+Now let's replace <b>10</b> with the variable <b>x</b>, AKA <b>x=10</b>:
+<span class="formula">
+	3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup> = 325
+</span>
+Fine, nothing special about that substitution. But... wait! Now I have an opportunity to <i>change</i> <b>10</b> to another number, because now I can put any number I want in <b>x</b>, and see what it gets me.
+For example, let me try a few values to get the feeling of this polynomial:
+<table style="line-height:.8em;margin-left:5em" width="80%" style="line-height: 1em;">
+	<tr align="center"  style="font-weight:1000"><th>x</th><th>3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup></th></tr>
+	<tr align="center" style="background:#F0F0FF"><td>10</td><td>325</td></tr>
+	<tr align="center"><td>9</td><td>266</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>8.5</td><td>238.75</td></tr>
+	<tr align="center"><td>...</td><td>...</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>5</td><td>90</td></tr>
+	<tr align="center"><td>1</td><td>10</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>0</td><td>5</td></tr>
+	<tr align="center"><td>-1</td><td>6</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>-2</td><td>13</td></tr>
+	<tr align="center"><td>-10</td><td>285</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>...</td><td>...</td></tr>
+	<tr align="center"><td>100</td><td>30205</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>1000</td><td>3002005</td></tr>
+	<tr align="center"><td>...</td><td>...</td></tr>
+</table>
+Interesting. For example when <b>x</b> is larger than <b>10</b> the value of the polynomial grows: 
+<b>x=100 &rarr; polynomal = 30205</b>, and <b>x=1000 &rarr; polynomal = 3002005</b>. So it looks like the larger <b>x</b> gets the more the digits of the number <b>325</b> SEPARATE! 
+<br>
+In a very real sense <b>x</b> CONTROLS the separation between the spikes of the abacus. Try with the playground below, to see what happens as you change <b>x</b>. Try with <b>x=5.5</b> and <b>x=1000</b>.
+</p>
+
+<p>
+	<div class="playground" id="playground1"></div>
+	<script src="js/appendixA_01.js"></script>
+	<script>prepare_appendixA_01('playground1')</script>
+</p>
+
+<p>
+And finally, another way to see this is to say that:
+<span class="formula">
+	3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup>
+</span>
+is that it is the linear combination of three simpler expressions in <b>x</b>: <b>x<sup>2</sup></b>,
+<b>x</b>, and <b>1</b>.
+Try in the playground below, to combine these three functions, using different weigths, and see what comes out. Be sure to try also with the weights <b>3, 2, 5</b>.
+</p>
+<p>
+	<div class="playground" id="playground2"></div>
+	<script src="js/appendixA_02.js"></script>
+	<script>prepare_appendixA_02('playground2')</script>
+</p>
+<p>
+If you try with <b>1, 0, 3</b>, then reduce the last number from <b>3</b> down to <b>-3</b>, decreasing it of <b>1</b> at each step. 
+<br>In how many points does the blue line touch the <i>X axis</i> in each case? 
+<br>When the third number is larger than <b>0</b> there are no intersection points between the line and the axis. When the number is exactly <b>0</b>, there is one point of intersection; when the number is less than <b>0</b> the points are two. 
+<br>
+This means that in some cases the polynomial can go negative (or be equal to zero) in same points, and in some others it never does (for example in the case of <b>x<sup>2</sup>+2</b>). And by combining the three expressions <b>x<sup>2</sup></b>, <b>x</b>, and <b>1</b>, with different weights, we can effectively generate many kinds of resulting plot.
+</p>
+
+
+<a name="appendixA06"></a>
+<h2>Fruit salad multiplication</h2>
+<div class="todo">
+	to do 
+<br>	
+...
+
+<img src="cartesian product.jpg">
+https://en.wikipedia.org/wiki/Cartesian_product
+</div>
+</p>
+
+<a name="appendixA07"></a>
+<h2>A different defintion of addition of Peano numbers</h2>
+Another way to look at addition is that it looks like the <i>successor</i> operation repeated many times. For example, if <b>3</b> is also "<i>+1</i> repeated <b>3</b> times", then <b>5 + 3</b> must also be <b>5 + 1 + 1 + 1</b>. More in general then, if I have two numbers to add, called them <i>a</i> and <i>b</i>, it should be correct to say:
+<span class="formula">
+a + b = a <span data-bracket="b times">+1 ... +1</span>
+</span><br>
+
+But surely also: 
+<span class="formula">
+a + b = <span data-bracket="a times">+1 ... +1</span> + b = 
+<span data-bracket="a times">+1 ... +1</span> <span data-bracket="b times">+1 ... +1</span>
+</span><br>
+
+since also <i>a</i> can be seen as Peano number, made of a repetition of <i>+1</i>s.
+And because <b>a + b</b> is just a bunch of <i>+1</i>s representing <i>a</i> put together with another bunch making up <i>b</i>, then clearly it does not matter in what order I put them together, the result will be the same, so:
+
+<span class="formula">
+a + b = <span data-bracket="a times">+1 ... +1</span> <span data-bracket="b times">+1 ... +1</span> 
+= <span data-bracket="b times">+1 ... +1</span> <span data-bracket="a times">+1 ... +1</span> 
+= b + a
+</span><br>
+
+And this is true for any two numbers!
+<br>
+Really?! What about if <i>b</i> is <b>0</b>? Or <b>1</b>?
+Let's see. I can try putting <b>b = 0</b> in the formula above, and I get:
+<span class="formula">
+a + 0 = a <span data-bracket="0 times">+1 ... +1</span> = a 
+</span><br>
+
+But what is "+1 repeated 0 times"? It must be nothing, right? So it is true that: <b>a + 0 = a</b> , for any number <i>a</i>. And because  <b>a + b = b + a</b>, also <b>0 + a = a</b>, for any number <i>a</i>. Not a big surprise there, but good that now we could SEE where these properties of the addition comes from.
+<br>And what about <b>b = 1</b>? What do you think? 
+
+<span class="formula">
+a + 1 = a <span data-bracket="1 time">+1 ... +1</span> = a +1 = "the successor of a"
+</span><br>
+
+OK, again nothing too suprising here, but at least our intuition of what it means to add two numbers holds when we express it in terms of Peano numbers.
+</p>
+
+<a name="appendixA08"></a>
+<h2>What is <i>a</i> to the power of <b>-1</b>?</h2>
+<p>
+Remember that the general rule for calculating <b>a<sup>b</sup> * a<sup>c</sup></b> is:
+<span class="formula">
+	a<sup>b</sup> * a<sup>c</sup> = a<sup>(b+c)</sup>
+</span>
+Here I want to find out what could <b>a<sup>-1</sup></b> be. I don't know at this point, but whatever it is, it must work like the rest of the power operations... so the rule <b>a<sup>b</sup> * a<sup>c</sup></b> must still apply. So I can try to use the rule and look at:
+<span class="formula">
+	a<sup>-1</sup> * a<sup>c</sup>
+</span>
+where <b>b=-1</b>. By definition, that gives me:
+<span class="formula">
+	a<sup>-1</sup> * a<sup>c</sup> &rarr; a<sup>(-1+c)</sup> 
+</span>
+or, written in a <i>nicer</i> way: <b>a<sup>(c-1)</sup></b>. OK, so what if <i>c</i> is one, AKA <b>c=1</b>?
+Well, in that case I get: <b>a<sup>-1</sup> * a<sup>1</sup> &rarr; a<sup>0</sup></b>; but I know that 
+<b>a<sup>0</sup> = 1</b>. So: 
+<span class="formula">
+	a<sup>-1</sup> * a<sup>1</sup> = 1
+</span>
+and I did not assume anything special about <i>a</i>, so it can be ANY number. Interesting. How does that look, substituting <i>a</i> with a few numbers (to get the feeling of that equivalence there)?
+
+<center>
+<table width="80%" style="line-height:1em;">
+	<tr align="center"><th><b>a</b></th><th><b>a<sup>-1</sup> * a<sup>1</sup> = 1</b></th>
+		<th><b>a<sup>-1</sup></b></th>
+	</tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>1</td><td>? * 1 = 1 &rarr; </td><td>1</td></tr>
+	<tr align="center">
+			<td>2</td><td>? * 2 = 1 &rarr;</td>
+			<td><span class="frac"><sup>1</sup><sub>2</sub></span> = 0.5</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>3</td><td>? * 3 = 1 &rarr; </td>
+			<td><span class="frac"><sup>1</sup><sub>3</sub></span> = 0.333</td></tr>
+	<tr align="center">
+			<td colspan="3">...</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>10</td><td>? * 10 = 1 &rarr; </td>
+			<td><span class="frac"><sup>1</sup><sub>10</sub></span> = 0.1</td></tr>
+	<tr align="center">
+			<td colspan="3">...</td></tr>
+</table>
+</center>
+<br>
+
+So it looks like any number <i>a</i> to the power of <b>-1</b> is simply 
+<span class="frac"><sup>1</sup><sub>a</sub></span>. In math they call 
+<span class="frac"><sup>1</sup><sub>a</sub></span> "the inverse" of <i>a</i>, and the property of inverses is that when you multiply a number by its inverse, you always get <b>1</b>. Zero is special when it comes to inverses: zero has no inverse.
+<br>
+Anways. Negative powers are just the inverse of the corresponding positive powers. Or if you prefer a formula:
+<span class="formula">
+	a<sup>-n</sup> = <span class="frac"><sup>1</sup><sub>a<sup>n</sup></sub></span>
+</span>
+where <i>a</i> can be any number, and  any <i>n</i> can be any positive number.
+
+</p>
+
+
+<a name="appendixA09"></a>
+<h2>title</h2>
+<p>
+<div class="todo">
+	to do 
+<br>	
+...
+</div>
+</p>
+<a name="appendixA10"></a>
+<h2>title</h2>
+<p>
+<div class="todo">
+	to do 
+<br>	
+...
+</div>
+</p>
+
+<a name="appendixA11"></a>
+<h2>title</h2>
+<p>
+<div class="todo">
+	to do 
+<br>	
+...
+</div>
+</p>
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+
+
+</body>  

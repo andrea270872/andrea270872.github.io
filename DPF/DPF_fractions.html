@@ -1,0 +1,41 @@
+<html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="DPF/DPF_style.css">
+   </head>
+   <body>
+      <canvas id="myCanvas"></canvas>
+
+   <!-- The Modal -->
+   <div id="myModal" class="modal">
+     <div class="modal-content">
+       <span class="close">&times;</span>
+       <p><h1>INFO </h1>
+         <div id="myModalInfo"></div>
+       </p>
+       <br/>
+       <p>
+         <h2>Load/Save</h2>
+         <form>
+            <button class="button" id="btn1">Load</button>
+            <button class="button" id="btn2">Save</button>
+         </form>
+       </p>
+     </div>
+   </div>
+
+
+   <!-- The ADTs -->
+   <script src="DPF/DPF_ADT_DEF.js"></script>
+      
+   <script src="fractions/DPF_Fraction.js"></script>
+   <script src="DPF/playground.js"></script>      
+      
+   <script src="DPF/engine.js"></script>
+   <script>
+   var ADT = new Fraction();
+      
+//   console.log( ADT );
+   DPF_Engine(ADT, 60,'DPF/cogIcon.png', 'fractions001');
+   </script>
+</body>
+</html>

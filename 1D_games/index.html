@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<title>My games in 1 dimension</title>
+	</head>
+	
+	<style type="text/css">
+	table{
+		width:100%;
+		border:1px solid black;
+	}
+	th{
+		border:1px solid black;
+	}
+	.blue{
+		background-color:#F0F0FF;
+	}
+	</style>
+
+<body>
+	<H1><center>1D games</center></H1>
+	<h3>Exploration of games in 1 dimension</h3>
+	<table>
+	<tr><th>Original Game</th>
+		<th>Transposed to 1D</th>
+		<th>Focus of the transpositon</th>
+	</tr>
+	<tr><td rowspan="3" class="blue">Tetris</td>
+			<td><a href="1Dminos/1Dminos.html">1Dminos</a></td>
+			<td>Tetris has shapes and rotation, here they are replaced by color or color patterns, 
+				and string-like operations, as swap and reverse.</td>
+	</tr><tr>
+			<td><a href="1Dminos_vertical/1Dminos.html">1Dminos vertical</a></td>
+			<td>Same game, but rotated. This VERTICAL version should work better on mobile phones.</td>
+	
+	</tr><tr>
+			<td><a href="tetris1D/tetris1D.html">Tetris in 1D</a></td>
+			<td>Falling colored squares instead of 2D shapes. In classic tetris the pile of falled pieces cannot be manipulated,
+			here instead the reverse operation acts on it. Reversing the pile, it is possible to save a 
+			falling squares for later use.</td>
+	
+	</tr>
+	
+	<tr><td rowspan="2">Pinball</td>
+		<td><i><a href="pinball1D_A/pinball1D.html">Pinball 1D A</a></i></td>
+			<td>NOT FULLY PLAYABLE.
+			A 1 dimensional pinball (suggested by Søren). The Sounds are used to suggest pinball-behaviour.
+			The paddle has a simple binary behavior: it is active or inactive.</td>
+	</tr><tr>
+		<td><a href="pinball1D_B/pinball1D.html">Pinball 1D B</a></td>
+			<td>PLAYABLE, WORK-IN-PROGRESS.
+			The paddle here has acceleration and slides in and out more realistically.</td>
+	</tr>
+	<tr><td><a href="http://www.bloxorzgame.com/">Bloxorz</a></td>
+		<td><a href="blox1D/Blox1D.html">Blox 1D</a></td>
+			<td>This game is rendered in an artistic 1D style, and to show that a simple 1D display could still represent it,
+			a pure 1D representation is also shown (in the top-right corner of the canvas).
+			<br>This games has an editor, so players can experiment creating their own levels.</td>
+	</tr>
+	
+	<tr><td rowspan="3" class="blue">Sokoban</td>
+		<td><i><a href="soko1D_A/soko1D.html">Soko1D A</a></i></td>
+			<td>NOT FULLY PLAYABLE. Actions: Push + swap numbers</td>
+	</tr><tr>
+			<td><i><a href="soko1D_B/soko1D.html">Soko1D B</a></i></td>
+			<td>NOT FULLY PLAYABLE. Actions : push + directional swap</td>
+	</tr><tr>
+		<td><a href="soko1D/soko1D.html">Soko 1D</a></td>
+			<td>The game exploits foldings of the 1D levels, so that the game space is infact 1.5D.
+			The game is now fairly playable and has 9 levels showing that there is some room for level design even in a 1D game.
+			</td>
+	</tr>
+	
+	<tr><td rowspan="2">Rogue</td>
+		<td><i><a href="rogue1D/rogue1D.html">Rogue1D</a></i></td>
+			<td>NOT FULLY PLAYABLE. This game has 1D visualization, but 1.5D game space.</td>
+	<tr>
+		<td><i><a href="rogue1D_pure1D/rogue1D_pure1D.html">Rogue1D pure1D</a></i></td>
+			<td>NOT FULLY PLAYABLE. A more pure 1D version of the Rogue1D.
+			This version only uses 1 coordinate for the player's position, and the rooms are modelled as a graph with doors connecting them,
+			still the result is very similar to the previous attempt. Rooms are color-coded to help navigate.</td>
+	</tr>
+	</tr>
+	
+	<tr><td rowspan="3" class="blue">1D 1Button B/W games</td>
+		<td><a href="1D1BBW_A/1D1B.html">1D 1B BW A</a></td>
+			<td>Try to figure out how this game is played. It is very minimalistic in both rules and visualization. 
+			<br>What name would you give to this game?</td>
+	</tr><tr>
+		<td><a href="1D1BBW_B/1D1B.html">1D 1B BW B</a></td>
+			<td>Anoter game with only 3 B/W pixels and very simple gameplay.
+			<br>What name would you give to this game?</td>
+	</tr><tr>
+		<td><a href="1D1BBW_C/1D1B.html">1D 1B BW C</a></td>
+			<td>This game is a bit more complex than the previous 2. Can you figure out its rules?
+			<br>What name would you give to this game?</td>
+	</tr>
+	
+	<tr><td>Space Invaders</td>
+			<td><a href="1Dinvaders/1Dinvaders.html">1Dinvaders</a></td>
+			<td>This is version 0.1, so still heavily UNDER CONSTRUCTION. 
+			<br>The idea is to have invaders disappear and reappear in a single vertical column, 
+			on top of the player's tank. The sounds are taken from the original game, the enemies should be rendered
+			using the original 8bit style and the shield and player's missiles have no effect by now.
+			<br><i>As an alternative, it could be interesting to have 2 columns of enemies, but only 1 is visible 
+			at any given time, so the player will have to press a button (or release it) to shift from a colunm to the other.</i>
+			</td>
+	</tr>
+	
+	</table>
+
+<p>By <a href="http://findresearcher.sdu.dk:8080/portal/da/person/anva">Andrea Valente</a>.
+</p>
+	<p>These games should work on various platforms thanks to javascript and HTML5 canvas; 
+	<br>among others they should work on chrome, firefox and safari, 
+	<br>as well as (perhaps in a limited way) on ipad and android devices.
+	</p>
+	<p>Finally, a possible implementation of these games could be using RGB LED strips - to create the ultimative xmas tree game! :D
+	<br><a href="http://learn.adafruit.com/digital-led-strip">RGB LED strips</a> in action... and HOWTO.</p>
+</body>
+</html>

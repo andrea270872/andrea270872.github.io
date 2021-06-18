@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta charset="utf-8">
+	<style>
+		body {
+			background: rgb(134, 122, 222);
+			user-select: none;
+		}
+
+		@font-face {
+			font-family: codeFont;
+			src: url(SourceCodePro-Regular.ttf);
+		}
+
+		#code_text {
+			font-family: 'codeFont';
+			font-size: 16px;
+			background-color: rgb(72,58,170);
+			color: rgb(132,122,222);
+			caret-color: white;
+		}
+
+		#c {
+			background: white;
+		}
+
+	</style>
+
+	<title>Mobile Dwitter Sandbox</title>	
+</head>
+<body>
+	<button id="play_stop" style="float:right">></button>
+	<span id="output"># chars 123</span>
+
+	<canvas id="c" style="width:80%;border:1px solid lightgray"></canvas>
+
+<div id="code">
+<textarea autocorrect="off" autocapitalize="off" spellcheck="false" id="code_text"
+style="width:80%;"
+rows="4" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';refreshOutput();">c.width=1920 // clear the canvas
+for(i=0;i<9;i++)
+x.fillRect(400+i*100+S(t)*300,400,50,200) // draw 50x200 rects</textarea>
+
+	<div id="buttons">
+		<button id="left_key"><-</button> &nbsp; &nbsp; 
+			<button id="home_key">HOME</button> &nbsp; 
+			<button id="enter_key">ENTER</button> &nbsp; 
+			<button id="end_key">END</button> &nbsp; 
+			&nbsp; &nbsp; &nbsp; <button id="del_key">DEL</button> &nbsp; &nbsp; &nbsp;
+		<button id="right_key">-></button> 
+	<br><br>
+		<button id="bracket_key">{}</button> &nbsp; 
+		<button id="string_key">'a'</button> &nbsp; 
+		<button id="for_key">for...</button> &nbsp; 
+		<button id="if_key">t?1:2</button> &nbsp;
+		<button id="special_key">~</button>
+	<br>
+		<button id="bracket2_key">()</button> &nbsp; 
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+		<button id="fillrect_key">x.fillRect</button> 
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+		<button id="special2_key">&</button>		
+	<br>
+		<button id="bracket3_key">[]</button> &nbsp; 
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+		<button id="special3_key">%</button>		
+	</div>
+
+</div>
+
+<script>
+	var the_code = document.querySelector('#code_text');
+	the_code.onselect = function() {
+		if (the_code.selectionDirection=='forward')
+			the_code.OLD_CURSOR_POS = the_code.selectionStart = the_code.selectionEnd;
+		else
+			the_code.OLD_CURSOR_POS = the_code.selectionEnd = the_code.selectionStart;
+	};
+
+	var output_span = document.querySelector('#output');
+	function refreshOutput(){
+		output_span.textContent = `# chars ${the_code.value.length}`;
+	}
+	refreshOutput();
+
+	the_code.focus();
+	the_code.OLD_CURSOR_POS = the_code.selectionStart = the_code.selectionEnd = 0;
+
+	function newCode(){
+		//playing = true;
+		var code_text = the_code.value;
+		code_text = '(t)=>{' + code_text + '\n}';
+		//console.log( code_text );
+	  	u = eval( code_text );
+	}
+
+
+    var c = document.querySelector("#c");
+    c.style.display='none';
+
+    c.width = 1920;
+    c.height = 1080;    
+    var x = c.getContext("2d");
+    
+    var S = Math.sin;
+    var C = Math.cos;
+    var T = Math.tan;
+    function R(r,g,b,a) {
+      a = a === undefined ? 1 : a;
+      return "rgba("+(r|0)+","+(g|0)+","+(b|0)+","+a+")";
+    }
+  
+    var time = 0;
+    var frame = 0;
+    var nextFrameMs = 0;
+    var FPS = 60;
+
+    var playing = false;
+
+    function loop(frame_time) {
+      if (playing){
+        requestAnimationFrame(loop);
+        epsilon = 1.5; // Acounts for different timestamp resolution and slight jitter
+        if (frame_time < nextFrameMs - epsilon) {
+          return;  // Skip this cycle as we are animating too quickly.
+        }
+        nextFrameMs = Math.max(nextFrameMs + 1000 / FPS, frame_time);
+
+		if(frame%50==0) output_span.textContent = time;
+      }
+      time = frame/FPS;
+      if(time * FPS | 0 == frame - 1){
+        time += 0.000001;
+      }
+      frame++;
+
+      try {		
+      	u(time);
+      } catch (e) {
+        console.log(e);
+        pauseDemo();
+        //throw e;
+      }
+  }
+
+	var code_text = the_code.value;
+	code_text = '(t)=>{' + code_text + '\n}';
+	//console.log( code_text );
+  	u = eval( code_text );
+  	loop(0.0);
+
+	function resetDemo(){
+      time = 0;
+      frame = 0;
+      newCode();
+    }
+
+	function pauseDemo(){
+		c.style.display='none';
+		code.style.display='block';
+
+		refreshOutput();
+
+		the_code.focus();
+		the_code.selectionStart = the_code.OLD_CURSOR_POS;
+		the_code.selectionEnd = the_code.OLD_CURSOR_POS;
+
+		if(!playing){
+		  return;
+		}
+		playing = false;
+	}
+
+	function playDemo(){
+	    c.style.display='block';
+	    code.style.display='none';
+
+	    the_code.OLD_CURSOR_POS = the_code.selectionStart;
+
+		if(playing){
+		  return;
+		}
+		playing = true;
+		requestAnimationFrame(loop);
+	}
+</script>
+
+<script>
+	var playStopBtn = document.querySelector('#play_stop');
+	playStopBtn.onclick = (evt)=>{
+		
+		document.body.requestFullscreen();
+		if ("orientation" in screen)
+			screen.orientation.lock("landscape-primary");
+
+		if (playStopBtn.textContent=='>'){
+			resetDemo();
+			playDemo();
+			playStopBtn.textContent='[]';
+		} else {
+			pauseDemo();
+			playStopBtn.textContent='>';
+		}
+	}
+
+
+	var leftBtn = document.querySelector('#left_key');
+	leftBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		if (pos>0) {
+			pos--;
+			the_code.selectionStart = the_code.selectionEnd = pos;
+		}
+		the_code.focus();
+	}
+
+	var rightBtn = document.querySelector('#right_key');
+	rightBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		if (pos<the_code.value.length){
+			pos++;
+			the_code.selectionStart = the_code.selectionEnd = pos;
+		}
+		the_code.focus();
+	}
+
+	var delBtn = document.querySelector('#del_key');
+	delBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		if (pos<the_code.value.length){
+			var t = the_code.value;
+			var part1 = t.substr(0, pos);
+  			var part2 = t.substr(pos+1);
+			the_code.value = part1+part2;
+			the_code.selectionStart = the_code.selectionEnd = pos;
+		}
+		refreshOutput();
+		the_code.focus();
+	}
+
+	var homeBtn = document.querySelector('#home_key');
+	homeBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+
+		var idx = pos-1;
+		var found = -1;
+		while (idx>0){
+			if (the_code.value[idx]=='\n'){
+				found = idx+1;
+				break;
+			}
+			idx--;
+		}
+		if (found==-1) found=0;
+		the_code.selectionStart = the_code.selectionEnd = found;
+		the_code.focus();
+	}
+
+	var endBtn = document.querySelector('#end_key');
+	endBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var idx = the_code.value.indexOf('\n',pos);
+		if (idx==-1){
+			idx = the_code.value.length;
+		}
+		the_code.selectionStart = the_code.selectionEnd = idx;
+		the_code.focus();
+	}
+
+	var enterBtn = document.querySelector('#enter_key');
+	enterBtn.onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'\n'+part2;
+		if (pos==the_code.value.length-1) pos++;
+		the_code.selectionStart = the_code.selectionEnd = pos;
+		refreshOutput();
+		the_code.focus();
+	}
+
+// --------------------------------------------------------------
+
+	document.querySelector('#bracket_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'{}'+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+1;
+		refreshOutput();
+		the_code.focus();
+	}
+	document.querySelector('#bracket2_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'()'+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+1;
+		refreshOutput();
+		the_code.focus();
+	}
+	document.querySelector('#bracket3_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'[]'+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+1;
+		refreshOutput();
+		the_code.focus();
+	}
+
+
+	document.querySelector('#string_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+		var part2 = t.substr(pos);
+		the_code.value = part1+'\'a\''+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+3;
+		refreshOutput();
+		the_code.focus();
+	}
+
+	document.querySelector('#for_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'for(i=0;i<9;i++);'+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+17;
+		refreshOutput();
+		the_code.focus();
+	}
+
+	document.querySelector('#fillrect_key').onclick = (evt)=>{
+		var pos = the_code.selectionStart;
+		var t = the_code.value;
+		var part1 = t.substr(0, pos);
+			var part2 = t.substr(pos);
+		the_code.value = part1+'x.fillRect(3,4,5,6s);'+part2;
+		the_code.selectionStart = the_code.selectionEnd = pos+'x.fillRect(3,4,5,6s);'.length;
+		refreshOutput();
+		the_code.focus();
+	}
+
+
+</script>
+</body>
+</html>

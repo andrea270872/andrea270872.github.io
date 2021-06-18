@@ -1,0 +1,232 @@
+<html>
+<head>
+
+<style>
+.fableName{
+	width: 150px;
+	display: inline-block;
+	}
+	
+.downloadButton, .toTwineButton, .toPPTButton {
+  -webkit-appearance: button;
+  background-color: buttonface;
+  color: buttontext;
+  border-radius: 5px;
+  padding: .1em;
+  margin:  .2em;
+  text-decoration: none;
+  cursor: default;
+}
+
+</style>
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/fable.js"></script>
+<script src="js/pptxgen.bundle.js"></script>
+<script src="js/exporterTo.js"></script>
+<script>
+var EXP = exporterTo();
+
+$(document).ready(function(){
+    localStorage.removeItem('fables_workingOnFable');
+    
+    var allStoredData = Object.keys(localStorage);
+    var fablesNames = allStoredData.filter(function(value,index){
+        return (value.startsWith('aFable_'));
+    });
+    fablesNames = fablesNames.map( function(fableName){
+        return fableName.slice('aFable_'.length);
+    });
+    //console.log( fablesNames );
+    
+    fablesNames.forEach(function(name,index){
+		var fableObj = JSON.parse( localStorage.getItem('aFable_'+name) );
+		var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fableObj));
+
+		var exportDataToTwine = EXP.toTwine(fableObj);
+	   	//console.log( exportDataToTwine );
+	   	var dataToTwine = "text/json;charset=utf-8," + encodeURIComponent(exportDataToTwine);
+
+        $('#fablesList').append( 
+                $('<div></div>').append(
+                    $('<span class="fableName">'+name+' </span> '))
+                .append( 
+                    $('<button class="editButton">edit</button> '+
+                      '<button class="playbackButton">playback</button> ' + 
+                      '<button class="skinButton">editSkin</button> ' + 
+					  '&nbsp &nbsp &nbsp &nbsp'+
+					  '<button class="cloneButton">[+]</button>'+
+					  '&nbsp &nbsp &nbsp &nbsp'+
+					  '<button class="deleteButton">[x]</button>'+
+					  '<span>&nbsp &nbsp &nbsp &nbsp</span>')
+				)
+				.append(
+					$( '<a class="downloadButton" title="download fable"'+
+						'href="data:' + data + '" download="'+name+'.json"'+
+ 						'>[&dArr;]</a>' )
+                )
+				
+				.append(
+					$( '<a class="toTwineButton" title="exportTo Twine"'+
+						'href="data:' + dataToTwine + '" download="'+fableObj.title+'_twine.html"'+
+ 						'>[toTwine]</a>' )
+                )
+
+				.append(
+					$( '<a class="toPPTButton" data-fablename="'+name+
+					   '" title="exportTo PowerPoint">[toPPT]</a>' )
+                )
+
+				
+        );
+	});
+		
+	$('.editButton').on('click',function(evt){
+		var fableName = $(this).parent().find('span.fableName').html().trim();
+		//console.log( fableName );
+		localStorage.setItem('fables_workingOnFable',fableName);
+		window.location.href = 'edit_fable.html';
+	});
+
+	$('.playbackButton').on('click',function(evt){
+		var fableName = $(this).parent().find('span.fableName').html().trim();		
+		//console.log( fableName );
+		localStorage.setItem('fables_workingOnFable',fableName);
+		window.location.href = 'playback_fable.html';
+	});
+	$('.skinButton').on('click',function(evt){
+		var fableName = $(this).parent().find('span.fableName').html().trim();
+		localStorage.setItem('fables_workingOnFable',fableName);
+		window.location.href = 'edit_skin.html';
+	});    
+	
+	$('.deleteButton').on('click',function(evt){
+		var fableName = $(this).parent().find('span.fableName').html().trim();
+		console.log('deleting...' + fableName+'|');
+		if (confirm('Are you sure you want to DELETE this F4BL3?')) {
+			localStorage.removeItem('aFable_'+fableName);
+			location.reload(true);
+		}
+	});
+
+	
+	$('.toPPTButton').on('click',function(evt){
+		var fableName = $(this).data('fablename');
+		//console.log( $(this).data() );
+		console.log('downloading...' + fableName+'|');
+
+		var fableObj = JSON.parse( localStorage.getItem('aFable_'+fableName) );
+		console.log( fableObj );
+        EXP.toPPT(fableObj);
+	});	
+
+	
+	$('.cloneButton').on('click',function(evt){
+		var fableName = $(this).parent().find('span.fableName').html().trim();
+	
+		var allStoredData = Object.keys(localStorage);
+		var fablesNames = allStoredData.filter(function(value,index){
+			return (value.startsWith('aFable_'));
+		});
+		fablesNames = fablesNames.map( function(name){
+			return name.slice('aFable_'.length);
+		});
+		
+		var fTitle = prompt(
+				'Existing F4BL3s are: '+fablesNames+'\n'+
+				'New name of the F4BL3 to clone:', fableName+'bis' );
+		if (fTitle!=null){ // save a new fable
+			var fable = JSON.parse( localStorage.getItem('aFable_'+fableName) );
+			fable.title = fTitle;
+			// DEBUG  console.log( JSON.stringify(fable) );
+			if (confirm('SAVING '+ fable.title +' \n'+
+				'Are you sure you want to save the new F4BL3?')) {
+				// Save it!
+				localStorage.setItem('aFable_'+fable.title,JSON.stringify(fable));
+				location.reload(true);
+			}
+		}
+	});
+
+	$('#uploadBtn').on('change',function(evt){
+		console.log( 'uploading...' + $(this).val() );
+		
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var fable = JSON.parse(event.target.result);
+			console.log(fable);
+			
+			if (confirm('UPLOADING '+ fable.title +' \n'+
+				'Are you sure you want to UPLOAD the F4BL3?')) {
+				// Save it!
+				localStorage.setItem('aFable_'+fable.title,JSON.stringify(fable));
+				location.reload(true);
+			}
+			
+		};
+		reader.readAsText(event.target.files[0]);
+		
+	}); 
+	
+		
+	$('#newBtn').on('click',function(evt){
+		var allStoredData = Object.keys(localStorage);
+		var fablesNames = allStoredData.filter(function(value,index){
+			return (value.startsWith('aFable_'));
+		});
+		fablesNames = fablesNames.map( function(fableName){
+			return fableName.slice('aFable_'.length);
+		});
+		
+		var fTitle = prompt(
+				'Existing F4BL3s are: '+fablesNames+'\n'+
+				'Name of the F4BL3 to save:', 'aNewFable' );
+		if (fTitle!=null){ // save a new fable
+			var fable = new Fable(fTitle);
+			// DEBUG  console.log( JSON.stringify(fable) );
+			if (confirm('SAVING '+ fable.title +' \n'+
+				'Are you sure you want to save the new F4BL3?')) {
+				// Save it!
+				localStorage.setItem('aFable_'+fable.title,JSON.stringify(fable));
+				location.reload(true);
+			}
+		}
+	});
+	
+	$('#genBtn').on('click',function(evt){
+		window.location.href = 'textGenerator.html';
+	});
+    
+	// stripes
+	$('.fableName:odd').parent().css("background-color", "#EEF");
+});
+</script>
+</head>
+<body>
+    <h1>F4BL3s <span style="font-size: 50%;">ver. 0.4.4</span></h1>
+    <h2>create, edit and playback a non-linear story with rooms, people and things</h2>
+	
+	<div><b>F4BL3 list</b>
+        <div id="fablesList"></div>
+    </div>
+	
+	<hr/>
+	
+	<div>
+		<button id="newBtn" type="button">new F4BL3</button>
+		&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+		&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+		Upload F4BL3 <input id="uploadBtn" type="file" title="upload F4BL3 [&uArr;]"></input>	
+	</div>
+	<hr/>
+	<div>
+		Generate F4BL3 via text description:
+		<button id="genBtn" type="button">generate</button>	
+	</div>
+
+	<hr/><br><br><br><br><br>
+	<div>
+		<a href="http://twinery.org/2/#!/stories" target="_new">open Twine dashboard</a>	
+	</div>
+</body>
+</html>

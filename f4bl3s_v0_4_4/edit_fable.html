@@ -1,0 +1,1247 @@
+<html>
+<head>
+<style>
+
+	/* Create three unequal columns that floats next to each other */
+	.column {
+		float: left;
+		padding: 5px;
+	}
+
+	.left, .right {
+	  width: 25%;
+	}
+
+	.middle {
+	  width: 45%;
+	  border: 1px solid black;
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+		width: 100%;
+	}
+
+	
+		#slidesDiv{
+			overflow-y: scroll; height: 70vh;
+		}			
+		
+ 		#slidesDiv .leftSlideBox{
+			margin: 2px;
+			border: 1px solid black;
+			border-radius:8px;
+			padding: 4px;
+			//background-color: #E0E0EE;
+			//color: white;
+			width: auto;
+		}
+		
+		#slidesDiv .selectedSlideBox{
+			border: 3px solid black;
+			background-color: #bdbdff;
+		}
+		
+		#slidesDiv .nextSlide{ 
+			background-color: #F0F0FF;
+			color: darkblue;
+		}		
+		
+		#slidesDiv .nextBackLinkSlide{ 
+			background-color: #e6ccff; // a bit more purple
+			color: darkblue;
+		}		
+	
+	
+		#worldTrees{
+			overflow-y: scroll; height: 70vh;
+		}
+		
+		.title {
+			font-weight: bold;
+		}
+		.description {
+			font-style: italic;
+			margin-left: 2em;
+
+			border:none;
+			resize:none;
+			font-family:Arial;
+		}	
+		.slide {
+			border: 2px solid black;
+			margin: 5px;
+			padding: 2px;
+		}
+		
+		.edge {
+			margin: 2px;
+			border: 1px solid black;
+			border-radius:8px;
+			padding: 4px;
+			background-color: red;
+			color: white;
+			display: inline-block;
+			width: auto;
+		}
+		.disabled_edge {
+			margin: 2px;
+			border: 1px solid black;
+			border-radius:8px;
+			padding: 4px;
+			background-color: red;
+			color: white;
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+		}
+		.edge div {
+			font-size: 80%;
+			font-style: italic;
+		}
+
+		.edge div.closing_cross {
+			font-style: normal;
+		}
+
+</style>
+
+<link rel="stylesheet" href="js/themes/default/style.min.css" />
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jstree.min.js"></script>
+<script src="js/fable.js"></script>
+
+<script type="text/javascript">
+
+// **********************
+
+// so it is always after the actions have executed!
+var nativeAlert = window.alert;
+window.alert = function (msg){
+//	console.log( '***' + msg );
+	setTimeout(function(){
+		nativeAlert(msg);
+	}, 100);
+}
+// **********************
+
+var CURRENT_VISIBLE_ROOM = null; // global name of the room in the current slide that is visible!
+
+$(document).ready(function(){
+
+	// rooms : aFableBlock
+	function populateRoomTree(rooms){
+		
+		var theData = [];
+		theData.nodeIndex = 0;
+		if (rooms){
+			var world = rooms.world;
+			createAddNodes(theData,world,true,'#', true);
+		}
+		
+		var worldTreeSettings = {
+			"core" : {
+				"animation" : 200,
+				check_callback : true, 
+				// TO DO change this so that people and things cannot be dropped in this tree
+				
+				
+				"themes" : { "stripes" : true },
+				'data' : theData
+			},
+		
+			"types" : { // see https://www.jstree.com/api/#/?f=$.jstree.defaults.types
+				"#" : {
+				  "max_children" : 0,
+				  "max_depth" : 0,
+				  "valid_children" : ["root"]
+				},
+				
+				"root" : {
+				  "valid_children" : ["all"]
+				},
+				"default" : { // room!
+					icon: 'imgs/room_icon.png',
+				  "valid_children" : []
+				}
+			},
+		  
+			"plugins" : [
+				"contextmenu", "types", "state"
+			],
+			
+            // custom menu!
+			"contextmenu":{
+						"items": function () {
+							return {};
+						} // end function
+					}
+		};	
+		
+		// structure of the DIVs for each slide/jsTree: 
+		//		class "slide"
+		//			+-> "title"
+		//			+-> "slideTree"
+		//			+-> "footer"
+		$('#paletteDiv').append(
+			'<div class="slide">'+
+				'<div class="title"><b>Rooms</b></div>'+
+				'<div class="slideTree"></div>'+
+			'</div>');
+		var $worldTree = $('#paletteDiv div.slide').find('.slideTree');		
+		
+		// 3 red fields to input action/jumps
+		$worldTree.jstree(worldTreeSettings);	
+        
+		// !!in palette.rooms!!
+        // capture rename event
+        $worldTree.on('rename_node.jstree',function (node, ref) {
+            //console.log('onrename',node,ref);
+            //console.log( ref.node.text ,ref.old );
+            $(this).jstree('set_text', ref.node , ref.old ); // undo renaming
+        });
+	}
+	
+	//populatePaletteTree
+	function populatePaletteTree(palette){
+		console.log( 'palette', palette );
+		var theData = [];		
+		theData = [
+					{ "id" : "people_root", "parent" : "#", "text" : "People", 
+					  type: "root", state: { opened: true } 
+					},
+					{ "id" : "things_root", "parent" : "#", "text" : "Things", 
+						type: "root", state: { opened: true } 
+					}
+				];
+							
+		palette.people.forEach(function(personName,index){
+			theData.push(
+				{ id : 'people'+index, parent : 'people_root', text: personName,
+					type: 'person',
+					state: { opened: true } 
+				}
+			);
+		});
+		palette.things.forEach(function(thingName,index){
+			theData.push(
+				{ id : 'thing'+index, parent : 'things_root', text: thingName,
+					type: 'thing',
+					state: { opened: true } 
+				}
+			);
+		});
+		
+		console.log( theData );
+		$('#paletteDiv').empty();
+		$('#paletteDiv').html(
+			'<div id="theTree"></div>'
+		);
+		var $theTree = $('#theTree');
+		
+		$theTree.jstree({
+			"core" : {
+				"animation" : 200,
+				"check_callback" : true,
+				"themes" : { "stripes" : true },
+				'data' : theData	
+			},
+			plugins: [ 'dnd', 'types' ,'contextmenu' ],
+			types:{
+				"#" : {
+				  "max_children" : 0,
+				  "max_depth" : 0,
+				  "valid_children" : ['default']
+				},
+				"default" : {
+					"valid_children" : ['person','thing']
+				},
+				"person" : {
+				  "icon" : "imgs/person_icon.png",
+				  "valid_children" : []
+				},
+				"thing" : {
+				  "icon" : "imgs/thing_icon.png",
+				  "valid_children" : []
+				}
+			},
+			
+			// custom menu!
+			"contextmenu":{
+						"items": function () {
+							return {
+						/*Rename: {
+							label: "Rename",
+							action: function (data) {
+								var inst = $.jstree.reference(data.reference);
+									obj = inst.get_node(data.reference);
+								inst.edit(obj);
+							}
+						},*/
+						DeleteInAllSlides: {
+							label: "DeleteInAllSlides",
+							action: function (data) {
+								var ref = $.jstree.reference(data.reference),
+									sel = ref.get_selected(),
+									selNode = ref.get_node(sel);
+								//console.log( '=====> ', selNode.type );
+								if (selNode.type=='default'){ 
+									return; // cannot delete "People" or "Things" folders
+								}
+								
+								if(!sel.length) { return false; }
+
+								// deleteNameFromPalette
+								ref.delete_node(sel);
+								
+								deleteNameInAllSlides(selNode.text,fable);
+								convertSelectedSlideToTree(fable,selectedSlideIndex);
+							}
+						}
+					};
+				} // end function
+
+			},
+			dnd:{
+				always_copy: true
+			}
+		});
+
+		// !!in palette.people and things!!
+        // disable renaming with F2
+        $theTree.on('rename_node.jstree',function (node, ref) {
+            //console.log('onrename',node,ref);
+            //console.log( ref.node.text ,ref.old );
+            $(this).jstree('set_text', ref.node , ref.old ); // undo renaming
+        });
+        
+	}	
+
+	// ******************************************
+
+	function tree2Slide(slideIndex){
+		console.log( 'tree2Slide...' );
+		// DEBUG console.log('slide ' + slideIndex );
+		var aJsTree = $('.slide .slideTree.jsTree');
+		
+		// clear slides and edges 
+		var saveFable = new Fable('temp');
+		saveFable.slides = [];
+		saveFable.edges = [];
+		
+		var slide = new FableSlide();
+		var currentTree = $(aJsTree).jstree(true);
+		// console.log( currentTree );
+		currentTree.open_all(); 
+		
+		var $edgeDivs = $(aJsTree).parent().find('.footer').find('.edge');
+		$edgeDivs.each( function( edgeIndex, edgeDiv) {
+			var $inputs = $(this).find('input');
+			var action = $inputs.eq(0).val();
+			var jumpToIndex = parseInt( $inputs.eq(1).val() );
+			// DEBUG 
+			console.log( action + ' from ' + slideIndex + ' to '+ jumpToIndex );
+			
+			saveFable.edges.push( new FableEdge(action,slideIndex,jumpToIndex) );
+		});
+		
+		
+		// visit the currentTree tree and build a FableBlock tree instead
+		var root = currentTree.get_json('#', {flat:false});
+
+		function visit(value) {
+				//console.log(value.id+ ' ' +value.text+' '+value.type+' parent:' +value.parent);
+				//console.log('>' + value.children);
+
+				var type = value.type;
+				if (type=='default') type = 'room';
+
+				console.log( value.text , value.data );
+				var	newBlock = new FableBlock(type,value.text);
+				newBlock.isVisible = false;
+				if (newBlock.type == 'room'){
+					if (newBlock.name === CURRENT_VISIBLE_ROOM)
+						newBlock.isVisible = true;
+				}
+
+				for (var i=0;i<value.children.length;i++){
+					newBlock.children.push( 
+						visit(value.children[i])
+					);
+				}
+				return newBlock;
+		}		
+		console.log( root );
+		slide.world = visit(root[0]);
+		slide.description = $('.description').first().val(); // gets description from the textfield
+
+		saveFable.slides.push( slide );
+		
+		// DEBUG 
+		console.log( saveFable );
+		return saveFable;
+	}
+
+	function createEdgeDiv(anEdge,slideIndex){
+		return $('<div class="edge">'+
+			
+				'<div align="right" class="closing_cross" data-slidenumber="'+slideIndex+'">[x]</div>'+
+
+					'<input type="text" size="10" value="'+ anEdge.name + '"></input>'+
+			   '<div>jumpTo ' +
+					'<input type="text" size="3" value="'+ anEdge.toIndex + '"></input>'+
+				'</div>'+ 
+				'</div>');
+	}
+	
+	/* 
+		slideIndex is the index of a FableBlock object
+		data is an array, intially empty, of jsTree node objects
+
+		When isCreatingRoomPalette do not change the CURRENT_VISIBLE_ROOM nor the icon!
+	*/
+	function createAddNodes(data,aFableBlock,isWorld,parentNodeId, isCreatingRoomPalette){
+		
+		var thisNodeId = 'node'+data.nodeIndex;
+		
+		var newNode = { id : thisNodeId, parent: parentNodeId, text: aFableBlock.name, 
+					type: aFableBlock.type };
+		newNode.state= { opened: true };
+		console.log( 'newNode = ' , newNode );
+		
+		if (!isCreatingRoomPalette){
+			if (aFableBlock.type==='room'){
+				if (aFableBlock.isVisible){
+					newNode.icon = 'imgs/visible_room_icon.png';
+					CURRENT_VISIBLE_ROOM = aFableBlock.name;
+				}
+			}
+		}
+		
+		data.push( newNode );
+		data.nodeIndex += 1;
+		
+		aFableBlock.children.forEach(function(block,index){
+			createAddNodes(data,block,false,thisNodeId);
+		});
+	}
+
+	// create nodes recursively following the fable>slides adt		
+	function populateWorldTree(slideIndex,adjList){
+		
+		var theData = [];
+		theData.nodeIndex = 0;
+		var world = fable.slides[slideIndex].world;
+		createAddNodes(theData,world,true,'#');
+		
+		var worldTreeSettings = {
+			"core" : {
+				"animation" : 200,
+				check_callback : //true,
+					// from: https://github.com/vakata/jstree/issues/814
+					/* prevents this tree from accepting any node that comes
+					   from other slide-trees, 
+					   only accepts foreign nodes that come from paletteTree!
+					*/
+					function (op, node, par, pos, more) {
+						/*
+						console.log( 'in populateWorldTree: ',node.text,node.type );
+						console.log( _dndSourceTree , $('#paletteDiv #theTree')[0] );
+						*/
+						
+						/* when dragging from paletteDiv to currentSlideTree,
+	 					   it is allowed only if the node is not already present in the 
+						   currentSlideTree.
+						*/
+						if ( (_dndSourceTree==$('#paletteDiv #theTree')[0]) && 
+							 (isNamePresentInSlide(node.text,fable,selectedSlideIndex)) ){
+							console.log( isNamePresentInSlide(node.text,fable,selectedSlideIndex) );
+							return false;
+						}
+						return true;
+					},
+				"themes" : { "stripes" : true },
+				'data' : theData
+				/*[ // see https://www.jstree.com/docs/json/
+						   { "id" : "node0", "parent" : "#", "text" : "world", 
+									type: "root",
+								state: { opened: true } 
+							},	
+						   { "id" : "node1", "parent" : "node0", "text" : "banana",
+									type: "thing" }
+						]*/
+			},
+		
+			"types" : { // see https://www.jstree.com/api/#/?f=$.jstree.defaults.types
+				"#" : {
+				  "max_children" : 3,
+				  "max_depth" : 5,
+				  "valid_children" : ["root"]
+				},
+				
+				"root" : {
+				  "valid_children" : ["all"]
+				},
+				"default" : { // room!
+					icon: 'imgs/room_icon.png',
+				  "valid_children" : ["default","person","thing"]
+				},
+				"person" : {
+				  "icon" : "imgs/person_icon.png",
+				  "valid_children" : ["thing"]
+				},
+				"thing" : {
+				  "icon" : "imgs/thing_icon.png",
+				  "valid_children" : ["person","thing"]
+				}			
+			},
+
+			"plugins" : [
+				"contextmenu", "dnd", "types", "state"
+			],
+			
+			// custom menu!
+			"contextmenu":{
+						"items": function () {
+							return {
+								CreateRoom: {
+									/* https://stackoverflow.com/questions/25406701/how-to-get-full-path-of-selected-node-in-jstreeroot-node-to-selected-node */
+									"label": "add Room",
+									"action": function (data) {
+										var ref = $.jstree.reference(data.reference);
+											sel = ref.get_selected(),
+											selNode = ref.get_node(sel);
+											
+										var path = ref.get_path(sel,'/');
+										//console.log('CreateRoom>>Selected: ' + path);										
+										// console.log( selNode.type );
+										
+										if(!sel.length) { return false; }
+										if (selNode.type=='default'){ 
+											// selected node must be type "room"
+											sel = sel[0];
+											sel = ref.create_node(sel, {
+														// generate a unique name for the room > based on millisecs time!
+														text: 'room_'+(new Date().getTime()).toString(36),														
+														type: 'default'});
+											if(sel) {
+												// thanks to: https://github.com/vakata/jstree/issues/1087
+												ref.edit(sel, null, function (node, status) { 
+												
+													var pathArray = path.split('/');
+													console.log('CreateRoom>> createRoomInAllSlides');
+													console.log('          >> at ',pathArray);
+													console.log('          >> withName ',node.text);
+													
+													createBlockInAllSlides(fable,pathArray,node.text,'room');
+													
+													computePaletteFromSlides(fable);
+													populatePalette(fable);
+												});
+											}
+										} else {
+											alert('Rooms can be created only from another room');
+										}
+									}
+								},
+
+								"setVisible":{
+									"label": "make Visible",
+									"action": function (data) {
+										var ref = $.jstree.reference(data.reference),
+											sel = ref.get_selected(),
+                                            selNode = ref.get_node(sel);										
+										if(!sel.length) { return false; }
+										if (selNode.type=='default'){ // room
+
+											CURRENT_VISIBLE_ROOM = selNode.text;
+											makeAllRoomsInvisible(fable.slides[selectedSlideIndex].world);
+											var room = findFableBlockByNameFrom(CURRENT_VISIBLE_ROOM,
+															fable.slides[selectedSlideIndex].world);
+											room.isVisible = true;
+
+											// force refresh of the current slide
+											$('.leftSlideBox').eq(selectedSlideIndex).trigger('click');
+											
+										} else {
+											alert('Only a room can be made VISIBLE');
+										}
+                                        
+									}
+								},
+				
+								"Rename": {
+									"label": "Rename",
+									"action": function (data) {
+										var inst = $.jstree.reference(data.reference);
+											obj = inst.get_node(data.reference);
+										inst.edit(obj);
+									}
+								},
+								"Delete": {
+									"label": "Delete",
+									"action": function (data) {
+										var ref = $.jstree.reference(data.reference),
+											sel = ref.get_selected(),
+                                            selNode = ref.get_node(sel);
+                                        
+										if(!sel.length) { return false; }
+                                        
+                                        if (selNode.type!='default'){ 
+										  ref.delete_node(sel);
+                                        } else {
+											if (selNode.text=='world'){
+												alert('You cannot delete the world room!');
+												return;
+											} 
+                                            
+                                            // implement delete room!
+                                            var path = ref.get_path(sel,'/');
+                                            var pathArray = path.split('/');
+                                            console.log('DeleteRoom>> removeRoomInAllSlides');
+                                            console.log('           >> at ',pathArray);
+                                            console.log('           >> roomName ',selNode.text);
+
+                                            removeRoomInAllSlides(fable,pathArray,selNode.text);
+                                            ref.delete_node(sel);
+
+                                            fixVisibleInAllSlides(fable);
+                                            computePaletteFromSlides(fable);
+                                            populatePalette(fable);                        	
+
+                                        }
+									}
+								}
+							};
+						} // end function
+					},
+					
+					// from: https://stackoverflow.com/questions/11188679/jstree-disable-moving-some-nodes
+					// Disable moving some nodes!
+					"dnd" : { 
+						"is_draggable" : function(node) {
+							console.log('dragging...', node[0]);
+							/*
+							if (node[0].type == 'default') { // a room!
+								alert('you cannot move rooms!');
+								return false;
+							}*/
+							
+							// determing origin: if node is not from this jsTree -> false
+							//var localNode = $('#dashboardTree').jstree(true).get_node('1, true')
+							
+							return true;
+						}
+					}
+							
+		};
+
+		if (fable.slides[slideIndex].description==undefined)
+			fable.slides[slideIndex].description='aSlide';		
+		// structure of the DIVs for each slide/jsTree: 
+		//		class "slide"
+		//			+-> "title"
+		//			+-> "slideTree"
+		//			+-> "footer"
+		$('#worldTrees').append(
+			'<div class="slide">'+
+					'<div class="title"><b>Slide'+slideIndex+'</b>'+
+
+					'<input type="text" class="description" size="40" value="'+
+						fable.slides[slideIndex].description+'"></input>'+
+
+				'</div>'+
+				'<div class="slideTree"></div>'+
+				'<div class="footer"></div>'+
+			'</div>');
+
+		/*
+		// add events for .description textfield
+		$('.description').on('blur',function(evt){
+			console.log( slideIndex , $(this), $(this).val() );
+			console.log( JSON.stringify(fable.slides[slideIndex]) );
+			fable.slides[slideIndex].description = $(this).val();
+			console.log( fable.slides[slideIndex] );
+		});
+		*/
+
+		var $worldTree = $('#worldTrees div.slide').eq(0).find('.slideTree');
+		var $footerDiv = $('#worldTrees div.slide').eq(0).find('.footer');
+		
+		$worldTree.jstree(worldTreeSettings);
+
+		// 3 red fields to input action/jumps
+		adjList[ slideIndex ].forEach(function(anEdge,edgeIndex){
+			createEdgeDiv(anEdge,slideIndex).appendTo($footerDiv);
+		});
+		
+		for (var i=0;i<3-adjList[ slideIndex ].length;i++){
+			$footerDiv.append(
+				'<div class="disabled_edge" data-slidenumber="'+slideIndex+'">[+]</div>'
+			);
+		}
+        
+		// !!selectedSlide tree!!
+        // Renaming with F2. The new name should not be in the palette!
+		//
+		// 1. check if the new name is not present in the palette
+		// 1b. if it is present, undo the renaming and return
+		// 2. rename in palette
+		// 3. renameInAllSlides
+        $worldTree.on('rename_node.jstree',function (node, ref) {
+            console.log('onrename',node,ref, ref.node.type);
+
+			var oldName = ref.old;
+			var newName = ref.node.text;
+
+			if (oldName===newName) return;
+			
+			if (oldName=='world'){
+				$(this).jstree('set_text', ref.node , ref.old ); // undo renaming
+				alert('You cannot rename the "world" room!');
+				return;
+			}			
+
+			// TO AVOID SPACES IN NAMES
+			if (newName.indexOf(' ')!=-1){
+				$(this).jstree('set_text', ref.node , ref.old ); // undo renaming
+				alert('The new name cannot contain spaces!');
+				return;
+			}
+
+			
+			if (isNamePresentInPalette(newName,fable.palette)){
+				$(this).jstree('set_text', ref.node , ref.old ); // undo renaming
+				alert('The new name should not be in the palette!');
+				return;
+			}
+			
+			renameInPalette(oldName,newName,fable.palette);
+			renameInAllSlides(oldName,newName,fable);
+			
+			populatePalette(fable);
+        });
+        
+	}
+		
+	function convertSelectedSlideToTree(aFable,index){
+		console.log( '!convertSelectedSlideToTree!', index );
+		$('#worldTrees').empty();
+		var adjList = computeAjdList(aFable);
+		populateWorldTree(index,adjList);
+		
+		// (leftDIV) color all slides directly reachable (forward!) from current slide
+		// but not those going back up!
+		var nexts = nextSlidesFromSlideIndex(fable,index);
+		var nextSlides = nexts[0];
+		/*  . find all DIVs representing nextSlides 
+			. and add class "nextSlide" to them!
+		*/
+		$('.leftSlideBox').removeClass('nextSlide');
+		nextSlides.forEach(function(nextSlidesIdx){
+			$('.leftSlideBox').eq(nextSlidesIdx).addClass('nextSlide');
+		});
+
+		var nextBackSlides = nexts[1];
+		$('.leftSlideBox').removeClass('nextBackLinkSlide');
+		nextBackSlides.forEach(function(nextBackSlidesIdx){
+			$('.leftSlideBox').eq(nextBackSlidesIdx).addClass('nextBackLinkSlide');
+		});
+	}
+
+	// saves from the view jsTree of the current slide, to the currrent slide in the model (fable)
+	function refreshSlide(fable,selectedSlideIndex){
+		// DEBUG console.log( "refreshSlide" );
+		var newSlideAndEdges = tree2Slide(selectedSlideIndex);
+		// 1. add new slide over old one
+		fable.slides[selectedSlideIndex] = newSlideAndEdges.slides[0];
+		// 2a. remove all edges from the selectedSlideIndex
+		// console.log( 'before' , fable.edges , ' selectedSlideIndex ' , selectedSlideIndex);
+		fable.edges = fable.edges.filter(function(edge){
+			return edge.fromIndex != selectedSlideIndex;
+		});
+		// console.log( 'after' , fable.edges );
+		
+		// 2b. add new edges
+		console.log( 'new edges length' , newSlideAndEdges.edges.length  );
+		newSlideAndEdges.edges.forEach(function(edge,index){
+			// console.log('edge', edge)
+			fable.edges.push( edge );
+		});
+
+		//console.log( 'fable',fable );
+	}
+	
+	// populate slidesDiv from the fable data
+	function populateSlidesDiv(fable){
+		$('#slidesDiv').empty();
+		fable.slides.forEach(function(slide,index){
+            var $tmp;
+			$('#slidesDiv').append(
+				$tmp = $('<div></div>').addClass('leftSlideBox')
+			);
+            $tmp.append( $('<div data-slideid="'+index+'"><b>Slide'+ index +'</b></div>') );
+            
+			// slide bar on the left: generate slideboxes
+			var arrow = '&rarr;';
+			var backUpArrow = '&uarr;';
+            fable.edges.forEach(function(edge,edgeIndex){
+			
+                if (edge.fromIndex==index){
+					// back-links have different arrow!
+					var theArrow = (edge.fromIndex<edge.toIndex) ? arrow : backUpArrow;
+                    $tmp.append( $('<div>'+edge.name+' '+theArrow+' Slide'+edge.toIndex+'</div>') )
+				}
+				
+            });
+		});
+		$('.leftSlideBox').on('click',function(evt){
+			console.log( '.leftSlideBox onClick');
+			// save current jstree on its own slide
+			if (selectedSlideIndex>=0){
+				refreshSlide(fable,selectedSlideIndex);
+			}
+
+			// generate a jsTree for the newly selected slide
+			selectedSlideIndex = parseInt( $(this).children().first().data('slideid') );
+			//console.log( $(this) );
+			console.log('selected:', selectedSlideIndex);
+			
+			$('.leftSlideBox ').removeClass('selectedSlideBox');
+			$(this).addClass('selectedSlideBox');
+			
+			convertSelectedSlideToTree(fable,selectedSlideIndex);
+		});
+		
+		if (selectedSlideIndex>=0)
+			$('.leftSlideBox').eq(selectedSlideIndex).trigger('click');
+		else 
+			$('.leftSlideBox').first().trigger('click');
+	};
+		
+	// creates a palette view from the fable.palette data
+	function populatePalette(fable){
+		populatePaletteTree(fable.palette);
+		populateRoomTree(fable.palette.rooms);
+	}
+	
+	// *************************************************
+	// *************************************************
+	var fable = null;
+	var selectedSlideIndex = -1;
+	var _dndSourceTree = null; // global, used for drag&drop
+	var _dndStartDraggingRoomPath = null; // global, remembers the path of a room at dragStart
+
+	$(document).ready(function(){
+
+		// Load a fable and display its slides in #slidesDiv
+		var allStoredData = Object.keys(localStorage);
+		var fablesNames = allStoredData.filter(function(value,index){
+			return (value.startsWith('aFable_'));
+		});
+		fablesNames = fablesNames.map( function(fableName){
+			return fableName.slice('aFable_'.length);
+		});
+
+		var workingOnFableName = localStorage.getItem('fables_workingOnFable');
+		var fName = '';
+		if (workingOnFableName){
+				fName = workingOnFableName;
+		} else {
+			fName = prompt(
+				'Available F4BL3s are: '+fablesNames+'\n'+
+				'Load F4BL3:' , fablesNames[0]);
+		}
+		
+		fable = JSON.parse( localStorage.getItem('aFable_'+fName) );
+		// DEBUG console.log(  '|'+fName+'|' , JSON.stringify(fable));
+		// DEBUG console.log(  fable.skin );
+		// DEBUG console.log(  fable.palette.rooms );
+		if (fable.palette.rooms==null){
+			fable.palette.rooms = new FableSlide();
+		}
+		
+		populateSlidesDiv(fable);
+		// populate palette ****************************************
+		console.log( 'palette = ' , fable.palette );
+		/* TO DO is this correct ?? 
+		if ((fable.slides) && (fable.slides.length>0))
+			computePaletteFromSlides(fable);*/
+		populatePalette(fable);
+
+
+		if (fable.slides.length==0){
+			$('#cloneBtn').attr('disabled','disabled');
+			$('#deleteBtn').attr('disabled','disabled');
+
+			$('#newRoomBtn').attr('disabled','disabled');
+			$('#newPersonBtn').attr('disabled','disabled');			
+			$('#newThingBtn').attr('disabled','disabled');
+		}
+		
+		
+		// *********************************************************
+		
+		$('#worldTrees').on('click','div',function(){
+			// DEBUG console.log( 'onclick' , $(this) );
+			
+			if ( $(this).hasClass( 'disabled_edge') ){
+				// clicked on a [+] DIV
+				console.log( "clicked on a [+] DIV" );
+				var slideIndex = parseInt( $(this).data('slidenumber') );
+				// DEBUG console.log( slideIndex );
+				var $tree = $('#worldTrees div.slideTree').eq(slideIndex);
+				// DEBUG console.log( $tree );
+				
+				$(this).replaceWith(
+					createEdgeDiv( 
+						new FableEdge('anAction',slideIndex,slideIndex+1),
+						slideIndex
+					)
+				);
+				refreshSlide(fable,selectedSlideIndex);
+				populateSlidesDiv(fable); // refresh also left slidesDiv
+			}
+			
+			if ( $(this).hasClass('closing_cross')){
+				// clicked on a [x] DIV
+				console.log( 'clicked on a [x] DIV' );
+				// TO DO delete the current edgeDiv
+				var slideIndex = $(this).data('slidenumber');
+				// DEBUG console.log( slideIndex );
+				
+				if (confirm('Are you sure you want to DELETE this action?')) {
+					$(this).parent().replaceWith(
+						'<div class="disabled_edge" data-slidenumber="'+slideIndex+'">[+]</div>'
+					);
+				}			
+				refreshSlide(fable,selectedSlideIndex);
+				populateSlidesDiv(fable); // refresh also left slidesDiv
+			}
+			
+		});
+		
+		// ***Slides*********************************************
+		
+		$('#newBtn').on('click',function(evt){
+			console.log( 'new slide');
+			// 1. use palette.rooms to populate the new slide
+			// 2. add the slide as the last
+			// 3. refresh the slide bar (left bar)
+			
+			var newSlide = cloneFable( fable.palette.rooms );
+			fable.slides.push( newSlide );
+			populateSlidesDiv(fable);
+
+			$('#cloneBtn').removeAttr('disabled');
+			$('#deleteBtn').removeAttr('disabled');
+
+			$('#newRoomBtn').removeAttr('disabled');
+			$('#newPersonBtn').removeAttr('disabled');
+			$('#newThingBtn').removeAttr('disabled');
+
+		});
+		
+		$('#deleteBtn').on('click',function(evt){
+			console.log( 'deleting current slide...');
+			
+			// for now, just delete the current slide, if any edge points to it... too bad :(
+			if (confirm('DELETE the CURRENT slide - are you sure?')) {				
+				var slideToDeleteIndex = selectedSlideIndex;
+
+				/* // debug
+				console.log( 'before deleting', JSON.stringify(fable.slides[slideToDeleteIndex]), 
+								' edges=',JSON.stringify(fable.edges),
+								slideToDeleteIndex );
+				*/
+				
+				// after a short while... (delay here matters)
+				setTimeout(function(){
+					// 1. remove the slide from the list of slides
+					fable.slides.splice(slideToDeleteIndex , 1);
+					// 2. remove all edges to and from the deleted slide
+					fable.edges = fable.edges.filter(function(edge){
+						// remove all that start AND end in the deleted slide
+						/* // debug
+						console.log( '=>' , edge , 
+							(edge.fromIndex != slideToDeleteIndex) && 
+						       (edge.toIndex != slideToDeleteIndex)
+							);
+						*/
+						return (edge.fromIndex != slideToDeleteIndex) && 
+						       (edge.toIndex != slideToDeleteIndex);
+					});
+
+					// 3. renumber all remaining edges:
+					// All slides with index >slideToDeleteIndex get a -1 
+					fable.edges = fable.edges.map(function(edge){
+						if (edge.fromIndex > slideToDeleteIndex)
+							edge.fromIndex--;
+						if (edge.toIndex > slideToDeleteIndex)
+							edge.toIndex--;
+						return edge;
+					});
+					
+					// 4. regenerate the SlidesDiv
+					selectedSlideIndex = -1;
+					populateSlidesDiv(fable);
+
+					// debug
+					console.log( 'after deleting', JSON.stringify(fable.slides[slideToDeleteIndex]), 
+									fable.slides.length,
+									' edges=',JSON.stringify(fable.edges),
+									slideToDeleteIndex );	
+				},150);
+			}
+		});		
+		
+		$('#cloneBtn').on('click',function(evt){			
+            /*
+               	So:
+               	   1. Slide i =becomes=> Slide i ; Slide i+1
+               	   2. Rename everything after i+1 => +1
+               	   2.a including the edges from/to
+            */
+
+            // just to be safe
+			refreshSlide(fable,selectedSlideIndex);
+            
+            console.log( 'before' , fable.slides.length, JSON.stringify(fable.edges) );
+
+            // 1.
+            var newSlide = cloneFable( fable.slides[selectedSlideIndex] );
+            newSlide.description = fable.slides[selectedSlideIndex].description + "-CLONE";
+            fable.slides.splice( selectedSlideIndex+1, 0, newSlide ); // insert at selectedSlideIndex
+
+            // 2 re-number
+            fable.edges = fable.edges.map(function(edge){
+            	if (edge.fromIndex > selectedSlideIndex)
+            		edge.fromIndex++;
+            	if (edge.toIndex > selectedSlideIndex)
+            		edge.toIndex++;
+				return edge;
+			});
+            console.log( 'after' , fable.slides.length, JSON.stringify(fable.edges) );
+
+			// 4. regenerate the SlidesDiv
+			var tmp = selectedSlideIndex;
+			selectedSlideIndex = -1; // de-select
+			populateSlidesDiv(fable);
+
+			/* DOES NOT WORK :(
+			// (with a bit of delay...) 
+			// change selected slide to the previous one (or none if it's the first)
+			selectedSlideIndex = tmp;
+			setTimeout(function(){
+				$('.leftSlideBox').eq(selectedSlideIndex+1).trigger('click');
+			},250);
+			*/
+		});	
+		
+		// ***CurrentSlide***********************************
+
+		$('#newRoomBtn').on('click',function(evt){
+			console.log( 'create new room (in world)');
+
+			// just to be safe
+			refreshSlide(fable,selectedSlideIndex);
+
+			// generate a unique name for the room > based on millisecs time!
+			var newName = 'room_'+(new Date().getTime()).toString(36);
+
+			// insert
+			createBlockInAllSlides(fable,['world'],newName,'room');
+
+			// recompute all persons, things and rooms => create a new fable.palette
+			computePaletteFromSlides(fable);
+			// refresh views
+			convertSelectedSlideToTree(fable,selectedSlideIndex);
+			// update the palettes
+			populatePalette(fable);
+		
+			alert('New room created: '+ newName);
+		});
+
+		
+		$('#newPersonBtn').on('click',function(evt){		
+			console.log( 'create new person');
+			
+			// just to be safe
+			refreshSlide(fable,selectedSlideIndex);
+			
+			// 1. add new person in the fable's current slide
+			// 1b. what if? -> check if the name exists already
+			
+			var newName = prompt('Enter person name:','newPerson');
+			if ((newName==null) || 
+				(isNamePresentInSlide(newName,fable,selectedSlideIndex))){
+				newName = 'person_'+(new Date().getTime()).toString(36);
+				console.log( '!name already present in current slide!' );
+			}
+			
+			fable.slides[selectedSlideIndex].world.children.push(
+				new FableBlock('person', newName )
+			);			
+			// 2. recompute all persons in all slides and add them to the current fable.palette
+			computePaletteFromSlides(fable);
+			//console.log( fable , fable.slides[selectedSlideIndex].world );
+
+			// 3. refresh views
+			convertSelectedSlideToTree(fable,selectedSlideIndex);
+			// 3b. update the palettes
+			populatePalette(fable);
+
+			//console.log( fable , fable.slides[selectedSlideIndex].world );
+		});
+
+		$('#newThingBtn').on('click',function(evt){		
+			console.log( 'create new thing');
+			
+			// just to be safe
+			refreshSlide(fable,selectedSlideIndex);
+			
+			// 1. add new person in the fable's current slide
+			//  1b. what if? -> check if the name exists already
+			var newName = prompt('Enter thing name:','newThing');
+			if ((newName==null) || 
+				(isNamePresentInSlide(newName,fable,selectedSlideIndex))){
+				newName = 'thing_'+(new Date().getTime()).toString(36);
+				console.log( '!name already present in current slide!' );
+			}
+			
+			fable.slides[selectedSlideIndex].world.children.push(
+				new FableBlock('thing', newName )
+			);			
+			// 2. recompute all persons in all slides and add them to the current fable.palette
+			computePaletteFromSlides(fable);
+
+			// 3. refresh views & update the palettes
+			convertSelectedSlideToTree(fable,selectedSlideIndex);
+			populatePalette(fable);
+		});
+
+		// **F4BL3*******************************************
+		$('#saveBtn').on('click',function(evt){
+			// just to be safe
+			refreshSlide(fable,selectedSlideIndex);
+			
+			var saveFable = fable;
+			// DEBUG  console.log( JSON.stringify(saveFable) );
+			if (confirm('Are you sure you want to save the new version of the F4BL3?')) {
+				// Save it!
+				
+				// DEBUG saveFable.title = 'test';			
+				localStorage.setItem('aFable_'+saveFable.title,JSON.stringify(saveFable));
+			}
+		});
+		
+		// ************************************************
+		// General d&d functions for the jsTrees
+		// ************************************************
+		
+		//from: https://stackoverflow.com/questions/23372395/jstree-dnd-events-not-firing
+		$(document).on('dnd_start.vakata', function (e, data) {
+			console.log('dnd started');
+			// DEBUG console.log( data);
+			//console.log( data.data.obj.context );
+			_dndSourceTree = data.data.obj.context;
+			
+			// remember the path to the room that starts to drag
+			var draggedNodeName = data.data.nodes[0];
+			var $worldTree = $('#worldTrees div.slide').eq(0).find('.slideTree');
+			var inst = $worldTree.jstree(true);
+			var draggedNode = inst.get_node(draggedNodeName);
+			if (draggedNode.type=='default'){ // user moved a room! 
+				var path = inst.get_path(draggedNode,'/');
+				// console.log( path );			
+				_dndStartDraggingRoomPath = path;
+			}
+		});
+		
+		$(document).on('dnd_stop.vakata', function (e, data) {
+			console.log('dnd done');
+			
+			// when user dragged a person or a thing from the palette 
+			//      => nothing to do, just the usual
+
+			
+			// when moving a room -> move room in all slides + refresh the views
+			var draggedNodeName = data.data.nodes[0];
+			var $worldTree = $('#worldTrees div.slide').eq(0).find('.slideTree');
+			var inst = $worldTree.jstree(true);
+			var draggedNode = inst.get_node(draggedNodeName);
+
+			/*
+			// DEBUG 
+			console.log('...moved node:', draggedNode.text, 
+						' isRoom?' , draggedNode.type=='default' );
+			*/
+			if (draggedNode.type=='default'){ // user moved a room! 
+				var path = inst.get_path(draggedNode,'/');
+				
+				/*console.log('...from path: ...', _dndStartDraggingRoomPath );
+				console.log('...to path: ...', path );*/
+				
+				// TO DO -> move room in all other slides too!
+				
+				var pathArrayFrom = _dndStartDraggingRoomPath.split('/');
+					pathArrayFrom.pop(); // cut last element
+				var pathArrayTo = path.split('/');
+					pathArrayTo.pop(); // cut last element
+				console.log('DraggedRoom>> moveRoomInAllSlides');
+				console.log('           >> from ',pathArrayFrom);
+				console.log('           >> to ',pathArrayTo);
+				console.log('           >> roomName ',draggedNode.text);
+				
+				
+				moveRoomInAllSlides(fable,pathArrayFrom,pathArrayTo,draggedNode.text);
+				computePaletteFromSlides(fable);
+				populatePalette(fable);
+			}
+			
+			refreshSlide(fable,selectedSlideIndex);
+			
+			// reset this, because the dragging is done
+			_dndStartDraggingRoomPath = null;
+		});
+		
+	}); // end document.ready
+});
+</script>
+</head>
+<body>
+	<center><h1>F4BL3 editor</h1></center>
+	
+	<div class="row">
+		<div class="column left" id="slidesDiv"></div>
+		<div class="column middle" id="worldTrees"></div>
+		<div class="column right" id="paletteDiv"></div>
+	</div>
+	
+	<div>
+	<form>
+		<fieldset style="display: inline-block;"><legend>Slides</legend>		
+			<button id="cloneBtn" type="button">clone</button>
+             &nbsp; &nbsp;
+			<button id="newBtn" type="button">new</button>
+			<button id="deleteBtn" type="button">delete</button>
+		</fieldset>
+		
+		<fieldset style="display: inline-block;"><legend>CurrentSlide</legend>		
+			<button id="newRoomBtn" type="button">add Room</button>
+			<button id="newPersonBtn" type="button">add Person</button>
+			<button id="newThingBtn" type="button">add Thing</button>
+		</fieldset>
+		
+		<fieldset style="display: inline-block;float: right;"><legend>F4BL3</legend>		
+		<button id="saveBtn" type="button" >save</button>
+		</fieldset>
+	</div>
+	
+	<hr/>
+	<p>[<a href="index.html">backToIndex</a>]</p>    
+</body>
+</html>

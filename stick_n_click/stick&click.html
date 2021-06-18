@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stick&Click</title>
+  <meta name="author" content="Andrea_Valente">
+
+  <style>
+  	body{
+  		background-color: #6C5EB5; //#959595;
+  		color: white;
+  	}
+
+  	a {
+  		color: white;
+  	}
+
+	.grid {
+  		display: grid;
+	  	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  		grid-gap: 1rem;
+	}
+	.grid > div {
+		color: white;
+  		background: #70A4B2; //#EDE7F6;
+  		font-size: 2rem;
+  		text-align: center;
+
+  		padding: 1rem;
+  		border-radius: .5rem;
+  		height: 100px;
+	}
+
+	.note {
+		font-size: .5em;
+	}
+
+	.footer {
+	  position: fixed;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  background-color: #352879;
+	  color: white;
+	  text-align: center;
+	}
+
+	.button{
+		background-color: white;
+		color: black;
+		padding: 2px;
+		text-decoration: none;
+		border-radius: 5px;
+	}
+  </style>
+</head>
+<body>
+	<div style="text-align: center;font-size: 5rem;">Stick&Click</div>
+	<p>
+		What is Stick&Click? <a href="https://www.slideshare.net/andrea270872/stick-click-the-road-towards-friendly-classroomcentered-interactive-digital-content-authoring" target="_blank">See here for a short introduction</a>.
+	</p>
+
+	<div class="grid">
+		<div><a href="https://editor.p5js.org/andrea270872/present/chgF2ZeNP" target="s&c_player">Player</a></div>
+		<div>Game examples<br><span class="note">(<a href="game_examples.html" target="s&c_games">to download</a>)</span></div>
+
+		<div><a href="https://editor.p5js.org/andrea270872/present/s9xijiDlG" target="s&c_editor">Editor</a></div>
+		<div>Assets <br><span class="note">(<a href="assets.html" target="s&c_assets">to download</a>)</span></div>
+	</div>
+
+
+	<div class="footer">
+  		<p>Upload and share your games and give feedback so we can improve <b>Stick & Click</b> 
+  		 <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeQzoonI_N2VBRwuyQeA8p3VlVtNNIAH8-QlYOGk1bkcIrFFQ/viewform" target="_blank">upload here</a></p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>1Dminos - a 1D tetris derivative</title>
+		<style type="text/css">
+		.myButton {background:blue;
+					color:white;
+					height:60px;
+					-moz-border-radius:10px;
+					-webkit-border-radius:10px;
+					font-size: 150%;
+				}
+		</style>
+	</head>
+	<body>
+		<script src="js/game.js"></script>
+	<p>
+	<table cols="3" style="width:200px;">
+	<tr><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:90px;" class="myButton"
+			name="0">swap</button>
+	</td>
+	<td><button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:90px;"
+			class="myButton"
+			name="2">rev</button>
+	</td></tr><tr>
+	<td colspan="2"><button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:190px;" class="myButton"
+			name="1">fall</button>
+	</td></tr>	
+	</table>
+	</p>
+<p><b>1Dminos <i>[one-d-minos]</i></b>
+<br>V0.3 VERTICAL
+<br>- Get 3 in-a-row to score. -
+<br>- Space key to drop the falling piece faster
+<br>- Left  key to REVERSE the falling piece
+<br>- Right key to SWAP the right-most block 
+<br>&nbsp of the current piece with the top of the pile
+<p>By <a href="http://www.create.aau.dk/av">Andrea Valente</a>.
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+
+  <script src="js/boxGen.js"></script>
+
+  <title>Chapter 7</title>  
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="page006.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<a href="appendixA.html">&gt;</a>
+</div>
+
+<h1>Chapter 7 - Potato and potahto</h1>
+<h2>Write the same thing in different ways</h2>
+<!--p>
+(about rewriting numbers and formulas to prove stuff)
+</p-->
+
+
+<p>
+Consider this square: 
+<div>
+	<canvas id="canvas0_1"></canvas>
+	<script>boxGen('canvas0_1',{size:[4,4],borders:[
+		[0,0,4,4,"black",1]
+	]})</script>
+</div>
+
+It is made of 4 by 4 dots. I could <i>slice</i> it up in this way:
+
+<div>
+	<canvas id="canvas1"></canvas>
+	<script>boxGen('canvas1',{size:[4,4],borders:[
+		[0,0,4,4,"black",1],
+		[0,0,4,1,"green",3],
+		[3,1,4,4,"blue",3],
+		[0,1,3,4,"red",3]
+	]})</script>
+</div>
+
+where the red area is a smaller, 3 by 3 square. I can see that the 4 by 4 square CONTAINS the 3 by 3, and then some dots: the green and blue strips.
+I can write that in numbers as:
+<div class="formula">
+4<sup>2</sup> = <span style="color:red;">3<sup>2</sup></span> + 
+	<span style="color:green;">4</span> + <span style="color:blue;">3</span>
+</div>
+<br>Cool, but is it still true even for larger squares? 
+Is this true <i>in general</i>, for a square whose side is a number <i>n</i>?
+I can write that question as a math expression, and ask: is it true that
+<span class="formula">
+n<sup>2</sup> = <span style="color:red;">(n-1)<sup>2</sup></span> + 
+	<span style="color:green;">n</span> + <span style="color:blue;">(n-1)</span>
+</span>	
+
+for any whole number <i>n</i>?
+<br>
+Well... this is an equation, and both sides (to the left and right of the "=" sign) are expressions 
+with the variable <i>n</i>. So I can look back at what we did in <a href="page005.html">chapter 5</a> (the one about polynomials) and <a href="page006.html">chapter 6</a> (about equations), and I should be able
+to see if the two sides of the equation are THE SAME. To do that I need to calculate (AKA simplify) the right part:
+<span class="formula">
+	(n-1)<sup>2</sup> + n + (n-1) =
+<br> (n-1)*(n-1) + 2*n -1 =
+<br> n*n-1*n -1*n+1 + 2*n -1 =
+<br> n<sup>2</sup> -2*n +1 + 2*n -1 = 
+<br>n<sup>2</sup>
+</span>	
+... so it seems that left and right part of the equation are the same, hence the equation is <b>true</b>.
+
+Try for yourself: in the playgound below, check that our equation keeps working for large values of <i>n</i>.
+</p>
+
+<p>
+	<div class="playground" id="playground1"></div>
+	<script src="js/007_01.js"></script>
+	<script>prepare_007_01('playground1')</script>
+</p>
+
+<p>
+The playground might be convincing, but trying with some values (even A LOT of values) is NOT a <b>mathematical proof</b>, and should not be enough to make me completely sure that my equation is true for any whole number <i>n</i>... Luckily, here I have already proved that it is, by calculating and showing that the two sides of the equation are equal. 
+<br>
+Still! Testing with numbers is a good way to get a FEELING for how this formula works, what it says about the geometry of the sliced-up square.
+
+<!-- not sure of the following
+I can also try to prove it by <i>induction</i>, which means asking 2 things:
+<ol>
+<li>Is the equation true for n=1 ? (the <i>base</i> case)
+<li>And: If I believe that the equation is true when n has a certain value <i>k</i>, 
+	<br>can I convince myself that the equation must also be true for n=k+1, which is the next value after k. This is called the <i>induction step</i>.
+</ol>
+
+
+The idea here is kind of straightforward: say that a new company advertizes a robot that can sweep the floor of any number of rooms of a house, at a speed of one room per hour. 
+You don't believe them and decide to test the robot for yourself.
+You start the robot in the first room and after one hour the floor is all clean. Great, so you know that the robot advertisement is true, at least for 1 room in 1 hour.
+<br>So far so good, but how can you be sure that the robot can sweep clean n rooms in n hours, for any number n? It would take an infinite amount of rooms to test that... so not very practical.
+But wait a second: you could test for your entire house (say 5 rooms) and if you get ...
+<br>
+
+With n=1 I get:
+<span class="formula">
+	n<sup>2</sup> = (n-1)<sup>2</sup> + n + (n-1) &rarr; 1<sup>2</sup> = (1-1)<sup>2</sup> + 1 + (1-1) 
+	&rarr;
+<br>
+	1 = 0 + 1 + 0   &rarr; 1 = 1 &rarr; true
+</span>	
+and so the equation is correct for n=1. Now I have to assume that for n=k it is also true, and see what I can say about the case when n=k+1:
+<span class="formula">
+	n<sup>2</sup> = (n-1)<sup>2</sup> + n + (n-1) &rarr; k<sup>2</sup> = (k-1)<sup>2</sup> + k + (k-1)
+</span>
+and I'm not tying to prove that this is correct, I will just <i>believe</i> that it is. 
+I will try instead to prove that the following is true:
+<span class="formula">
+	(k+1)<sup>2</sup> = ((k+1)-1)<sup>2</sup> + (k+1) + ((k+1)-1) 
+</span>
+and this last equation I obtained by our intial equation with n, simply replacing (subsitution, right?) n with (k+1) everywhere. I can write the last equation a bit better (by doing some calculations):
+<span class="formula">
+	(k+1)<sup>2</sup> = k<sup>2</sup> + (k+1) + k
+</span-->
+
+
+<br><br>
+Now let's look again at the 4 by 4 square, and notice that it can be sliced in other ways too. 
+If I cut it like below:
+<div>
+	<canvas id="canvas2"></canvas>
+	<script>boxGen('canvas2',{size:[4,4],borders:[
+		[0,0,3,1,"green",3],
+		[3,1,4,4,"green",3],
+		[0,1,3,4,"red",3],
+		[3,0,4,1,"blue",3],
+	]})</script>
+</div>	
+I get a completely different equation:
+<b>
+4<sup>2</sup> = <span style="color:red;">3<sup>2</sup></span> + 
+	<span style="color:green;">2*3</span> + <span style="color:blue;">1</span></b>.
+And in general the equation becomes:
+<span class="formula">
+n<sup>2</sup> = <span style="color:red;">(n-1)<sup>2</sup></span> + 
+	<span style="color:green;">2*(n-1)</span> + <span style="color:blue;">1</span>
+</span>	
+
+It does not look like the other equation, and it says something different... but I can still ask:
+is the last equation <i>true</i> for any whole number <i>n</i>? Well, is it?
+<br>
+Again I can try to prove that it is the case, by simplifying a bit the equation:
+<span class="formula">
+n<sup>2</sup> = (n-1)<sup>2</sup> + 2*(n-1) + 1 &rarr; 
+<br>
+n<sup>2</sup> = n<sup>2</sup>-2*n+1 + 2*n -2 + 1 &rarr;
+<br>
+n<sup>2</sup> = n<sup>2</sup>+1 -2 + 1 &rarr; 
+<br>
+n<sup>2</sup> = n<sup>2</sup> &rarr; true
+</span>	
+so squares of dots behave also in this way. Or if you prefer, the dimensions of a square are linked together according to this new formula. And that is true for squares of any size.
+</p>
+
+<h3>A step back from geometry</h3>
+<p>
+I found a couple of ways to define the area of a square (AKA <b>n<sup>2</sup></b>), using a smaller 
+square (AKA <b>(n-1)<sup>2</sup></b>) and some other <i>pieces</i>.
+But the two equations that I found can also be seen as general rules for re-writing the NUMBER <b>n<sup>2</sup></b>.
+<br>
+In fact the two equations tell me that the square of a whole number like <b>7</b> can be calculated without using <b>7*7</b> (AKA <b>7<sup>2</sup></b>), but using <b>6</b> and <b>6<sup>2</sup></b>:
+<div class="formula">
+	n<sup>2</sup> = (n-1)<sup>2</sup> + n + (n-1)  &rarr; 7*7 = 6*6 + 7 + 6
+<br>	
+<br>n<sup>2</sup> =  (n-1)<sup>2</sup> + 2*(n-1) + 1  &rarr; 7*7 = 6*6 + 2*(6) + 1
+</div><br>
+both give <b>49</b> as result.
+And the second formula is even cooler the first, in a way, because it never uses <b>7</b>, only <b>6</b> and <b>1</b>! One could look at these kind of rules as SHORTCUTS: it might save time to calculate the square of a number, via a smaller number.
+<br>
+We derived these two equations from a square of dots (AKA from some things that are true about the geometry of squares), but now we want to FORGET that, and focus on what they say about a generic number <i>n</i>, AKA the variable <i>n</i>. And with that in mind, I might ask: would the two equations keep being true also for negative values of <i>n</i>? 
+<br>
+Probably not, and not just because I cannot draw a square that has -3 dots on its four side; the problem is the <b>n<sup>2</sup></b> part of the formulas, and a negative number to the second power (AKA a number <i>squared</i>) becomes positive, messing up our equations.
+It's worth trying with -3 for both, just to see what happens. With n=-3 the first equation becomes:
+<div class="formula">
+	n<sup>2</sup> = (n-1)<sup>2</sup> + n + (n-1) &rarr; 
+	<br>(-3)<sup>2</sup> = ((-3)-1)<sup>2</sup> + (-3) + ((-3)-1) &rarr; 
+	<br> 9 = 9 -3 -4 &rarr; 9 = 2 &rarr; false
+</div>
+and since I wanted to check if my equation worked for <i>all numbers</i> (positive and negative), one bad example is enough to be sure that IT DOES NOT. It still works for all positive, whole numbers, but I have to exclude the whole numbers that are negative.
+
+<br>
+Now I can try the second equation with n=-3:
+<div class="formula">
+n<sup>2</sup> = (n-1)<sup>2</sup> + 2*(n-1) + 1 &rarr; 
+<br>(-3)<sup>2</sup> = ((-3)-1)<sup>2</sup> + 2*((-3)-1) + 1 &rarr; 
+<br> 9 = 9 + 2*(-4) + 1 &rarr;  9 = 9 -8 + 1 &rarr; 9 = 2 &rarr; false
+</div>
+which means also this equation works only for positive numbers, zero included.
+
+<br><br>
+So when I create my own <i>rules</i>, like 
+<center><i>"<b>something</b> can be re-written as, or replaced by <b>something</b> else"</i>
+</center>	
+I have to be extra careful that they are <b>true</b>; and if a rule is only true in some cases, I need to be very explicit about which cases they are. Here I can be sure that 
+<b>n<sup>2</b> can be replaced by <b>(n-1)<sup>2</sup>+n+(n-1)</b>, and also by 
+<b>(n-1)<sup>2</sup>+2*(n-1)+1</b>, in any other math expressions, BUT only when n is a whole number equal or larger than zero.
+<!--div>???
+However, there is an intersting thing here: I can use numbers even when my intuition on the geometry of the squares fails. 
+</div-->
+</p>
+
+<div class="todo"> --- fino qua --- </div>
+
+<h2>Making stuff up</h2>
+<p>
+The examples of slicing squares in the previous section show one thing: it is perfectly OK to make up some weird relationship between certain numbers, and ask "is this true in general?". 
+<br>
+Another way to say this is that I can INVENT ways to transform a mathematical expression (again change its looks without changing what it means), and check to see if my transformation is always correct. When I'm sure that it is correct, I can use my new transformation anywhere I like, to change expressions. Sometimes I might even find a transformation that helps solving some problem (like when we defined two transformations that help solving simple equations, in <a href="">chapter 4</a>).
+<br>
+
+We have already seen that we can make up expressions using examples from geometry. Let's consider this one now: (a+b)<sup>2</sup> , where a and b are any numbers. How can I find other ways to write that expression? I can try to look at it geometrically!
+
+
+I can start with a concrete example: (3+4)<sup>2</sup> which is actually 7<sup>2</sup> = 7*7 = 49. But when I read the expression it says: "add 3 to 4 and then calculate the square". The obvious way here is to first find out that 3+4 is 7, and then square it... but when I work with <i>a</i> and <i>b</i> I cannot do that. Perhaps I could try to find a relation between the square of 3 and the square of 4, and the square of (3+4); that would be interesting. 
+<div>
+	<canvas id="canvas3"></canvas>
+	<script>boxGen('canvas3',{size:[3,3],borders:[
+		[0,0,3,3,"green",1],
+	]})</script>
+	<canvas id="canvas4"></canvas>	
+	<script>boxGen('canvas4',{size:[4,4],borders:[
+		[0,0,4,4,"red",1],
+	]})</script>
+
+	<canvas id="canvas5"></canvas>	
+	<script>boxGen('canvas5',{size:[7,7],borders:[
+		[0,0,3,3,"green",3],
+		[3,3,7,7,"red",3]
+	]})</script>
+
+	&nbsp;
+
+	<canvas id="canvas6"></canvas>	
+	<script>boxGen('canvas6',{size:[7,7],borders:[
+		[0,3,3,7,"blue",1],
+		[3,0,7,3,"blue",1],
+		[0,0,3,3,"green",3],
+		[3,3,7,7,"red",3]
+	]})</script>
+</div>
+So, here 7<sup>2</sup> contains both <span style="color:green;">3<sup>2</sup></span> and 
+<span style="color:red;">4<sup>2</sup></span>, and then some more <span style="color:blue;">dots</span>. These extra dots are two rectangles with sides 3 and 4! 
+<br>How can I write this into an equation? I surely can in this concrete example, and I will get:
+
+<span class="formula">
+7<sup>2</sup> = <span style="color:green;">3<sup>2</sup></span> + 
+	<span style="color:red;">4<sup>2</sup></span> + 
+	2*<span style="color:blue;">3*4</span>
+</span>	
+and in fact 7<sup>2</sup> = 49, while 3<sup>2</sup>+4<sup>2</sup>+2*3*4 = 9+16+24 = 49 , so it works! For 3 and 4 at least.
+<br>Now I can be bold and say: I'm sure it will work also in general, for any two numbers, <i>a</i> and <i>b</i>! And the equations will become:
+<span class="formula">
+(a+b)<sup>2</sup> = <span style="color:green;">a<sup>2</sup></span> + 
+	<span style="color:red;">b<sup>2</sup></span> + 
+	2*<span style="color:blue;">a*b</span>
+</span>	
+Traditionally in math one tries to write polynomia sorted with respect to one of the variables. Here I can re-organize my expressions so that <i>a<sup>2</sup></i> comes before <i>a<sup>1</sup></i> (which is simply <i>a</i>), and <i>a</i> comes before any constant value (because a constant, like 9 for example, is also 9*1 or 9*a<sup>0</sup>). Here the equation <i>sorted</i> by <i>a</i> becomes:
+<span class="formula">
+(a+b)<sup>2</sup> = a<sup>2</sup> +  2*a*b + b<sup>2</sup>
+</span>	
+which is arguably more <i>nice looking</i>, with the powers of <i>a</i> decreasing as I read from left to right, while the powers of <i>b</i> increase.
+
+<br>
+Surprisingly, this equation is true for any values of a and b, even when one or both are negative!
+
+<span class="task">Potato & potahto. To make sure that the equation above is always true, try to get to it from another, different direction. Try using the fact that the square of (a+b) is really just (a+b) multiplied by itself. Do the multiplication, simplify... and see if you get the same as our equation based on the gemetrical properties of squares.</span> 
+</p>
+
+<img src="a+b_squared_visual.png">
+
+
+<h2>Transform anything</h2>
+<p>
+So far we were mostly interested in substituting a variable with a number. But would it make any sense to put an entire mathematical expression into a variable?
+<br>
+For example, I know that a+a is 2*a, for any possible value of a. But what if a is not a number, but another expression? What if a was b+c*d? Can I say (b+c*d) + (b+c*d) = 2* (b+c*d) ? I put some brackets to be sure that I don't mess up the order or the meaning of some operations... but the questions stands.
+<br>
+Let's see what happens calculating the expression:
+<span class="formula">
+(b+c*d) + (b+c*d) = b + c*d + b + c*d = 2*b + 2*c*d = 2*(b+c*d)
+</span>
+Yes, that's what a+a = 2*a told us from the beginning, and it is true even when a is a whole expression.
+
+<br>
+Wait, but that means also (a+b)<sup>2</sup> = a<sup>2</sup> +  2*a*b + b<sup>2</sup> must be true if a and b are other expressions.
+What about...? 
+<ol>
+<li>( egg + salt + bacon )<sup>2</sup></li>
+<li>( 4*a + 3*b )<sup>2</sup> </li>
+<li> 4*a<sup>2</sup> +12 +9*b<sup>2</sup></li>
+<li>( (a+b)*c )<sup>2</sup> </li>
+<li>( (a-a) + b )<sup>2</sup></li>
+<li>( (a+b)<sup>2</sup> + (c+d)<sup>2</sup> )<sup>2</sup></li>
+</ol>
+
+<span class="task">In the next sections I'm going to solve the first three expressions in the list.
+If you like to transform expressions, try to figure out 4, 5 and 6 by yourself.</span> 
+
+</p>
+
+<h3>- Facing ( egg + salt + bacon )<sup>2</sup></h3>
+<p>
+When using these equations back and forth, we are really just looking for a certain form, pattern, and then when the elements of that pattern are recognized, we can transform our expressions into others.
+But... wait: this is what we said about normal forms and transformations (in <a>chapter 1</a> for example). In fact also in this case we want to change the look of things, but not their meaning, and eventually go back by reversing the transformations.
+<br>
+OK, how to I put 3 feet in 2 shoes? Because that's what ( egg + salt + bacon )<sup>2</sup> looks like, with respect to my equation: (a+b)<sup>2</sup> = a<sup>2</sup> +  2*a*b + b<sup>2</sup>. What is <i>a</i> and what is <i>b</i>? I have three things: egg, salt and bacon!
+<br>Perhaps I can cheat and group two things, and <i>pretend</i> I only had two to start with... But would it work? Let's see:
+( egg + salt + bacon )<sup>2</sup>  &rarr; ( (egg+salt) + bacon )<sup>2</sup>. OK, so now it is of the form:
+<span class="formula">
+	( someThing + someOtherThing )<sup>2</sup>
+</span>
+which is promising. I can do the transformation and see where it gets me:
+<span class="formula">
+( <span data-bracket="a">(egg+salt)</span> + <span data-bracket="b">bacon</span> )<sup>2</sup> &rarr; a<sup>2</sup> +  2*a*b + b<sup>2</sup> 
+</span><br>
+and after substituting it becomse: 
+<span class="formula">
+	(egg+salt)<sup>2</sup> +  2*(egg+salt)*bacon + bacon<sup>2</sup>
+</span>
+OK, it worked! Only now I still have a square to calculate, and some other minor stuff...
+<span class="formula">
+	&rarr; (egg+salt)<sup>2</sup> +  2*egg*bacon+2*salt*bacon + bacon<sup>2</sup> 
+</span>
+And the part (egg+salt)<sup>2</sup> is just another <i>copy</i> of the same pattern, so I can use the same transformation again.
+<span class="formula">
+( <span data-bracket="a">egg</span> + <span data-bracket="b">salt</span> )<sup>2</sup> &rarr; a<sup>2</sup> +  2*a*b + b<sup>2</sup> &rarr; <br> 
+<br>
+egg<sup>2</sup> +  2*egg*salt + salt<sup>2</sup>
+</span>
+Putting it all together:
+<span class="formula">
+	(egg<sup>2</sup> +  2*egg*salt + salt<sup>2</sup>) + 2*egg*bacon + 2*salt*bacon + bacon<sup>2</sup> 
+</span>
+and I just have to clean it up:
+<span class="formula">
+	egg<sup>2</sup> + salt<sup>2</sup> + bacon<sup>2</sup> +
+
+	2*egg*salt + 2*egg*bacon + 2*salt*bacon
+</span>
+Done. And it looks very <i>elegant</i>: the square of two terms (a+b) is the sum of each squared and their double product. Here we have that to square three terms (a+b+c) we have to sum their squares and their double <i>mixed</i> products. I was not expecting this. [Note: eggs and bacon really is a powerful combination!]
+
+<br>
+And even here we can make stuff up, and write:
+<span class="formula">
+(a+b+c)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2*a*b + 2*a*c + 2*b*c
+</span>
+</p>
+
+<h3>- Facing ( 4*a + 3*b )<sup>2</sup></h3>
+<p>
+	to do
+</p>
+
+
+<h3>- Facing 4*a<sup>2</sup> +12 +9*b<sup>2</sup></h3>
+<p>
+	to do
+</p>
+
+<h2>Puzzles</h2>
+bla bla
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+</body>  

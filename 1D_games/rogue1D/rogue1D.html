@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Rogue1D - a 1D rogue derivative</title>
+		<style type="text/css">		
+		.myButton {
+			background:blue;
+			color:white;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		.disabledButton{
+			background:lightgray;
+			color:gray;
+			height:60px;
+			-moz-border-radius:10px;
+			-webkit-border-radius:10px;
+			font-size: 150%;
+		}
+		</style>
+	</head>
+	<body>
+		<script src="js/game.js"></script>
+	<p>
+	<table cols="3" style="width:600px;">
+	<tr><td style="width:100px;"></td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="0" id="button0">LEFT</button>
+	</td>
+	<td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:200px;" class="myButton"
+			name="1" id="button1">UP/DOWN</button>
+	</td><td>
+	<button onmousedown="mouseDownOn(this);"
+	        onmouseup="mouseUpOn(this);" 
+			style="width:120px;" class="myButton"
+			name="2" id="button2">RIGHT</button>
+	</td></tr>	
+	</table>
+	</p>
+<p><b>Rogue 1D </b> - A mono-dimensional version of the <a href="http://en.wikipedia.org/wiki/Roguelike">rogue</a>-style games.
+<br>V0.2
+<br>To win: collect the yellow key and open the yellow door.
+<br>- <i>Left</i> and <i>Right</i> to move
+<br>- <i>Space</i> hop upwards
+<p>By <a href="http://www.create.aau.dk/av">Andrea Valente</a>.
+</body>
+</html>

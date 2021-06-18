@@ -1,0 +1,25 @@
+a ping pong match
+AT hobbyroom,Alice PICKUP ball
+AT kitchen,THING table,PERSON mom
+AT hobbyroom,Alice GIVES ball TO Bob
+AT hobbyroom,Bob GIVES ball TO Alice
+
+mom sends boy to buy milk
+AT home,mom GIVES money TO boy
+AT street,boy GOTO street
+AT shop,boy GOTO shop
+AT aisle,boy GOTO aisle,boy PICKUP milk,boy GOTO shop
+AT shop,boy GIVES money TO clerk
+AT street,boy GOTO street
+AT home,boy GOTO home,boy GIVES milk TO mom
+
+banana
+AT forest,monkey GIVES banana TO giraffe
+AT waterPool,giraffe GOTO waterPool
+
+Fra Paris til Berlin
+AT Paris,Mig PICKUP baguette,Mig GOTO Berlin
+AT Berlin,Mig PICKUP berliner,Mig GOTO Tokio
+AT København, PERSON Du
+AT København, Du GOTO Tokio
+AT Tokio,Mig GIVES baguette TO Du,Mig GIVES berliner TO Du

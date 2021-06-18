@@ -1,0 +1,137 @@
+<html><meta charset="UTF-8">
+<head>
+	<meta name="viewport" 
+        content="width=device-width, 
+                 initial-scale=1"> 
+	<link rel="manifest" href="manifest.json">
+</head>
+<body>
+	<canvas id="c"></canvas>
+	<script src="ZzFX.micro.js"></script>	
+<script>c=document.getElementById('c')
+x=c.getContext('2d')
+rs=_=>{L=H[V].split('').slice();F=1;O=J[V];Ø=0;win=0}
+
+document.onkeydown=e=>{
+if(e.shiftKey){O=1-O,Ø=15,zzfx(1,.05,392,.05,.8,4.8,.9,.4,.12)}
+if(e.which==39)M=1
+if(e.which==37)M=-1
+if(e.which==82){alert('RESET!');rs()}
+if(e.which==73)alert('SHIFT to open/close hidden spaces,\nLEFT & RIGHT keys to move\nR to reset if you get stuck\nGoal: move all boxes on the X platforms')
+}
+
+R={'>':a1='m5 5l20 15l-20 15','<':a2='m35 5l-20 15l20 15','b':box='m7 9l26 0l0 27l-26 0Z','W':'m35 5l-30 20m30 -10l-30 20m-8 -38l38 0l6 46l-36 0Z','.':'','x':RX='m2 42l36 20m0 -20l-36 20','B':box+'m-5 -5'+RX,'Z': a1+'m-5 -35'+RX,'S':a2+'m-35 -35'+RX}
+
+H=['.W..>.[.b..].x..W.','.W.>.b..[x.b].x.W.','.W.x.>.[.b..]....W.','.W>xb[.].W.','.W.x.b>b[x.b]..x.W.','.W.[..]b.>x..[xb].W.','.W>b[x]b.[.xW].xb[.].W.','.W.[Zbx]b.[.].W.','.W..[.]b>B.[.]x.[xb].W.']
+J=[1,1,1,0,1,1,0,1,1]
+
+V=0
+L=H[V].split('').slice()
+K=40;F=1;M=0;O=J[V];Ø=0
+
+FN=(s,a,i)=>{
+	for(z=i;z<s.length;z+=F){
+		if(s[z]==a)
+			return z
+	}
+	return-1
+}
+
+u=t=>{
+	P=1+L.indexOf('>')+L.indexOf('Z')
+	w=c.width=window.innerWidth-50
+	h=c.height=window.innerHeight-50
+	//c.width|=0
+	x.clearRect(0,0,w,h)
+	x.setTransform(w/800,0,0,.9*w/800,9,50)
+
+	T=~~(t/2e3)+1
+	B=1/(~~T%40+1.25)
+	for(A=[],i=30;i-->0;)A.push(B+i*22+100,(B=2*B%1)*300+30)
+	x.fillStyle='#'+(9-(V+1)%9)+(9*~~T%40+10)
+	x.fill(new Path2D(`M${A}`))
+
+	x.font = .5*K+'px monospace'
+	x.fillText('Level '+(V+1),9,300)
+	x.fillText('(I)nfo',9,330)
+	x.font = 1.5*K+'px monospace'
+	x.fillText('1D Soko Ver2.1',180,8)
+	x.fillStyle='#000'
+	Ø?(Ø--,x.translate(Math.cos(~~(t*.05))*4,Math.sin(~~(t*.05))),x.fillText('!SHIFT!',220,250)):0
+	if(F==M){
+	cIx=P
+	A='[';B=']'
+	if(F==-1){A=']';B='['}
+	if(L[cIx]==A){if(O)cIx+=F
+	else cIx=FN(L,B,P)+F}if(L[cIx]==B)cIx+=F
+	n1=cIx+F
+	if(L[n1]==A){if(O)n1+=F
+	else n1=FN(L,B,P)+F}if(L[n1]==B)n1+=F
+	n2=n1+F
+	if(L[n2]==A){if(O)n2+=F
+	else n2=FN(L,B,P)+F}if(L[n2]==B)n2+=F
+	C12=''
+	t1=L[cIx]+L[n1]
+	t2=t1+L[n2]
+	if(t1=='>.')C12='.>'
+	if(t1=='Z.')C12='x>'
+	if(t1=='Zx')C12='xZ'
+	if(t1=='>x')C12='.Z'
+	if(t2=='>b.')C12='.>b'
+	if(t2=='>B.')C12='.Zb'
+	if(t2=='Zb.')C12='x>b'	
+	if(t2=='ZB.')C12='xZb'
+	if(t2=='>bx')C12='.>B'
+	if(t2=='>Bx')C12='.ZB'
+	if(t2=='ZBx')C12='xZB'
+	if(t2=='Zbx')C12='x>B'
+	if(C12!=''){C12=C12.split('')
+
+	if((C12[2]=='b')||(C12[2]=='B'))zzfx(1,.05,679,.4,.2,.1,1.6,0,.03)
+	else zzfx(1,0,100,.1,.01,0,0,50,0)
+
+	L[cIx]=C12[0]
+	L[n1]=C12[1]
+	if(C12.length==3)L[n2]=C12[2]
+	}} else if(M!=0)F=-F
+	P=1+L.indexOf('>')+L.indexOf('Z')
+	IN=1
+	for(j=1,i=1;i<L.length-1;i++){
+	L[i]=='['?(IN--,i++):0
+	L[i]==']'?(IN++,i++):0 
+	if(IN+O){
+	$=L[i]
+	if((P==i)&&(F==-1))$=L[i]=='>'?'<':'S'
+	x.fillStyle=IN?'#DDB':'pink'
+	x.fillRect(1.1*K*j,K*2+IN*K/2,K,K)
+	_=(t/200)%2
+	P==i?x.fillRect(1.1*K*j,K*2-_*2+IN*K/2,K,K+_*4):0
+	x.strokeStyle=$=='B'?'#0A0':'#000'
+	x.lineWidth=2
+	x.beginPath()
+	x.stroke(new Path2D(`M ${1.1*K*j} ${K*2+IN*K/2}`+R[$]))
+	j++
+	}}M=0
+	x.fillStyle='#000'
+	if(!win){if(L.indexOf('b')==-1)win=200}else{x.fillText('Victory!',260,300);x.lineWidth=t%15;x.strokeRect(6*K-t%15*20,3*K-t%15*5,t%15*60,t%15*10)}
+	win?win--:0
+	if(win==1){V=(V+1)%H.length;rs()}
+	W(m)}
+gameOver=0
+win=0
+m=t=>!gameOver?u(t):0
+W=window.requestAnimationFrame;W(m)
+// ----- touch -----------------
+c.ontouchstart=e=>{
+  let t=e.touches[0].clientX;
+  if(t<window.innerWidth/3){
+  	document.onkeydown({which:37});
+  } else if(t>window.innerWidth*2/3){
+  	document.onkeydown({which:39});
+  } else {
+  	document.onkeydown({shiftKey:true});
+  }
+}
+</script>
+<script src="loadWorker.js"></script>
+</body></html>

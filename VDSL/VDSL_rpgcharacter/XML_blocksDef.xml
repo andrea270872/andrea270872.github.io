@@ -1,0 +1,19 @@
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<block type="RPGCharacter"></block>
+<block type="giveName">
+   <field name="characterName">"Borth"</field>
+</block>
+<block type="eat">
+   <field name="amountOfEnergy">10</field>
+</block>
+<block type="foundCoins">
+   <field name="amountOfCoins">1500</field>
+</block>
+<block type="hitEnemy">
+</block>
+<block type="getDamage">
+   <field name="amountOfDamage">50</field>
+</block>
+<block type="printState">
+</block>
+</xml>

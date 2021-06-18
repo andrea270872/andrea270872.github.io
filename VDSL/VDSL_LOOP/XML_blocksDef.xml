@@ -1,0 +1,27 @@
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<block type="LoopProgram"></block>
+<block type="add">
+   <field name="i">1</field>
+   <field name="j">1</field>
+   <field name="c">0</field>
+</block>
+<block type="sub">
+   <field name="i">1</field>
+   <field name="j">1</field>
+   <field name="c">0</field>
+</block>
+<block type="loop">
+   <field name="i">1</field>
+</block>
+<block type="MACRO_1">
+   <field name="name">"aMacro"</field>
+</block>
+<block type="DO_1">
+   <field name="name">"aMacro"</field>
+   <field name="i">5</field>
+</block>
+<block type="run">
+</block>
+<block type="stepByStep">
+</block>
+</xml>

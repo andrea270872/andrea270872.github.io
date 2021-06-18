@@ -1,0 +1,28 @@
+22:16 30/06/2012
+
+What is the equivalent of reaching the same destination following 2 different paths, in 1D?
+Because that is what is used in the 2D version to change the "phase" of the block, so it can reach
+places that it could not in the initial phase. (phase being the relationship between position of the block
+and wheather it gets ther in vertical or horizontal position).
+
+- Having a string to define the tiles and the starting point of the blox, the users could design and play their own levels :)
+- the space button should be active only when on top of the right tile (see http://stackoverflow.com/questions/5776231/css-javascript-style-sheet-disabled )
+
+09:23 02/07/2012
+
+- add a true1D visualization in these kinds of games
+
+10:57 02/07/2012
+
+(- implement a button tile. When pressed other tiles will close or open (like bridges).)
+
+First: implement the editor function (done).
+
+18:24 02/07/2012
+
+- find a "falling down" and a "button pressed" sound
+
+18:22 08/11/2014
+
+v0.5
+- fixed colors: the hex colors didn't have the "#" prefix as needed, now they all have it.

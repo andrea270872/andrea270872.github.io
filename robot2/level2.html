@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Robot's memories</title>  
+  <script src="js/blockly_compressed.js"></script>
+  <script src="js/blocks_compressed.js"></script>
+  <script src="js/en.js"></script>
+  <style>
+
+    div#preloaded-images {
+       position: absolute;
+       overflow: hidden;
+       left: -9999px; 
+       top: -9999px;
+       height: 1px;
+       width: 1px;
+    }
+
+    body {
+      background-color: #DBD09C;
+      font-family: sans-serif;
+      color: #472412;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+
+  .smartButton {
+     padding: .5em;
+     background-color: #9E4F28;
+     color: #DBD09C;
+     height:50px;
+     width:50px;
+     cursor:pointer;
+     text-decoration: none;
+  }
+
+  .smartButton:hover {
+     background-color: #B8714D;
+     color: #DBD09C;
+  }
+
+  .guiButton {
+    border: none;
+    background-color: #9E4F28;
+    color: #DBD09C;
+    cursor:pointer;
+    /*
+    background-color: #e4e4e4;
+    color: darkblue;*/
+    height:30px;
+   }
+  .guiButton:disabled {
+    border: none;
+    background-color: darkgray;
+    color: #e4e4e4;
+    height:30px;
+   }   
+
+   #loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    width: 50%;
+    text-align: center;
+    font-size: 5em;
+    color: white;
+    background-color: green;
+   }
+
+
+   .confetti {
+      width:   8px;
+      height: 21px;
+      position: absolute;
+      background-color: gold;
+      display: block;
+   }
+   .rotate {
+     animation: rotate .75s linear infinite; 
+   }
+   @keyframes rotate{
+     to{ transform: rotate(360deg); }
+   }
+
+  </style>
+
+</head>
+<body>
+  <!--p>[created with <a href="https://developers.google.com/blockly/">Blockly</a>]</p-->
+
+  <div id="loading">LOADING...</div>
+  <div id="confettis" style="display: inline;">
+  </div>
+
+  <div>
+  <center>
+  <table cols="3" style="width:70%;padding-bottom:2em;">
+    <tr>
+      <td> <a class="smartButton" href="index.html">HOME</a> </td>
+      <td> <b>Level 2</b> </td>
+      <td> <a class="smartButton" href="level3.html">-NEXT LEVEL-></a> </td>
+    </tr>
+  </table>
+  </center>    
+  </div>    
+
+  <div style="float:left;margin-left:100px;">
+
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <div style="padding-top:.3em;">
+      <button class="guiButton" id="loadBlocks">load</button>
+      <button class="guiButton" id="saveBlocks">save</button>
+      &nbsp &nbsp
+      &nbsp &nbsp &nbsp &nbsp
+      <button class="guiButton" id="genCode">RUN CODE</button>
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      <button class="guiButton" id="helpBtn">HELP</button>
+    </div>
+  </div>
+  <div id="theOutputDiv" style="margin-left:100px;height:600px;width:500px;float:left;">
+    <canvas id="theCanvas" width="500" height="600"></canvas>
+    <div id="theOutputDivText"></div>
+
+  </div>
+
+  <div id="preloaded-images">
+     <img width="1" height="1" alt="" id="empty" src="imgs/empty.png">
+     <img width="1" height="1" alt="" id="cake" src="imgs/cake.png">
+     <img width="1" height="1" alt="" id="flower" src="imgs/flower.png">
+     <img width="1" height="1" alt="" id="robot" src="imgs/robot.png">
+     <img width="1" height="1" alt="" id="arrow" src="imgs/arrow.png">
+  </div>
+
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<block type="GuessRobot"></block>
+<block type="forward">
+</block>
+<block type="turnCW">
+</block>
+<block type="turnACW">
+</block>
+<block type="repeat2times">
+</block>
+<block type="repeat4times">
+</block>
+</xml>
+
+  <script src="js/VDSL_Blocks.js"></script>
+  <script>
+    var toolbox = document.getElementById("toolbox");
+    var options = { 
+      toolbox : toolbox, 
+      collapse : false, 
+      comments : false, 
+      disable : false, 
+      maxBlocks : Infinity, 
+      trashcan : true, 
+      horizontalLayout : false, 
+      toolboxPosition : 'start', 
+      css : true, 
+      media : 'media/', 
+      rtl : false, 
+      scrollbars : false, 
+      sounds : true, 
+      oneBasedIndex : true, 
+      grid : {
+        spacing : 20, 
+        length : 1, 
+        colour : '#888', 
+        snap : true
+      }, 
+    };
+    var demoWorkspace = Blockly.inject('blocklyDiv',options);
+    demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
+  </script> 
+
+
+  <script src="js/IDSL_def.js"></script>
+  <script src="js/javascript_compressed.js"></script>
+  
+  <script src="js/VDSL_Generators.js"></script>
+  <script>const IDSL_name = 'GuessRobot';</script>  
+
+  <script>
+    function wait(ms) {
+        var start = new Date();
+        var now;
+        while (true) {
+            now = new Date();
+            if (now - start >= ms) {
+                break;
+            }
+        }
+    }
+
+    const LEVEL_NR = 2; // level number
+
+    function listAllBlocks(){
+      let dom = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+      let blockList = [];
+      function visit(n,level=0){
+         blockList.push( '-'.repeat(level) + n.getAttribute("type") );
+
+         // 3 possiblities:
+         // 1- a node has 0 children and it's a leaf
+         // 2- a node has 1 child, and it's "NEXT"
+         // 3- a node has 2 children, a "STATEMENT" and a "NEXT"
+         let names = {};
+         for (let child of n.children){
+            names[child.nodeName] = child;
+         }
+
+         let statementChild = names["STATEMENT"];
+         if (statementChild)
+            visit(statementChild.children[0],level+1);
+
+         let nextChild = names["NEXT"];
+         if (nextChild)
+            visit(nextChild.children[0],level);
+      }
+
+      //console.log("DOM:", dom);
+      visit(dom.firstChild);
+      blockList.shift();
+      return blockList;
+    }
+
+
+    function SAVE_TO_MONGO(victory){
+      let blocklyXml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());      
+      let text = new XMLSerializer().serializeToString(blocklyXml);
+
+      //console.log(listAllBlocks());
+      let data = {"userId": userId,
+                      "timeStamp": Date.now(),
+                      "timeStampReadable": new Date().toGMTString(),
+                      "XMLcode": text,
+                      "code": listAllBlocks(),
+                      "level":LEVEL_NR,
+                      "victory":victory,
+                      "nr_stars":numberOfStars|0,
+                      "click_times": JSON.stringify(mouseSpy.clicksAt)
+                     };
+      // *****************************************************
+      // dump and reset mouseSpy ;)
+      //    time from last click, in ms, and mouse position when clicked
+      //console.log( "Mouse data for this run", JSON.stringify(mouseSpy) );
+      mouseSpy.clicksAt = [];
+      mouseSpy.lastClickTime = new Date().getTime();
+      // *****************************************************
+      //console.log( saveData );
+
+      // AJAX call to cloud-DB
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = false;
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          //console.log(this.responseText);
+          console.log("attempt saved on cloud DB");
+        }
+      });
+      xhr.open("POST", "https://guessrobot-2e5c.restdb.io/rest/users-solutions");
+      xhr.setRequestHeader("content-type", "application/json");
+      xhr.setRequestHeader("x-apikey", "60801f0928bf9b609975a4b5");
+      xhr.setRequestHeader("cache-control", "no-cache");
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+
+  <script>
+    // 0<=t<=1
+    const lerp = (v0,v1,t) => {
+      return (1-t)*v0+t*v1;
+    }
+
+    // if workspace is empty, place a "Start"-block
+    if (Blockly.getMainWorkspace().getTopBlocks().length==0){
+      //let newBlock = Blockly.Block.obtain(Blockly.getMainWorkspace(),'GuessRobot');
+      let newBlock = Blockly.getMainWorkspace().newBlock('GuessRobot');
+      newBlock.moveBy(50,50);
+      newBlock.initSvg();
+      newBlock.render();
+      //console.log( newBlock );
+    }
+
+    const outputDiv = document.getElementById('theOutputDiv');
+    const outputDivText = document.getElementById('theOutputDivText');
+
+    // get the userId
+    let userId = localStorage.getItem('userId');
+    if (userId==null){
+      window.location.replace("index.html"); // redirect if no userId
+    }
+    //console.log( userId );
+
+////////////////////////////////////////////////////////////////////////////
+// draw on canvas, implement movements ...
+    let timer = null;
+    const canvas = document.getElementById('theCanvas');
+      let ctx = canvas.getContext("2d");
+      ctx._W = 800;
+      ctx._H = 600;
+      ctx._X = canvas.offsetLeft;
+      ctx._Y = canvas.offsetTop;
+
+    // wait until all images have loaded...
+    document.getElementById('loading').style.display = "block";
+    let images = [];
+    let allImagesLoaded = false;
+    while (!allImagesLoaded){
+      images = [
+        document.getElementById('empty'),
+        document.getElementById('cake'),
+        document.getElementById('flower'),
+        document.getElementById('robot'),
+        document.getElementById('arrow'),   // 22x34 pixels
+      ];
+      allImagesLoaded = images.indexOf(null)==-1;
+      wait(500); // ms
+    }
+    document.getElementById('loading').style.display = "none";
+
+// ---- LEVEL DEFINITION ----------------------------------------- start
+    let robotPos = [1,3] // row,col
+    const level = [ [0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,2,0,0],
+                    [0,0,2,1,0,0],
+                    [0,0,0,0,0,0]
+                  ];
+    let GOAL = [2,1,2]; // 1 cake, 2 flower
+    let NBLOCKS_STARS = [5,4]; // you get 1 star for winning
+                               // 5 or less blocks gets you the second star
+                               // 4 or less blocks gets you the third star
+    const HELP_MESSAGE = 
+`In this level the robot should take pictures of these items:
+   ${GOAL.map(i=>[null,'cake','flower'][i]).join(', ')}
+Help the robot visit the right items in the right sequence :)
+
+[HINT] Try using the clockwise turn block: turnCW`
+
+// ---- LEVEL DEFINITION ----------------------------------------- stop
+
+
+    const ROWS = 5;
+    const COLS = 6;
+    const kx = 74;
+    const ky = 68;
+    const dx = 0;
+    const dy = 100;
+    // environment = angle,pos,thinking
+    let ENV = {facing:"S",pos:robotPos,thinking:[],line:null};
+    let numOfBlocksUsed = 0;
+    let numberOfStars = null;
+
+    drawLevel = (env,numberOfStars=null)=>{
+      ctx.clearRect(0,0,ctx._W,ctx._H);
+      for (let r=0;r<ROWS;r++){
+        for (let c=0;c<COLS;c++){
+          const tile = level[r][c];
+          ctx.drawImage(images[tile],c*kx,r*ky+dy);
+        }     
+      }
+
+      // show the number of instructions used
+  	  //console.log( "----->" , listAllBlocks() );
+  	  if (numOfBlocksUsed>0){
+  		ctx.font = "16px Arial";
+        	ctx.fillStyle = "black";	  	
+  	  	ctx.fillText(`You used ${numOfBlocksUsed} blocks`,10,85);      
+  	  }
+
+      // Show the number of stars obtained in this level -> score
+      if (numberOfStars!=null){
+        // it means the player has won!
+        ctx.font = "20px Arial";
+        let stars = '\u2b50'.repeat(numberOfStars) + '\u2605'.repeat(3-numberOfStars);
+        ctx.fillText(stars,350,85);
+
+        // (1) create a few confetti-DIVs, (2) move them around, (3) then remove them
+        // (1)
+        const colorOptions = ["DodgerBlue", "OliveDrab", "Gold", "pink", 
+                              "SlateBlue", "lightblue", "Violet", "PaleGreen", 
+                              "SteelBlue", "SandyBrown", "Chocolate", "Crimson"];
+        for(let i=0;i<32*2;i++) {
+          let confettiDiv = document.createElement('div');
+          confettiDiv.className = 'confetti rotate';
+          confettiDiv.style.left = (ctx._X+350+20)+'px'; // x
+          confettiDiv.style.top = (ctx._Y+85)+'px';  // y
+          confettiDiv.style.backgroundColor = 
+                      colorOptions[~~(Math.random()*colorOptions.length)];
+          confettiDiv.style.zIndex = 1000;
+          let vx = ~~(Math.cos(i/5)*6);
+          let vy = ~~(Math.sin(i/5)*6);
+          if (i<32){
+            vx = vx / 2;
+            vy = vy / 2;
+          }
+          confettiDiv.setAttribute('data-velocity_x',vx);
+          confettiDiv.setAttribute('data-velocity_y',vy);
+          document.getElementById('confettis').appendChild(confettiDiv);
+        }
+
+        let _t_ = 0;
+        let animationTimer = setInterval(()=>{
+          if (_t_>=1){
+            clearInterval(animationTimer);            
+            // (3)
+            document.querySelectorAll('div.confetti').forEach(function(c){
+                c.remove();
+            });
+          } else {
+            // (2)
+            document.querySelectorAll('div.confetti').forEach(function(c){
+                let x = parseInt(c.style.left);
+                let y = parseInt(c.style.top);
+                x+=parseFloat(c.getAttribute('data-velocity_x'));
+                y+=parseFloat(c.getAttribute('data-velocity_y'));
+                c.style.left = (~~x)+'px';
+                c.style.top = (~~y)+'px';
+                //console.log(c.style);
+            });
+          }
+          _t_ += .04;
+        }, 15);
+
+      }
+
+      // arrow showing facing
+      ctx.save();
+      ctx.translate( (env.pos[1]+.5)*kx , (env.pos[0]+.5)*ky+dy );
+      if (env.facing=="S") ctx.rotate( 0 );
+      if (env.facing=="N") ctx.rotate( Math.PI );
+      if (env.facing=="E") ctx.rotate( Math.PI*3/2 );
+      if (env.facing=="W") ctx.rotate( Math.PI/2 );
+      ctx.drawImage(images[4],-11,+18);
+      ctx.restore();
+
+      ctx.drawImage(images[3],env.pos[1]*kx+20,env.pos[0]*ky+5+dy); // robot
+
+      ctx.strokeStyle = "black";
+      ctx.strokeRect(10-2,35-2,26*12+4,24+4);
+      let offset=-1;
+      for(let think of env.thinking){
+        offset++;
+        ctx.drawImage(images[think],10+offset*26,35,25,24); // thinking
+      }
+      /*
+      if (env.thinking.length!=0){
+    	  ctx.strokeStyle = "blue";
+	      ctx.strokeRect(10+offset*26,35,50/2,48/2);
+      }*/
+
+      // draw goal
+      ctx.font = "16px Arial";
+      ctx.fillStyle = "black";
+      ctx.fillText("Goal:",20,450+18);
+      let goalOffset=-1;
+      for(let g of GOAL){
+        goalOffset++;
+        ctx.drawImage(images[g],70+goalOffset*25,450,50/2,48/2);
+      }
+
+
+      //console.log( ">>>",env.line)
+      if (env.line){
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText(env.line[0], 0, 18);
+      }
+
+    }
+
+    drawLevel(ENV);
+////////////////////////////////////////////////////////////////////////////
+
+    document.getElementById('genCode').addEventListener('click' , ()=>{
+      if (timer!=null) clearTimeout(timer); // stop execution if it's running
+
+      // unselect all blocks!
+      Blockly.getMainWorkspace().getAllBlocks().forEach(b=>b.unselect())
+      //Blockly.getMainWorkspace().getTopBlocks()[0].unselect();
+
+      document.getElementById('genCode').disabled = true;
+
+      Blockly.JavaScript.addReservedWords('code');
+      let THE_CODE = '';
+      var code = 'THE_CODE = '+
+        Blockly.JavaScript.workspaceToCode(
+        Blockly.getMainWorkspace()) + '.generateCode();';
+      //DEBUG console.log( `code:\n${code}` );
+
+      // run the code using the actual IDSL
+      try {
+        eval(code);
+      } catch (error) {
+        console.log(error);
+        document.getElementById('genCode').disabled = false;
+      }
+
+      if (THE_CODE.length==0){
+        document.getElementById('genCode').disabled = false;
+        return; // there is nothing to do!
+      }
+
+      // ------ execute the robots ----------------------------
+      // DEBUG console.log( "--->",THE_CODE );
+
+    let ctx = canvas.getContext("2d");
+    ctx._W = 800;
+    ctx._H = 600;
+
+    let SPEED = 1000; //300;//1000;
+    let MAX_STEPS = 100;
+    let progCount = 0;    
+    ENV = {facing:"S",pos:robotPos,thinking:[],line:null};
+    const move = {"S":[+1,0],  // row,col
+                  "N":[-1,0],
+                  "E":[0,+1],
+                  "W":[0,-1] }
+    let step = (code)=>{
+      numOfBlocksUsed = listAllBlocks().length;
+      let instr = code[progCount];
+      ENV.line = instr;
+      // console.log( "+++>", progCount , instr , ENV);
+        switch (instr[0]){
+          case 'forward': {
+            let [dx,dy] = move[ENV.facing];
+            let [x,y] = ENV.pos;
+            x += dx;
+            y += dy;
+            if (x<0) x+=ROWS;
+            if (x>=ROWS) x-=ROWS;
+            if (y<0) y+=COLS;
+            if (y>=COLS) y-=COLS;
+
+            // *** Animate from ENV.pos to x,y ******
+            let [x1,y1,x2,y2] = [ENV.pos[0],ENV.pos[1],x,y];
+            let _t_ = 0;
+            const thenDo = ()=>{
+              ENV.pos = [x,y];
+
+            // only when entering a tile while going FD!
+            let steppingOn = level[x][y];
+            //console.log( "steppingOn" , steppingOn );
+            if (steppingOn!=0){
+              let offset = ENV.thinking.length;
+              let [x1,y1,x2,y2] = [
+                  ENV.pos[1]*74+20,ENV.pos[0]*68+5+100,
+                  5+offset*26,28
+              ];
+              let _t_ = 0;
+              let animationTimer = setInterval(()=>{
+                if (_t_>=1){ // when done...
+                  clearInterval(animationTimer);
+                  ENV.thinking.push(steppingOn); // finally add to the list!
+                } else {
+                  drawLevel(ENV);
+                  ctx.drawImage(images[steppingOn],
+                        lerp(x1,x2,_t_) , lerp(y1,y2,_t_),
+                        lerp(50,25,_t_),lerp(48,24,_t_));
+                }
+                _t_ += .025;
+              }, 15);              
+            }
+
+            }            
+            let animationTimer = setInterval(()=>{
+              if (_t_>=1){
+                clearInterval(animationTimer);
+                thenDo();
+              } else {
+                ENV.pos = [ lerp(x1,x2,_t_) , lerp(y1,y2,_t_) ];
+                drawLevel(ENV);
+              }
+              _t_ += .1;
+            }, 15);
+            // **************************************
+          } break;
+          case 'turncw': {
+            console.log("turn");
+            if (ENV.facing=="S"){ 
+              ENV.facing = "W"; 
+            } else if (ENV.facing=="W"){
+              ENV.facing = "N";
+            } else if (ENV.facing=="N"){ 
+              ENV.facing = "E"; 
+            } else if (ENV.facing=="E"){ 
+              ENV.facing = "S"; 
+            }
+          } break;
+          case 'turnacw': {
+            console.log("turning anticlockwise");
+            if (ENV.facing=="S"){ 
+              ENV.facing = "E"; 
+            } else if (ENV.facing=="E"){
+              ENV.facing = "N";
+            } else if (ENV.facing=="N"){ 
+              ENV.facing = "W"; 
+            } else if (ENV.facing=="W"){ 
+              ENV.facing = "S"; 
+            }
+          } break;          
+          case 'repeat2times': {
+            //console.log("=====>",code , instr[1]);
+            code.splice(progCount,1, ...instr[1],...instr[1]);
+            progCount--;
+          } break;
+          case 'repeat4times': {
+            //console.log("=====>",code , instr[1]);
+            code.splice(progCount,1, ...instr[1],
+                                     ...instr[1],
+                                     ...instr[1],
+                                     ...instr[1]);
+            progCount--;
+          } break;
+        }
+
+      drawLevel(ENV);
+      progCount++;
+      if (progCount<code.length){
+        timer = setTimeout(()=>step(code), SPEED);
+      } else {
+      	timer = setTimeout(()=>{
+          let victory = "you lost!";
+          numberOfStars = null;
+          if (ENV.thinking.join('')==GOAL.join('')){
+            victory = "you WON! ^_^ ";
+  
+            // decide how many starts player gets!
+            numberOfStars = 1;
+            if (numOfBlocksUsed <= NBLOCKS_STARS[0]){
+              numberOfStars = 2;
+            }
+            if (numOfBlocksUsed <= NBLOCKS_STARS[1]){
+              numberOfStars = 3;
+            }
+            console.log( "numberOfStars" , numberOfStars );
+            // to do
+            // draw the stars, juice them up!!
+
+            SAVE_TO_MONGO(true); // post solution to MongoDB
+          } else {
+            SAVE_TO_MONGO(false); // post solution to MongoDB
+          }
+
+          ENV.line = null; // no instruction to show
+          drawLevel(ENV,numberOfStars);
+          document.getElementById('genCode').disabled = false;
+
+          setTimeout(()=>alert("Execution terminated ..." + victory),800);
+	      },SPEED);
+	    
+      }
+    }
+    drawLevel(ENV);
+
+    timer = setTimeout(()=>{ step(THE_CODE); }, 100);
+  });
+
+
+    document.getElementById('helpBtn').addEventListener('click' , ()=>{
+      alert(HELP_MESSAGE);
+    });
+
+    // save workspace blocks to file
+    document.getElementById('saveBlocks').addEventListener('click' , ()=>{    
+      let blocklyXml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());      
+      var xmlText = new XMLSerializer().serializeToString(blocklyXml);
+      // DEGUB console.log( xmlText );
+
+
+      let yes = true;
+      let name = prompt('[SAVING]\nName your project:',IDSL_name+'_savedXML');
+      if (localStorage.getItem(name)!=null){
+        yes = confirm("Do you want to lose previously saved workspace?");
+      }
+    if (yes){
+      alert('Saved');
+      localStorage.setItem(name,xmlText);
+    }
+  });
+
+    // load blocks back from file
+    document.getElementById('loadBlocks').addEventListener('click' , ()=>{  
+      let name = prompt('[LOADING]\nWhich project:',IDSL_name+'_savedXML');
+      if (name==null){ // user pressed "cancel" 
+      	return;
+  	  }
+  	  
+      let xmlText = localStorage.getItem(name); 
+      if (xmlText==null){
+        alert('There is nothing saved to reload...');
+        return;
+      }
+      let blocklyXml = Blockly.Xml.textToDom(xmlText);
+      console.log( 'loading ... ' ); // DEGUB + xmlText);
+      // DEGUB console.log( blocklyXml);
+
+      let workspace = Blockly.getMainWorkspace();
+      // DEGUB console.log( workspace );
+      
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(blocklyXml, workspace);
+      //Blockly.Xml.appendDomToWorkspace(blocklyXml, workspace);
+    });
+
+
+    // ************** spy every mouse click *****************
+    let mouseSpy = {
+        clicksAt: [],
+        lastClickTime: new Date().getTime()};
+    document.body.addEventListener("click",(evt)=>{
+        let t = new Date().getTime();
+        let dt = t - mouseSpy.lastClickTime;
+        mouseSpy.clicksAt.push([dt/1000,[evt.clientX,evt.clientY]]);
+        mouseSpy.lastClickTime = t;
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<html>
+<head>
+	<style></style>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/fable.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+	<div>Example:
+<pre>
+mom sends boy to buy milk
+AT home,mom GIVES money TO boy
+AT street,boy GOTO street
+AT shop,boy GOTO shop
+AT aisle,boy GOTO aisle,boy PICKUP milk,boy GOTO shop
+AT shop,boy GIVES money TO clerk
+AT street,boy GOTO street
+AT home,boy GOTO home,boy GIVES milk TO mom
+</pre>
+	</div>
+	<div><b>Describe your F4BL3</b><br/>
+		<textarea rows="10" cols="60" id="fableText">
+		</textarea>
+		<br/><button id="genButton">generate</button>
+		<br/><br/><button id="saveBtn" type="button" >save</button>
+	</div>
+
+	<hr/>
+	<a href="moreExamples.txt" target="_blank">More examples</a>
+	<br/>(<a href="fableGenCmds.txt" target="_blank">Language specification</a>)
+	<hr/>
+	<p>[<a href="index.html">backToIndex</a>]</p>
+<script>
+	// *** fable description as a data structure ************************************
+	var fableText = [
+		'a ping pong match', // title
+		[	'AT hobbyroom','Alice PICKUP ball'], // instructions
+		[	'AT kitchen','THING table','PERSON mom'],
+		[	'AT hobbyroom','Alice GIVES ball TO Bob'],
+		[	'AT hobbyroom','Bob GIVES ball TO Alice']
+		// ...
+	];
+	
+	// returns  [ [rooms] , [people] , [things] , {who/what: initialRoom} ]
+	// NOTE: this function cannot infer nesting of rooms :(
+	function inferMinimalSetup(fable){
+		var result = [[],[],[], {}];
+		var currentRoomName = null;
+		
+		// fable[0] is the title
+		for (var i=1; i<fable.length;i++){
+			for (var step=0; step<fable[i].length;step++){
+		
+				var stepParams = fable[i][step].split(' ');
+				// DEBUG console.log( stepParams );
+				if (stepParams[0] == 'AT'){
+					console.log( stepParams[1] ); // room name
+					var roomName = stepParams[1];
+					currentRoomName = roomName;
+					if (result[0].indexOf(roomName)==-1){
+						result[0].push(roomName);
+					}
+				}
+
+				if (stepParams[1] == 'GOTO'){
+					console.log( stepParams[2] ); // room name
+					var roomName = stepParams[2];
+					if (result[0].indexOf(roomName)==-1){
+						result[0].push(roomName);
+					}
+
+					console.log( stepParams[0] ); // people name
+					var peopleName = stepParams[0];
+					if (result[1].indexOf(peopleName)==-1){
+						result[1].push(peopleName);
+						// first time 
+						result[3][peopleName] = roomName;
+					}					
+				}
+				
+				if (stepParams[1] == 'PICKUP'){
+					console.log( stepParams[2] ); // thing name
+					var thingName = stepParams[2];
+					if (result[2].indexOf(thingName)==-1){
+						result[2].push(thingName);
+						// first time 
+						result[3][thingName] = currentRoomName;						
+					}
+
+					console.log( stepParams[0] ); // people name
+					var peopleName = stepParams[0];
+					if (result[1].indexOf(peopleName)==-1){
+						result[1].push(peopleName);
+						// first time 
+						result[3][peopleName] = currentRoomName;
+					}					
+				}				
+				if (stepParams[1] == 'GIVES'){
+					console.log( stepParams[2] ); // thing name
+					var thingName = stepParams[2];
+					if (result[2].indexOf(thingName)==-1){
+						result[2].push(thingName);
+						// first time -> person that GIVES, had the thing!
+						result[3][thingName] = stepParams[0]; //currentRoomName;						
+					}
+
+					console.log( stepParams[0] ); // people name
+					var peopleName = stepParams[0];
+					if (result[1].indexOf(peopleName)==-1){
+						result[1].push(peopleName);
+						// first time 
+						result[3][peopleName] = currentRoomName;							
+					}
+				
+					console.log( stepParams[4] ); // people name
+					var peopleName = stepParams[4];
+					if (result[1].indexOf(peopleName)==-1){
+						result[1].push(peopleName);
+						// first time 
+						result[3][peopleName] = currentRoomName;						
+					}					
+				
+				}						
+				
+				if (stepParams[0] == 'THING'){
+					console.log( stepParams[1] ); // thing name
+					var thingName = stepParams[1];
+					if (result[2].indexOf(thingName)==-1){
+						result[2].push(thingName);
+						// first time 
+						result[3][thingName] = currentRoomName;						
+					}					
+				}								
+					
+				if (stepParams[0] == 'PERSON'){
+					console.log( stepParams[1] ); // person name
+					var personName = stepParams[1];
+					if (result[1].indexOf(personName)==-1){
+						result[1].push(personName);
+						// first time 
+						result[3][personName] = currentRoomName;						
+					}					
+				}								
+					
+			}
+		}
+		return result;
+	}
+	
+	function generateInitialSlide(fableDescription,setup){
+		var slide = new FableSlide();
+		
+		// setup
+		for (var i in setup[0]){ // build rooms
+			slide.world.children.push( new FableBlock('room', setup[0][i] ) );
+		}
+		
+		// place people in rooms
+		for (var i in setup[1]){ 
+			var peopleName = setup[1][i];
+			var intialRoomName = setup[3][ peopleName ];
+			
+			var room = findFableBlockByNameFrom(intialRoomName,slide.world);
+			if (room==null){
+				throw 'Error when generateInitialSlide!';
+			}
+			// DEBUG 
+			console.log( '--->' , peopleName, intialRoomName , room);
+
+			room.children.push( new FableBlock('person', peopleName ) );
+		}
+		
+		// place things in rooms
+		for (var i in setup[2]){ 
+			var thingName = setup[2][i];
+			var intialRoomName = setup[3][ thingName ];
+			
+			var room = findFableBlockByNameFrom(intialRoomName,slide.world);
+			if (room==null){
+				throw 'Error when generateInitialSlide!';
+			}
+			// DEBUG 
+			console.log( '--->' , peopleName, intialRoomName , room);
+
+			room.children.push( new FableBlock('thing', thingName ) );		
+		}
+		
+		return slide;
+	}	
+	
+	// **************************
+
+	var ERRORS = null;
+	function computeNextStep(index,fableText,fable,palette){
+		console.log('computeNextStep /////////////////////');
+		var line = fableText[index];
+		console.log(line);
+		
+		console.assert(line[0].split(' ')[0] == 'AT' , 'all lines should start with AT');
+		
+		var currentSlide = cloneFable(fable.slides[index]);
+		
+		// First line must be "AT"
+		var stepParams = line[0].split(' ');
+		console.log(stepParams[1]);
+		var currentRoom = findFableBlockByNameFrom(
+						stepParams[1], // room name
+						currentSlide.world
+						);
+		
+		console.assert(currentRoom, 'the room '+ stepParams[1] +' does not exist');
+		if ((stepParams[0] != 'AT') || (currentRoom==null))
+			ERRORS.push( [index+1, 0] );
+		
+		// other lines are commands
+		for (var step=1;step<line.length;step++){
+			var stepParams = line[step].split(' ');
+			console.log( step + ':' +stepParams );
+			
+			// TO DO 
+			// process commands and implement changes to the currentSlide
+			var isUnderstood = false;
+			if (stepParams[1] == 'GOTO'){
+				console.log( 'GOTO ' , stepParams[0], stepParams[2] ); // who + room name
+				isUnderstood = true;
+				
+				var personMoving = findFableBlockByNameFrom(
+						stepParams[0], // person name
+						currentSlide.world
+						);
+						
+				var targetRoom = findFableBlockByNameFrom(
+						stepParams[2], // room name
+						currentSlide.world
+						);						
+				
+				// 1. remove person from its parent room
+				var parentObject = findParentOfFableBlockFromBlock(personMoving.name,currentSlide.world);
+				removeChild(personMoving.name,parentObject);
+				// 2. add person from children of target room
+				targetRoom.children.push(personMoving);
+			}
+			if (stepParams[1] == 'PICKUP'){
+				console.log( 'PICKUP ' , stepParams[0], stepParams[2] ); // who + what
+				isUnderstood = true;
+				
+				var personPickingUp = findFableBlockByNameFrom(
+						stepParams[0], // person name
+						currentRoom
+						);
+						
+				var thingToPickup = findFableBlockByNameFrom(
+						stepParams[2], // room name
+						currentRoom
+						);						
+				// DEBUG console.log( 'PICKUP-start: ',currentRoom,personPickingUp,thingToPickup);				
+				// 1. remove thing from current room
+				removeChild(thingToPickup.name,currentRoom);
+				// 2. add thing to person
+				personPickingUp.children.push(thingToPickup);
+				// DEBUG console.log( 'PICKUP-done: ',currentRoom,personPickingUp,thingToPickup);
+			}
+			if (stepParams[1] == 'GIVES'){
+				console.log( 'GIVES ' , stepParams[0], stepParams[2], stepParams[4] ); // giver + what + receiver
+				isUnderstood = true;
+				
+				var personGiving = findFableBlockByNameFrom(
+						stepParams[0], // person name
+						currentRoom
+						);
+				var personReceiving = findFableBlockByNameFrom(
+						stepParams[4], // person name
+						currentRoom
+						);
+						
+				var thingToGive = findFableBlockByNameFrom(
+						stepParams[2], // room name
+						currentRoom
+						);
+						
+				// 1. remove thing from person giving it
+				removeChild(thingToGive.name,personGiving);
+				// 2. add thing to person
+				personReceiving.children.push(thingToGive);
+				
+			}
+			
+			if (stepParams[0] == 'THING'){
+				console.log( 'THING ' , stepParams[1] ); // thing
+				isUnderstood = true;	
+				// do nothing, the thing is automatically added to the right room!
+			}
+			if (stepParams[0] == 'PERSON'){
+				console.log( 'PERSON ' , stepParams[1] ); // PERSON
+				isUnderstood = true;	
+				// do nothing, the PERSON is automatically added to the right room!
+			}
+			
+			console.assert(isUnderstood==true,'Error at line '+(index+2)+' command '+(step+1));
+			if (!isUnderstood)
+				ERRORS.push( [index+1, step] );
+		}
+		
+		
+		// Add new slide and create link to next slide (not for the last slide)		
+		currentSlide.description = line[0];
+		fable.slides.push( currentSlide );
+		if (index<fableText.length+1)
+			fable.edges.push( new FableEdge('andThen',index,index+1)  );
+	}
+	
+	// **************************
+	
+
+	$('#fableText').val(fableText.join('\n'));
+	//console.log( 'fableText:' , fableText );
+	
+	var fable = null;
+	
+	$('#saveBtn').prop("disabled",true);
+	
+	$('#genButton').on('click',function(evt){
+		evt.preventDefault();
+		
+		// TO DO -> normalize all multiple spaces to a single space
+		
+		// parse fable description back from text in textarea
+		var fableDescription = $('#fableText').val().split('\n');
+		var fableDescriptionArray = [];
+		fableDescriptionArray.push( fableDescription[0] ); // title
+		for (var i=1;i<fableDescription.length;i++){
+			//console.log( fableDescription[i].split(',') );
+			var lineAsArray = fableDescription[i].split(',');
+			lineAsArray = lineAsArray.map(function(elem){
+				return elem.trim();
+			});
+			fableDescriptionArray.push( lineAsArray );
+		}
+		console.log( 'fableDescriptionArray:' , fableDescriptionArray );
+		fableText = fableDescriptionArray;
+		
+		
+		var palette = inferMinimalSetup(fableText); // -> [ [rooms] , [people] , [things] , {} ]
+		var steps = fableText.splice(1);
+		console.log( 'palette:', palette );
+		console.log( 'steps: ' , steps );
+		
+		// create slides in the new format (see fable.js), 
+		// and save the generate fable! => use global variable _ fable _
+		
+		var title = fableText[0].split(' ').join('_'); // replaces spaces with _
+		title = title.substring(0, 10); // max 10 chars in the title!
+		fable = new Fable( title );
+		
+		fable.palette.people = palette[1];
+		
+		fable.palette.things = palette[2];
+		
+		fable.palette.rooms = new FableSlide();
+		palette[0].forEach(function (roomName){
+			fable.palette.rooms.world.children.push( new FableBlock('room',roomName) );
+		});
+		
+		// compute first slide!
+		var slide0 = generateInitialSlide(fableText,palette);
+		slide0.description = 'beginning'
+		console.log( 'slide0:' , slide0);
+		fable.slides.push( slide0 );
+		
+		// compute all other slides...
+		// use an interpreter to generate slides
+		ERRORS = [];
+		steps.forEach(function(line,index){
+			//console.log( '>>>>',line,index)
+			console.log( index + '>>>>BEFORE:' + JSON.stringify(fable.slides[index]) );
+			computeNextStep(index,steps,fable,palette);			
+			console.log( index + '>>>>AFTER:' + JSON.stringify(fable.slides[index+1]) );
+		});
+		
+		if (ERRORS.length>0){ // if any errors when interpreting...
+			alert( 'Errors:\n' + ERRORS.map(function(err){
+				return 'error at line '+(err[0]+1)+' command '+(err[1]+1);
+			}).join('\n') );
+		} else {              // no errors -> proceed
+			$('#saveBtn').prop("disabled",false);
+			$(this).prop("disabled",true);
+		}
+		
+		
+	});
+	
+	
+	$('#saveBtn').on('click',function(evt){
+		console.log( 'SAVING...' , fable );
+		var saveFable = fable;
+		// DEBUG  console.log( JSON.stringify(saveFable) );
+		if (confirm('Are you sure you want to save the "'+saveFable.title+'" F4BL3?')) {
+			// Save it!
+			
+			// DEBUG saveFable.title = 'test';			
+			localStorage.setItem('aFable_'+saveFable.title,JSON.stringify(saveFable));
+		}
+		
+		$('#genButton').prop("disabled",false);
+		$(this).prop("disabled",true);		
+	});	
+	
+	
+	
+</script>
+
+</body>
+</html>

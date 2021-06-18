@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blockly Demo: Fixed Blockly</title>  
+  <script src="blockly_compressed.js"></script>
+  <script src="blocks_compressed.js"></script>
+  <script src="en.js"></script>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+
+</head>
+<body>
+  <h1><a href="https://developers.google.com/blockly/">Blockly</a></h1>    
+
+  <p>This is a simple demo of injecting Blockly into a fixed-sized 'div' element.</p>
+  <div style="float:left;">
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <button id="loadBlocks">load</button>
+    <button id="saveBlocks">save</button>
+    &nbsp &nbsp
+    <button id="clear">clear</button>
+    <br>
+    <button id="genCode">generate+run Code</button>
+  </div>
+  <div id="theOutputDiv" style="margin-left:10px;height: 480px; width: 400px;float:left;"></div>
+
+<!-- YOUR   XML  FILE GOES HERE ---------------------------------------------------START--->
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<block type="LoopProgram"></block>
+<block type="add">
+   <field name="i">1</field>
+   <field name="j">1</field>
+   <field name="c">0</field>
+</block>
+<block type="sub">
+   <field name="i">1</field>
+   <field name="j">1</field>
+   <field name="c">0</field>
+</block>
+<block type="loop">
+   <field name="i">1</field>
+</block>
+<block type="MACRO_1">
+   <field name="name">"aMacro"</field>
+</block>
+<block type="DO_1">
+   <field name="name">"aMacro"</field>
+   <field name="i">5</field>
+</block>
+<block type="run">
+</block>
+<block type="stepByStep">
+</block>
+</xml>
+<!-- YOUR   XML  FILE GOES HERE ---------------------------------------------------STOP--->
+
+  <script src="VDSL_Blocks.js"></script>
+  <script>
+    var toolbox = document.getElementById("toolbox");
+    var options = { 
+      toolbox : toolbox, 
+      collapse : false, 
+      comments : false, 
+      disable : false, 
+      maxBlocks : Infinity, 
+      trashcan : true, 
+      horizontalLayout : false, 
+      toolboxPosition : 'start', 
+      css : true, 
+      media : 'media/', 
+      rtl : false, 
+      scrollbars : false, 
+      sounds : true, 
+      oneBasedIndex : true, 
+      grid : {
+        spacing : 20, 
+        length : 1, 
+        colour : '#888', 
+        snap : true
+      }, 
+      zoom : {
+        controls : true, 
+        wheel : true, 
+        startScale : 1, 
+        maxScale : 3, 
+        minScale : 0.3, 
+        scaleSpeed : 1.2
+      }
+    };
+    var demoWorkspace = Blockly.inject('blocklyDiv',options);
+    demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
+  </script> 
+
+
+  <script src="IDSL_def.js"></script>
+  <script src="javascript_compressed.js"></script>
+  
+  <script src="VDSL_Generators.js"></script>
+  <script>const IDSL_name = 'LOOP';</script>  
+  
+  <script>
+    const outputDiv = document.getElementById('theOutputDiv');
+    const newConsoleLog = function(){
+        let msgs = [];
+        for (let i=0;i<arguments.length;i++) {
+          msgs.push( arguments[i] );
+        }
+        let msg = msgs.join();
+        msg = msg.replace(/\n/g, '<br>');
+        outputDiv.innerHTML += msg+'<br>';
+      };
+      // DEBUG console.log( {x:1} , 'ciao', 123 , 'testing'+123 );
+
+    document.getElementById('genCode').addEventListener('click' , ()=>{
+      Blockly.JavaScript.addReservedWords('code');
+      var code = Blockly.JavaScript.workspaceToCode(
+        Blockly.getMainWorkspace()) + ';';
+      console.log( `code:\n${code}` );
+
+      // run the code using the actual IDSL
+      const oldConsoleLog = console.log;
+      
+      let tmp = code.replace(/\n/g, '<br>');
+      outputDiv.innerHTML += tmp+'<hr>';
+      
+      console.log = newConsoleLog;
+      try {
+        eval(code);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log = oldConsoleLog;
+    });
+
+    document.getElementById('clear').addEventListener('click' , ()=>{    
+      outputDiv.innerHTML = '';
+    });
+
+    // save workspace blocks to file
+    document.getElementById('saveBlocks').addEventListener('click' , ()=>{    
+    	let blocklyXml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());    	
+    	var xmlText = new XMLSerializer().serializeToString(blocklyXml);
+    	// DEGUB console.log( xmlText );
+
+    	let yes = true;
+    	if (localStorage.getItem('savedXML')!=null){
+    		yes = confirm("Do you want to lose previously saved workspace?");
+    	}
+		if (yes){
+			alert('Saved');
+			localStorage.setItem(IDSL_name+'_savedXML',xmlText);
+		}
+	});
+
+    // load blocks back from file
+    document.getElementById('loadBlocks').addEventListener('click' , ()=>{  
+    	let xmlText = localStorage.getItem(IDSL_name+'_savedXML');    	
+    	if (xmlText==null){
+    		alert('There is nothing saved to reload...');
+    		return;
+    	}
+    	let blocklyXml = Blockly.Xml.textToDom(xmlText);
+    	console.log( 'loading ... ' ); // DEGUB + xmlText);
+    	// DEGUB console.log( blocklyXml);
+
+    	let workspace = Blockly.getMainWorkspace();
+    	// DEGUB console.log( workspace );
+    	
+  		workspace.clear();
+  		Blockly.Xml.domToWorkspace(blocklyXml, workspace);
+  		//Blockly.Xml.appendDomToWorkspace(blocklyXml, workspace);
+  	});
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<head>
+  <title>Robot's memories</title>  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<center>
+		<div class="title">Sandwich Robot</div>
+	</center>
+	
+	<center>
+	<div style="width:50%;text-align: justify;text-justify: inter-word">
+		<b>Instructions:</b><br>
+		Hi, this robot <img src="imgs/robot.png" style="width:1.2em;"> lives in a kitchen, 	
+		where it can collect tomatoes <img src="imgs/tomatoes.png" style="width:1.6em;">, 
+		salad <img src="imgs/salad.png" style="width:1.6em;"> and 
+		ham <img src="imgs/ham.png" style="width:1.6em;"> to prepare delicious sandwiches.
+		To prepeare a sandwich the robot should move from ingredient to ingredient, collecting a slice from each.
+		<br>
+		In each level the robot has to prepare a different sandwich (its <b>goal</b>): help the robot collect all the ingredients it needs, and in the right sequence!
+	</div>
+	</center>
+
+	<center>
+		<h2>Levels</h2>
+	<table cols="3" style="width:50%;height:18em;padding: 0px 0px 2em 2em;">
+		<tr>
+			<td> <a class="levelButton" href="level1.html">Level 1</a> </td>
+			<td> <a class="levelButton" href="level2.html">Level 2</a> </td>
+			<td> <a class="levelButton" href="level3.html">Level 3</a> </td>
+		</tr>
+		<tr>
+			<td> <a class="levelButton" href="level4.html">Level 4</a> </td>
+			<td> <a class="levelButton" href="level5.html">Level 5</a> </td>
+			<td> <a class="levelButton" href="level6.html">Level 6</a> </td>
+		</tr>
+	</table>
+	</center>
+
+<script>
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'http://ip-api.com/json');
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			//console.log( xhr.responseText );
+			//console.log( JSON.parse(xhr.responseText).query );
+		    //alert( JSON.parse(xhr.responseText).query  );
+		    let id = JSON.parse(xhr.responseText).query;
+
+		    let userId = localStorage.getItem('userId');
+		    if (userId==null){
+		    	localStorage.setItem('userId',id);
+		    	userId = id;
+		    }
+		}
+	};
+	xhr.send();
+</script>	
+</body>
+</html>
