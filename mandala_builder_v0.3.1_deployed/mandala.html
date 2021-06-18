@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mandala Builder</title>
+
+    <!--script src="jquery.js"></script-->
+	<script src="mandala.js"></script>
+
+  </head>
+  <body>
+	<h1>Mandala Builder</h1>
+	<p>By [<a href="http://www.andval.net/">Andrea Valente</a>]</p>
+	
+	<div id="view">
+		<canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;"></canvas>
+	</div>
+	<div id="controller">
+		<div>
+		<input type="range" id="p1" min="0" max="10" value="0"/><span id="p1_param">0</span>
+		<input type="range" id="p2" min="0" max="10" value="0"/><span id="p2_param">0</span>
+		</div>
+		<div>
+		<input type="range" id="p3" min="0" max="10" value="0"/><span id="p3_param">0</span>
+		<input type="range" id="p4" min="0" max="10" value="0"/><span id="p4_param">0</span>
+		</div>
+		<div>
+		<input type="range" id="p5" min="0" max="10" value="0"/><span id="p5_param">0</span>
+		<input type="range" id="p6" min="0" max="10" value="0"/><span id="p6_param">0</span>
+		<input type="range" id="p7" min="0" max="10" value="0"/><span id="p7_param">0</span>
+		</div>
+		<div>
+			<input type="button" value="RANDOM" id="randomize" />
+			<input type="button" value="PRINT" id="print" />
+		</div>
+	</div>
+
+  </body>
+</html>
