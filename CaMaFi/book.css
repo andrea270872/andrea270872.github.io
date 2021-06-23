@@ -1,0 +1,393 @@
+@font-face {
+  font-family: 'Inconsolata';
+  src: URL('Inconsolata-Regular.ttf') format('truetype');
+}
+
+html, body { 
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Inconsolata;
+  font-size: 20px;
+  line-height: 1.45;
+  color: black;
+  background: white;
+}
+
+.fading-background {
+  background: linear-gradient(to right, rgba(255,255,255,0),rgba(255,255,255,.9),white,white,white,rgba(255,255,255,.9),rgba(255,255,255,0)),
+      url("imgs/small_square_bw.png");
+}
+
+#cover_toc {
+  margin: 0 auto;
+  max-width: 50em;
+  padding: 2em 1em 5em;
+  position: relative;
+}
+
+
+article {
+  margin: 0 auto;
+  max-width: 45em;
+  padding: 2em 1em 5em;
+  position: relative;
+  overflow-wrap: break-word;
+}
+
+
+h1, h2, h3 {
+  font-family: Inconsolata;
+  font-weight: 700;
+  margin: 1rem 0;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: 130%;
+}
+h2 {
+  font-size: 115%;
+}
+h3 {
+  font-size: 100%;
+}
+
+
+.playground {
+  width: 100%;
+  padding: 0;
+  margin: auto;
+  display: block;
+  background: #EEE;
+}
+
+
+
+a, a:visited, a:active {
+  text-decoration: none;
+  color: #009;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+a.standard-header, a.standard-header:visited, a.standard-header:active{  
+  text-decoration: none;
+  color: black;
+}
+
+a.standard-header:hover {
+  border-right: .5em solid lightblue;
+}
+
+.navigation {
+  text-align: center;
+  font-weight: bold;
+  font-size: 150%;
+}
+
+.navigation .disabled {
+  color: darkgray;
+}
+
+.script_reset {
+  background: black;
+  color: white;
+  padding: 0.5em;
+  user-select: none;
+  float: right;
+}
+
+.script_start_pause {
+  float: left;
+  background: black;
+  color: white;
+  padding: 0.5em;
+  user-select: none;
+}
+
+img.icon_text , img.face {
+  height: 2em;
+  width: auto;
+}
+
+span.quote {
+  font-family: Arial, sans-serif;
+  font-size: 90%;
+  font-style: italic;
+}
+
+
+
+span.frac {
+  font-weight: 800;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  font-size: .8em;
+}
+span.frac > sup, span.frac > sub {
+  display: block;
+  font: inherit;
+  padding: 0 0.3em;
+}
+span.frac > sup {border-bottom: 0.08em solid;}
+
+div.img_group {  
+  width: 8em;
+  display: inline-block;
+  line-height: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.img_group img {
+  height: 3em;
+  display: inline;
+}
+
+.todo {
+  padding:5px;
+  background: lightblue;
+  color: red;
+}
+
+.task {
+  color: #0B0;
+  display: block;
+  font-size: 1em;
+}
+
+.task::before {
+  content: "[AREA GIOCO: ";
+}
+
+.task::after {
+  content: "]";
+}
+
+.open_box {
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin: 1px;
+  font-size: .8em;
+}
+
+
+span.label_box {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  font-size: .8em;
+}
+span.label_box > sup{
+  display: block;
+  font-size: 1em;
+  line-height: 0.1;
+  padding: 0 0.2em;  
+}
+span.label_box > sub {
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  margin: 1px;
+  font-size: .8em;
+  padding: 0 0.2em;
+}
+
+.formula {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+.formula-margins {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-top:.5em;
+  margin-bottom:.5em;
+}
+
+
+
+[data-bracket] {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+[data-bracket]:after {
+  content: "";
+  display: block;
+  height: 6px;
+  border: 2px solid black;
+  border-top: none;
+}
+[data-bracket]:before {
+  content: attr(data-bracket);
+  position: absolute;
+  top: 100%;
+  font-size: 80%;
+  padding: 5px;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+
+
+.rotate-90 {
+  animation: _rotation 4s infinite linear;
+}
+@keyframes _rotation {
+  25% { transform:rotate(90deg); }
+  50% { transform:rotate(90deg); }
+  75% { transform:rotate(0deg); }
+  100% { transform:rotate(0deg); }
+}
+
+.rotate90 {
+  animation: _rotationB 10s infinite linear;
+}
+@keyframes _rotationB {
+  15% { transform:rotate(0deg); }
+  30% { transform:rotate(-90deg); }  
+  40% { transform:rotate(-90deg); }  
+  50% { transform:scale(0.2,1) rotate(-90deg); }
+  80% { transform:scale(0.2,1) rotate(-90deg); }
+  82% { transform:scale(1,1) rotate(-90deg); }
+  86% { transform:rotate(0deg); }  
+}
+
+
+
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+table.centered_table td {
+  text-align:center;
+  min-width: 4em;
+}
+
+
+
+.appendix_note:before {
+  content: "[ ";
+  font-style: normal;
+  background-color: black;
+  color: white;
+  white-space: pre;
+}
+
+.appendix_note {
+  display:flex; 
+  justify-content: flex-end;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  font-size: .8em;
+}
+
+.appendix_note:after {
+  content: " APPENDIX NOTE ]";
+  font-style: normal;
+  background-color: black;
+  color: white;
+  white-space: pre;
+}
+
+
+
+.fade_out_delay {
+  color: blue;
+  font-style: italic;
+  animation: 8s linear 0s normal forwards infinite fadeout;
+}
+@keyframes fadeout{
+    0% { opacity:1; }
+    30% { opacity:1; }
+    31% { opacity:0; }
+    100% { opacity:0; }
+}
+
+.delay_fade_in {
+  color: blue;
+  font-style: italic;
+  animation: 8s linear 0s normal forwards infinite fadein;
+}
+@keyframes fadein{
+    0% { opacity:0; }
+    65% { opacity:0; }
+    66% { opacity:1; }
+    85% { opacity:1; }
+    86% { opacity:0; }
+    100% { opacity:0; }
+}
+
+.delay_fat_delay {
+  display: inline-block;
+  color: red;
+  animation: 8s linear 0s normal forwards infinite dfatd;
+}
+@keyframes dfatd{
+    0% { transform:scale(1); }
+    30% { transform:scale(1); }
+    31% { transform:scaleY(2); }
+    55% { transform:scaleY(2); }
+    62% { transform:scale(1); }
+    100% { transform:scale(1); }
+}
+
+
+.blur {
+   color: transparent;
+   text-shadow: 0 0 2px black;
+}
+
+
+.fold_down {
+  display:inline-block;
+  animation: _rotationC 8s infinite linear;
+}
+@keyframes _rotationC {
+  15% { transform:rotate(0deg); transform-origin: bottom left;}
+  30% { transform:rotate(180deg); transform-origin: bottom left;}
+  50% { transform:rotate(180deg); transform-origin: bottom left;}  
+  80% { transform:rotate(180deg); transform-origin: bottom left;}  
+  100% { transform:rotate(0deg); transform-origin: bottom left;}
+}
+
+
+@media screen and (max-width: 1024px) {
+  #sidebar{
+    display: none;
+  }
+}
+@media screen and (min-width: 1025px) {
+  #sidebar{
+    position: fixed;
+    left: 1em;
+    top: 1em;
+    font-size: 70%;
+    background-color: white;
+  }
+}

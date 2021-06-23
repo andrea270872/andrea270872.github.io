@@ -1,0 +1,996 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <script src="js/balanceGen.js"></script>
+
+  <title>Chapter 6</title>  
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="page005.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<a href="page007.html">&gt;</a>
+</div>
+
+<h1>Chapter 6 - Riddles and answers</h1>
+
+<h2>Create a riddle</h2>
+<p>
+Say that I want to create a riddle (about numbers, just because...). I could start with the stupidest riddle ever and say: <i>"I have some sheep. The number of sheep is <b>5</b>. How many sheep do I have?"</i>. 
+<br>Not an impressive challenge... but wait. I can do better, by <i>transforming</i> a bit my riddle, for example I could multiply everything by ten. That would give me:
+<i><div class="formula-margins">"the number of sheep is 5" 
+		<br><center style="font-style:normal;">&Downarrow;*10</center>
+		"10 times the number of sheep is 10*5"
+<br> = "10 times the number of sheep is 50"
+</div></i>
+Surely if I have five sheep, ten times more sheep must be fifty sheep, so my sentence is still true! It is still the SAME.
+Also, when I say <i>"<b>10</b> times the number of sheep is <b>50</b>. How many sheep do I have?"</i> it is a bit more complex to find the answer. 
+
+<br>What else could I do to make my riddle more interesting? Add something perhaps. Let's see:
+<i><div class="formula-margins">"10 times the number of sheep is 50" 
+	<br><center style="font-style:normal;">&Downarrow;+4</center>
+	"10 times the number of sheep and 4 sheep is 50+4"
+<br> = "10 times the number of sheep and 4 is 54"
+</div></i>
+Now we are getting somewhere! It would take you a moment or two to answer the riddle:
+<center>
+ <i>"<b>10</b> times the number of sheep and <b>4</b> is <b>54</b>. How many sheep do I have?"</i>
+</center>
+
+<br>
+Interestingly, these two types of transformations work on different parts of the sentence. 
+The transformation "time <i>k</i>" changes a riddle in this way:
+<i><div class="formula-margins">
+	"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"
+	<br><center style="font-style:normal;">&Downarrow;*k</center>
+	"<span style="color:blue;">a*k</span> times the number of sheep and 
+	<span style="color:green;">b*k</span> sheep is <span style="color:red;">c*k</span>"
+</div></i>
+where <i>k</i> is any number (not zero anyways); if <i>k</i> is <b>1</b> the transformation does actually nothing. This transformation changes all three numbers in the riddle. 
+Instead the "add <i>n</i>" transformation works like this:
+<i><div class="formula-margins">
+	"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"
+	<br><center style="font-style:normal;">&Downarrow;+n</center>
+	"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b+n</span> sheep is <span style="color:red;">c+n</span>"
+</div></i>	
+because I immagine adding a few sheep the my flock. So my flock has <b>5</b> sheep, it correct to say 
+<i>"if I were to add <b>4</b> sheep to my sheep, I will have <b>9</b>"</i>.
+Here <i>n</i> can be any number; when <i>n</i> is zero the transformation does nothing.
+
+<br><br>
+Let's try applying a few more transformations to my riddle:
+<i><div class="formula-margins">"10 times the number of sheep and 4 is 54" 
+	<br><center style="font-style:normal;">&Downarrow;*2</center>	
+	"2*10 times the number of sheep and 2*4 sheep is 2*54"
+<br> = "20 times the number of sheep and 8 is 108"
+<br><center style="font-style:normal;">&Downarrow;+1</center>
+"20 times the number of sheep and 8+1 is 108+1"
+<br> = "20 times the number of sheep and 9 is 109"
+<br><center style="font-style:normal;">&Downarrow;+sheep I have</center>
+"20 times the number of sheep and my sheep, and 9 is 109+5"
+<br> = "20+1 times the number of sheep and 9 is 109+5"
+<br> = "21 times the number of sheep and 9 is 114"
+</div></i>
+In the last transformation I added the same amount of sheep that I have, which I know from the beginning to be five.
+<br>
+So to create a <i>good</i> riddle, I could start by a stupid one <i>"I have <b>5</b> sheep"</i>, then make it more and more complex-looking (but the meaning, the semantics, stays the same!) using three kinds of transformations:
+<b>*k</b>, <b>+n</b>, and <b>+sameNumberOfsheep</b>.
+
+And for example I could ask you: <i>"I have some sheep. <b>21</b> times the number of sheep and <b>9</b> is <b>114</b>. How many sheep do I have?"</i>, and that would be much more FUN for you to solve.
+</p>
+
+<p>
+<div class="task">Try to create a riddle by starting with <b>5</b> sheep. Click on START, then apply the following transformations: <i>*2</i>, <i>+5</i>, and <i>-1</i>; can you still SEE that the answer to the riddle must by <b>5</b>? You could try assuming that <i>the number of sheep</i> is <b>5</b>, and work out if you get <b>14</b>...
+<br>
+Click START again to reset the riddle. Now try using a short random sequence of transformations... could you solve that riddle? How?
+<br>
+Change the number of sheep to 0, and click START again. Apply the following transformations, one after the other:  <i>*3</i>, <i>+1</i>, <i>+sheep</i>, <i>+sheep</i>. Can you solve that riddle? Verify that <b>0</b> is the answer.
+</div>
+</p>
+
+<p>
+	<div class="playground" id="playground1"></div>
+	<script src="js/006_01.js"></script>
+	<script>prepare_006_01('playground1')</script>
+</p>
+
+<p>
+Moral of the story so far: the simplest possible riddle IS its own solution here; and every difficult riddle is just a simple riddle made to LOOK more complex, by transforming it multiple times.
+</p>
+
+
+<h2>Solve the riddle</h2>
+<p>
+However, this idea of going <i>backwards</i> from an answer to a riddle, using a transformation after another is very general in math, and it is even more interesting when you imagine the process inverted. Could I take a riddle, transform it and transform it, until I eventually get an answer? 
+<br>
+As an example I could try to solve: <i>"<b>10</b> times the number of sheep and <b>4</b> is <b>54</b>"</i>... but where to start?
+<br>
+I can look at the two main types of transformations I used to build this riddle: 
+<ul>
+<li>*k , multiplication by a number (any number, positive or negative, or fraction, just not zero)</li>
+<li>+n , addition of a number</li>
+</ul>
+and I can use a brilliant fact: both types of transformations can be <i>reversed</i>!
+<br>
+That sounds like a bold statement... let's be sure that it is true, before we continue. 
+Say that I start again from the simplest riddle (AKA an answer)
+<i>"the number of sheep is <b>5</b>"</i>, then I multiply this riddle by <b>10</b> like I did in the previous section, and get:
+<i>"<b>10</b> times the number of sheep is <b>50</b>"</i>. I can REVERSE this transformation, by dividing by ten: 
+<span class="formula-margins" style="line-height:2em;">
+	(<i>"10 times the number of sheep is 50"</i>):10 &rarr;<br>
+	 <i>"1 times the number of sheep is 5"</i>
+</span>
+and all I had to do was to use the SAME transformation, but multiply by the <i>inverse</i> of ten, which is <span class="frac"><sup>1</sup><sub>10</sub></span>.
+<br>
+Can do the same for the addition-type transformations? Again, let's see on the example:
+<i><div class="formula">"the number of sheep is 5" 
+	<br><center style="font-style:normal;">&Downarrow;+4</center>
+	"the number of sheep and 4 is 5+4"
+<br> = "the number of sheep and 4 is 9"
+</div></i>
+Here the reverse transformation is "subtract four":  
+<i><div class="formula">"the number of sheep and 4 is 9" 
+	<br><center style="font-style:normal;">&Downarrow;-4</center>
+	"the number of sheep and 4-4 is 9-4"
+<br> = "the number of sheep is 5"
+</div></i>
+so, again the reverse transformation is the same transformation but adding the number <i>opposite</i> of <b>4</b>, which is <b>-4</b>.
+<p>
+<i>Note: we covered inverse and opposite numbers in <a href="page003.html">chapter 3</a>.</i>
+</p>
+
+Now I can try again with: <i>"<b>10</b> times the number of sheep and <b>4</b> is <b>54</b>"</i>. 
+Here the interesting numbers are <b style="color:blue">10</b> and <b style="color:green">4</b>. I could start with one of two things: <i>divide by ten</i> or <i>subtract four</i>.
+Say I start dividing by ten:
+<i><div class="formula-margins">
+	"<span style="color:blue">10</span> times the number of sheep and 
+	<span style="color:green">4</span> is 54"
+	<br><center style="font-style:normal;">&Downarrow;*<span class="frac"><sup>1</sup><sub><span style="color:blue">10</span></sub></span></center>
+	"<span style="color:blue">1</span> times the number of sheep and 
+	<span style="color:green">4*<span class="frac"><sup>1</sup><sub>10</sub></span></span> is 54*<span class="frac"><sup>1</sup><sub>10</sub></span>"
+<br> = "the number of sheep and <span style="color:green">0.4</span> is 5.4"
+<br> <center style="font-style:normal;">&Downarrow;-<span style="color:green">0.4</span></center>
+	"the number of sheep and <span style="color:green">0.4-0.4</span> is 5.4-0.4" =
+<br> "the number of sheep and <span style="color:green">0</span> is 5" = 
+<br> "the number of sheep is 5"
+</div></i>
+and that is the answer... but I had to calculate divisions (which I would prefer not to do, as we discussed in <a href="page004.html">chapter 4</a>).
+<br>
+The other alternative is start by subtracting four:
+<i><div class="formula-margins">
+	"<span style="color:blue">10</span> times the number of sheep and 
+	<span style="color:green">4</span> is 54"
+	<br><center style="font-style:normal;">&Downarrow;-<span style="color:green">4</span></center>
+	"<span style="color:blue">10</span> times the number of sheep and <span style="color:green">4-4</span> is 54-4" =
+<br> "<span style="color:blue">10</span> times the number of sheep and <span style="color:green">0</span> is 50" =
+<br> "<span style="color:blue">10</span> times the number of sheep is 50"
+<br> <center style="font-style:normal;">&Downarrow;*<span class="frac"><sup>1</sup><sub><span style="color:blue">10</span></sub></span></center>
+	"<span style="color:blue">10*<span class="frac"><sup>1</sup><sub>10</sub></span></span> times the number of sheep is 50*<span class="frac"><sup>1</sup><sub>10</sub></span>" = 
+<br> "the number of sheep is 5"
+</div></i>
+Wow. No matter what sequence of transformation we use, we always get to the same answer <b>5</b>. Remember when we talked about math being <i>stubborn</i>?! (in <a href="page005.html">chapter 5</a>) Well, here is another example of that.
+</p>
+
+<p>
+<div class="task">Click START and see if you can solve the riddle. Use the two possible transformations that the playground suggests to you.
+<br>Experiment with a few riddles, to see what happens when you transform them.
+</div>
+</p>
+
+<p>
+	<div class="playground" id="playground2"></div>
+	<script src="js/006_02.js"></script>
+	<script>prepare_006_02('playground2')</script>
+</p>
+<p>
+Did you notice anything about the two kinds of transformations, playing with the playground above?
+<br>
+What? Perhaps something about the order in which you decide to apply the transformations and the precision of the calculations?...
+</p>
+
+<h2>Navigation tricks</h2>
+<p>
+When you play with the playground above, it seems that it is possible to find the answer in two steps, every time. Cool.
+<br>
+But can we be sure that it is the case EVERY time? For us, every riddle is a sentence of the form: 
+<i>"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"</i>.
+Now, consider the special cases: <i>"<b>0</b> times the number of sheep is <b>5</b>"</i>, and 
+<i>"<b>0</b> times the number of sheep is <b>0</b>"</i>.
+<br>
+The first riddle has no answer: it is IMPOSSIBLE for a number MULTIPLIED by zero to become five.
+<br>
+The second riddle is different. What number of sheep would make the sentence true? 
+I can try with <b>1</b> and I will get <i>"<b>0</b> times <b>1</b> is <b>0</b>"</i>, which is true. 
+And what about <b>2</b>? 
+Well, <i>"<b>0</b> times <b>2</b> is <b>0</b>"</i> is also true... and so with ANY number. So this riddle has INFINITE answers, because any number of sheep will satisfy it.
+
+<br>
+Fine, I will have to look out for those two special cases... but for all other cases it looks like I can solve the riddle in two steps. So here we have a procedure that starts from a riddle sentence, and following two steps, always gives me the answer to the riddle (eventually treating the two special cases in a different way). Now: a procedure that starts from some data about a problem, and follows a specific number of steps to always produce the answer to that problem, is called <i>an algorithm</i>. 
+The word "algorithm" comes from the name of <a href="https://en.wikipedia.org/wiki/Muhammad_ibn_Musa_al-Khwarizmi">al-Khwarizmi</a> <img class="face" src="faces/al-Khwarizmi.png"></span>
+a Persian mathematician, astronomer, geographer; according to Wikipedia:
+<span class="quote">
+Al-Khwarizmi's popularizing treatise on algebra (The Compendious Book on Calculation by Completion and Balancing, c. 813–833 CE) presented the first systematic solution of linear and quadratic equations</span>.
+Spoiler: our riddles are what math calls "linear equations" or "first degree equations"!
+<br>
+So playing with the playground above we have actually found an algorithm for solving any of our riddles! Terrific. Let's write down clearly and step-by-step how the algorithm works:
+<ol>
+	<li>
+	take a riddle written like: <i>"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"</i>;
+		<br> for example: <i>"<b>10</b> times the number of sheep and <b>4</b> sheep is <b>54</b>"</i>.
+	</li>
+	<li>
+	use a transformation to subtract whatever number <span style="color:green;">b</span> is, getting 
+	a simpler riddle of this form: <i>"<span style="color:blue;">a</span> times the number of sheep is 
+	<b>(c-b)</b>"</i>;
+		<br>in the example the transformation is <b>add -4</b>, and the result is:
+		<br><i>"<b>10</b> times the number of sheep is <b>50</b>"</i>.
+	</li>
+	<li>
+	then use another transformation to divide by <span style="color:blue;">a</span>, getting:<br> 
+		<i>"the number of sheep is <b>(c-b):a</b>"</i>;
+		<br>in the example the transformation is <b>multiply by <span class="frac"><sup>1</sup><sub style="color:blue;">a</sub></span></b>: <i>"the number of sheep is <b>50:10</b>"</i>, or 
+		<i>"the number of sheep is <b>5</b>"</i>!
+	</li>
+</ol>
+Super. But does it work ALL the time? Well, not really, because I have to consider the two special kinds of cases: the cases where here is "no solution", and those that have "infinite solutions".
+<br>
+The no solution cases all look like: <i>"<b><span style="color:blue;">0</span></b> 
+	times the number of sheep is <b><span style="color:red;">c</span></b>"</i>,
+so I need to execute my algorithm (AKA "run" the algorithm) on 
+<b><span style="color:blue;">a=0</span></b> and 
+<span style="color:green;"><b>b=0</b></span>, and any number I like for 
+<span style="color:red;"><b>c</b></span>. However, <span style="color:red;"><b>c</b></span> should not be
+zero, because if it was then this case will become the other case, the one with infinite solutions.
+
+Following our algorithm I get:
+<i><div class="formula-margins">
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">c</span>"
+	<br><center style="font-style:normal;">&Downarrow;-<span style="color:green;">0</span></center>
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">c</span>"
+	<br><center style="font-style:normal;">&Downarrow;:<span style="color:blue;">0</span></center>
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">c</span>:0"
+</div></i>
+... but <b><span style="color:red;">c</span>:0</b> is impossible to calculate.
+So the algorithm gets STUCK, because the division by zero is not defined (see <a href="page003.html">chapter 3</a>). Another way to approach this case is to try to find a number that would make the sentence true. Can I find a number that multiplied by <b>0</b> becomes <span style="color:red;">c</span>? Not really, so... <u>no solutions</u>!
+
+<br>
+On the other hand, the cases with infinite solutions all look like: 
+<i>"<b><span style="color:blue;">0</span></b> 
+	times the number of sheep is <b><span style="color:red;">0</span></b>"</i>,
+so I have to run the algorithm on 
+<b><span style="color:blue;">a=0</span></b>, 
+	<span style="color:green;"><b>b=0</b></span>, and 
+	<span style="color:red;"><b>c=0</b></span> too. 
+And in this case I get:
+<i><div class="formula-margins">
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">0</span>"
+	<br><center style="font-style:normal;">&Downarrow;-<span style="color:green;">0</span></center>
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">0</span>"
+	<br><center style="font-style:normal;">&Downarrow;:<span style="color:blue;">0</span></center>
+	"<span style="color:blue;">0</span> times the number of sheep and <span style="color:green;">0</span> is <span style="color:red;">0</span>:0"
+</div></i>
+... but <b><span style="color:red;">0</span>:0</b> is also impossible,
+so also here the algorithm gets STUCK, because of a division by zero. And it makes sense, because after all this case is very similar to the previous one: in fact this case is a sub-case of the previous. But the situation here is a bit different. To see that, I can try again to find a number that would make the sentence true. 
+Can I find a number that multiplied by <b>0</b> becomes <span style="color:red;">0</span>? Well... actually ANY number multiplied by zero is zero! So here <u>any number is a correct solution</u> to the puzzle. Weird, but true.
+</p>
+<p>
+Those two kinds of cases are a problem for my algorithm because a procedure to calculate something is NOT an algorithm if it can get STUCK even in a single case. And here I have two "families" of riddles that would make my algorithm stuck... not good.
+<br>
+So to avoid my algorithm to get stuck I have to write it better, so that the steps are more solid, and I can avoid the trap of these two special cases. Here is the correct algorithm to solve linear equations (AKA any of our riddles):
+
+<ol>
+	<li>
+	take a riddle written like: <i>"<span style="color:blue;">a</span> times the number of sheep and 
+	<span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"</i>
+	<ol type="A">
+		<li> In case <span style="color:blue;">a</span>, <span style="color:green;">b</span>
+			and <span style="color:red;">c</span> are all <b>0</b>, then stop and answer 
+			<i>"any number of sheep would do for this riddle"</i>.</li>
+		<li>In case <span style="color:blue;">a</span> and <span style="color:green;">b</span>
+			are <b>0</b>, but <span style="color:red;">c</span> is not, then stop and answer 
+			<i>"there is no solution to this riddle"</i>.</li>
+	</ol>
+	</li>
+	<li>
+	transform the riddle to <i>"<span style="color:blue;">a</span> times the number of sheep is 
+	<b>(c-b)</b>"</i>;
+	</li>
+	<li>
+	transform again to get <i>"the number of sheep is <b>(c-b):a</b>"</i>, the answer to the riddle.
+	</li>
+</ol>
+And now we really do have a SOLID, foolproof procedure, an actual algorithm, that works every time, and finds the answer to any riddle.
+</p>
+
+<h2>Two-pan balance</h2>
+<p>
+First of all, let me tell you that in math the variable <i>x</i> is traditionally used to stand for <i>thing we don't know</i> (for example the amount of sheep, in our riddles) mainly for <a href="https://en.wikipedia.org/wiki/History_of_algebra#The_symbol_x">historical reasons</a>. Adopting this convention, I could change the way I write my riddles, from:
+<i>"<b>2</b> times the number of sheep and <b>1</b> is <b>3</b>"</i> to something like this:
+<div style="margin-top:-.5em;margin-bottom:.5em;text-align:center;">
+<i>"<b>2</b> times <b>x</b> and <b>1</b> is <b>3</b>"</i>
+</div>
+so that <b>x</b> stands for <i>"an unknown amount of sheep"</i>. Fine. Now I want to look at my riddle as made of two parts; they are already made like that, but I did not really notice: there is the 
+<i>"<b>2</b> times <b>x</b> and <b>1</b>"</i> part, and the <i>"<b>3</b>"</i> part. And what the riddle is telling me is that two parts are EQUAL. 
+<br>
+OK, then I think I will rewrite my riddle to look like this:
+<i>"<b>2</b> times <b>x</b> and <b>1</b>"</i> <i><b>= 3</b></i>. Spoiler: the solution to this riddle is <b>x=1</b>, because <b>2* 1 +1</b> is equal to <b>3</b>.
+
+<br>
+A way to SEE what is going on in our riddles is to draw a <i>two-pan balance</i>, and place each part of a riddle on one of the pans. The result looks like this:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas1"></canvas>
+	<script>balanceGen('canvas1',[ ['x','x','1'], ['3'] ])</script>
+</center>	
+and I have to remember that the two pans are IN BALANCE, because in my riddle <b>x+x+1</b> is THE SAME as <b>3</b>.
+<br>
+Let's take another riddle, for example <i>"<b>10</b> times <b>x</b> and <b>4</b> sheep" = <b>54</b></i>, and see how that would look drawn as a two-pan balance.
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas2"></canvas>
+	<script>balanceGen('canvas2',[ ['x','x','x',
+									'x','x','x',
+									'x','x','x',
+									'x','4'], ['54'] ])</script>
+</center>
+Nice, but what is the solution here? (you might remember it, but don't cheat! stay with me...)
+I could use the usual two transformations: <b>*k</b> and <b>+n</b>, and our algorithm for solving linear equations! First we have to <b>subtract 4</b> from both pans (AKA <b>add -4</b>), and we are left with:
+<center style="margin-bottom:.5em;">
+	<canvas id="canvas3"></canvas>
+	<script>balanceGen('canvas3',[ ['x','x','x',
+									'x','x','x',
+									'x','x','x',
+									'x'], ['50'] ])</script>
+</center>
+Then we can divide by ten, again both pans; the result is this:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas4"></canvas>
+	<script>balanceGen('canvas4',[ ['x'], ['5'] ])</script>
+</center>
+which tells us that the solution is <b>5</b>.
+<br>
+Another interesting transformation that makes sense with the two-pan balance is to add or remove <b>x</b> from both pans. If I add <b>x</b> to both pans I get:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas4_1"></canvas>
+	<script>balanceGen('canvas4_1',[ ['x','x'], ['5','x'] ])</script>
+</center>
+which gives me a new situation, a riddle where <b>x</b> is present on both pans of the balance! This riddle, written as a sentence could be: <i>"<b>2</b> times <b>x</b> sheep is the same as <b>5</b> and 
+<b>x</b> sheep"</i>; and again, when I remember that <b>x</b> is really just the number <b>5</b> here, what I am saying is the obvious sentence <i>"<b>2</b> times <b>5</b> sheep is the same as <b>5</b> and 
+<b>5</b> sheep"</i>, which means <i>"<b>10</b> is the same as <b>10</b>"</i>... dah!
+<br>
+Now I can go back to my solution <b>x=5</b> and subtract <b>x</b> instead. I get:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas5"></canvas>
+	<script>balanceGen('canvas5',[ ['x'], ['5'] ])</script>
+<br><b><center style="font-style:normal;">&Downarrow;-x</center></b>
+	<canvas id="canvas5_1"></canvas>
+	<script>balanceGen('canvas5_1',[ [], ['5','-x'] ])</script>
+</center>
+The pan on the left is empty because there should be a weight with value <b>0</b>, but that is what  "empty" means. Also, the weight with value <b>-x</b> (which is actually <b>-5</b>) is a bit of an practical impossibility, but... let's assume negative weights are admissible here. 
+<br>
+Now, if the two pans are the same, I can SWAP THEM AROUND, and the two-pan balance will still be in... <i>balance</i>. So I could draw this instead:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas6"></canvas>
+	<script>balanceGen('canvas6',[ ['5','-x'] , [] ])</script>
+</center>
+And if I wanted to go back to my nice solution <b>x=5</b>, I could first subtract <b>5</b> from both pans, then multiply both pans by <b>-1</b>; let's see:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas6_2"></canvas>
+	<script>balanceGen('canvas6_2',[ ['5','-x'] , [] ])</script>
+<br><b><center style="font-style:normal;">&Downarrow;-5</center></b>	
+	<canvas id="canvas7"></canvas>
+	<script>balanceGen('canvas7',[ ['-x'] , ['-5'] ])</script>
+<br><b><center style="font-style:normal;">&Downarrow;*(-1)</center></b>
+	<canvas id="canvas8"></canvas>
+	<script>balanceGen('canvas8',[ ['x'] , ['5'] ])</script>
+</center>
+Bingo! So, all the transformations that made sense for the riddle written as a sentence, still make sense here, when I DRAW the riddle as a two-pan balance with some weights; and I have even found a few more transformations that work well with the balance: <b>+x</b>, <b>-x</b>, and <b>swapping</b> the pans around.
+<br>
+
+<br>
+OK, so riddles like <i>"<b>2</b> times <b>x</b> sheep is the same as <b>5</b> and <b>x</b> sheep"</i>, are a "new" format, and what I find very interesting about them is that they look like a 
+<i>comparison</i> of two linear combinations, involving the variable <b>x</b>. 
+<br>
+As we have found out in the previous chapter, a linear combination with numbers and the variable <b>x</b> is something like <b>a*x+b</b>, where <i>a</i> and <i>b</i> are some numbers. And here my riddle can be written like:
+<div class="formula-margins">
+	2*x = 5+x</div>
+where both <b>2*x</b> and <b>5+x</b> are linear combinations (or if you prefer, they are two <i>polynomials</i> in <b>x</b>, as defined at the end <a href="page005.html">chapter 5</a>).
+<br>
+And the fact that I can draw any riddle as some weights on the two pans of a balance, fits very well with the realization that a riddle is an equivalence of two linear combinations. 
+And thanks to what we did in chapter 5, I even know how to calculate stuff like:
+<div class="formula-margins">(2*x) -5 = ?
+<br>or (2*x) : 10 = ??
+<br>or (2*x) -x = ???</div>
+which are the main kinds of transformations I need to be able to solve a riddle (AKA an equation in <b>x</b>). 
+</p>
+
+<p>
+<div class="task">Find out the results of those three expressions above.
+<br>Go back to chapter 5 if you need to look up the rules for addition and multiplication for linear combinations.</div>
+</p>
+
+<p>
+And now let's play with the playground below.
+<div class="task">Create a riddle by starting with <b>5</b> sheep, AKA <i>"<b>1</b> times <b>x</b> and 
+<b>0</b> is <b>5</b>"</i>. 
+Click on START, then apply the following transformations: <i><b>*2</b></i>, <i><b>+5</b></i>, and 
+<i><b>-1</b></i>. 
+Compare the way the riddle looks WRITTEN as a sentence and DRAWN as weights on a two-pan balance.
+<br>Apply the transformations <i>in reverse</i> to get back to <b>x=5</b>.
+<br>
+Now: change the value of <b>x</b> to zero, which means <i>"<b>1</b> times <b>x</b> and <b>0</b> is 
+<b>0</b>"</i>. Then click START to reset the riddle; multiply by two and by three a few times. What happens to the two pans of the balance?
+<br>
+Finally, experiment a bit with the two-pan balance. Set <b>x</b> to <b>-1</b>, so
+<i>"<b>1</b> times <b>x</b> and <b>0</b> is <b>-1</b>"</i>
+and restart; see if you can find the shortest way to get to:
+<br>
+	<i>"<b>1</b> times <b>x</b> and <b>3</b> is the same as <b>0.5</b> times <b>x</b> and <b>2.5</b>"</i>.
+</div>
+</p>
+
+<p>
+	<div class="playground" id="playground3"></div>
+	<script src="js/006_03.js"></script>
+	<script>prepare_006_03('playground3')</script>
+</p>
+
+<p>
+Before moving away from the two-pan balance, I would like to see how the two special cases ("no solution" and "infinite solutions") look in this representation.
+<br>
+Starting from the case with no solutions, which is a riddle of the form
+<i>"<span style="color:blue;">0</span> times <b>x</b> and <span style="color:green;">0</span> is <span style="color:red;">c</span>"</i>, I get this drawing:
+<center style="margin-bottom:.5em;">
+	<canvas id="canvas9"></canvas>
+	<script>balanceGen('canvas9',[ [] , ['c'] ])</script>
+</center>
+and since here we know that <span style="color:red;">c</span> is not zero, surely that two-pan balance is UNBALANCED, which is impossible, hence: no solutions.
+<br>
+The case with infinite solutions looks like this: 
+<i>"<span style="color:blue;">0</span> times <b>x</b> and <span style="color:green;">0</span> is <span style="color:red;">0</span>"</i>; and the two-pan balance is:
+<center style="margin-top:.5em;margin-bottom:.5em;">
+	<canvas id="canvas10"></canvas>
+	<script>balanceGen('canvas10',[ [] , [] ])</script>
+</center>
+which is kind of a "whatever" situation. Since there are no weights on the balance, I can more or less decide what I want, and any decision would be OK; hence, there are infinite solutions, all acceptable.
+</p>
+
+<p>
+<div class="task">Go back to the last playground, above, and try out these two special cases:
+	<br><i>"<b>0</b> times <b>x</b> and <b>0</b> is <b>2</b>"</i>, and 
+		<i>"<b>0</b> times <b>x</b> and <b>0</b> is <b>0</b>"</i>.
+<br>Note that in the case with infinite solutions, any riddle you build says something totally obvious and not helpful in finding out what number <b>x</b> should be... For instance, I starting from 
+	<i>"<b>0</b> times <b>x</b> and <b>0</b> is <b>0</b>"</i>
+you can easily get 
+<center>
+	<i>"<b>6</b> times <b>x</b> and <b>1</b>8 is the same as <b>6</b> times <b>x</b> and 
+<b>18</b>"</i> 
+</center>
+which is another one of the <b>dah!</b>-kind of riddles, that by the way does not limit your choice of a value for <b>x</b>: for ANY value I give to the variable <b>x</b> it is surely true that <b>6*x+18 = 6*x+18</b>!
+</div>	
+</p>
+
+<p>
+Moral of the story so far: riddles (AKA linear equations) can be written as sentences about sheep or drawn as two-pan balances, with specific weights on the pans; but a riddle is also an equivalence between two linear combinations, both potentially with the variable <b>x</b>. We have an algorithm to solve these equations, and there are two special cases we have to watch out for. 
+We also discovered that there are only three possible types of answers for a riddle: zero, one or infinite solutions.
+</p>
+
+<h3>But what about the real world?</h3>
+<p>
+In your school math lectures you might have encountered equations in a very different context: not as riddles, but as a way to express and solve "real life" problems. 
+And now that we have looked at the two-pan balance, we can too. Take a situation where you have a lot of bricks (identical bricks, same size and weight) and would like to know how much a brick weights. But the only thing you know is that when you put three bricks on one pan, you have to put one brick and eight kilograms on the other to balance them.
+What is the riddle (AKA equation) that represent that situation?
+<br>
+It should be:
+<center>
+	<canvas id="canvas10_2"></canvas>
+	<script>balanceGen('canvas10_2',[ ['x','x','x'] , ['x','8'] ])</script>
+</center>
+or if you prefer a sentence: <i>"<b>3</b> times <b>x</b> bricks is the same as <b>8</b>kg and <b>1</b> brick"</i>, and the question would be <i>"how many kg is <b>1</b> brick?"</i>.
+To solve this riddle I should remove one <b>x</b> from both pans, then <b>divide by two</b> (AKA multiply by <span class="frac"><sup>1</sup><sub>2</sub></span>).
+<center style="margin-bottom:.5em;">
+	<canvas id="canvas10_3"></canvas>
+	<script>balanceGen('canvas10_3',[ ['x','x'] , ['8'] ])</script>
+<br><b><center style="font-style:normal;">&Downarrow;*<span class="frac"><sup>1</sup><sub>2</sub></span></center></b>
+	<canvas id="canvas10_4"></canvas>
+	<script>balanceGen('canvas10_4',[ ['x'] , ['4'] ])</script>
+</center>
+and bingo! The solution is <i>"one brick weights <b>4</b> kilograms"</i>. 
+<br>
+Good, but having to draw all these two-pan balances is a bit too much work... it would be much more productive to have a SHORTER way to write down these equations and the steps needed to solve them.
+
+</p>
+
+<h2>Write this stuff shorter</h2>
+<p>
+Time to write this stuff shorter, drop the sentences and the balances, and focus on the linear combinations (AKA polynomials), and invent a good <i>normal form</i> for an equation. And since we are at it, let's also define properly what the meaning-preserving transformations are in this case, and how they can change an equation.
+<br>
+What can I use for as normal form for an equation? 
+I would like to go back to the interesting fact that a solution to a riddle is a (simpler) riddle. Therefore, a good normal form for an equation should be its solution: <b>x=5</b>, for example!
+<br>
+But, wait... what a surprise! This is a linear combination of <b>x</b> and am I saying that it must be the same as (AKA equal to) an ordinary number: <b>1*x</b>=<b>5</b>. We can use the same notation we invented in chapter 5 to represent math expressions with variables, the labeled boxes, and write the equation <b>1*x</b>=<b>5</b> as: 
+<span class="formula-margins">
+	<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>
+</span>
+and I will have to remember that these two boxes contain each a linear combination of <b>x</b> and some numbers, and that the left and right box must be kept EQUAL for the equation to make sense.
+<br>
+OK, and if that is the normal form, it means there are alternative ways to write the SAME thing (as we discussed already in <a href="page001.html">chapter 1</a>, about whole numbers and abacus-numbers). 
+We have already used some transformation on riddles, like: multiply by a number, add a number, 
+add <b>x</b>.
+But since we are talking about linear combinations now, I can do those things and better (and more general) stuff too:
+<ul>
+<li>multiply both linear combinations (left and right of the "=" sign) by a non-zero number <b>k</b>.
+<br>For example: <b>(1*x=5) *10</b> &rarr; <b>(1*x) *10=(5) *10</b> &rarr; <b>10*x=50</b>, where <b>k</b> is <b>10</b>,
+<br>or if you prefer the boxes: 
+	(<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>) *10 &rarr; 
+
+	(<span class="label_box"><sup>x</sup><sub>1*10</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5*10</sub></span>) &rarr; 
+
+	(<span class="label_box"><sup>x</sup><sub>10</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>50</sub></span>)
+</li>
+
+<li>add the same number to <b>n</b> to both sides of the equation,
+<br>for example: <b>(1*x=5) +10</b> &rarr; <b>(1*x) +10=(5) +10</b> &rarr;
+<b>1*x+10=15</b>,
+<br>or with the boxes:
+
+(<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>) +10 &rarr; 
+
+(<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>15</sub></span>)
+</li>
+
+<li>add <b>k</b>-time <b>x</b></i> to both sides of the equation, where <b>k</b> is any number.
+<br>Example: <b>(1*x=5) +2*x</b> &rarr; <b>(1*x) +2*x=(5) +2*x</b> &rarr;
+<b>3*x=5+2*x</b>
+<br>Boxes:
+
+(<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>) +<span class="label_box"><sup>x</sup><sub>2</sub></span> &rarr; 
+
+(<span class="label_box"><sup>x</sup><sub>3</sub></span>&#9474;<span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>) 
+
+</li>
+
+<li>add a linear combination in <b>x</b> that looks like <b>m*x+n</b> to both sides of the equation.
+<br>Example: <b>(1*x=5) +(2*x+3)</b> &rarr;
+	<b>(1*x) +(2*x+3)=(5) +(2*x+3)</b> &rarr;
+	<br>
+	<b>(1+2)*x+3=2*x+3+5</b> &rarr; <b>3*x+3=2*x+8</b>
+
+<br>Boxes:
+
+(<span class="label_box" style="color:blue"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box" style="color:red"><sup>&nbsp;</sup><sub>5</sub></span>) +(<span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>3</sub></span>) &rarr; 
+
+(<span class="label_box" style="color:blue"><sup>x</sup><sub>1</sub></span><span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>3</sub></span>&#9474;<span class="label_box" style="color:red"><sup>&nbsp;</sup><sub>5</sub></span><span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>3</sub></span>) &rarr; 
+
+<span class="label_box"><sup>x</sup><sub>3</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>3</sub></span>&#9474;<span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>8</sub></span>
+
+</li>
+
+<li>swapping the two sides is also OK. 
+<br>Example: <b>1*x+5 = 2*x+3</b> &rarr; <b>2*x+3 = 1*x+5</b>
+<br>Boxes:
+
+<span class="label_box"><sup>x</sup><sub>1</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span> &rarr; 
+<span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>&#9474;<span class="label_box"><sup>x</sup><sub>1</sub></span>
+
+</li>
+
+<li>move something from one side of the "=" to the other is also possible, and it changes the look but not the meaning of the equation. 
+<br>Example: <b>1*x+5 = 2*x</b> &rarr; <b>(1*x+5) -1*(2*x)=(2*x) -1*(2*x) </b> &rarr;
+	<b>(1*x+5)-2*x=0 </b> &rarr; ect.
+<br>Boxes:
+
+<span class="label_box"><sup>x</sup><sub>1</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>&#9474;<span class="label_box" style="color:blue"><sup>x</sup><sub>2</sub></span> &rarr; 
+
+(<span class="label_box"><sup>x</sup><sub>1</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>&#9474;<span class="label_box" style="color:blue"><sup>x</sup><sub>2</sub></span>) -<span class="label_box" style="color:blue"><sup>x</sup><sub>2</sub></span> &rarr; 
+
+<span class="label_box"><sup>x</sup><sub>1<span style="color:blue">-2</span></sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>0</sub></span> &rarr; 
+
+<span class="label_box"><sup>x</sup><sub>-1</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>&#9474;<span class="label_box"><sup>&nbsp;</sup><sub>0</sub></span>
+
+<br>
+So the short answer is: to move something from side to side, just flip its sign.
+</li>
+
+</ul>
+
+OK, fine. But why not considering also multiplication by a linear combination? 
+Surely (thanks to <a href="page005.html">chapter 5</a>) we know how to calculate something like:
+<div class="formula-margins"> 
+	(1*x=5) *<span style="color:green">(2*x+3)</span> </div>
+it is just a matter of multiply both sides of the equation; after that we have to to distribute the multiplication and the calculate...
+<div class="formula-margins">
+(1*x)*<span style="color:green">(2*x+3)</span> = (5)*<span style="color:green">(2*x+3)</span> &rarr;
+<br> 
+1*x*<span style="color:green">2*x</span> + 1*x*<span style="color:green">3</span> = 
+	5*<span style="color:green">2*x</span> + 5*<span style="color:green">3</span> &rarr;
+<br>
+2*x<sup>2</sup> + 3*x = 10*x + 15
+</div>
+I could even do a bit of clean up and bring all terms on the left side of the "=".
+To do that, I can use all the rules we just defined: for example I can move <b>10*x + 15</b> to the other side, simply by flipping its sign:
+<span class="formula-margins">
+	2*x<sup>2</sup> + 3*x -1*(10*x + 15) = 0 &rarr;<br>
+	2*x<sup>2</sup> + 3*x -10*x - 15 = 0 &rarr;<br>
+	2*x<sup>2</sup> -7*x -15 = 0<br>
+</span>
+which is perfectly fine as a polynomial in the variable <b>x</b>. 
+But because the variable <b>x</b> is present as <b>x<sup>2</sup></b> as well, this is no longer a <i>linear equation in <b>x</b></i>, but it is now an 
+<i>equation of second order in <b>x</b></i>, a DIFFERENT KIND of riddle altogether,
+
+and we would need our friend <a href="https://en.wikipedia.org/wiki/Muhammad_ibn_Musa_al-Khwarizmi">al-Khwarizmi</a> <img class="face" src="faces/al-Khwarizmi.png"></span> to be able to solve those!
+<br>
+OK, then perhaps for now it is better NOT to multiply a linear equation by a linear combination that contains <b>x</b>... to avoid jumping outside the world of <i>linear equations</i> and into more complicated kinds of equations.
+</p>
+
+<h3>Finishing the algorithm</h3>
+<p>
+Now we can look back at our algorithm to solve linear equations (AKA riddles).
+It works fine, but it requires the equation to be in the form 
+<i>"<span style="color:blue;">a</span> times the number of sheep and 
+   <span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"</i>; 
+however, we have extended the way we write equations, to include equations that are made of two linear combinations, one on each side of the "=" sign. Our algorithm cannot cope with those yet. 
+Time to finish the algorithm, so it can solve any kind of linear equations in <b>x</b>!
+<br>
+The idea here is to add a step in the very beginning of the old algorithm, to rewrite the equation into the nice form <i>"<span style="color:blue;">a</span> times the number of sheep and 
+   <span style="color:green;">b</span> sheep is <span style="color:red;">c</span>"</i>, then
+simply continue with the rest of the old algorithm (which worked just fine).
+<br>
+So if I have an equation like this: 
+<b>1*x+5 = 2*x+3</b> the smartest thing to do is to move all the <b>x</b>-related stuff to the left and all the ordinary numbers to the right. 
+In this way my equation will FIT a form that my algorithm can work with!
+Here I get: <b>1*x-2*x = 3-5</b>, thanks to the rule that says than when things move across the "=" sign, their sign flips. 
+<br>
+And you might have realized by now that moving terms across the "=" is not really a NEW transformation, 
+but rather a clever use of an <b>add n</b> transformation, only that <i>n</i> here is chosen to be <i>the opposite of the term</i> that I want to move; for instance:
+<span class="formula-margins" style="line-height:2.5em;">
+ 1*x + 5  = <span style="color:goldenrod">2*x</span> + 3 
+<br> &Downarrow; -<span style="color:goldenrod">2*x</span> <br>
+	<span style="display:inline-block; line-height:1.45em;">
+	 1*x + 5 -(<span style="color:goldenrod">2*x</span>) = 
+	 		2*x + 3 -(<span style="color:goldenrod">2*x</span>) &rarr;
+	<br> 
+	 1*x + 5 - <span style="color:goldenrod">2*x</span> = 3
+	</span>
+</span>
+
+Good. Now I can calculate a bit on each side:
+<span class="formula-margins">
+1*x-2*x = 3-5 &rarr;
+<br>
+ -1*x = -2
+</span>
+
+And finally I can divide both sides of the equation by <b>-1</b> (because it is the number that multiplies <b>x</b> in the left part of the equation), and get: 
+<span class="formula-margins">
+	(-1*x):(-1) = (-2):(-1) &rarr;<br>
+	 1*x = 2
+</span>
+And that's the solution of the equation, or if your prefer <i>its normal form</i>.
+<br>
+Generalizing from this example (but also keeping in mind the two special cases), our revised algorithm to solve linear equations is:
+
+<ol>
+	<li>
+	take a linear equation written like: <b>i*x + j = m*x + n</b> and move stuff around until you get something that looks like 
+	<b><span style="color:blue;">a</span>*x=<span style="color:green;">b</span></b>
+	<ol type="A">
+		<li> In case <span style="color:blue;">a</span> and <span style="color:green;">b</span>
+			are both <b>0</b>, stop and answer <i>"any number is a solution to this equation"</i>,
+			or <i>"this equation has infinite solutions"</i>.
+		</li>
+		<li>In case <span style="color:blue;">a</span> is <b>0</b>, but 
+			<span style="color:green;">b</span> is not, stop and answer 
+			<i>"there is no solution to this equation"</i>.</li>
+	</ol>
+	</li>
+	<li>transform the equation in this form: <b>x = (b:a)</b>, and 
+		<b><span class="frac"><sup>b</sup><sub>a</sub></span></b> is the solution.
+	</li>
+</ol>
+
+Great. So now I try out this new algorithm by solving my previous example: 
+<ol>
+	<li>
+		start by: <b>1*x+5 = 2*x+3</b>. It needs cleaning up, so move stuff around:
+		<span class="formula-margins">
+		1*x+5 -<span style="color:goldenrod">2*x</span> = 
+				2*x+3 -<span style="color:goldenrod">2*x</span> &rarr;
+		<br>1*x+5 -<span style="color:goldenrod">2*x</span> -<span style="color:#996515">5</span> = 
+				2*x+3 -<span style="color:goldenrod">2*x</span> -<span style="color:#996515">5</span> &rarr;
+		<br>1*x-<span style="color:goldenrod">2*x</span> = 3-<span style="color:#996515">5</span> &rarr;
+		<br>-1*x = -2
+		</span>
+	Now looks like 
+	<b><span style="color:blue;">a</span>*x=<span style="color:green;">b</span></b>,
+	with <b><span style="color:blue;">a</span>=-1</b> and 
+		 <b><span style="color:green;">b</span>=-2</b>.
+	<ol type="A">
+		<li>Are <span style="color:blue;">a</span> and <span style="color:green;">b</span>
+			both <b>0</b>? Nope... then go on.
+		</li>
+		<li>Is <span style="color:blue;">a</span> equal to <b>0</b>? No... go no.
+		</li>
+	</ol>
+	</li>
+	<li>The soltuion is <b><span class="frac"><sup>b</sup><sub>a</sub></span></b>, and here that is
+		<b><span class="frac"><sup>-2</sup><sub>-1</sub></span> &rarr; x=2</b>.
+	</li>
+</ol>
+Done, and the same result we found before, "manually", without the algorithm... so everything seems to be working fine.
+</p>
+
+<h2>Tables and drawings</h2>
+<p>
+OK, so by now it is clear that an equation is the equivalence of two linear combinations (in the variable <b>x</b>).
+For example I know that the solution of <b>1*x+5 = 2*x+3</b> is <b>x=2</b>, and that must mean that if I were to <i>replace</i> every COPY of the variable <b>x</b> in both linear combinations with the number 
+<b>2</b>, I would get the same result on both sides. (In math they call this replacement "a substitution".)
+Let's see, when <b>x=2</b> the equation becomes: 
+<span class="formula-margins">
+	1*(2)+5 = 2*(2)+3 &rarr; 
+	<br>2+5 = 2*2+3 &rarr; 
+	<br>7 = 7
+</span>
+which is <b>true</b>; so I can say <i>"the value <b>2</b> SATISFIES the equation"</i>, or 
+<i>"the value <b>2</b> makes my equation <b>true</b>"</i>. 
+You can try with any other number, but ONLY <b>2</b> will satisfy this equation. After all we discovered before that a linear equation can have zero, one or infinite solutions; this one has one solution, and only one. Let me show you, for example with <b>x=0</b> (also because zero makes the calculations simpler!):
+<span class="formula-margins">
+	1*(0)+5 = 2*(0)+3 &rarr; 
+	<br>0+5 = 0+3 &rarr; 
+	<br>5 = 3
+</span>
+which unfortunately is <b>false</b>; hence, <b>x=0</b> cannot be the solution... and I knew that.
+<br>
+However, this idea of TESTING is interesting. I could try substituting <b>x</b> by a few numbers, and hopefully get an some hints of the solution of the equation.
+<div class="task">Here, try for yourself...</div>
+</p>
+
+<p>
+	<div class="playground" id="playground4"></div>
+	<script src="js/006_04.js"></script>
+	<script>prepare_006_04('playground4')</script>
+</p>
+
+<p>
+The same is true if we use a nicer form for the equation: <b>a*x=b</b>. 
+In our example that would be: <b>-1*x=-2</b>. The table in this case would look something like this:
+<pre>
+      <b>|  x   | -1*x |  -2  | Equal? |</b>
+      |  0   |   0  |  -2  | false  |
+      |  1   |  -1  |  -2  | false  |
+ ---> |  2   |  -2  |  -2  |  true  | <---
+      |  3   |  -3  |  -3  | false  |
+</pre>
+
+And here we are comparing <b>-1*x</b> with <b>-2</b>, but <b>-2</b> is still a polynomial in 
+<b>x</b>, because <b>-2</b> can be written in another way too: <b>0*x-2</b>.
+<br>
+OK, it looks like searching for the solution to an equation can be done by writing a table, a very long and fine-spaced table, to find that ONE NUMBER, by which the two columns (left and right part of the equation) are the same. Good plan... however, we might be end up with a very, very find-spaced table! 
+<br>
+For example take this simple-looking equation: <b>1000*x+7=130</b>. Using our algorithm we can immediately find the solution: <b>1000*x=130-7</b> &rarr; <b>1000*x=123</b> &rarr; <b>x=0.123</b>.
+But finding this value in the table would mean calculating A LOT of rows, with a very small "step" between two calculations. Difficult, but... let me try, starting from <b>-1</b>:
+<pre>
+      <b>|  x   | 1000*x+7 |  130  | Equal? |</b>
+      |  -1  |   -993   |  130  | false  |
+      |   0  |      7   |  130  | false  |
+      |   1  |   1007   |  130  |  true  |
+</pre>
+Since the column <b>|1000*x+7|</b> is clearly growing too much already, it is useless to look after <b>x=1</b>; for a similar reason, it makes no sense to look for values of <b>x</b> before <b>0</b>, since the column <b>|1000*x+7|</b> goes negative and will continue to get <i>more negative</i> (AKA a larger number with the "-" sign in front). Remember that our goal is to find a value of <b>x</b> where the number in the column <b>|1000*x+7|</b> is THE SAME as the next column, AKA is equal to <b>130</b>. 
+<br>
+And from this little bit of table that I calculated, it looks like the two columns ARE in fact equal, somewhere between <b>x=0</b> and <b>x=1</b>... but where? Time to ZOOM IN! Let's look at the interval between <b>0</b> and <b>1</b> in more DETAIL, AKA with a smaller <i>step</i>. 
+Instead of going from <b>x=0</b> to <b>x=1</b>, I need to go <b>x=0</b>, <b>x=0.1</b>, <b>x=0.2</b>, ect. with a <i>step</i> of <b>0.1</b> instead of my previous step of <b>1</b>.
+<pre>
+      <b>|  x   | 1000*x+7 |  130  | Equal? |</b>
+      |   0  |      7   |  130  | false  |
+      | 0.1  |    107   |  130  | false  |
+      | 0.2  |    207   |  130  | false  |
+</pre>
+And again I should stop at <b>x=0.2</b> because I already overshoot the target of <b>130</b>; the solution must be between <b>x=0.1</b> and <b>x=0.2</b>, and even <b>x=0.1</b> is a decent APPROXIMATION to the solution. Is NOT the RIGHT solution, but it looks better than my previous "guess" <b>x=0</b>.
+<br>
+I could ask at this point "how much WRONG is <b>x=0.1</b>" as a solution to <b>1000*x+7=130</b>?
+And I can calculate that; I just need to use the equation written like <b>1000*x=123</b>, and
+substitute <b>x</b> with <b>0.1</b>. In this way I get: <b>1000*0.1=123 &rarr; 100=123</b> which is 
+<b>false</b>... but PRETTY CLOSE! Or if you like we could say: <i>"0.1 is a BETTER solution than 0"</i> because <b>123-1000*0.1 &rarr; 23</b> is smaller than <b>123-1000*0 &rarr; 123</b>. If we were playing "Hot and Cold" we would be getting hotter! Then, let's zoom in even more, with a step of <b>0.01</b>, and look at the interval from <b>x=0.1</b> to <b>x=0.2</b>.
+<pre>
+      <b>|  x   | 1000*x+7 |  130  | Equal? |</b>
+      | 0.1  |    107   |  130  | false  |
+      | 0.11 |    117   |  130  | false  |
+      | 0.12 |    127   |  130  | false  |
+      | 0.13 |    137   |  130  | false  |
+</pre>
+Overshoot again. Good, sort of... so now we look between <b>x=0.12</b> to <b>x=0.13</b>, with a step of <b>0.01</b>:
+<pre>
+      <b>|   x   | 1000*x+7 |  130  | Equal? |</b>
+      | 0.12  |    127   |  130  | false  |
+      | 0.121 |    128   |  130  | false  |
+      | 0.122 |    129   |  130  | false  |
+      | 0.123 |    130   |  130  |  <i><b>true</b></i>  |
+</pre>
+Bingo! The solution is <b>x=0.123</b>. Which means this zoom-in method to approximate the solution works. Cool... but that was way too long!
+</p>
+
+<h3>Drawing the solution</h3>
+<p>
+We can do better (and faster) than a table: we could turn a table into <i>a drawing</i>.
+<br>
+Here is the idea: take an equation that looks like an equivalence between two linear combinations, use a 
+<i>coordinate system</i> (AKA a sheet of squared paper with a couple of arrows crossing on it) to DRAW each linear combination, and look for where the two drawing cross (the math term is INTERSECT).
+<br>
+When I say that I want to "turn" a table into a drawing, I meant just that: let's turn the table on its side and create a rectangle for each value, to get a <i>bar chart</i>.
+Let me take the (by now classic) example: <b>1*x+5 = 2*x+3</b> (spoiler!... the solutions is still <b>x=2</b>). 
+I want to take the table for <span style="background:#F0F0FF"><b>1*x+5</b></span>, with values for 
+<b>x</b> that go from <b>x=-3</b> to <b>x=5</b>, with step <b>1</b>, and turn it on its side.
+And since we are doing this, let's calculate also the table for 
+<span style="background:#FFF0F0"><b>2*x+3</b></span>, 
+in the same interval and turn it on its side as well.
+<table width="100%" style="margin-left:5em;font-size:.8em;height:18em;">
+<tr valign="bottom"><td>
+	<div class="rotate90" style="width:11em;">
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:7.5em;">-3&rarr;2</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:8.5em;">-2&rarr;3</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:9.5em;">-1&rarr;4</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:10.5em;">0&rarr;5</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:11.5em;">1&rarr;6</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:12.5em;">2&rarr;7</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:13.5em;">3&rarr;8</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:14.5em;">4&rarr;9</div>
+	<div style="background:#F0F0FF;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:15.5em;">5&rarr;10</div>
+	</div>
+</td>
+<td>
+	<div class="rotate90" style="width:11em;">
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:2.5em;">-3&rarr;-3</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:4.5em;">-2&rarr;-1</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:6.5em;">-1&rarr;1</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:8.5em;">0&rarr;3</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:10.5em;">1&rarr;5</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:12.5em;">2&rarr;7</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:14.5em;">3&rarr;9</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:16.5em;">4&rarr;11</div>
+	<div style="background:#FFF0F0;border-bottom:1px solid gray;border-right:2px solid black;height:1.2em;width:18.5em;">5&rarr;13</div>
+	</div>
+</td></tr>
+</table>
+<br>
+And if we make the bars very thin, we will get two lines. Wait, so... when I draw a linear combination
+I get a straight line! I need of course to draw the two lines one on top of the other, AKA the two lines must be drawing in the same coordinate system (not side by side, as I did here).
+<br>
+<i>Note: a great online tool, free, to draw math expressions (AKA to "plot" expressions) is 
+<a href="http://fooplot.com">FooPlot</a>.</i>
+<br>
+The diagram below was made with FooPlot, and it shows the two linear combinations 
+<span style="background:#F0F0FF"><b>1*x+5</b></span>, 
+<span style="background:#FFF0F0"><b>2*x+3</b></span>, and they meet where we expected, at <b>x=2</b>.
+The vertical axis is usually called the <i>y axis</i>, and what the plot shows is really the two lines:
+<div class="formula">
+	y = <span style="background:#F0F0FF"><b>1*x+5</b></span>
+<br>
+	y = <span style="background:#FFF0F0"><b>2*x+3</b></span>
+</div>
+At the meeting point <b>y</b> is <b>7</b> because both <b>1*x+5</b> and <b>2*x+3</b> become <b>7</b> when <b>x</b> is equal to two.
+<br>
+It is interesting to see that the two lines meet because they have different slopes, AKA they grow at different speeds. In these kinds of diagrams you typically look at the horizontal axis (the <i>x axis</i>)
+left to right, and as you follow the line (or lines) they might be going up or down, and that gives you the slope of the line.
+<center style="margin-top:.5em;"><img src="imgs/fooplot_diagram.png"></center>
+</p>
+
+<p>
+Moral of the story so far: riddles (AKA equations) can be written as sentences, represented by a two-pan balance, or written as an equivalence between two linear combinations. The solution to an equation can be found using an algorithm, and there are two special cases that we have to take into account. As an alternative to using the algorithm, we can look for the solution to an equation also by making a table (eventually a very detailed table, very annoying to calculate).
+It turns out that the table is easier to calculate if we draw its contents on squared paper (AKA a coordinate system).
+And when you draw a linear combination on a coordinate system you get a straight line; so an equation can be drawn as two lines. The solution to the equation lays where the lines meet (AKA where they intersect).
+Finally, the two special cases are: no solutions and infinite solutions. When the lines are parallel (they meet nowhere) we have zero solutions; and when the two lines are really the same line, any point on one of the lines is a good solution, hence, infinite solutions.
+</p>
+
+<p>
+<div class="task">
+Try plotting the two sides of the equations: 1*x+0=0*x+5 , 2*x=10, x+2=7, -1*x=-5.
+What is that all these equations have in common?
+<br>
+Now, try plotting the two special cases: 0*x=5, and 0*x=0.
+</div>
+</p>
+
+<p>
+	<div class="playground" id="playground5"></div>
+	<script src="js/006_05.js"></script>
+	<script>prepare_006_05('playground5')</script>
+</p>
+
+<p>
+<div class="task">Go back and look at the way we solved the equation <b>1*x+5 = 2*x+3</b> using the algorithm. 
+<br>	
+Start from <b>1*x+5 = 2*x+3</b> and perform the steps required by the algorithm:
+<br>-1- move stuff around in the equation to get it to the form <b>a*x=b</b>,
+<br>-2- now divide by <b>a</b> to get the solution <b>x=(b:a)</b>.
+<br>
+Plot the two lines after each step of the algorithm. 
+You will get an <i>animation</i> of the way the algorithm solves an equation.
+<br>
+What happens to the two lines as the algorithm solves the equation?
+<br>
+What happens to the intersection point as the algorithm runs? Does it move? How?
+</div>
+
+</p>
+
+
+<!--h2>Combination of ... drawings(?)</h2>
+<p>
+	vectors -> linear combinations as drawings!
+</p-->
+
+<h2>Puzzles</h2>
+<h3>(1) Solve riddles</h3>
+<p>
+Solve the following linear equations, using the final algorithm presented in this chapter.
+<ul>
+	<li><b>5*x+10 = 2*x+46 &rarr; ?</b></li>
+	<li><b>7*x+7 = -8*x-2 &rarr; ?</b></li>
+	<li>When I walk, I have to eat two candies every kilometer, for energy. However, before I start 
+		my walk	I always eat 3 candies, just to convince myself to get out of my house. 
+		If I ate <b>11</b> candies in my last tour, how many kilometers did I walk?
+		<br>
+		The equation to solve here is:		
+		<b>3+2*x = 11</b>, and <b>x</b> gives the kilometers walked.</li>
+	<li><b>2*(4x+.3)-3x=45.6</b></li>
+	<li><b>(3-<span class="frac"><sup>x</sup><sub>2</sub></span>)*2 = (10+x)-2*(x+2)</b></li>
+	<li><b>3*(x+x) = 1*2*3*4 + 6*x</b></li>		
+	<li>Alice can eat a whole cake in 4 minutes; Bob can also eat a whole cake, but it takes 
+		him 6 minutes.
+		How long will it take to Alice and Bob together to eat one cake?
+		<br>
+		Here <b>x</b> is the time it takes to eat the whole cake.
+		<br>
+		<b> <span class="frac"><sup>1</sup><sub>4</sub></span> + 
+			<span class="frac"><sup>1</sup><sub>6</sub></span> = 
+			<span class="frac"><sup>1</sup><sub>x</sub></span>
+		</b>
+		<br>To help you I can rewriting the equation in this way:
+		<br>
+		<b>  <span class="frac"><sup>1</sup><sub>4</sub></span> + 
+			<span class="frac"><sup>1</sup><sub>6</sub></span> = 
+			<span class="frac"><sup>1</sup><sub>x</sub></span> &rarr;
+
+			(<span class="frac"><sup>1</sup><sub>4</sub></span> + 
+			<span class="frac"><sup>1</sup><sub>6</sub></span>)*x = 
+			1
+		</b>
+		assuming that <b>x</b> is not zero.</li>	
+</ul>
+Use a calculator if you need to.
+</p>
+
+<h3>(2) Plot the solution</h3>
+<p>
+Using the plotting playground (the last one of the chapter) solve these equations:
+<ul>
+	<li><b>-14*x-18 = 16*x</b></li>
+	<li>Can there be a number that divided by three times itself, becomes a third of itself?
+		<b>x:(3*x) = <span class="frac"><sup>x</sup><sub>3</sub></span></b></li>
+	<li><b>9 = 1+2*x</b></li>
+</ul>	
+by plotting the left and right expression, and find the intersection point (if it exists).
+<br>
+<h3>(2.2) Plot the solution</h3>
+Now go back to the playground called <i>Build a riddle on a two-pan balance</i> and solve the same
+equations, but with the two-pan balance this time. 
+If needed, simplify the equation first, then solve them.
+<br>
+Note: use <a href="http://fooplot.com">FooPlot</a> if you want a more flexible way to visualize, pan, zoom in and out.
+</p>
+
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+<script src="js/make_links.js"></script>
+</body>  

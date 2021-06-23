@@ -1,0 +1,625 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel=stylesheet href="book.css">
+  <title>Appendix A</title>  
+  <style>
+	#sum > span {		
+	    position: relative;
+	    font-size:2.0em;
+	    display: inline-block;
+	    line-height:.7em;
+	    vertical-align: middle;
+	}
+
+	#sum > span:before {
+	    font-size:.3em;
+	    display: block;
+	    position absolute;
+	    left: 0;
+	    top: 0;
+	    content: "n";
+	    width: 22px;
+	    text-align: center;
+	}
+
+	#sum > span:after {
+	    font-size:.3em;
+	    display: block;
+	    position absolute;
+	    left: 0;
+	    bottom: 0;
+	    content: "i=1";
+	    width: 27px;
+	    text-align: center;
+	}
+ </style>
+</head>
+<body class="fading-background">
+<article>
+
+<a name="top"></a>
+<div class="navigation">
+	<a href="conclusion.html">&lt;</a>
+	<a href="page000.html">^</a>
+	<a href="backcover.html">&gt;</a>	
+</div>
+
+<h1>Appendix A - The weird stuff that did not fit</h1>
+
+<a name="appendixA01"></a>
+<h2>Money as linear combination</h2>
+
+Money works this way too.. You can have many ways to combine the various coin denominations to reach a specific amount. Denominations is just a fancy term for the types of coins that there are in a currency. For example <a href="https://en.wikipedia.org/wiki/Monopoly_money">Monopoly money</a> is denominated in <b>$1, $5, $10, $20, $50, $100, and $500</b>. 
+Suppose for simplicity that I restrict myself to only use <b>$1, $5, $10</b> banknotes, and I want to reach the amount of <b>123</b> Monopoly dollars. Well then I have many combinations available:
+<span class="formula-margins">
+   123 = <span data-bracket="123 times">1+...+1</span>
+<br><br><br>
+   123 = 1+1+1+<span data-bracket="24 times">5+...+5</span> &nbsp;&rarr;&nbsp; 3+24*5
+<br><br><br>
+   123 = 1+1+1+<span data-bracket="12 times">10+...+10</span> &nbsp;&rarr;&nbsp; 3+12*10
+</span><br>
+and many more combinations, that you can get by using a different mix of <b>$5</b> and <b>$10</b> for example.
+...
+<br>
+Here we are rewriting <b>$123</b> as a linear combination of the three denominations:
+<span class="formula-margins">
+123 = a*10 + b*5 + c*1
+</span>	
+only that this linear combination has <b>1, 5 and 10</b> as <i>weights</i>, and they are too close to make the linear combination REVERSIBLE, so it is not, and I can find many values for <b>a, b and c</b> that add up to <b>123</b>.
+The first solution we explored is <b>a=0, b=0, c=123</b>, which gives <b>123 = 0*10 + 0*5 + 123*1</b>; the second is <b>a=0, b=24, c=3</b>, which rewrites <b>123</b> as <b>0*10 + 24*5 + 3*1</b>, and so on.
+</p>
+
+<a name="appendixA02"></a>
+<h2>Proper, improper and apparent fractions</h2>
+<p>
+Time for some math terminology... Fractions come in many kinds. 
+Some are just whole numbers in disguise, like  <span class="frac"><sup>7</sup><sub>1</sub></span> or 
+<span class="frac"><sup>15</sup><sub>5</sub></span>. Those are called "apparent" in math, and they exist because a number divide by <b>1</b> remains the same, so you can always look at <b>5</b> as <b>5:1</b> or 
+ <span class="frac"><sup>5</sup><sub>1</sub></span>; of course not all apparent fractions have <b>1</b> as their bottom number (AKA denominator), because they could also have been zoomed: for example,
+ if I zoom <span class="frac"><sup>5</sup><sub>1</sub></span> by <b>3</b> I get 
+ <span class="frac"><sup>15</sup><sub>5</sub></span>, but the meaning (AKA the value) is still <b>5</b>.
+<br>
+Other fractions are <i>good</i>, <i>solid</i> fractions, like <span class="frac"><sup>1</sup><sub>2</sub></span> or <span class="frac"><sup>77</sup><sub>100</sub></span>. These are called "proper" fractions, and are defined by the fact that the numerator (the top number) is smaller than the denominator.
+<br>Then there you have your "improper" fractions, where the numerator is larger than the denominator, for example: <span class="frac"><sup>7</sup><sub>3</sub></span> or 
+<span class="frac"><sup>17</sup><sub>9</sub></span>.
+<br>
+There is also another concept related to fractions that you might remember from your school math, that of "mixed number". A mixed number is yet another way to write a fraction: you start from an improper fraction, then take away as many whole units as possible, and are left with an addition of a whole number and a proper fraction. An example of this procedure could be:
+<span class="formula-margins">
+	<span class="frac"><sup>7</sup><sub>3</sub></span> &nbsp;&rarr;&nbsp; 
+	<span class="frac"><sup>2*3+1</sup><sub>3</sub></span> &nbsp;&rarr;&nbsp; 
+	<span class="frac"><sup>2*3</sup><sub>3</sub></span> + <span class="frac"><sup>1</sup><sub>3</sub></span> &nbsp;&rarr;&nbsp; 
+<br>
+	2 + <span class="frac"><sup>1</sup><sub>3</sub></span> &nbsp;&rarr;&nbsp; 
+</span>
+or even dropping the "+" sign, just <i>"two and one-third"</i>:
+<span class="formula-margins">
+	2 <span class="frac"><sup>1</sup><sub>3</sub></span>	
+</span>
+Interestingly, to write an improper fraction as a mixed number you have to rewrite the numerator as a linear combination of the denominator.
+</p>
+
+<a name="appendixA03"></a>
+<h2>Sum of numbers from 1 to n</h2>
+The addition of all the whole numbers from <b>1</b> to <b>n</b> is a famous problem in (school) math.
+It was <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Gauss</a> <img class="face" src="faces/Carl_Friedrich_Gauss_1840_by_Jensen.jpg"></span> how, as a child, discovered of a formula to calculate this sum (see <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss#Early_years">here</a> for an account of the situation in which the discovery occurred).
+<br>
+Say that you want (or have to) add the numbers from <b>1</b> to <b>10</b>; Gauss's key observation was that you can look at the numbers in a different way, than the obvious:
+<span class="formula-margins">
+	1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 = ? 
+</span>
+and instead he looked at them in pairs, the first and the last, and so on:
+<span class="formula-margins">
+	1 + 10 &nbsp;&nbsp;+&nbsp;&nbsp; 2 + 9 &nbsp;&nbsp;+&nbsp;&nbsp; 3 + 8 &nbsp;&nbsp;+&nbsp;&nbsp;
+	4 + 7 &nbsp;&nbsp;+&nbsp;&nbsp; 5 + 6 = ?
+</span>
+and these are <b>5</b> pairs, and all have the same value <b>11</b>, so the sum will be <b>5*11</b>.
+Visually that is a folding transformation:
+<div style="height:5em" align="center"><b>
+	<span>
+	<span style="color:blue">1</span> + <span style="color:green">2</span> + 
+	<span style="color:red">3</span> + <span style="color:gold">4</span> + 
+	<span style="color:darkorange">5</span> 
+	&nbsp;</span><span class="fold_down">+ <span style="color:darkorange">6</span> +
+		<span style="color:gold">7</span> + <span style="color:red">8</span> + 
+		<span style="color:green">9</span> + <span style="color:blue">10</span> </span>
+</b></div>
+
+OK, in this case the result is not THAT impressive... because I could have do the addition of ten numbers... not a big deal. But wait, this idea is great because it SCALES UP to adding from <b>1</b> to any (large) number you like!
+<br>
+Let me show you:
+<span class="formula-margins">
+	1 + 2 + 3 + ... + 98 + 99 + 100 = ? 
+</span>
+well using Gauss's trick:
+<span class="formula-margins">
+	1 + 100 &nbsp;&nbsp;+&nbsp;&nbsp; 2 + 99 &nbsp;&nbsp;+&nbsp;&nbsp; 3 + 98 &nbsp;&nbsp;+&nbsp;&nbsp;
+	... &nbsp;&nbsp;+&nbsp;&nbsp; 50 + 51 = ?
+</span>
+so that is <b>50</b> pairs, each with a value of <b>101</b>, and that gives me <b>50*101 = 5050</b>. Now, that was way faster than doing the actual <b>100</b> additions!
+<br>
+But we can do EVEN BETTER. We can make the formula that works not for <b>10</b> or <b>100</b>, but in general for <b>n</b> (assuming for now that <b>n</b> is an <i>even</i> number):
+<span class="formula-margins">
+	1 + 2 + 3 + ... + (n-2) + (n-1) + n = ? 
+</span>
+Again using Gauss's trick, I get a number of pairs, all with value <b>1+n</b>; how many pairs? Well in the previous examples it looks like half of the terms that I'm adding up, so here I'm adding up <b>n</b> terms, and I should get <b>n/2</b> pairs. Fine. That gives me a formula for the general case that looks like this:
+<span class="formula-margins">
+	1 + 2 + 3 + ... + (n-2) + (n-1) + n = (1+n) * (n:2)
+</span>
+or if you like a more fancy math notation:
+<span class="formula-margins">
+	<div id="sum">
+		<span class="summation">&Sigma;</span> i &nbsp; = &nbsp;  1 + 2 + 3 + ... + (n-2) + (n-1) + n
+	</div>
+	= <span class="frac" style="font-size:100%"><sup>(1+n)*n</sup><sub>2</sub></span>
+</span>
+
+</p>
+
+<a name="appendixA04"></a>
+<h2>Prime and composite numbers</h2>
+Some whole numbers are primes and some (many) others are not, they are composite instead.
+Take a number like <b>12</b> for example, you can try to divide it by all the numbers smaller than itself:
+<table style="line-height:.8em;margin-left:8em" width="60%" style="line-height: 1em;">
+	<tr align="center"  style="font-weight:1000"><th>number</th>
+					<th>divisors</th><th>result</th></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>2</td><td>&rarr; <b>6*2</b> &nbsp;&#10004;</td></tr>
+	<tr align="center">
+			<td>12</td><td>3</td><td>&rarr; <b>4*3</b> &nbsp;&#10004;</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>4</td><td>&rarr; <b>3*4</b> &nbsp;&#10004;</td></tr>
+	<tr align="center">
+			<td>12</td><td>5</td><td>&rarr; 1*5+2 </td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>6</td><td>&rarr; <b>2*6</b> &nbsp;&#10004;</td></tr>
+	<tr align="center">
+			<td>12</td><td>7</td><td>&rarr; 1*7+5</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>8</td><td>&rarr; 1*8+4</td></tr>
+	<tr align="center">
+			<td>12</td><td>9</td><td>&rarr; 1*9+3</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>10</td><td>&rarr; 1*10+2</td></tr>
+	<tr align="center">
+			<td>12</td><td>11</td><td>&rarr; 1*11+1</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td colspan="3" align="center">...</td></tr>
+</table><br>
+So <b>12</b> has quite a few divisors: <b>2, 3, 4, and 6</b>. A prime number is defined as a number that has only one and itself as divisors... so clearly <b>12</b> is NOT prime! It is <i>composite</i>.
+A number like <b>11</b> for example is prime instead, and if you try to divide it by <b>2, 3, ..., 10</b> you will see that each time you will get some reminder.
+<br>
+What we did in the table above is finding the factors of a number; however, we can be more subtle and look only for those factors that are PRIME numbers:
+<table style="line-height:.8em;margin-left:8em" width="60%" style="line-height: 1em;">
+	<tr align="center"  style="font-weight:1000"><th>number</th>
+					<th>divisors</th><th>result</th></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>2</td><td>&rarr; <b>6*2</b> &nbsp;&#10004;</td></tr>
+	<tr align="center">
+			<td>12</td><td>3</td><td>&rarr; <b>4*3</b> &nbsp;&#10004;</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>5</td><td>&rarr; 1*5+2 </td></tr>
+	<tr align="center">
+			<td>12</td><td>7</td><td>&rarr; 1*7+5</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>12</td><td>11</td><td>&rarr; 1*11+1</td></tr>
+	<tr><td colspan="3" align="center">...</td></tr>
+</table><br>
+I can list all prime factors of <b>12</b> (that are smaller than itself of course): <b>2, 3</b>, and I can rewrite <b>12</b> as a multiplication that uses only those factors, eventually repeated: 
+<b>12 = 2*2*3</b>. In math terminology <b>2*2*3</b> is called <i>"the prime factorization of 12"</i>.
+Remarkably, it is always possible to rewrite a number in this way, and a very powerful theorem ensures that for every whole number there is ONLY ONE prime factorization!
+<br>
+Let me show you. Take <b>147</b> it can be divided by these primes: <b>3, 7</b>, and its prime factorization is <b>147 = 3*7*7</b>. There are no other ways to express <b>147</b> as a multiplication of primes. But you might say: that cannot be, surely <b>7*3*7</b> is another multiplication but it is also equal to <b>147</b>... And you would be right! So I should add that the order does not count (we are talking about a multiplication after all...).
+<br>
+So if you buy the idea that every whole number is either prime or has a unique prime factorization, I can show you a terrific way to SEE if a number is prime or composite: we can draw a 
+<i>factorization diagram</i> for every whole number.
+Here are the factorization diagrams for the numbers from <b>1</b> to <b>20</b>:
+<div align="center">
+	<img src="imgs/FactorizationDiagrams_1to20.png" style="height:20em">
+</div>
+
+And you can also take a look at these amazing <a href="http://www.datapointed.net/visualizations/math/factorization/animated-diagrams/">animated factorization diagrams</a> (by Stephen Von Worley).
+<br>
+The factorization diagram for a number has as many dots as the number (so the diagram for <b>5</b> has five dots), but the way the dots are arranges is important too: for a prime number the dots are the corners of a regular polygon (so the five dots for <b>5</b> form a regular pentagon), but for a composite number, the dots are arranged in sub-groups that depend on the numbers of the prime factorization of the composite number. For example the diagram for <b>12</b> shows three groups of four dots, 
+because the prime factorization of <b>12</b> is <b>3*4</b>, and it is unique.
+<br>
+Finally, take <b>18</b>, its factorization is <b>2*3*3</b> and the factorization diagram shows that clearly: <b>18</b> dots, arranged in three groups of six dots. Each group of six dots is a made of three groups of two dots. So three, three, and two. Nice.
+</p>
+
+<a name="appendixA05"></a>
+<h2>Polynomials as linear combinations of variables and numbers</h2>
+<p>
+<!--div class="todo">
+	to do 
+<br>	
+
+a<sub>n</sub>*x<sup>n</sup> + a<sub>n-1</sub>*x<sup>n-1</sup> + ... + a<sub>2</sub>*x<sup>2</sup> +
+a<sub>1</sub> * x + a<sub>0</sub>
+
+"A polynomial is an expression that can be built from constants and symbols called indeterminates or variables by means of addition, multiplication and exponentiation to a non-negative integer power. Two such expressions that may be transformed, one to the other, by applying the usual properties of commutativity, associativity and distributivity of addition and multiplication are considered as defining the same polynomial."
+
+https://en.wikipedia.org/wiki/Polynomial
+
+"Polynomials are linear combinations of powers of x. The highest power is the order of the polynomial. For example, a cubic is a polynomial of order 3."
+from https://studywell.com/maths/pure-maths/algebra-functions/polynomials/
+</div-->
+
+Base 10 numbers and polynomials are similar. Let me give you an example:
+<span class="formula-margins">
+	3 * 10<sup>2</sup> + 2 * 10<sup>1</sup> + 5 * 10<sup>0</sup> = 325
+</span>
+Now let's replace <b>10</b> with the variable <b>x</b>, AKA <b>x=10</b>:
+<span class="formula-margins">
+	3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup> = 325
+</span>
+Fine, nothing special about that substitution. But... wait! Now I have an opportunity to <i>change</i> <b>10</b> to another number, because now I can put any number I want in <b>x</b>, and see what it gets me.
+For example, let me try a few values to get the feeling of this polynomial:
+<table style="line-height:.8em;margin-left:5em" width="80%" style="line-height: 1em;">
+	<tr align="center"  style="font-weight:1000"><th>x</th><th>3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup></th></tr>
+	<tr align="center" style="background:#F0F0FF"><td>10</td><td>325</td></tr>
+	<tr align="center"><td>9</td><td>266</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>8.5</td><td>238.75</td></tr>
+	<tr align="center"><td>...</td><td>...</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>5</td><td>90</td></tr>
+	<tr align="center"><td>1</td><td>10</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>0</td><td>5</td></tr>
+	<tr align="center"><td>-1</td><td>6</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>-2</td><td>13</td></tr>
+	<tr align="center"><td>-10</td><td>285</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>...</td><td>...</td></tr>
+	<tr align="center"><td>100</td><td>30205</td></tr>
+	<tr align="center" style="background:#F0F0FF"><td>1000</td><td>3002005</td></tr>
+	<tr align="center"><td>...</td><td>...</td></tr>
+</table>
+Interesting. For example when <b>x</b> is larger than <b>10</b> the value of the polynomial grows: 
+<b>x=100 &rarr; polynomial = 30205</b>, and <b>x=1000 &rarr; polynomial = 3002005</b>. So it looks like the larger <b>x</b> gets the more the digits of the number <b>325</b> SEPARATE! 
+<br>
+In a very real sense <b>x</b> CONTROLS the separation between the spikes of the abacus. Try with the playground below, to see what happens as you change <b>x</b>. Try with <b>x=5.5</b> and <b>x=1000</b>.
+</p>
+
+<p>
+	<div class="playground" id="playground1"></div>
+	<script src="js/appendixA_01.js"></script>
+	<script>prepare_appendixA_01('playground1')</script>
+</p>
+
+<p>
+And finally, another way to see this is to say that:
+<span class="formula-margins">
+	3 * x<sup>2</sup> + 2 * x<sup>1</sup> + 5 * x<sup>0</sup>
+</span>
+is that it is the linear combination of three simpler expressions in <b>x</b>: <b>x<sup>2</sup></b>,
+<b>x</b>, and <b>1</b>.
+Try in the playground below, to combine these three functions, using different weights, and see what comes out. Be sure to try also with the weights <b>3, 2, 5</b>.
+</p>
+<p>
+	<div class="playground" id="playground2"></div>
+	<script src="js/appendixA_02.js"></script>
+	<script>prepare_appendixA_02('playground2')</script>
+</p>
+<p>
+Now try with <b>1, 0, 3</b>, then decrease the last number from <b>3</b> down to <b>-3</b>, reducing it of <b>1</b> at each step. 
+<br>In how many points does the blue line touch the <i>X axis</i> in each case, as you change the third number? 
+<br>
+Let's see together... when the third number is larger than <b>0</b> there are no intersection points between the line and the axis. When the number is exactly <b>0</b>, there is one point of intersection; when the number is less than <b>0</b> the points are two. 
+<br>
+This means that in some cases the polynomial can go negative (or be equal to zero) in some points, and in some others it never does (for example in the case of <b>x<sup>2</sup>+2</b>). And by combining the three expressions <b>x<sup>2</sup></b>, <b>x</b>, and <b>1</b>, with different weights, we can effectively generate all kinds of plots.
+</p>
+
+<a name="appendixA07"></a>
+<h2>A different definition of addition of Peano numbers</h2>
+Another way to look at addition is that it looks like the <i>successor</i> operation repeated many times. For example, if <b>3</b> is also "<i>+1</i> repeated <b>3</b> times", then <b>5 + 3</b> must also be <b>5 + 1 + 1 + 1</b>. More in general then, if I have two numbers to add, called them <i>a</i> and <i>b</i>, it should be correct to say:
+<span class="formula">
+a + b = a <span data-bracket="b times">+1 ... +1</span>
+</span><br>
+
+But surely also: 
+<span class="formula">
+a + b = <span data-bracket="a times">+1 ... +1</span> + b = 
+<span data-bracket="a times">+1 ... +1</span> <span data-bracket="b times">+1 ... +1</span>
+</span><br>
+
+since also <i>a</i> can be seen as Peano number, made of a repetition of <i>+1</i>s.
+And because <b>a + b</b> is just a bunch of <i>+1</i>s representing <i>a</i> put together with another bunch making up <i>b</i>, then clearly it does not matter in what order I put them together, the result will be the same, so:
+
+<span class="formula">
+a + b = <span data-bracket="a times">+1 ... +1</span> <span data-bracket="b times">+1 ... +1</span> 
+= <span data-bracket="b times">+1 ... +1</span> <span data-bracket="a times">+1 ... +1</span> 
+= b + a
+</span><br>
+
+And this is true for any two numbers!
+<br>
+Really?! What about if <i>b</i> is <b>0</b>? Or <b>1</b>?
+Let's see. I can try putting <b>b = 0</b> in the formula above, and I get:
+<span class="formula">
+a + 0 = a <span data-bracket="0 times">+1 ... +1</span> = a 
+</span><br>
+
+But what is "+1 repeated 0 times"? It must be nothing, right? So it is true that: <b>a + 0 = a</b> , for any number <i>a</i>. And because  <b>a + b = b + a</b>, also <b>0 + a = a</b>, for any number <i>a</i>. Not a big surprise there, but good that now we could SEE where these properties of the addition comes from.
+<br>And what about <b>b = 1</b>? What do you think? 
+
+<span class="formula">
+a + 1 = a <span data-bracket="1 time">+1 ... +1</span> = a +1 = "the successor of a"
+</span><br>
+
+OK, again nothing too suprising here, but at least our intuition of what it means to add two numbers holds when we express it in terms of Peano numbers.
+</p>
+
+<a name="appendixA08"></a>
+<h2>What is "a" to the power of -1?</h2>
+<p>
+Remember that the general rule for calculating <b>a<sup>b</sup> * a<sup>c</sup></b> is:
+<span class="formula-margins">
+	a<sup>b</sup> * a<sup>c</sup> = a<sup>(b+c)</sup>
+</span>
+Here I want to find out what could <b>a<sup>-1</sup></b> be. I don't know at this point how the power operation works on negative numbers, but whatever <b>a<sup>-1</sup></b> is, it must work like the rest of the power operations... so the rule <b>a<sup>b</sup> * a<sup>c</sup></b> must still apply. This means that I can try to use the rule and look at:
+<span class="formula-margins">
+	a<sup>-1</sup> * a<sup>c</sup>
+</span>
+where <b>b=-1</b>. By definition, that gives me:
+<span class="formula-margins">
+	a<sup>-1</sup> * a<sup>c</sup> &nbsp;&rarr;&nbsp; a<sup>(-1+c)</sup> 
+</span>
+or, written in a <i>nicer</i> way: <b>a<sup>(c-1)</sup></b>. OK, so what if <i>c</i> is one, AKA <b>c=1</b>?
+Well, in that case I get: <b>a<sup>-1</sup> * a<sup>1</sup> &nbsp;&rarr;&nbsp; a<sup>0</sup></b>; but I know that 
+<b>a<sup>0</sup> = 1</b>. So: 
+<span class="formula-margins">
+	a<sup>-1</sup> * a<sup>1</sup> &nbsp;&rarr;&nbsp; 1
+</span>
+and I did not assume anything special about <i>a</i>, so it can be ANY number. Interesting. How does that look, substituting <i>a</i> with a few numbers (to get the feeling of that equivalence there)?
+
+<center>
+<table width="80%" style="line-height:1em;">
+	<tr align="center"><th><b>a</b></th><th><b>a<sup>-1</sup> * a<sup>1</sup> = 1</b></th>
+		<th><b>a<sup>-1</sup></b></th>
+	</tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>1</td><td>? * 1 = 1 &rarr; </td><td>1</td></tr>
+	<tr align="center">
+			<td>2</td><td>? * 2 = 1 &rarr;</td>
+			<td><span class="frac"><sup>1</sup><sub>2</sub></span> = 0.5</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>3</td><td>? * 3 = 1 &rarr; </td>
+			<td><span class="frac"><sup>1</sup><sub>3</sub></span> = 0.333</td></tr>
+	<tr align="center">
+			<td colspan="3">...</td></tr>
+	<tr align="center" style="background:#F0F0FF">
+			<td>10</td><td>? * 10 = 1 &rarr; </td>
+			<td><span class="frac"><sup>1</sup><sub>10</sub></span> = 0.1</td></tr>
+	<tr align="center">
+			<td colspan="3">...</td></tr>
+</table>
+</center>
+<br>
+
+So it looks like any number <i>a</i> to the power of <b>-1</b> is simply 
+<span class="frac"><sup>1</sup><sub>a</sub></span>. In math they call 
+<span class="frac"><sup>1</sup><sub>a</sub></span> <i>the inverse</i> of <i>a</i>, and the property of inverses is that when you multiply a number by its inverse you always get <b>1</b>. 
+<br>
+<i>This stuff does not work with zero, because zero is special and has no inverse.</i>
+<br>
+Anways. Not only <b>a<sup>-1</sup></b> is <b><span class="frac"><sup>1</sup><sub>a</sub></span></b>, 
+a <i>negative power</i> of a number is just the inverse of the corresponding <i>positive power</i>. Or if you prefer a formula:
+<span class="formula">
+	a<sup>-n</sup> = <span class="frac"><sup>1</sup><sub>a<sup>n</sup></sub></span>
+</span>
+where <i>a</i> can be any number, and <i>n</i> is any positive number.
+
+</p>
+
+
+<a name="appendixA09"></a>
+<h2>Positive and negative Peano numbers</h2>
+<p>
+In math the usual way to show negative numbers together with positive ones (AKA integers), is to draw the <i>number line</i>:
+<div>
+  <img src="imgs/number-line.png" style="width:90%;margin-left:5%;">
+</div>
+(image from <a href="https://en.wikipedia.org/wiki/Number_line">wikipedia</a>).
+Adding and subtracting a number to another becomes moving to the right (positive direction) or the left on the line (negative direction).
+<br>
+Usually Peano numbers (see <a href="page002.html">chapter 2</a>) are not used to work also with negative numbers, but we could invent an extension of Peano's notation, where 3 is still SSSZ and -3 is ZSSS. Of course the normal form here is that no number should have Ss on both sides of Z: SSZS cannot be a <i>correct</i> number. Given this new notation, I can try to add 3+(-4): SSSZ +  ZSSSS, and the rule might be:
+<ul>
+<li>merge the two numbers, so they have the Z character in common: SSSZSSSS</li> 
+<li>then simply be to remove one S from each side, until no Ss are left on one of the two sides (AKA until the number is in normal form)</li>
+</ul>
+That is: SSSZSSSS &rarr; SSZSSS &rarr; SZSS &rarr; ZS , so the result should be the number -1.
+<br>And since you can see that Z is used to separate two unary numbers, we have precisely the two boxes that the commerce interpretation required. Finally, addition and subtraction can be both seen as repetition of "adding 1" or "subtracting 1", and they can somehow be mixed: if numbers remember their <i>sign</i> I can just write all my plus and minus operations as additions (where some terms are negative numbers).
+</p>
+
+<a name="appendixA10"></a>
+<h2>Multiply and divide with broken numbers</h2>
+<p>
+In <a href="page003.html">chapter 3</a> we used this box-within-box notation to represent any positive and negative, whole and broken number. Here I want to redefine multiplication and division to work with the box-within-box notation, AKA all of the so called <i>rational</i> numbers  (a <i>subset</i> of real numbers).
+Here I would like to simplify the way box-within-box works, then show how addition, subtraction, multiplication and division become when written for this notation, extended to work with any rational number.
+<br>
+Let me start by defining a <i>slimmer</i> version of the box-within-box notation. Take the rational number
+<b>-12.3</b>, in chapter 3 we represented it as: 
+<span class="formula" style="font-size:140%;">
+	<span class="open_box"><span style="display:inline-block;position:relative;bottom:4px;margin-left:4px;margin-right:4px;"><span class="open_box">0</span></span></span><span class="open_box" style="color:red"><span style="display:inline-block;position:relative;bottom:4px;margin-left:4px;margin-right:4px;"><span class="open_box">1</span><span class="open_box">2</span>.<span class="open_box">3</span></span></span>
+</span>
+But I suggest that we avoid the dot (or comma if you prefer), and look at <b>-12.3</b> as the <b>fraction</b> <span class="frac"><sup>-123</sup><sub>10</sub></span>. Any rational number can be written as a (positive or negative) fraction, by definition (a rational number is a number that is generated by a division). This suggests that the bare minimum to represent one rational numbers is: a whole number, positive or negative, as numerator and a whole number, always positive, as denominator. 
+Using this idea I can make up a slimmer box notation for rational numbers:
+<span class="formula-margins">
+	<span class="open_box">0</span><span class="open_box" style="color:red">123</span><span class="open_box">10</span>
+</span>
+as a triplet (AKA a 3-tuple)! In the triplet, the first two boxes constitute the numerator (so I can write a positive or a negative number there), and the last box is for the denominator
+
+This compact (and frankly a bit weird) way to write a rational number might be confusing... so let's write a few numbers in this notation, to get familiar with it:
+<span class="formula-margins">
+	3 &nbsp;&rarr;&nbsp;
+	<span class="open_box">3</span><span class="open_box" style="color:red">0</span><span class="open_box">1</span>
+<br>	
+	-3 &nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">3</span><span class="open_box">1</span>
+<br>	
+	-3.5 &nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">35</span><span class="open_box">10</span>
+<br>
+	<span class="frac"><sup>1</sup><sub>-3.5</sub></span> &nbsp;&rarr;&nbsp;
+	<span class="frac"><sup>-10</sup><sub>35</sub></span> &nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">10</span><span class="open_box">35</span>
+<br>
+	<span class="frac"><sup>1</sup><sub>2</sub></span> &nbsp;&rarr;&nbsp;
+	<span class="open_box">1</span><span class="open_box" style="color:red">0</span><span class="open_box">2</span>
+</span>
+
+<br>
+Armed with this new slimmer notation, I can try to redefine the basic operations... using mostly the rules for fractions.
+For example: <b>0.5 + <span class="frac"><sup>-3</sup><sub>2</sub></span></b>
+this translates to:
+<span class="formula-margins">
+	<span class="open_box">5</span><span class="open_box" style="color:red">0</span><span class="open_box">10</span> + 
+	<span class="open_box">0</span><span class="open_box" style="color:red">3</span><span class="open_box">2</span>
+	 &nbsp;&rarr;&nbsp;
+
+	<span class="open_box">1</span><span class="open_box" style="color:red">3</span><span class="open_box">2</span> + 
+	<span class="open_box">0</span><span class="open_box" style="color:red">3</span><span class="open_box">2</span>
+	 &nbsp;&rarr;&nbsp;
+
+	<span class="open_box">1</span><span class="open_box" style="color:red">3</span><span class="open_box">2</span>
+<br>
+<br>
+	<span class="open_box">1</span><span class="open_box" style="color:red">3</span><span class="open_box">2</span> &nbsp;-<i>remove1FromBoth</i>&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">2</span><span class="open_box">2</span>	
+<br>
+<br>
+
+	<span class="open_box">0</span><span class="open_box" style="color:red">2</span><span class="open_box">2</span>	
+	 &nbsp;=&nbsp; <span class="frac"><sup>2</sup><sub>2</sub></span> = 1
+</span>
+and <b>1</b> is the correct result. Good.
+Let's try a multiplication then: <b>3 * (-4)</b>, which translates to:
+<span class="formula-margins">
+	<span class="open_box">3</span><span class="open_box" style="color:red">0</span><span class="open_box">1</span> * 
+	<span class="open_box">0</span><span class="open_box" style="color:red">4</span><span class="open_box">1</span>
+	 &nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">4</span><span class="open_box">1</span> + 
+	<span class="open_box">0</span><span class="open_box" style="color:red">4</span><span class="open_box">1</span> + 
+	<span class="open_box">0</span><span class="open_box" style="color:red">4</span><span class="open_box">1</span> 
+	 &nbsp;&rarr;&nbsp;	 
+<br>	 
+	<span class="open_box">0</span><span class="open_box" style="color:red">3*4</span><span class="open_box">1</span> 
+	&nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">12</span><span class="open_box">1</span> &nbsp;=&nbsp; -12	
+</span>
+OK, fine. 
+So when I multiply a positive and a negative number, the sign of the result is negative. 
+You might remember this from your school math as the <i>rule of the signs</i>. More in general it says that when I multiply two numbers, every <i>minus</i> sign FLIPS the sign of the result once; so <b>(-3) * (-4)</b> is <b>12</b>, a positive number!
+<br>
+Good, and now let's multiply a broken and a whole number, to see how that looks here... I suggest <b>12.3 * 5</b>, and I want to see both as fractions, like: 
+<span class="formula-margins">
+	<span class="frac"><sup>123</sup><sub>10</sub></span></b> *
+	<span class="frac"><sup>5</sup><sub>1</sub></span></b>
+</span>	
+and the rule for multiplying fractions is simple: you get a new fraction that has the multiplication of the numerators on top, and the multiplication of the denominators at the bottom.
+What I get with my boxes is:
+<span class="formula-margins">
+	<span class="open_box">123</span><span class="open_box" style="color:red">0</span><span class="open_box">10</span> * 
+	<span class="open_box">5</span><span class="open_box" style="color:red">0</span><span class="open_box">1</span>
+	 &nbsp;&rarr;&nbsp;
+	<span class="open_box">123 * 5</span><span class="open_box" style="color:red">0</span><span class="open_box">10 * 1</span> &nbsp;=&nbsp; <span class="frac"><sup>615</sup><sub>10</sub></span></b> = 61.5
+</span>	 
+and the result is correct (double check it with a calculator!).
+
+<br>
+Now let's calculate <b>3.5 * (-4)</b>, which by the rule of signs I know should be negative. Again I have to LOOK at the two numbers as fractions:
+<span class="formula-margins">
+	<span class="frac"><sup>35</sup><sub>10</sub></span></b> *
+	<span class="frac"><sup>-4</sup><sub>1</sub></span></b>
+</span>	
+And I get:
+<span class="formula-margins">
+	<span class="open_box">35</span><span class="open_box" style="color:red">0</span><span class="open_box">10</span> * 
+	<span class="open_box">0</span><span class="open_box" style="color:red">4</span><span class="open_box">1</span>
+	 &nbsp;&rarr;&nbsp;
+	<span class="open_box">0</span><span class="open_box" style="color:red">35 * 4</span><span class="open_box">10 * 1</span> &nbsp;=&nbsp; <span class="frac"><sup>-140</sup><sub>10</sub></span></b> = -14
+</span>	 
+correct again! Good.
+<br>
+So, now let's do <b>12.3 * (-5.5)</b>:
+<span class="formula-margins">
+	<span class="open_box">123</span><span class="open_box" style="color:red">0</span><span class="open_box">10</span> * 
+	<span class="open_box">0</span><span class="open_box" style="color:red">55</span><span class="open_box">10</span>
+</span>
+by the rule of signs I know the result will be negative, so I can work with that in mind:
+<span class="formula-margins">
+	<span class="open_box">0</span><span class="open_box" style="color:red">123 * 55</span><span class="open_box">10 * 10</span> &nbsp;=&nbsp; <span class="frac"><sup>-6765</sup><sub>100</sub></span></b>
+	 = -67.65
+</span>	 
+
+And that is enough to be sure that multiplication has been properly extended to rational numbers, using our slimmer box notation.
+<br>
+But what about division? Well, since we are treating every number as a fraction, we don't really need to have a rule specific for division. A division between two fractions is just a multiplication between the first fraction and the inverse of the second. As an example consider 
+<b><span class="frac"><sup>1</sup><sub>3</sub></span> : <span class="frac"><sup>1</sup><sub>2</sub></span></b> 
+which becomes 
+<b><span class="frac"><sup>1</sup><sub>3</sub></span> * <span class="frac"><sup>2</sup><sub>1</sub></span> &nbsp;=&nbsp; <span class="frac"><sup>2</sup><sub>3</sub></span></b>. And that means that in our slimmer notation that becomes:
+<span class="formula-margins">
+	<span class="open_box">1</span><span class="open_box" style="color:red">0</span><span class="open_box">3</span> : 
+	<span class="open_box">1</span><span class="open_box" style="color:red">0</span><span class="open_box">2</span>
+	 &nbsp;&rarr;&nbsp;
+	<span class="open_box">1</span><span class="open_box" style="color:red">0</span><span class="open_box">3</span> * 
+	<span class="open_box">2</span><span class="open_box" style="color:red">0</span><span class="open_box">1</span>
+	 &nbsp;&rarr;&nbsp;
+	<span class="open_box">1 * 2</span><span class="open_box" style="color:red">0</span><span class="open_box">3 * 1</span>	&nbsp;=&nbsp; 
+	 <span class="frac"><sup>2</sup><sub>3</sub></span>
+</span>	 
+
+Done! All operations can be defined for rational numbers using the slimmer box notation.
+<br>
+<i>Wait... what about the power operation with broken numbers? Well, that's for homework...</i>
+</p>
+
+
+<a name="appendixA06"></a>
+<h2>Cheat: look at the solution!</h2>
+<p>
+Consider this formula (that we encountered in <a href="page007.html">chapter 7</a>):
+<span class="formula-margins">
+	(n+m)<sup>2</sup> = n<sup>2</sup> +  2*n*m + m<sup>2</sup>
+</span>	
+Say that you want to <i>prove</i> that the rule is true for any values of <i>n</i> and <i>m</i>...
+We could simply show that the left part is the same as the right part, by calculating a multiplication between expressions. I would get this:
+<span class="formula-margins">
+	(n+m)<sup>2</sup> = n<sup>2</sup> +  2*n*m + m<sup>2</sup> &nbsp;&rarr;
+	<br>
+	(n+m)*(n+m) = n<sup>2</sup> +  2*n*m + m<sup>2</sup> &nbsp;&rarr;
+	<br>
+	n*n + n*m + n*m + m*m = n<sup>2</sup> +  2*n*m + m<sup>2</sup> &nbsp;&rarr;
+	<br>
+	n<sup>2</sup> + 2*n*m + m<sup>2</sup> = n<sup>2</sup> +  2*n*m + m<sup>2</sup> &nbsp;&rarr;
+	<br>true
+</span>
+So surprisingly, this equation is true for any values of <i>n</i> and <i>m</i>, including when one or both are negative!
+<br>
+If you don't trust me, try with <b>n=-2</b> and <b>m=-3</b>... Substituting:
+<span class="formula-margins">
+	(n+m)<sup>2</sup> = n<sup>2</sup> +  2*n*m + m<sup>2</sup>
+</span>
+becomes:
+<span class="formula-margins">
+	( (-2) + (-3) )<sup>2</sup> = (-2)<sup>2</sup> +  2*(-2)*(-3) + (-3)<sup>2</sup>
+<br>
+	&Downarrow; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &Downarrow;
+<br>
+	( -5 )<sup>2</sup> = 4 +  2*(6) + 9
+<br>
+	&Downarrow; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &Downarrow;
+<br>
+	25 = 4 +  12 + 9
+<br>
+	&Downarrow; &nbsp; &nbsp; &nbsp; &nbsp; &Downarrow;
+<br>
+	25 &nbsp; = &nbsp; 25
+</span>
+which does not prove anything in general, but shows how it can be that the formula works even when both variables are negative.
+</p>
+
+<hr>
+<center><a href="#top">TOP</a></center>
+</article>
+
+
+<script src="js/make_links.js"></script>
+</body>  
