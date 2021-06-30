@@ -29,13 +29,15 @@
 <div class="navigation">
 	<a href="page001.html">&lt;</a>
 	<a href="page000.html">^</a>
-	<a href="page003.html">&gt;</a>
+
+	<a href="in_costruzione.html">&gt;</a>
+	<!--a href="page003.html">&gt;</a-->
 </div>
 
-<h1>Chapter 2 - Addition of multiplications</h1>
+<h1>Chapter 2 - Addizioni e moltiplicazioni</h1>
 <p>
-Addition and multiplication are the first operations that they teach in school. 
-They are somehow related, for example when when you look at the <i>multiplication table</i> it is clear that in each row numbers are being ADDED repeatedly.
+Addizione e moltiplicazione sono le prime operazioni che ci insegnano a scuola.
+Sono chiaramente collegate, infatti guardando alle <i>tabelline</i> si vede che in ogni riga i numeri vengono SOMMATI ripetutamente.
 <center>
 <table class="multiplcation_table" width="90%">
 	<tr align="right"><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
@@ -62,142 +64,147 @@ They are somehow related, for example when when you look at the <i>multiplicatio
 </table>
 </center>
 
-So what is the relation between addition and multiplication?
+Ma qual'e' la relazione tra addizione e moltiplicazione?
 <br>
-How does addition work? Or if you prefer, what are properties of the operation we call "addition"?
+Come funziona l'addizione? O, se preferisci, che proprieta' ha l'operazione che chiamiamo "addizione"? 
 <br>
-And if I know the properties of addition, can I then from them the properties of multiplication? Are they related? How?
+E se conosco le proprieta' dell'addizione posso ricavarmi le proprieta' della moltiplicazione? E queste proprieta' sono collegate? In che modo?
 <br>
-Finally, if addition and multiplication are related, as operations on numbers, would it make sense to use both of them in the same math expression? And in what situations would that be needed or even be meaningful?
+E se l'addizione e la moltiplicazione sono collegate, come operazioni sui numeri, ha senso usarle assieme nelle stesse espressioni matematiche? E in quali situazioni mi potrebbe servire usarle assieme, e dov'e' che avrebbe senso?
 <br>
-To answer these questions we will need to take a step back, and look at whole numbers again, and focus on another one of the core <i>tricks</i> of math: once you find a good, solid idea, repeat repeat repeat!
+Per rispondere a queste domande ci conviene fare un passo indietro e guardare ai numeri interi, e questa volta usare uno dei <i>trucchi</i> centrali della matematica: una volta che trovi qualcosa di buono, un'idea solida, ripeti ripeti e ripeti!
 <br>
-Repeating a good idea is clever, also considering what we said in <a href="page001.htm"l>chapter 1</a>, that math is a creation of people to understand and work with counting and numbers. Numbers are an abstraction, they are no longer sheep or dots, they live in a world of their own, and have rules and properties that are idealizations of those of sheep or dots. Because they are abstract from the specific items that we are counting, numbers can be SEEN in many different situations, hence, it makes sense that we will be able to reuse the same ideas about numbers in a lot of contexts. And even the most basic math activity of all, counting, is a repetitive activity... think of "counting sheep" to fall asleep!
-<!-- possibly an anigif of a sheep jumping a fence: flock   H <-sheep   flock -->
+Ripetere una buona idea e' furbo, soprattutto considerando cosa abbiamo detto nel <a href="page001.htm"l>capitolo 1</a>, cioe' che la matematica e' stata creata da persone per capire e lavorare con i numeri e i conti. I numeri sono astrazioni, non sono piu' percore, tacche o pallini disegnati, vivono nel loro mondo e hanno regole e proprieta' che sono idealizzazioni delle pecore o delle tacche. E proprio perche che sono astratti delle cose specifiche che vogliamo contare, i numeri possono SALTAR FUORI in molte situazioni differenti, e percio' ha senso che si riesca a riusare le stesse idee sui numeri in tantissimi contesti diversi. Anzi, persino l'attivita' matematica piu' banale del mondo, contare, e' ripetitiva... pensa che uno puo' "contare le pecore" per addormentarsi!
 </p>
 
-<h2>Addition, one step at the time</h2>
+<h2>Addizione, un passo alla volta</h2>
 <p>
-According to a definition by <a href="https://en.wikipedia.org/wiki/Giuseppe_Peano">Peano</a> <img class="face" src="faces/Giuseppe_Peano.jpg"></span> (the so called <a href="https://en.wikipedia.org/wiki/Peano_axioms">Peano's axioms</a>) whole numbers can be written starting by zero and then adding one repeatedly. For example, <b>3 = 0 +1 +1 +1</b>.
-<br>Note: we are considering only <i>positive</i> whole numbers for now.
+Secondo una definizione dova a <a href="https://it.wikipedia.org/wiki/Giuseppe_Peano">Peano</a> <img class="face" src="faces/Giuseppe_Peano.jpg"></span> (i cosi' detti <a href="https://it.wikipedia.org/wiki/Assiomi_di_Peano">assiomi di Peano</a>) i numeri interi possono essere scritti a partire dallo zero e poi sommando uno ripetutamente. Per esempio <b>3 = 0 +1 +1 +1</b>.
+
+<br>Nota: per ora stiamo considerando solo numeri interi <i>positivi</i>.
 <br>
-According to Peano the action of adding one can be called "calculating the <i>successor</i> of a number". So <b>3</b> would be uniquely identified by saying "it is the number that is the successor of the successor of the successor of zero"; uniquely because no other number is exactly three steps away from zero. OK, fine, but... this looks very similar to unary numbers (see <a href="page001.html">chapter 1</a>), only that here we have a way to express that a number is zero!
-Let's write a few numbers in the Peano way, using Z for <b>0</b> and S for successor (or <i>+1</i>):
+Seguendo Peano, l'azione di sommare uno si chiama "calcolare il <i>successore</i> di un numero".
+Quindi <b>3</b> e' identificato in modo univoco, sicuro, dicendo "il numero che e' il successore del successore del successore di zero"; questo modo di definire <b>3</b> e' univoco perche' nessun altro numero viene esattamente tre passi dopo zero. OK, benissimo, pero'... questa roba mi sembra molto simile ai numeri unari (vedi il <a href="page001.html">capitolo 1</a>), solo che qui abbiamo anche un modo di esprimere quando un numero e' zero!
+
+Proviamo allora a scrivere qualche numero nello stile di Peano, usando Z per <b>0</b> e S per il successore (cioe' <i>+1</i>):
 <span class="formula">
 Z = 0 , SZ = 1, SSZ = 2 , ... , SSSSSZ = 5,  ... 
 </span>
-OK, so any whole number can be written as a Peano number (excluding negative numbers for now), and these numbers look pretty <i>primitive</i>, meaning that they are very close to counting sheep: <b>3</b> sheep are represented here by SSSZ; so apart from the Z character, to know what is the meaning (value) of a Peano number, you just count how many <i>S</i>s there are. In general, if <i>a</i> is a whole number, then:
+OK, quindi posso scrivere un qualsiasi numero intero come numero di Peano (escludendo i numeri negativi per il momento), e questi numeri di Peano sembrano piuttosto <i>primitivi</i> nel senso che sono molto vicini a contare le pecore: <b>3</b> percore diventano il numero SSSZ; e a parte il carattere Z, per sapere il significato di un numero di Peano (il suo valore) mi basta contare quante S ci sono. In generale se un numero <i>a</i> e' un numero intero, allora:
 <span class="formula">
-a = <span data-bracket="a times">S ... S</span>Z = 0 <span data-bracket="a times">+1 ... +1</span>
+a = <span data-bracket="a volte">S ... S</span>Z = 0 <span data-bracket="a volte">+1 ... +1</span>
 </span><br>
 
-Fine, now that I know that a number is a repeated addition of <i>+1</i>s, what does that tell me about adding two numbers?
-<br>Well, as usual let's build some intuition of what happens with a concrete example, then we can think of a general rule... We can start with an addition like <b>5 + 3</b>, and we could try just putting two Peano numbers together... that worked for unary numbers. 
-Unfortunately that won't work here, because <b>5 + 3</b> becomes: <b>SSSSSZ + SSSZ</b> and when I attach them together I get <b>SSSSSZSSSZ</b> which is not a Peano number (it has two Z for instance, and it should not). So a better idea would be: drop the Z at the end of the first number, then add by attaching them together: <b>SSSSSZ + SSSZ &rarr; SSSSS<strike>Z</strike> and SSSZ &rarr; SSSSSSSSZ</b>.
+<!-- FIN QUA ---------------------------------------------------->
 
-Interesting. Another way to look at addition is that it looks like the <i>successor</i> operation repeated many times. For example, if <b>3</b> is also "<i>+1</i> repeated <b>3</b> times", then <b>5 + 3</b> must also be <b>5 + 1 + 1 + 1</b>. More in general then, if I have two numbers to add, called them <i>a</i> and <i>b</i>, it is also correct to say:
+Bene, ora che so che un numero e' un'addizione ripetuta di <b>+1</b>, ma cosa mi dice questo su come sommare due numeri?
+<br>
+OK, come al solito e' meglio costruirci un'intuizione di cosa stiamo facendo usando un esempio concreto, e poi penseremo alla regola generale... Si puo' iniziare ad un'addizione tipo <b>5 + 3</b> e provare a mettere assieme i due numeri di Peano... del resto aveva funzionato per i numeri unari, no?! 
+Sfortunatamente questa tecnica non funziona in questo caso, perche' <b>5 + 3</b> diventa: <b>SSSSSZ + SSSZ</b> e quanto li appiccico assieme ottengo <b>SSSSSZSSSZ</b> che non e' piu' un numero di Peano (in fatti ha due Z e non dovrebbe). Un'idea migliore sarebbe: butto la Z alla fine del primo numero, e poi sommo appiccicando le cifre dei due numeri: <b>SSSSSZ + SSSZ &rarr; SSSSS<strike>Z</strike> e SSSZ &rarr; SSSSSSSSZ</b>.
+
+Interessante. Un altro modo di guardare all'addizione e' che assomiglia all'operazione di <i>successore</i> ripetuta molte volte. Per esempio, se <b>3</b> e' anche "<i>+1</i> ripetuto <b>3</b> volte", allora <b>5 + 3</b> sara' <b>5 + 1 + 1 + 1</b>. Piu' in generale se ho due numeri da sommare, chiamiamoli <i>a</i> e <i>b</i>, allora e' corretto dire:
 <span class="formula">
-a + b = a <span data-bracket="b times">+1 ... +1</span>
+a + b = a <span data-bracket="b volte">+1 ... +1</span>
 </span><br>
-<a class="appendix_note" href="appendixA.html#appendixA07">A different definition of addition</a>
+<a class="appendix_note" href="appendixA.html#appendixA07">Una definizione diversa dell'addizione</a>
 
-However we decide to define the addition of Peano numbers, the addition operation will have some specific properties. When I'm adding numbers, it does not matter in which order I put them together. For example, calculating <b>5 + 3</b> and <b>3 + 5</b> I will get the same result. Using Peano's notation in fact:
+Comunque decidiamo di definire l'addizione tra numeri di Peano, l'operazione di addizione avra' le stesse proprieta. Quando sommo due numeri non conta l'ordine in cui li metto assieme. Per esempio se calcolo <b>5 + 3</b> e <b>3 + 5</b> mi viene lo stesso risultato. Usando la notazione di Peano infatto viene:
 <span class="formula">
-	<b>5 + 3</b> &rarr; SSSSS<strike>Z</strike> and SSSZ &rarr; SSSSSSSSZ
+	<b>5 + 3</b> &rarr; SSSSS<strike>Z</strike> e SSSZ &rarr; SSSSSSSSZ
 <br>	
-	<b>3 + 5</b> &rarr; SSS<strike>Z</strike> and SSSSSZ &rarr; SSSSSSSSZ
+	<b>3 + 5</b> &rarr; SSS<strike>Z</strike> e SSSSSZ &rarr; SSSSSSSSZ
 </span>
-And in the general case <b>a + b</b> is just a bunch of <i>S</i>s representing <i>a</i> put together with another bunch making up <i>b</i>, then clearly it does not matter in what order I put them together, the result will be the same:
+E il caso generale <b>a + b</b> e' semplicemente un mucchio di <i>S</i> che rappresentano <i>a</i> appiccicate ad un altro mucchio che rappresenta <i>b</i>, quindi chiaramente l'ordine con cui li appiccico assieme non conta, e il risultato sara' sempre lo stesso:
 <span class="formula">
 a + b = b + a
 </span>
 
-And this is true for any two numbers!
+E questo e' vero per qualsiasi coppia di numeri!
 <br>
-Really?! What about if <i>b</i> is <b>0</b>? Or <b>1</b>?
-Let's see. I can try putting <b>b = 0</b> in the formula above, and I get:
+Ma davvero?! E cosa succede se <i>b</i> e <b>0</b>? Oppure <b>1</b>?
+Be', vediamo un po'. Posso provare a mettere <b>b = 0</b> nella formula sopra, e mi verrebbe:
 <span class="formula">
-a + 0 &rarr; <span data-bracket="a times">S...S</span>Z 
-and <span data-bracket="0 times">S...S</span>Z &rarr; <span data-bracket="a times">S...S</span>Z and Z = a
+a + 0 &rarr; <span data-bracket="a volte">S...S</span>Z 
+e <span data-bracket="0 volte">S...S</span>Z &rarr; <span data-bracket="a volte">S...S</span>Z e Z = a
 </span>
 <br>
 <br>
-because what is "<i>S</i>s repeated 0 times"? It must be nothing, right? 
+perche' cosa potra' mai essere "un mucchio di <i>S</i> ripetuto 0 volte"? Sara' niente, giusto?
 <br>
-So it is true for all (whole) numbers that adding zero to any number has no effect: the result is just the same number. 
-Not a big surprise there, but good that now we could SEE where these properties of the addition come from.
+E quindi e' anche vero per qualsiasi numero (intero, fino a questo punto) che sommare zero non ha alcun effetto: il risultato e' semplicemente il numero di partenza.
+Nessuna sorpresa, ma e' bello VEDERE da dove vengono le proprieta' dell'addizione.
 <br>
-And what about <b>b = 1</b>? What do you think? 
+E cosa capita invece se <b>b = 1</b>? Che ne pensi? 
 <br>
-A whole number <i>a</i> plus one is...
+Un numero intero <i>a</i> piu' uno fa...
 <span class="formula">
 a + 1 &rarr; 
-<span data-bracket="a times">S...S</span>Z and SZ  &rarr; 
+<span data-bracket="a volte">S...S</span>Z e SZ  &rarr; 
 <br>
 <br>
 <br>
-S...S<strike>Z</strike> and SZ &rarr; 
-<span data-bracket="(a+1) times">S...SS</span>Z
+S...S<strike>Z</strike> e SZ &rarr; 
+<span data-bracket="(a+1) volte">S...SS</span>Z
 </span><br>
-the <i>successor</i> of the number <i>a</i>.
-Again nothing too surprising here, but at least our intuition of what it means to add two numbers holds when we express it in terms of Peano numbers.
+lo stesso che il <i>successor</i> del numero <i>a</i>.
+Di nuovo, nessuna sopresa, ma almeno la nostra intuizione di cosa vuol dire sommare due numeri ha ancora senso se scriviamo i calcoli con i numeri di Peano.
 </p>
 
 <p>
-So this is it for the addition? Not really, there is one more thing we might want to consider: is the addition a REVERSIBLE operation? After having added two numbers together we get a new number: can we find the two original numbers, starting only from the new one? 
-As an example consider this: <b>3 + 5 = 8</b>, but <b>8 = 1 + 7</b> and <b>8 = 2 + 6</b> and also 
-<b>8 = 4 + 4</b>. So the answer is "no", addition is not reversible. The numbers added up are somehow mixed beyond any possibility of reconstructing them back from their sum. 
+Quindi abbiamo finit con l'addizione? Non proprio, c'e' ancora una cosa che possiamo considerare: 
+e' un'operazione REVERSIBILE? Dopo aver sommato due numeri assieme otteniamo un nuovo numero: e' possibile trovare i due numeri iniziali, sapendo solo il nuovo numero?
+Come esempio considera: <b>3 + 5 = 8</b>, ma <b>8 = 1 + 7</b> e <b>8 = 2 + 6</b> e anche
+<b>8 = 4 + 4</b>. Quindi la risposta e' "no", l'addizione non e' reversibile. I due numeri che vengono sommati sono troppo mescolati per poter ricostruire cosa erano soltanto partendo dalla loro somma.
 <br>
-It is like taking the letters of two words, putting them together, then create an anagram with all the letters available; given the resulting anagram it would be very difficult to find surely and exactly the two original words.
+E' un po' come prendere le lettere di due parole e metterle assieme, e poi creare un anagramma che usa tutte le lettere; dato l'anagramma risultante e' molto difficile trovare con sicurezza, esattamente le due parole originali.
 <span class="task">
-For example knowing that I got the anagram SUPERMAN, can you guess/find the two words I started with? 
-<br>Solution at the end of this chapter.
+Per esempio sapendo che ho ottenuto l'anagramma PAGNOTTINA, potresti trovare/indovinare le due parole da cui sono partito?
+<br>La soluzione e' alla fine del capitolo.
 </span>
 </p>
 
-<h2>What does it mean to multiply?</h2>
+<h2>Cosa vuol dire moltiplicare?</h2>
 <p>
-OK, so now, thanks to Peano numbers, we have a definition of numbers and addition that is based on the idea of repeating something many times. We also found some properties of addition (as an operation).
-Now there is one thing we have not considered when adding to numbers: what if they are the same? Or, if you like "what is <b>a + a</b>?" for some whole number <i>a</i>, that is greater or equal to zero (because we are still not sure if this Peano-stuff works with negative numbers). And since we are asking this kind of questions, what is <b>a + a + a</b>, etc. ?
+Bene, quindi adesso grazie ai numeri di Peano, abbiamo una definizione di numeri e di addizione che si basa sull'idea di ripetere qualcosa molte volte. Abbiamo anche scoperto varie proprieta' dell'addizione (come operazione).
+Ora, c'e' una cosa che non abbiamo considerato quando si sommano due numeri: cosa succede se sono uguali? O se preferisci "quando fa <b>a + a</b>?" per un qualche numero intero <i>a</i>, che sia uguale o piu' grande di zero (perche' non siamo ancora sicuri se questa roba di Peano funziona per i numeri negativi). E dato che ci stiamo chiedendo delle domande di questo tipo, quando fa <b>a + a + a</b>, ecc. ?
 <br>
-Since we have not defined what it means to multiply two Peano numbers (but we do know what it means to multiply two regular, base 10 numbers) the best we can do is try and figure out what happens to 
-<b>a + a</b> using the rule we have for adding Peano numbers and perhaps the properties of addition.
-Remember that a Peano number is a repetition of <i>+1</i>s, so for any whole number <i>a</i> we can write:
+Dato che non abbiamo definito cosa vuol dire moltiplicare due numeri di peano (ma sappiamo cosa vuol dire moltiplicare due comuni numeri in base 10) la cosa migliore che possiamo fare e' provare a vedere cosa succede a <b>a + a</b> usando la regola che abbiamo ricavato prima per sommare numeri di Peano e magari qualcuna delle proprieta' dell'addizione.
+Partiamo dal fatto che un numero di Peano e' una ripetizione di <i>+1</i> (letto "piu'-uni" al plulare), e quindi possiamo scrivere un numero <a>a</a> in questo modo:
 <span class="formula">
-a &rarr; <span data-bracket="a times">+1 ... +1</span> 
+a &rarr; <span data-bracket="a volte">+1 ... +1</span> 
 <br><br><br>
-a &rarr; <span data-bracket="a times">S...S</span>Z
+a &rarr; <span data-bracket="a volte">S...S</span>Z
 </span><br>
-But what about <b>a + a</b>?
+Ma com'e' fatto <b>a + a</b>?
 <span class="formula">
-a + a &rarr; <span data-bracket="a times">S...S</span>Z and <span data-bracket="a times">S...S</span>Z = <span data-bracket="2-times a">S...S</span>Z = "2-times a" 
+a + a &rarr; <span data-bracket="a volte">S...S</span>Z e <span data-bracket="a volte">S...S</span>Z = <span data-bracket="2 volte a">S...S</span>Z = "2 volte a" 
 </span><br>
-or "a added to itself 2 times". And what about <b>a + a + a</b>? 
+cioe' "<b>a</b> sommato a se stesso 2 volte". E com'e' fatto invece <b>a + a + a</b>? 
 <span class="formula">
-a + a + a = <span data-bracket="3-times a">S...S</span>Z = "3-times a"
+a + a + a = <span data-bracket="3 volte a">S...S</span>Z = "3 volte a"
 </span><br>
-Interesting! So in general adding a number <i>a</i> to itself <i>b</i>-times would look like this:
+Interessante! Quindi in generale un numero <i>a</i> sommato a se stesso <i>b</i> volte avra' questa forma:
 <span class="formula">
-<span data-bracket="b-times">a + ... + a</span> = "b-times a"
+<span data-bracket="b volte">a + ... + a</span> = "b volte a"
 </span><br>
-and that is precisely <b>a * b</b>. So for us <b>a * b</b> means "a added to itself b-many times".
+e questo e' precisamente <b>a * b</b>. Quindi per noi <b>a * b</b> significa "<b>a</b> sommato a se stesso <b>b</b> volte".
 
-<div><i>Note: the symbol <b>*</b> is used to mean "times" or "x" as in "5x3". In later chapters we will use <i>x</i> as a variable, so it is better to adopt <b>*</b> for the multiplication. 
-Moreover, in many programming languages <b>*</b> is the usual symbol for multiplication.</i></div>
+<div><i>Nota: il simbolo <b>*</b> viene usato per significare "volte" oppure "x" come ad esempio in "5x3". Nei prossimi capitoli useremo <i>x</i> come una variable, quindi e' meglio usare <b>*</b> per la moltiplicazione. 
+Inoltre in molti linguaggi di programmazione <b>*</b> e' il simbolo comune per la moltiplicazione.</i></div>
 
 <br>
-Also for the multiplication we can try to build an intuition of how it works. 
-First of all we could try and visualize additions as counting lines of dots. For example:
+Anche per la moltiplicazione possiamo provare a costruirci un'intuizione di come funziona.
+Prima di tutto possiamo cercare di visualizzare le addizioni in un altro modo, pensando che sommare e' come contare file di puntini. Ad esempio:
 <span class="formula">
  3 + 2 = 5
 </span> 
-could be visualized as
+si puo' visualizzare
 <span class="formula">
 	&bull;&bull;&bull; + &bull;&bull; = &bull;&bull;&bull;&bull;&bull;
 </span>	
 <br>
-Then "multiplication" becomes synonymous of "counting all dots in an area", and 
-<br><b>5 * 4 = 20</b> becomes the number of dots in this rectangle
+Allora "moltiplicazione" diventa sinonimo di "contare tutti i puntini in un'area", e
+<br><b>5 * 4 = 20</b> diventa il numero di puntini che ci sono nel rettangolo
 <div style="text-align: center; line-height: .5em;">
 <br>
 &bull; &nbsp; &bull; &nbsp; &bull; &nbsp; &bull; &nbsp; <br>
@@ -207,25 +214,25 @@ Then "multiplication" becomes synonymous of "counting all dots in an area", and
 &bull; &nbsp; &bull; &nbsp; &bull; &nbsp; &bull; &nbsp;
 <br><br>
 </div>
-that has five rows and four columns of dots. When you count, you will find that the total number of dots in the rectangle is twenty.
+che ha cinque righe e quattro colonne di puntini. E se ti fermi a contarli, troverai che il totale di puntini nel rettangolo e' venti.
 <br>
-We can also do something else: calculate this multiplication using our rule for addition: 
+Ma possiamo anche fare un'altra cosa: possiamo calcolare la stessa moltiplicazione usando la nostra regola per l'addizione
 <span class="formula">
-5 * 4 = <span data-bracket="4-times">5 + ... + 5</span> = 20
+5 * 4 = <span data-bracket="4 volte">5 + ... + 5</span> = 20
 </span><br>
-OK, it works. So multiplication of two numbers is really a repeated addition of one of the numbers, as many times as the second.
+OK, funziona. Quindi moltiplicare due numeri e' in realta' solo una addizione ripetuta del primo numero, tante volte quanto il secondo.
 </p>
 
 <p>
-But if multiplication (as an operation) is just "repeated addition", does it mean I can derive 
-the properties of the multiplication from the properties of addition?
+Ma se la moltiplicazione (come operazione) e' solo una "addizione ripetuta", vuole dire che posso ricavare le proprieta' della moltiplicazione da quelle dell'addizione?
 <br>
-Perhaps not... because it is not so clear how to go from <b>a + b = b + a</b>, or <b>a + 0 = a</b>, to something about multiplication... But we could reason in the same way we did for addition, and ask: 
-"what happens when I multiply <i>a</i> and <i>b</i>?" and "what about multiplying <i>b</i> and <i>a</i> instead?". Also interesting are the questions: "what happens when I multiply a number times <b>0</b>? or times <b>1</b>?". Luckily we can find answers for all these questions using what we have found so far about Peano numbers, addition and multiplication!
+Forse no... perche' non e' cosi' chiaro come si fa ad andare da <b>a + b = b + a</b> o <b>a + 0 = a</b>, a qualcosa che riguardi la moltiplicazione... Ma possiamo sicuramente ragionare nello stesso modo che con l'addizione, e chiederci:
+"cosa succede se moltiplico <i>a</i> e <i>b</i>?" e anche "cosa succede se invece moltiplico <i>b</i> e <i>a</i>?". Altre domande interessanti sono: "cosa succede quanto moltiplico un numero per <b>0</b>"? o per <b>1</b>?".
+Per fortuna possiamo trovare le risposte a queste domande usano quello che abbiamo scoperto fino ad ora sui numeri di Peano, addizione e moltiplicazione!
 <br>
-So, let's cut to the chaise: is <b>a * b</b> = <b>b * a</b>?
+Quindi andiamo al sodo: e' vero che <b>a * b</b> = <b>b * a</b>?
 <br>
-Well, if we go back to the idea that "multiplication is counting all dots in an area", then the same area can be seen in two ways. In our example of <b>5 * 4</b> we could see it as:
+Be', se torniamo all'idea che "la moltiplicazione e' come contare tutti i puntini in un'area", possiamo vedere l'area in due modi diversi. Nel nostro esempio di <b>5 * 4</b> abbiamo:
 <br>
 <div style="text-align: center; line-height: .5em;" class="rotate-90">
 <br><br>
@@ -237,75 +244,77 @@ Well, if we go back to the idea that "multiplication is counting all dots in an 
 <br><br><br><br>
 </div>
 
-<b>5 * 4</b> or <b>4 * 5</b>, the count should still give us <b>20</b>. 
-But can we <i>derive</i> this property, in general, for any two numbers <i>a</i> and <i>b</i>? Let's try by rewriting <b>a * b</b> using Peano numbers:
+
+<b>5 * 4</b> oppure <b>4 * 5</b>, il conto dovrebbe darci sempre <b>20</b>. 
+Ma come facciamo a <i>derivare</i> questa proprieta' in generale, per qualsiasi coppia di numeri <i>a</i> e <i>b</i>?
+Proviamo a riscrivere <b>a * b</b> usando i numeri di Peano:
 
 <span class="formula">
 a * b &rarr; 
-	<span data-bracket="b-times"><span style="color:blue">a</span> + ... + 
+	<span data-bracket="b volte"><span style="color:blue">a</span> + ... + 
 			<span style="color:blue">a</span> </span> &rarr; 
 
 <br><br><br>
-  <span data-bracket="b-times">&nbsp;
-  	<span style="color:blue"><span data-bracket="a-times">S...S</span>Z</span> 
-  		and ... and 
-  	<span style="color:blue"><span data-bracket="a-times">S...S</span>Z</span>&nbsp;
+  <span data-bracket="b volte">&nbsp;
+  	<span style="color:blue"><span data-bracket="a volte">S...S</span>Z</span> 
+  		e ... e 
+  	<span style="color:blue"><span data-bracket="a volte">S...S</span>Z</span>&nbsp;
   	<br><br>
  </span> &rarr; 
 <br><br><br>
-	<span data-bracket="(a*b)-times"><span style="color:blue">S...S</span>
+	<span data-bracket="a*b volte"><span style="color:blue">S...S</span>
 	</span><span style="color:blue">Z</span>
  </span>
 </span><br>
-and we also can write:
+e per lo stesso ragionamento possiamo scrivere:
 <span class="formula">
-b * a = <span data-bracket="a-times"><span style="color:firebrick">b</span> + ... +
+b * a = <span data-bracket="a volte"><span style="color:firebrick">b</span> + ... +
 		<span style="color:firebrick">b</span></span> &rarr; 
 <br><br><br>
-	<span data-bracket="(a*b)-times"><span style="color:firebrick">S...S</span>
+	<span data-bracket="a*b volte"><span style="color:firebrick">S...S</span>
 	</span><span style="color:firebrick">Z</span>
  </span>
 </span><br><br>
 
-So adding <i>a</i> with itself <i>b</i> times or adding <i>b</i> with itself for <i>a</i> times, must be the same.
-And that is true for any two numbers. Terrific! 
+Quindi sommare <i>a</i> a se stesso <i>b</i> volte oppure sommare <i>b</i> a se stesso <i>a</i> volte deve dare lo stesso risultato.
+E questo e' vero per qualsiasi coppia di numero. Fantastico!
 <br>
 <br>
-OK, but what about <b>a * 0</b> and <b>a * 1</b>? That should be simple: just take <b>a * b</b>, put <b>b = 0</b> and then <b>b = 1</b>, and use our definition of multiplication! Doing that we get:
+OK, ma come funziona con <b>a * 0</b> e <b>a * 1</b>? Be' dovrebbe essere semplice: basta prendere  <b>a * b</b>, metterci dentro <b>b = 0</b> e poi <b>b = 1</b>, e usare la nostra definizione di moltiplicazione! Facendolo ottengo:
 <span class="formula">
-a * 0 &rarr; <span data-bracket="0-times">a + ... + a</span> &rarr; "do not add anything" &rarr; 0
+a * 0 &rarr; <span data-bracket="0 volte">a + ... + a</span> &rarr; "non sommare niente" &rarr; 0
 </span><br> 
-and: 
+e: 
 <span class="formula">
-a * 1 &rarr; <span data-bracket="1-time">a + ... + a</span> &rarr; a
+a * 1 &rarr; <span data-bracket="1 volta">a + ... + a</span> &rarr; a
 </span><br>
-Which means that a number times one remains the same as itself. 
-All in all, not very surprising. But at least we got to confirm our intuition that the multiplication 
-properties that are similar to those of the addition, and they make sense with our intuition of what multiplication should be. 
-And I feel I gained something in the process: now I get why these rules and properties are as they are.
-
-<br>Finally, multiplication is also not reversible, like addition, because for example <b>20</b> can be the result of MANY multiplications:
+Che vuol dire che un numero moltiplicato per uno rimane se stesso.
+Tutto considerato, nessuna grossa sopresa. Ma almeno abbiamo un'altra conferma della nostra intuizione che le proprieta' della moltiplicazione sono un qualche modo simili a quelle dell'addizione, e che queste proprieta' hanno senso rispetto a quello che ci aspettavamo.
+E ci ho guadagnato qualcosa nel processo: ho capito perche' queste regole e proprieta' delle operazioni sono quello che sono.
+<br>
+E per finire in bellezza anche la moltiplicazione non e' reversibile, come l'addizione, perche' per esempio <b>20</b> puo' essere il risultato di MOLTE moltiplicazioni diverse:
 <span class="formula">
-	5 * 4 = 20 = 2 * 10 = 1 * 20 = etc.
+	5 * 4 = 20 = 2 * 10 = 1 * 20 = ecc.
 </span>	
 </p>
 
-<h2>What happens when we use addition and multiplication together?</h2>
+<h2>Cosa succede quando usiamo addizione e moltiplicazione assieme?</h2>
 <p>
-If multiplication is a <i>repeated addition</i>, how much sense does it make to mix the two operations?
-Well, we can look at two possible ways to mix + and * in the same calculation:
+Se la moltiplicazione e' una <i>addizione ripetuta</i>, che senso avra' mai mescolare le due operazioni?
+Be' possiamo dare un'occhiata a due possibili modi di mescolare + e * nello stesso calcolo:
 <span class="formula">
 ( a + b ) * c = ?
 </span>
-or 
+e anche
 <span class="formula">
 ( a * b ) + c = ?
 </span><br>
 
-Let's look at the first expression: <b>( a + b ) * c</b>. 
-It can be seen as the area of a rectangle with one side <b>( a + b )</b> and the other side <b>c</b>.
+Vediamo la prima espressione: <b>( a + b ) * c</b>. 
+Si puo' vederla come l'area di un rettangolo con un lato <b>( a + b )</b> e l'altro lato <b>c</b>.
 <br>
-As an example, take: <b>( <span style="color:red;">3</span> + <span style="color:green;">2</span> ) * <span style="color:blue;">4</span></b>, draw it as a rectangle and count the dots:
+Come esempio considero:
+<b>( <span style="color:red;">3</span> + <span style="color:green;">2</span> ) * <span style="color:blue;">4</span></b>, lo disegno come un rettangolo e conto i puntini:
 
 <div>
 	<canvas id="canvas1"></canvas>
@@ -357,21 +366,21 @@ As an example, take: <b>( <span style="color:red;">3</span> + <span style="color
 	]})</script>
 </div>
 
-Looking at the last rectangle on the right, it looks like it is made of two smaller rectangles, a red and a green one. The red rectangle is has an area of <i><span style="color:red;">3</span> times 
-<span style="color:blue;">4</span></i> dots, while the green rectangle has an area of 
-<i><span style="color:green;">2</span> times <span style="color:blue;">4</span></i> dots.
-So it looks like 
+Guardando all'ultimo rettangolo a destra, vedo che e' fatto da due rettangoli piu' piccoli, uno rosso e uno verde. Quello rosso ha un'area di <i><span style="color:red;">3</span> per 
+<span style="color:blue;">4</span></i> puntini, mentre quello verde ha un'area di 
+<i><span style="color:green;">2</span> per <span style="color:blue;">4</span></i> puntini.
+Quindi viene fuori che
 <span class="formula">
 	( <span style="color:red;">3</span> + <span style="color:green;">2</span> ) * <span style="color:blue;">4</span>
 </span>
-is the same as 
+e' lo stesso che
 <span class="formula">
 ( <span style="color:red;">3</span> * <span style="color:blue;">4</span> )
 	+ ( <span style="color:green;">2</span> * <span style="color:blue;">4</span> )
 </span><br>
 
-And in the general case, for any three numbers <span style="color:red;"><i>a</i></span>, 
-<span style="color:green;"><i>b</i></span> and <span style="color:red;"><i>c</i></span> I can write: 
+E nel caso generale, per tre numeri qualsiasi <span style="color:red;"><i>a</i></span>, 
+<span style="color:green;"><i>b</i></span> e <span style="color:red;"><i>c</i></span> posso scrivere: 
 <span class="formula">
 ( <span style="color:red;">a</span> + <span style="color:green;">b</span> ) * 
 	<span style="color:blue;">c</span> =
@@ -380,32 +389,38 @@ And in the general case, for any three numbers <span style="color:red;"><i>a</i>
 </span>
 <br>
 
-In math this is called "the distributive property of multiplication", because you take a multiplication of an addition (of some terms in brackets), and what you get is the addition of two multiplications. Read the last sentence again... doesn't it sound a bit <i>circular</i>, like a magical formula?
-<br>It says that: <b>add times add = times add times</b>, or in symbols:
+In matematica questa si chiama "proprieta' distributiva della moltiplicazione", perche' parti da una moltiplicazione di un'addizione (dei due numeri tra parentesi) e ottieni un'addizione di due moltiplicazioni. Fammi rileggere l'ultima frase... non sembra un pochino <i>circolare</i>? Un po' come una formula magica? 
+<br>Quello che dice e': <b>piu' per piu' = per piu' per</b>, oppure in simboli:
 <span class="formula">
 	(+) * (+) = (*) + (*)
 </span>	
-so what we are doing is swapping one operation with another, or if you like <i>distributing</i> the multiplication across the two additions.
-<br>As we will see in this and next chapters, this is a very useful property of expressions that contain both additions and multiplications. We will find lots of examples where this or something similar will help us.
+quindi quello che ho fatto e' scambiare un'operazione con un'altra, o se preferisci <i>distribuire</i> la moltiplicazione sulle due addizioni.
+<br>
+Come vedremo nel resto del capitolo e nel successivo, questa proprieta' delle espressioni che contengolo sia addizioni che moltiplicazioni torna molto utile. Incontreremo molti esempi dove questa o proprieta' simili ci aiuteranno.
 </p>
 
 <p>
-The second case in which we mix additions and multiplications is: 
+Il secondo caso in cui mescoliamo addizioni e moltiplicazioni e': 
 <span class="formula">( a * b ) + c</span> 
-It turns out that there isn't much we can do to simplify or ever rewrite this expression: it is what it is. However, it looks similar to one of the <i>linear combinations</i> we talked about in <a href="page001.html">chapter 1</a>, a weighted sum of <i>a</i> and <i>c</i>, with <i>b</i> acting as weight. For example, if I pick <i>b</i> to be seven, I have: <b> a * 7 + c</b>. What happens here when I change the values of <i>a</i> and <i>c</i>? Try experimenting with the playground below.
+E' qui non c'e' molto che possiamo fare per semplificare o riscrivere questa espressione: e' semplicemente quello che e'.
+
+E in effetti questa espressione sembra molto simile ad una delle <i>combinazioni lineari</i> di cui parlavamo nel <a href="page001.html">capitolo 1</a>, cioe' una somma pesata di <i>a</i> e <i>c</i>, con <i>b</i> che fa da peso.
+Per esempio, se scelgo sette come valore di <i>b</i>, mi viene: <b> a * 7 + c</b>. 
+E cosa succede se gioco un po' con i valori di <i>a</i> e <i>c</i>? Prova tu: sperimenta con diversi valori nell'area gioco qua sotto.
 <br>
 
 <div class="task">
-Try to keep <i>a</i> fixed, for example <b>a=1</b>, and change <i>c</i> from <b>0</b> to <b>6</b>, and see what happens.
+Prova a mantenere il valore di <i>a</i> fisso, per esempio <b>a=1</b>, e a cambiare <i>c</i> da <b>0</b> fino a <b>6</b>, e vedi cosa succede.
 <br>
-What happens if you change <i>c</i> to <b>7</b> or more?
+Cosa succede se dai a <i>c</i> il valore <b>7</b> o un valore piu' alto?
 <br>
-Now keep <i>c</i> fixed, for example <b>c=3</b>, and change <i>a</i> from <b>0</b> to <b>10</b>.
-What kind of sequence of numbers do you get now?
+Adesso prova a tenere <i>c</i> fisso, per esempio <b>c=1</b>, e cambia <i>a</i> da <b>0</b> fino a <b>10</b>.
+Che tipi di sequenze di numeri ti vengono fuori adesso?
 <br>
-Finally, pick a number, for example 23, and try to <b>reach it</b> by using <i>a</i> and <i>c</i> as dials. Start with <b>a=0</b> and <b>c=0</b>, and NEVER allow <i>c</i> to be <b>7</b> or more.
+E per finire scegli un numero, per sempio 23, e prova a <i>raggiungerlo</i> usando 
+<i>a</i> e <i>c</i> come se fossero delle manopole. Parti da <b>a=0</b> e <b>c=0</b>, e non lasciare MAI che <i>c</i> diventi <b>7</b> o di piu'.
 <br>
-If you can find 23, try with a few more <i>target</i> numbers. See how linear combinations work?
+Se riesci a raggingere 23, prova con altri <i>obiettivi</i>. Vedi come funzionano le combinazioni lineari?
 </div>
 </p>
 
@@ -416,32 +431,30 @@ If you can find 23, try with a few more <i>target</i> numbers. See how linear co
 </p>
 
 <p>
-Interesting. When <i>b</i> is <b>10</b>, the linear combination
+Interessante. Quando <i>b</i> e' <b>10</b> la combinazione lineare 
 <span class="formula">( a * b ) + c</span> 
-becomes <b>( a * 10 ) + c</b> which is the same as a number base 10 with two digits: <i>a</i> and <i>c</i>.
-For example, if <b>a=2</b> and <b>c=3</b>, then <b>( a * 10 ) + c</b> gives <b>23</b>. This linear combination works just like an abacus (see previous chapter).
+diventa <b>( a * 10 ) + c</b> che e' praticamente un numero in base 10 con due cifre: 
+<i>a</i> e <i>c</i>.
+Ad esempio, se <b>a=2</b> e <b>c=3</b>, allora <b>( a * 10 ) + c</b> mi da' <b>23</b>. Questa combinazione lineare funziona proprio come un abaco (vedi il capitolo precedente).
 <br>
-And from the abacus I know that if <i>c</i> is kept always between <b>0</b> and <b>9</b> (AKA <b>b-1</b>), then I can surely REVERSE the process, and go from <b>23</b> to <b>( 2 * 10 ) + 3</b>. 
-Moreover, <i>2 and 3</i> are the two numbers that will ever generate <b>23</b>, so the representation of numbers on an abacus is unique.
+E dall'abaco so che se <i>c</i> rimane tra <b>0</b> e <b>9</b> (cioe' <b>b-1</b>), allora posso sicuramente INVERTIRE il processo ed andare da <b>23</b> a <b>( 2 * 10 ) + 3</b>. 
+Inoltre, con questa espressione, <i>2 e 3</i> sono gli unici due numeri che posso generare <b>23</b>, quindi la rappresentazione dei numeri su un abaco e' univoca.
 <br>
-Wait... so it seems that addition and multiplication are INDIVIDUALLY not reversible, but when used together, they can be reversible!
+Aspetta un attimo... ma quindi l'addizione e la moltiplicazione, che prese DA SOLE non sono reversibili, diventano reversibili se usate assieme!
 </p>	
 
-<h2>Together, and reversible!</h2>
+<h2>Assieme... e reversibili!</h2>
 <p>
-A linear combination can also be a way to re-order, to count numbers in a different order.
+Una combinazione lineare puo' anche essere un modo di <i>riordinare</i>, cioe' di contare i numeri in un ordine diverso.
 <br>
-In the playground below, experiment with different weights: try for example with 
-<br><b>a*10 + c</b>, and with <b>a*2 + c</b>. Change the values of <i>a</i> and <i>c</i>, too see how the numbers are re-ordered by the linear combination.
+Nell'area gioco qua sotto, sperimenta con vari pesi: gioca un po' con <br><b>a*10 + c</b>, e poi con <b>a*2 + c</b>. Cambia i valori di <i>a</i> e di <i>c</i> per vedere come i numeri vengono riordinati dalla combinazione lineare.
 
 <div class="task">
-Try the playground below with the weight set to <b>7</b>. See if you can <i>highlight</i> the number 
-<b>51</b> in red, by moving the two cursors on the side and on the bottom of the playground.
+Prova questa area gioco usando il peso <b>7</b>. Muovi i cursori di fianco e sotto all'area gioco e vedi se riesci ad <i>evidenziare</i> il numero <b>51</b> in rosso
 <br>
-Which values of <i>a</i> and <i>c</i> generate the result <b>51</b>?
+Che valori di <i>a</i> e <i>c</i> ci vogliono per ottenere <b>51</b> come risultato?
 <br>
-Now try highlighting the number <b>6</b>. Take a note of the values of both <i>a</i> and <i>c</i>, then move the cursors to the number <b>7</b>. What happened to <i>a</i> and <i>c</i>? 
-Why did they change the way they did?
+Adesso prova ad evidenziare in rosso il numero <b>6</b>. Prendi nota dei valori di <i>a</i> e <i>c</i>, e poi muovi i cursori in modo da evidenziare il numero <b>7</b>. Cosa e' successo ad <i>a</i> e <i>c</i>? Perche' pensi che siano cambiate in questo modo passando da <b>6</b> a <b>7</b>?
 </div>
 </p>
 <p>
@@ -450,33 +463,34 @@ Why did they change the way they did?
 	<script>prepare_002_02('playground2')</script>
 </p>
 <p>
-The interesting thing here is that when the weight is large enough, each number comes from exactly ONE value of <i>a</i> and <i>c</i>. For example if I set the <span style="color:blue;">weight</span> to <span style="color:blue;"><b>7</b></span>, then the number <b>51</b> can only come from <b>a=7</b> and 
-<b>c=2</b>. No other pair of values for <i>a</i> and <i>c</i> can generate fifty-one, only <b>7</b> and <b>2</b>; and vice versa: fifty-one can be rewritten as 
-<b>7*<span style="color:blue;">7</span>+2</b> without any leftover, and it is the only way. 
+La cosa interessante qui e' che quando il peso e' grande abbastanza, ogni numero e' il risultato di UN SINGOLO valore di <i>a</i> e <i>c</i>. 
+Per esempio se decido che il <span style="color:blue;">peso</span> e' <span style="color:blue;"><b>7</b></span>, allora per evidenziare il numero <b>51</b> posso solo usare <b>a=7</b> e 
+<b>c=2</b>. Nessun'altra coppia di valori di <i>a</i> e <i>c</i> puo' generare cinquantuno, solo <b>7</b> e <b>2</b>; e viceversa: cinquantuno puo' solo essere scritto come 
+<b>7*<span style="color:blue;">7</span>+2</b> senza lasciare avanzi, ed e' l'unico modo. 
 <br>
-Even better, all numbers in the table above have this property!
+E, ancora meglio, tutti i numeri nella tabella sopra hanno questa proprietà!
 </p>
 
-<h2>Combine things while keeping them separated</h2>
+<h2>Combiare delle cose ma tenendole separate</h2>
 <p>
-So now we know that a linear combination can be used to ensure that things are reversible ... 
-But linear combinations can do something more for us.
+Quindi adesso sappiamo che una combinazione lineare puo' essere usata per assicurare che le cose funzionino in modo reversibile... 
+Ma le combinazioni linear posso fare anche di piu'.
 <br>
-Suppose I want to work with four numbers, combine them, but be able to remember each one separately too. What I could do is use a linear combination (AKA a weighted sum) like:
+Supponiamo che io voglia lavorare con quattro numeri, combinarli, ma anche potermi ricordare ogni numero separatamente. Quello che posso fare e' usare una combinazione lineare (che sarebbe a dire una somma pesata) cosi':
 <span class="formula">
-A * weight1 + B * weight2 + C * weight3 + A
+A * peso1 + B * peso2 + C * peso2 + D
 </span><br>
-and FIND some large enough weights so that I don't risk mixing my four numbers <i>A</i>, <i>B</i>, 
-<i>C</i> and <i>D</i>. 
+e INVENTARMI dei numeri abbastanza grandi da usare come pesi, in modo che non ci sia mai il rischio di mescolare i miei quattro numeri <i>A</i>, <i>B</i>, <i>C</i> e <i>D</i>. 
 
 <br>
-Also, when we only had two numbers to mix, but keep separated (taking advantage of the reversibility of certain linear combinations) we used the expression <b>a * 10 + c</b>. And the whole thing was reversible, provided <i>c</i> was always smaller than <i>a</i>. 
+E poi quando mi interessava mescolare solo due numeri ma tendoli separati (sfruttando la reversibilita' di certe combinazioni lineari), ho usato l'espressione <b>a * 10 + c</b>. 
+E la facenda rimaneva reversibile, purche' <i>c</i> fosse piu' piccolo di <i>a</i>. 
 <br>
-So why not try with the same idea, and even repeated it over and over, for all my four numbers? (this is math after all, and math loves repetition!). 
-The idea with the two numbers was then to SCALE one <b>10</b> times, and then add the other.
-What does that look like, with four numbers? 
+Allora perche' non provare con la stessa idea anche qui, e magari persino ripeterla piu' e piu' volte, per tutti i miei quattro numeri? (dopo tutto stiamo parlando di matematica e la matematica ama la ripetizione!).
+L'idea con due numeri era di SCALARE un numero <b>10</b> volte, e poi sommarlo all'altro.
+Come diventa questo trucchetto se ho quatro numeri?
 <br>
-I want to start with only <i>A</i> and <i>B</i> (because I know what I'm doing with two numbers), then put in the other numbers, one at the time. What I get is:
+Diciamo che voglio iniziare da <i>A</i> e <i>B</i> (perche' con due numeri so cosa sto facendo), e poi ci mettero' gli altri numeri, uno per volta. Viene fuori questo:
 <br><br>
 <span class="formula">
 <span style="color:blue">A</span> &rarr; 
@@ -492,18 +506,17 @@ I want to start with only <i>A</i> and <i>B</i> (because I know what I'm doing w
 
 
 </span><br>
-This might look weird, but it is what we said: "scale <b>10</b> times, and add a number, then repeat". OK? So, is this formula revealing anything about the <i>weights</i> we were searching for?
-Sure, let's try to make the two formulas look the same:
-
+Questa espressione puo' sembrare un po' strana, ma quello che dice e': "scala <b>10</b> volte, aggiungi un numero, poi ripeti". OK? Questa formula mi puo' dire qualcosa dei <i>pesi</i> che sto cercando di trovare?
+Certo, e aiuta se prendo le due formule e le faccio diventare piu' simili. Da una parte avevo:
 <span class="formula">
-A * weight1 + B * weight2 + C * weight3 + D
+A * peso1 + B * peso2 + C * peso2 + D
 </span>
-and
+e dall'altra
 <span class="formula">
 ( (A * 10 + B) * 10 + C ) * 10 + D
 </span><br>
 
-We can simply calculate the last formula:
+E basta calcolarci la seconda formula:
 <span class="formula">
 ( (A * 10 + B) * 10 + C ) * 10 + D &rarr; 
 <br>
@@ -511,17 +524,18 @@ We can simply calculate the last formula:
 <br>
 A * 1000 + B * 100 + C * 10 + D
 </span>
-Bingo! I just have to build my weights as <b>10</b> (which incidentally is our base here) multiplied by itself repeatedly. 
+E vai! Devo solo costruire i miei pesi come <b>10</b> (che tra parentesi e' la nostra base qui) moltiplicato per se stesso ripetutamente.
 <br>
-And in fact: <b>1000 = 10*10*10</b>, <b>100 = 10*10</b>, and <b>10 = 10</b>... Cool.
+E infatti: <b>1000 = 10*10*10</b>, <b>100 = 10*10</b>, e <b>10 = 10</b>... Fico.
 <br>
-What is interesting here is also that this linear combination of four numbers will convert them to a single number, but given that number I can work <i>in reverse</i> and always find for sure the original four numbers. And if the numbers <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i> are larger than <b>10</b> I can still use a linear combination to keep them mixed but separable: I just have to use larger weights!
-For example if I know that my four numbers can be any number from <b>0</b> to <b>15</b>, I simply have to choose my <i>base</i> to be <b>16</b> and I would get a linear combination like:
+Una cosa interessante e' che questa combinazione lineare prende quattro numeri e li converte in uno singolo numero, e per di piu' se conosco questo singolo numero posso lavorare <i>in retromarcia</i> e sono sicuro di poter sempre trovare i quattro numeri originali. E se i numeri <i>A</i>, <i>B</i>, <i>C</i> e <i>D</i> sono piu' grandi di <b>10</b> posso comunque usare una combinazione lineare per mescolarli ma tenendoli separati: devo solo usare pesi piu' grandi!
+
+Per esempio se so che i miei quattro numeri posso essere numeri qualsiasi presi tra <b>0</b> e <b>15</b>, mi basta scegliere come <i>base</i> il numero <b>16</b> e ottengo una combinazione lineare fatta cosi':
 <span class="formula">
 A * 16*16*16 + B * 16*16 + C * 16 + D
 </span>
-To see the use of such a linear combination, consider these four numbers: <b>0, 0, 12, 14</b> (which I choose because they are interesting but simple). 
-If I substitute them to <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i> in the expression above, I get:
+Per vedere come si usa una combinazione lineare di questo tipo, considera questi quattro numeri:<b>0, 0, 12, 14</b> (che ho scelto perche' sono interessanti ma semplici abbastanza per non perderci). 
+Se li sostituisco ad <i>A</i>, <i>B</i>, <i>C</i> e <i>D</i> nell'espressione sopra, mi viene:
 <span class="formula">
 0 * 16*16*16 + 0 * 16*16 + 12 * 16 + 14 &rarr;
 <br>
@@ -529,74 +543,70 @@ If I substitute them to <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i> in the express
 <br>
 206
 </span>
-Well, starting from <b>206</b> I am guaranteed to be able to work my way back and find the original values of <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i>. Try it yourself, using the playground in the previous 
-section: put <b>16</b> in the weight and see what two numbers you will need to combine to find <b>206</b>. (spoiler! they are <b>12</b> and <b>14</b>, so the numbers that generated <b>206</b> are 
-<b>0, 0, 12, 14</b>)
-
+Bene, e partendo da <b>206</b> so per certo che posso lavorare al contrario e ritrovare i valori originali di <i>A</i>, <i>B</i>, <i>C</i> e <i>D</i>. Provaci tu, usando l'area gioco nella sezione precedente: metti <b>16</b> come peso e vedi che due numeri devi combinare per evidenziare <b>206</b>. (spoiler! saranno <b>12</b> e <b>14</b>, quindi i quattro numeri che hanno generato <b>206</b> erano proprio <b>0, 0, 12, 14</b>)
 <br>
 <br>
-Even money works this way, only that with money we combine the different coin denominations to reach a specific amount; and in general we are OK with having multiple ways to combine the various coins 
-to reach an amount. Looking at the coin denominations are <i>weights</i> we can see that they are not spread enough to ensure reversibility, which means also that there is no unique way to break an amount in coins.
-<a class="appendix_note" href="appendixA.html#appendixA01">Money as linear combination</a>
+Persino i soldi funzionano in questo modo, solo che con i soldi dobbiamo combinare monete di diversa denominazione per raggiungere un importo specifico; e in generale ci sta bene se esistono piu' modi per combinare varie denominazioni per ottenere quell'importo.
+Infatti se guardiamo alle denominazioni delle monete come <i>pesi</i> si vede che non sono separati abbastanza per garantici la reversibilita', il che significa che non esiste un modo univoco per dividere un certo importo in pezzi di valuta.
+<a class="appendix_note" href="appendixA.html#appendixA01">Soldi visti come una combinazione lineare</a>
 
 </p>
 
-<h3>Using weights to give meaning</h3>
+<h3>Pesi usati per dare significato</h3>
 <p>
-So far we worked with weights that are simply numbers... and we just saw that choosing a good set of weights can help keeping numbers separated in a linear combination.
-<br>But what happens if I want to use my weights to represent different quantities of ingredients, for example, like in the following recipe for pancakes:
+Fino ad ora abbiamo lavorato con pesi che sono semplicemente numeri... e abbiamo appena visto che scegliere un buon insieme di pesi puo' aiutare a tenere dei numeri separati in una combinazione lineare.
+<br>Ma cosa succede se voglio che i miei pesi rappresentino, per esempio, varie quantita' di ingredienti come in questa ricetta delle crepes:
 <br><br>
 <span class="formula">
-1 * egg + 2 * dlMilk + 3 * hgFlour = 5 * pancakes
+1 * uovo + 2 * decilitriLatte + 3 * ettiFarina = 5 * crepes
 </span><br>
 
-This is a linear combination of the <i>variables</i> <i>egg</i>, <i>dlMilk</i>, <i>hgFlour</i> and 
-<i>pancakes</i>), where I am not interested in deciding which value to assign to the variables. 
-In this case in fact <i>1 * egg</i> is interesting because it is about eggs, not because <i>egg</i> has a certain value (say <b>123</b>). 
+Questa una combinazione lineare delle <i>variabli</i>: <i>uovo</i>, <i>decilitriLatte</i>, <i>ettiFarina</i> e <i>crepes</i>, dove non sono veramente interessato a dare un valore alle variabili.
+In questo caso infatti <i>1 * uovo</i> e' interessante perche' ha a che fare con le uova, non perche' <i>uovo</i> abbia un certo valore (che ne so, <b>123</b>).
 <br>
-This way of using linear combinations brings us to <i>polynomials</i>. More about polynomials as great way to keep separated things of different type (<a href="page005.html">chapter 5</a>).
+Questo modo di usare combinazioni lineari ci porta ai <i>polinomi</i>. Per maggiori informazioni sui polinomi, come ottimo modo per tenere separate cose di tipo diverso, vedi il <a href="page005.html">capitolo 5</a>.
 
-We will use polynomials also to write mathematical questions and finding mathematical answers in <a href="page006.html">chapter 6</a>.
+Nel <a href="page006.html">capitolo 6</a> useremo i polinomi anche per scrivere domande matematicamente e per trovarne le risposte.
 </p>
 
 <p>	
-Moral of the story so far: numbers can be seen as repetition of <b>+1</b>s. The addition <b>a+b</b> becomes a repetition: I have to perform <b>+1</b> to <b>a</b>, <b>b</b>-many times.
-And finally, the multiplication <b>a*b</b> is <b>a</b> repeatedly added by itself, <b>b</b>-many times.
+Morale della storia fin qua: i numeri posso essere visti come ripetizioni dell'operazione <b>+1</b>. L'addizione <b>a+b</b> diventa allora una ripetizione: devo usare <b>+1</b> sul numero <b>a</b>, <b>b</b> volte.
+E per finire, la moltiplicazione <b>a*b</b> e' il numero <b>a</b> sommato a se stesso ripetutamente, <b>b</b> volte.
 <br>
-There are two basic ways to mix additons and multiplications in the same math expression. One leads to a remarkable property called "the distributive property of multiplication", which is and will be very useful when calculating and simplifying math expressions.
-The other way to mix additons and multiplications brings us to linear combinations, and the clever way they can combine many numbers while keeping them separated (or at least separable).
+Ci sono due modi di mescolare addizioni e moltiplicazioni nella stessa espressione matematica. Uno ci porta alla notevole "proprieta' distributiva della moltiplicazione", che sara' molto utile per calcolare e semplificare espressioni matematiche. L'altro modo porta invece alle combinazioni lineari, e a come possono essere usate brillantemente per combinare molti numeri in uno solo, mantenendoli separati (o almeno separabili).
 </p>
 
-<h2>What if I repeat multiplication?</h2>
+<h2>E se ripeto la moltiplicazione?</h2>
 <p>
-Addition is <u>repetition</u> of the <i>+1</i> operation (according to Peano's view of whole numbers), and multiplication is also <u>repetition</u>, but of additions this time. So could I do a <u>repetition</u> of multiplication?
-What would I get? Consider something like this:
+L'addizone e' <u>ripetizione</u> dell'operazione <i>+1</i> (seguendo le idee di Peano sui numeri interi), e la moltiplicazione e' anche lei una <u>repetizione</u>, ma di addizioni questa volta.
+Allora potremmo anche avere una <u>repetizione</u> della moltiplicazione?
+E cosa ne verrebbe fuori? Considera un caso di questo tipo:
 <span class="formula">
-2 * 2 * 2 * 2 = <span data-bracket="4-times">2 * ... * 2</span> = "2 multiplied by itself 4 times" = 2<sup>4</sup>
+2 * 2 * 2 * 2 = <span data-bracket="4 volte">2 * ... * 2</span> = "2 moltiplicato per se stesso 4 volte" = 2<sup>4</sup>
 </span><br>
-This operation is called POWER, and <b>2*2*2*2</b> can be read as "<b>2</b> to the power of <b>4</b>" which gives a result of <b>16</b>. Power is repeated of multiplication, just like multiplication is repeated addition!
-In the general case, "<i>a</i> to the power of <i>b</i>" works like this:
+Questa operazione si chiama POTENZA (o elevamento a potenza), e <b>2*2*2*2</b> si puo' leggere come "<b>2</b> alla <b>4<sup>ta</sup></b> potenza" che da' <b>16</b> come risultato.
+La potenza e' una moltiplicazione ripetuta, proprio come la moltiplicazione e' un'addizione ripetuta!
+Nel caso generale "<i>a</i> elevato alla potenza <i>b</i>" funziona cosi':
 <span class="formula">
-a<sup>b</sup> = <span data-bracket="b-times">a * ... * a</span> = "a multiplied by itself b-many times"
+a<sup>b</sup> = <span data-bracket="b volte">a * ... * a</span> = "a moltiplicato per se stesso b volte"
 </span><br>
-What are the properties of the power operation, you might ask?
-Is it true that for any two numbers <i>a</i> and <i>b</i>, <b>a<sup>b</sup> = b<sup>a</sup></b>? (AKA "does the order count?")
-Is power a reversible operation?
-And what happens if <i>b</i> is <b>0</b> or <b>1</b>? 
+A questo punto tu ti chiederai: quali saranno mai le proprietà dell'operazione di elevamento a potenza?
+E' vero che se prendo due numeri qualsiasi <i>a</i> e <i>b</i>, <b>a<sup>b</sup> = b<sup>a</sup></b>? (che poi sarebbe come chiedersi "ma l'ordine conta?")
+La potenza e' un'operazione reversibile?
+E cosa succede se <i>b</i> e <b>0</b> oppure <b>1</b>? 
 <br>
-Well, we can start checking if the order of the operands count. I find it a bit improbable that <b>a<sup>b</sup> = b<sup>a</sup></b> could be true for any two numbers <i>a</i> and <i>b</i>... so instead of trying to prove (AKA convince you) that it is true, I might look for a <i>counter-example</i>. If even a single example contradicts the rule that <b>a<sup>b</sup> = b<sup>a</sup></b>, then it would be enough to conclude that the property is NOT TRUE in general.
-So here is the counter-example: 
+Be' possiamo iniziare a controllare se l'ordine degli operandi conta. A occhio mi sembra improbabile che <b>a<sup>b</sup> = b<sup>a</sup></b> possa essere vero per qualsiasi coppia di numeri <i>a</i> e <i>b</i>... e allora invece di dimostrare (cioe' di convincerti) che e' proprio vero, potrei cercare un <i>controesempio</i>. Trovare anche solo un singolo esempio che contraddica la regola che <b>a<sup>b</sup> = b<sup>a</sup></b>, sarebe abbastanza per concludere che la proprieta' NON E' VERA in generale.
+E allora ecco il controesempio: 
 <span class="formula">
 	2<sup>3</sup> &rarr; 2*2*2 &rarr; 8
 </span> 
-but 
+ma 
 <span class="formula">
 	3<sup>2</sup> &rarr; 3*3 &rarr; 9
 </span>
-so no luck this time. In fact <b>2<sup>3</sup> &ne; 3<sup>2</sup></b> because the first is <b>8</b> and the second is <b>9</b>.
+e i conti non tornano questa volta. In fatti <b>2<sup>3</sup> &ne; 3<sup>2</sup></b> perche' la prima potenza fa <b>8</b> mentre la seconda e' <b>9</b>.
 <br>
-Even if I found a counter-example and I KNOW that the property cannot be true for any two numbers, 
-there might be <i>pairs of numbers</i> for which it is true. For example, it is true for: 
+Comunque anche se ho trovato un controesempio e qundi SO che la proprieta' non e' vera per ogni possibile coppia di numeri, ci possono sempre essere alcune <i>coppie di numeri</i> per i quali la proprieta' e' vera. Per esempio e' vera per:
 <span class="formula">
 2<sup>4</sup> &rarr; 2*2*2*2 &rarr; 16
 <br>
@@ -604,106 +614,108 @@ there might be <i>pairs of numbers</i> for which it is true. For example, it is 
 </span>
 
 <br>
-Fine, but what about being reversible? Given the result of a power operation, can I find for sure which two numbers were used? Again, I can use <b>2<sup>4</sup> and 4<sup>2</sup></b> as an example; both we know that expression give <b>16</b> as result, so if I know that the result is <b>16</b> I cannot be sure if it came from "two to the power of four" or "four to the power of two". And that shows that the power operation is also not reversible, at least not in general.
+Molto bene, ma cosa possiamo dire sulla reversibilita'? Se conosco il risultato di un elevamento a potenza, sono sicuro di poter sempre trovare i due numeri di partenza? Anche qui posso usare 
+<b>2<sup>4</sup> e 4<sup>2</sup></b> come esempio;
+entrambe le espressioni danno <b>16</b> come risultato, quindi se so solamente che il risultato di un elevamento a potenza e' <b>16</b> non posso essere sicuro se veniva da "due alla quarta potenza" oppure "quattro alla seconda". E questo basta a mostrare che la potenza non e' un'operazione reversibile, almeno non in generale.
 <br>
 <br>
-Finally, I want to know what happens for values like <b>0</b> and <b>1</b>. 
-I know how to derive this: just put <b>b=0</b> and <b>b=1</b> in the definition (AKA the rule) for the power operation.
-When <b>b=0</b> I get:
+Adesso voglio sapere cosa succede per valori come <b>0</b> oppure <b>1</b>. 
+Lo so come fare in questi casi: basta mettere <b>b=0</b> e <b>b=1</b> nella definizione della potenza (cioe' la regola per fare le potenze).
+Per <b>b=0</b> mi viene:
 
 <span class="formula">
-a<sup>0</sup> = <span data-bracket="0-times">a * ... * a</span> 
-&rarr; "a multiplied by itself <b>0</b> times" &rarr; ? 
+a<sup>0</sup> = <span data-bracket="0 volte">a * ... * a</span> 
+&rarr; "a moltiplicato per se stesso <b>0</b> volte" &rarr; ? 
 </span><br>
 
-Well that is puzzling... what number should be the result of that calculation? Not clear.
+Be' qua mi sono piantato... che numero dovrebbe uscire da questo calcolo? Non e' chiaro.
 <br>
-So, let me try instead with <b>b=1</b>, see if I have better luck. When <b>b=1</b>:
+Meglio provare invece con <b>b=1</b> e speriamo di avere piu' fortuna. Con <b>b=1</b> mi viene:
 <span class="formula">
-a<sup>1</sup> = <span data-bracket="1-time">a * ... * a</span> &rarr; 
-	"a multiplied by itself 1 times" &rarr; a
+a<sup>1</sup> = <span data-bracket="1 volta">a * ... * a</span> &rarr; 
+	"a moltiplicato per se stesso per un totale di 1 volta sola" &rarr; a
 </span><br>
-then the result is simply <i>a</i>, which is fine and makes some kind of sense.
-I still don't know what to do with <b>a<sup>0</sup></b>, but perhaps it can help to look at other stuff that is true for the power operation. For example with <u>addition</u> and 
-<span class="dbl_u">multiplication</span> we were interested in mixing the two operations and see what happened. 
-For example we know that <b>a+a</b> is <b>2*a</b> and <b>a+a+a</b> is <b>3*a</b>, etc. 
+e' il risultato e' semplicemente <i>a</i>, che mi va bene ed ha abbastanza senso.
+Pero' non so ancora cosa fare con <b>a<sup>0</sup></b>, ma magari puo' aiutare considerare altre cose che sono vere per l'operazione di elevamento a potenza. Ad esempio con l'<u>addizione</u> e la 
+<span class="dbl_u">moltiplicazione</span> ci siamo chiesti cosa succedeva a mescolare le due operazioni. 
+Sappiamo per esempio che <b>a+a</b> e' <b>2*a</b> e che <b>a+a+a</b> fa <b>3*a</b>, ecc. 
 <br>
-I could do the same here, but with <span class="dbl_u">multiplication</span> and 
-<span class="trpl_u">power</span>, and look at: <b>a*a</b>, which is <b>a<sup>2</sup></b>, 
-or <b>a*a*a</b> which is <b>a<sup>3</sup></b>.
-I can even be a bit more general than that, and look at: 
+Porei allora fare lo stesso ragionamento qui, ma usando la <span class="dbl_u">moltiplicazione</span> e la <span class="trpl_u">potenza</span>, e considerare: <b>a*a</b>, che poi e' <b>a<sup>2</sup></b>, oppure <b>a*a*a</b> che e' <b>a<sup>3</sup></b> invece.
+Posso persino provare ad essere un pochino piu' generale e considerare:
 <span class="formula">
 	a<sup>b</sup> * a<sup>c</sup>
 </span>
-Surely that must be:
+Di sicuro fara':
 <span class="formula">
 	a<sup>b+c</sup>
 </span>
-because I can <i>expand</i> 
-<b>a<sup>b</sup></b> and <b>a<sup>c</sup></b>, and write 
+perche' posso <i>espandere</i> 
+<b>a<sup>b</sup></b> e <b>a<sup>c</sup></b>, e riscrivere
 
-<b><span style="color:blue">a<sup>b</sup></span> * <span style="color:red">a<sup>c</sup></span></b> as:
+<b><span style="color:blue">a<sup>b</sup></span> * <span style="color:red">a<sup>c</sup></span></b> come:
 
 <span class="formula">
-	<span data-bracket="b-times"><span style="color:blue">a * ... * a</span></span> * 
-	<span data-bracket="c-times"><span style="color:red">a * ... * a</span></span> 
+	<span data-bracket="b volte"><span style="color:blue">a * ... * a</span></span> * 
+	<span data-bracket="c volte"><span style="color:red">a * ... * a</span></span> 
 </span><br>
-and then I can GROUP all <i>a</i> together and get <b>b+c</b> of them:
+e se adesso RAGGRUPPO tutte le <i>a</i> assieme me ne vengono <b>b+c</b>, cioe':
 <span class="formula">
-	<span data-bracket="(b+c)-times"><span style="color:blue">a * ... * a</span>
+	<span data-bracket="b+c volte"><span style="color:blue">a * ... * a</span>
 					 * <span style="color:red">a * ... * a</span></span></span> 
 </span><br>
 
 <br>
-This is good and very interesting! 
-And if for any <i>a</i>, <i>b</i> and <i>c</i>, it is true that:
+Questo e' molto interessante!
+E se per qualsiasi <i>a</i>, <i>b</i> e <i>c</i> e' vero che:
 <span class="formula">
 a<sup>b</sup> * a<sup>c</sup> = a<sup>(b+c)</sup>
 </span>
-then I can choose <b>c=0</b>, and get:
+allora posso anche scegliere <b>c=0</b>, e mi viene:
 <span class="formula">
 a<sup>b</sup> * a<sup>0</sup> = a<sup>(b+0)</sup> = a<sup>b</sup>
 </span>
-OK, but wait a minute there... If I know that
+Benone, ma aspetta un attimo... se so che 
 <span class="formula">
-something * a<sup>0</sup> = something 
+unCertoNumero * a<sup>0</sup> = unCertoNumero
 </span>
-then it must be true that <b>a<sup>0</sup> = 1</b>, from the properties of the multiplication! (Because one is the ONLY number that you can multiply by something, and get the same something as result)
+allora sicuramente deve essere vero che <b>a<sup>0</sup> = 1</b>, per le proprieta' della moltiplicazione! (In particolare perche' esiste solo UN numero che moltiplicato per unCertoNumero da' lo stesso unCertoNumero come risultato).
 <br>
-So in a weird sense, math tells us that <i>"a number multiplied by itself 0 times"</i> is equal to <b>1</b>, go figure... but it is true and we have just proven it.
+Quindi in un modo un po' contorto, la matematica dice che <i>"un numero moltiplicato per se stesso 0 volte"</i> e' uguale a <b>1</b>, cosa che non era cosi' facile da vedere... ma comunque e' vero e lo abbiamo appena dimostrato.
 <br>
 <div class="task">
-Just for laughs, see if you can find out what <b>0<sup>1</sup></b> and <b>0<sup>0</sup></b> are.
-<br><i>Hint: use the rule of the power operation.</i>
+Adesso giusto per farci una risata, prova a vedere quando fanno <b>0<sup>1</sup></b> e <b>0<sup>0</sup></b>.
+<br><i>Suggerimento: usa la regola dell'elevamento a potenza.</i>
 <br>
 <br>
-And by the way, how would you calculate <b>a<sup>b</sup> * c<sup>b</sup></b>? 
+E tra l'altro, come calcoleresti <b>a<sup>b</sup> * c<sup>b</sup></b>? 
 <br>
-Where <i>a</i>, <i>b</i> and <i>c</i> can be ANY three whole numbers.
+Dove <i>a</i>, <i>b</i> e <i>c</i> possono essere tre numeri interi QUALSIASI.
 </div>
 </p>
 
 <p>
-Moral of the story so far: now that we have worked out the POWER operation, we have three interesting operations that work on whole numbers: addition, multiplication and power. They are built incrementally, each new one is a repeated version of the previous, and we know some of their properties, which are also tied and intertwined, very much in the same way in which the operations are defined. For example when calculating an expression like <b>a<sup>b</sup> * a<sup>c</sup></b> (AKA a multiplication of two power operations) we end up using addition, since the result is <b>a<sup>(b+c)</sup></b>.
+Morale della storia fin qua: adesso che abbiamo lavorato con le potenze, abbiamo tre interessanti operazioni sui numeri interi: addizione, moltiplicazione ed elevamento a potenza. Sono constuite incrementalmente, ogni nuova operazione e' una versione ripetuta di quella precedente, e conosciamo alcune delle loro proprieta', che sono anche loro collegate e intrecciate nello stesso modo in cui lo sono le definizioni delle tre operazioni. Per esempio quando calcoliamo una espressione come 
+<b>a<sup>b</sup> * a<sup>c</sup></b> (cioe' una moltiplicazione di due potenze) finiamo ad usare l'addizione, visto che il risultato e' <b>a<sup>(b+c)</sup></b>.
 <br>
 <br>
-One last thing... "<i>a</i> to the power of <i>b</i>" even makes sense when <i>b</i> is a negative number.
+Un'ultima cosa... "<i>a</i> elevato alla <i>b</i>" ha persino senso se <i>b</i> e' un numero negativo.
 
-<a class="appendix_note" href="appendixA.html#appendixA08">What is&nbsp;<i>a</i>&nbsp;to the power of&nbsp;<b>-1</b>&nbsp;?</a>
+<a class="appendix_note" href="appendixA.html#appendixA08">Quando fa&nbsp;<i>a</i>&nbsp;elevato alla &nbsp;<b>-1</b>&nbsp;?</a>
 </p>
 
-<h2>Beyond based 10</h2>
+<h2>Oltre la base 10</h2>
 <p>
-So by now you should be able to anticipate the next questions... 
+A questo punto dovresti riuscire ad anticipare le prossime domande...
 <br>
-What happens when I mix all THREE operations in the same math expression? In which situations is that relevant or needed?
+Cosa succede se mescolo tutte e tre le operazioni nella stessa espressione matematica?
+In quali situazioni puo' servire, o ha senso farlo? 
 <br>
-Well if you remember the numbers in base 10 (above), the weighted sum that allowed us to calculate a number given its digits IS an expression with addition, multiplication and powers (of <b>10</b>).
-In base 10 the weights are <b>1, 10, 100, etc.</b>, and we restrict the digits to be numbers from <b>0</b> to <b>9</b>. A base 10 number with four digits <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i> is a certain number <i>n</i>, and I can calculate <i>n</i> using the expression:
+Be' se ti ricordi dei numeri in base 10 (sopra in questo capitolo), la somma pesata ci ha permesso di calcolare che valore aveva un certo numero E' un'espressione con addizione, moltiplicazione e potenze (le potenze di <b>10</b>).
+I pesi della base 10 sono <b>1, 10, 100, ecc.</b>, e abbiamo ristretto le cifre ad essere numeri tra <b>0</b> e <b>9</b>. Un numero di quattro cifre in base 10, diciamo <i>A</i>, <i>B</i>, <i>C</i> e <i>D</i>, e' un certo numero intero <i>n</i>, e possiamo calcolare il valore di <i>n</i> usando questa espressione:
 <span class="formula">
   A * 10<sup>3</sup> + B * 10<sup>2</sup> + C * 10<sup>1</sup> + D * 10<sup>0</sup> &rarr; n
 </span>
-For example the number with digits <b>1,2,3, and 4</b> is the number <b>n=1234</b>, because:
+Ad esempio il numero in base 10 con cifre <b>1,2,3, e 4</b> e' il numero <b>n=1234</b> perche':
 <br><br>
 <span class="formula">
   1 * 10<sup>3</sup> + 2 * 10<sup>2</sup> + 3 * 10<sup>1</sup> + 4 * 10<sup>0</sup> &rarr;
@@ -712,67 +724,72 @@ For example the number with digits <b>1,2,3, and 4</b> is the number <b>n=1234</
 <br>
   1234
 </span>
-And this operation is REVERSIBLE, since the ONLY number that can be generate by <b>1,2,3, and 4</b> is in fact <b>1234</b>, therefore, <b>1234</b> can be rewritten uniquely as 
+E questa operazione e' REVERSIBILE, visto che il SOLO numero che si puo' ottenere da <b>1,2,3, e 4</b> e' proprio <b>1234</b>, quindi <b>1234</b> si puo' riscrivere in modo univoco come
 <center>
-	<i>"<b>1</b> thousand and <b>2</b> hundreds and <b>3</b> tens and <b>4</b>"</i>
+	<i>"<b>1</b> migliaio e <b>2</b> centinaia e <b>3</b> decine e <b>4</b>"</i>
 </center>
 
-
 <br>
-But what happens if we try with weights built using some other number instead of <b>10</b>? The smallest number that we use for the weights is <b>2</b> (because <b>1</b> would make no sense, and we would loose reversibility). A number with digits <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> will then be written as a linear combinations of powers of two:
+Ma cosa succede se usiamo dei pesi costruiti usando altri numeri invece che <b>10</b>?
+Il piu' piccolo numero che possiamo usare per i pesi e' <b>2</b> (perche' <b>1</b> non avrebbe senso e perderemmo anche la reversibilita').
+Un numero con cifre <i>a</i>, <i>b</i>, <i>c</i> e <i>d</i> si puo' scrivere come combinazione lineare di potenze di due:
 <span class="formula">
 a * 2<sup>3</sup> + b * 2<sup>2</sup> + c * 2<sup>1</sup> + d * 2<sup>0</sup> 
 &rarr;
 <br>
 a * 8 + b * 4 + c * 2 + d * 1
 </span>
-and by analogy with the case of base 10, we might expect that <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> here can only be <b>0</b> or <b>1</b>.
+e per analogia con il caso della base 10 possiamo aspettarci che le cifre <i>a</i>, <i>b</i>, <i>c</i> e <i>d</i> possanos solo valere <b>0</b> oppure <b>1</b>.
 <br>
-Welcome to <i>base 2</i> (or binary numbers)! This way of writing numbers might seem weird, but it is perfectly legitimate and if we think in terms of spike abaci (see chapter 1), it is like saying that every spike can only have no bead or one bead: a very simple abacus indeed.
+Benvenuto alla <i>base 2</i> (cioe' i numeri binari)!
+Questo modo di scrivere i numeri sembra strambo, ma e' perfettamente legittimo e se pensiamo nei termini degli abachi (come nel capitolo 1), e' un po' come dire che ogni asta dell'abaco puo' solo essere vuota o avere una pallina: un abaco veramente minimale.
 <br>
-Let's see what happens when we take a number and write in the base 2 notation. For example to write <b>13</b> in base 2 we have to ask ourselves: "how can I build <b>13</b> using only powers of <b>2</b>?". I can try, starting with the lowest powers of <b>2</b> and coming up. Remember that my target is <b>13</b>:
+Vediamo cosa succede se prediamo un numero e lo riscriviamo nella notazione della in base 2. 
+Per esempio, per scrivere <b>13</b> in base 2 dobbiamo chiederci: "come faccio a costruire <b>13</b> usando solo potenze di <b>2</b>?". Possiamo provare a partire dalla potenza piu' piccola di <b>2</b> e venire su. Il nostro obiettivo e' <b>13</b>:
 
 <span class="formula">
- 1 = 1 <i>less than 13</i> &rarr; 1 + 2 = 3 <i>less than 13</i> &rarr;  
+ 1 = 1 <i>e' piu' piccolo di 13</i> &rarr; 1 + 2 = 3 <i>piu' piccolo di 13</i> &rarr;  
 <br>
- 1 + 2 + 4 = 7 <i>less than 13</i> &rarr;  
+ 1 + 2 + 4 = 7 <i>piu' piccolo di 13</i> &rarr;  
 <br> 
- 1 + 2 + 4 + 8 = 15 <i>more than 13</i> oops!
+ 1 + 2 + 4 + 8 = 15 <i>piu' grande di 13</i> cavolo!
 </span>
-This strategy is not very good. I will try starting from the larger powers of <b>2</b>, and going DOWN instead:
+Questa strategia non e' cosi' buona. Proviamo invece a partire dalle potenze piu' grandi di <b>2</b> e andare INDIETRo invece:
 <span class="formula">
- 16 <i>more than 13, nope!</i> &rarr; 
+ 16 <i>piu' grande di 13, non va!</i> &rarr; 
  <br>
- 8 <i>less than 13, good!</i> &rarr;  
- <br>8+4 = 12 <i>less than 13</i> &rarr;  
+ 8 <i>piu' piccolo di 13, bene!</i> &rarr;  
+ <br>8+4 = 12 <i>piu' piccolo di 13</i> &rarr;  
 <br> 
- 8+4+2 = 14 <i>more than 13, nope!</i> &rarr; 
+ 8+4+2 = 14 <i>piu' grande di 13, non va!</i> &rarr; 
  <br>
  8+4+1 = 13
 </span>
-Found it: <b>13</b> is <b>1 * 8 + 1 * 4 + 0 * 2 + 1</b>, so <b>13</b> in base 10 is also <b>1101</b> in base 2! 
-<br>OK, but how do I read "<b>1101</b> in base 2"? For example, <b>13</b> is read as "thirteen". 
+Raggiunto: <b>13</b> e' <b>1 * 8 + 1 * 4 + 0 * 2 + 1</b>, quindi <b>13</b> in base 10 e' anche <b>1101</b> in base 2! 
+<br>OK, ma come lo leggo questo numero "<b>1101</b> in base 2"? Per esempio <b>13</b> va letto come "tredici". 
 <br>
-In base 2 it was decided not to read numbers as they look, so <b>1101</b> IS NOT "one thousand one hundred one", because we are not using base 10 here. We simply should read <b>1101</b> as "one one zero one"... kind of silly, but that is the correct way to read it.
+In base 2 si e' deciso di non leggere i numeri per come appaiono, quindi <b>1101</b> NON va letto "mille, cento e uno", perche' non stiamo piu' usando la base 10.
+Questi numeri si leggono cifra per cifra, quindi <b>1101</b> diventa "uno uno zero uno"... un po' scemo, ma questo e' il modo corretto di leggerlo.
 <br>
-An alternative way to write a number in base 2 would be to use our box notation (see chapter 1); the previous example <b>1101</b> would then become 
+Un modo alternativo di scrivere un numero in base 2 potrebbe essere di usare la nostra notazione con le scatole (vedi capitolo 1); e l'esempio di prima <b>1101</b> diventerebbe
 <span class="open_box">1</span><span class="open_box">1</span><span class="open_box">0</span><span class="open_box">1</span>.
 
 <br>
 <br>
-Now let's look at the <i>reverse</i> problem: how to find the base 10 version of a binary number.
-Again, let's try just using the formula for the weighted sum. Let's start from any binary number, for instance <b>10011101</b> (in Computer Science it is typical to use groups of <b>8</b> binary digits, AKA <b>8</b> bits, or <b>1</b> byte), and plug them into the formula:
+
+Ora diamo un'occhiata al problema <i>inverso</i>: come trovo la versione in base 10 di un mumero binario?
+Anche qui possiamo provare ad usare la formula della somma pesata. Inizamo da un numero binario qualsiasi, come <b>10011101</b> (in Informatica e' tipco usare gruppi di <b>8</b> cifre binarie, anche noti come <b>8</b> bits o <b>1</b> byte), e lo mettiamo nella nostra formula:
 <span class="formula">
 a * 2<sup>3</sup> + b * 2<sup>2</sup> + c * 2<sup>1</sup> + d * 2<sup>0</sup>
 </span>
-First we notice that the formula needs more terms: here I have eight binary digits, not only four, so I need to extend the formula to eight.
+Prima di tutto si vede che la formula ha bisogni di piu' termini: qui voglio lavorare con otto cifre binarie ma la formula ne ha solo quattro , quindi devo estendere la formula ad otto.
 <span class="formula">
-digit8 *2<sup>7</sup> + digit7 *2<sup>6</sup> + digit6 *2<sup></sup> + digit5 *2<sup>4</sup> + 
+cifra8 *2<sup>7</sup> + cifra7 *2<sup>6</sup> + cifra6 *2<sup></sup> + cifra5 *2<sup>4</sup> + 
 <br>
-digit4 *2<sup>3</sup> + digit3 *2<sup>2</sup> + digit2 *2<sup>1</sup> + digit1 *2<sup>0</sup>
+cifra4 *2<sup>3</sup> + cifra3 *2<sup>2</sup> + cifra2 *2<sup>1</sup> + cifra1 *2<sup>0</sup>
 </span>
-And my digits are <b>10011101</b>, so digit8, the leftmost one, should be <b>1</b>; then digit7 is the next one going right, and should be <b>0</b>, etc. 
-OK, so to calculate the resulting base 10 number, I just need to replace each of the eight binary digits with its value:<span class="formula">
+E le mie cifre sono<b>10011101</b>, quindi cifra8, quella piu' a sinistra, deve essere <b>1</b>; poi la cifra7 diventa <b>0</b>, ecc. 
+Bene, quindi per calcolare il risultato in base 10 devo solo rimpiazzare ogni cifra binaria con il suo valore:<span class="formula">
 1 *2<sup>7</sup> + 0 *2<sup>6</sup> + 0 *2<sup>5</sup> + 1 *2<sup>4</sup> + 
 1 *2<sup>3</sup> + 1 *2<sup>2</sup> + 0 *2<sup>1</sup> + 1 *2<sup>0</sup> &rarr;
 <br>
@@ -784,25 +801,26 @@ OK, so to calculate the resulting base 10 number, I just need to replace each of
 </span>
 
 <br>
-Multiplying by <b>0</b> or <b>1</b> is interesting in itself! Here for instance it looks like a way to <i>filter</i> the powers of two: some will be multiplied by <b>0</b> and disappear, others will be multiplied by <b>1</b> and remain in the final calculation. 
+Moltiplicare per <b>0</b> o per <b>1</b> e' intressante di per se!
+Qui ad esempio sembra che sia un modo di <i>filtrare</i> le potenze di due: quelle che sono moltiplicate per <b>0</b> spariscono, mentre le altre, quelle moltiplicate per <b>1</b>, rimangono nel calcolo. 
 <br>
-Another interesting observation here is that the weighted sum (AKA linear combination) can be seen at the same time as two things:
+Un'altra interessante osservazione e' che possiamo leggere la somma pesata (cioe' la combinazione lineare) come due cose diverse, allo stesso tempo:
 <center>
-	<i>"the sum of binary digits, each weighted by a (decreasing) power of two"</i>
+	<i>"la somma di cifre binarie, ogniuna pesata per una potenza (decrescente) di due"</i>
 </center>
-and 
+ma anche
 <center>
-	<i>"the sum of powers of two, each weighted by a <b>0</b>s or <b>1</b>"</i>
+	<i>"la somma di potenze di due, ogniuna pesata da vari <b>0</b> e <b>1</b>"</i>
 </center>
-or "filtered" by the binary digits, if your prefer.
+oppure "potenze di due filtrate" da cifre binarie, se preferisci.
 <br>
 <br>
 
 <div class="task">
-To be sure that 157 in base 10 is the same as 10011101 in base 2, build 157 using powers of 2. Use the strategy above: start with the largest possible power of 2, then come down.
+Per essere sicuro che 157 in base 10 sia uguale a 10011101 in base 2, costruisci 157 usando le potenze di 2. Usa la strategia che abbiamo trovato sopra: inizia con la potenza di due piu' grande possibile e poi scendi.
 <br>
-Try to see what the powers of 2 look like: for example what is 16 in base 2?
-<br>Then try the numbers near the powers of 2: for 16, you might try 15 and 17. How do they look like in base 2?
+Prova a vedere come sono fatte le potenze di 2: per esempio quanto fa 16 in base 2?
+<br>Poi prova i numeri vicino alle potenze di 2: per 16, potresti provare 15 e 17. Come sono fatte in base 2?
 </div>
 </p>
 
@@ -812,31 +830,30 @@ Try to see what the powers of 2 look like: for example what is 16 in base 2?
 	<script>prepare_002_03('playground3')</script>
 </p>
 
-<h2>Combinations, but using multiplication and power</h2>
+<h2>Combinazioni, ma questa volta usando moltiplicazioni e potenze</h2>
 <p>
-A linear combination is a mix of additions and multiplications, or more precisely it is an addition of multiplications. One of the most desirable feature of some linear combinations is that they can be reversible.
+Una combinazione lineare e' un mix di addizioni e moltiplicazioni, o piu' precisamente e' un'addizione di moltiplicazioni. Una delle caratteristiche piu' carine di certe combinazioni lineari e' che possono essere reversibili.
 <br>
-Interestingly, we can combine numbers in other ways, and still get that nice reversibility.
-For example we can define a combination based on a multiplication of powers (instead of addition of multiplications), and what we get is the rather powerful <i>Gödel numbering</i>. 
+E' interessante notare che possiamo combinare dei numeri in altri modi ed avere comunque la reversibilite'. Ad esempio possiamo definire una combinazione basata su una moltiplicazione di potenze (invece che addizione di moltiplicazioni), e quello che viene fuori e' piuttosto potente: la <i>numerazione di Gödel</i>. 
 
-<i>Gödel numbering</i> were created by <a href="https://en.wikipedia.org/wiki/Kurt_G%C3%B6del">Gödel</a> <img class="face" src="faces/Kurt_gödel.jpg"></span> to show that a list of numbers can be <i>compressed</i> into a single number. And that the process can be reversed.
-<br>
-The main idea is to start with a list of numbers, say <b>1, 2 and 3</b>, and use powers of <b>prime numbers</b> to combine them:
+La <i>numerazione di Gödel</i> e' stata creata da <a href="https://it.wikipedia.org/wiki/Kurt_G%C3%B6del">Gödel</a> <img class="face" src="faces/Kurt_gödel.jpg"></span> per mostrare che una lista di numeri possono essere <i>compressi</i> in un singolo numero. E che il processo può essere e' reversibile.
+L'idea centrale qui e' di iniziare con una lista di numeri, diciamo <b>1, 2 e 3</b>, e usare le potenze dei numeri primi per combinarli:
 <span class="formula">
 	2<sup>1</sup> * 3<sup>2</sup> * 5<sup>3</sup> &rarr; n 
 </span>
 
 <p><i>
-Note: we will talk more about prime numbers in the <a href="page003.html">next chapter</a>, when we explore subtraction and division. Just to get an idea how they look like, the first one thousand prime numbers are listed <a href="https://en.wikipedia.org/wiki/List_of_prime_numbers#The_first_1000_prime_numbers">here</a>.
+Nota: andremo piu' in dettaglio sui numeri primi nel <a href="page003.html">prossimo capitolo</a>, quando esploreremo la sottrazione e la divisione. Giusto per avere un'idea di come sono fatti, i primi mille numeri primi sono elencati <a href="https://en.wikipedia.org/wiki/List_of_prime_numbers#The_first_1000_prime_numbers">qui</a>.
 </i></p>
 
-This way of combining numbers tends to create HUGE numbers, so ever for our small list of numbers <i>n</i> is probably already pretty big, and for slightly larger or longer lists the result will be even larger.
-Here <i>n</i> is <b>2 * 3*3 * 5*5*5 = 2250</b>. 
+Questo modo di combinare numeri tende a creare risultati ENORMI, e infatti anche per la nostra lista di numeri che e' piuttosto corta, <i>n</i> e' probabilmente un numero parecchio grosso, e per liste appena piu' lunghe o con numeri poco piu' grandi, il risultato sara' ancora più grande.
+Qui <i>n</i> e' <b>2 * 3*3 * 5*5*5 = 2250</b>. 
 <br>
-Fine, but is the process REVERSIBLE? 
-If I only know <i>n</i>, can I find the original list <b>1, 2 and 3</b> again?
-According to Gödel the trick here is to rewrite <i>n</i> as the product of prime numbers (AKA perform the "prime factorization of <i>n</i>"), then look at the exponents of the primes, and <b>presto!</b> they will form the original list.
-Here I have to FACTORIZE <b>2250</b> in primes, and that will get me:
+OK, ma questo processo e' REVERSIBILE?
+
+Se conosco solo <i>n</i>, come faccio a ritrovare la lista originale <b>1, 2 e 3</b>?
+Secondo Gödel il trucco qui e' riscrivere <i>n</i> come prodotto di numeri primi (che e' come dire "scomporre <i>n</i> in fattori primi"), e poi guardare gli esponenti dei numeri primi e <b>detto, fatto!</b>... formeranno la lista originale.
+Qui devo FATTORIZZARE <b>2250</b> in numeri primi:
 <span class="formula" style="margin-top:.5em;margin-bottom:.5em;">
 	2250:<b>2</b> = 1125 &rarr; 
 <br>1125:<b>5</b> = 225 &rarr; 
@@ -845,59 +862,60 @@ Here I have to FACTORIZE <b>2250</b> in primes, and that will get me:
 <br>9:<b>3</b> = 3 &rarr;
 <br>3:<b>3</b>=1 
 </span>
-where <i>"<b>2250:2</b>"</i> stands for <i>"<b>2250</b> divided by <b>2</b>"</i>. 
+dove ho scritto <i>"<b>2250:2</b>"</i> per dire <i>"<b>2250</b> diviso per <b>2</b>"</i>. 
 <br>
-The result is <b>2250</b> rewritten as <b>2*5*5*5*3*3</b>, and since the order does not count with multiplications, I can reorder the factors from small to large and get: 
+Il risultato e' che <b>2250</b> viene riscritto come <b>2*5*5*5*3*3</b>, e visto che l'ordine non conta per la moltiplicazione, posso anche riordinare i fattori dal piu' piccolo al piu' grande: 
 <span class="formula" style="margin-top:.5em;margin-bottom:.5em;">
 	2250 = 2*3*3*5*5*5 = 
 		2<sup><b><span style="color:blue">1</span></b></sup> * 
 		3<sup><b><span style="color:red">2</span></b></sup> * 
 		5<sup><b><span style="color:green">3</span></b></sup>
 </span>
-which is exactly the list I started from: <b><span style="color:blue">1</span>, 
-	<span style="color:red">2</span> and <span style="color:green">3</span></b>. Wow.
+che e' esattamente la lista da cui siamo partiti: <b><span style="color:blue">1</span>, 
+	<span style="color:red">2</span> e <span style="color:green">3</span></b>. Wow.
 <br>
 <br>
-Wait, wait, wait. Are we sure this method works for any list? After all for linear combinations we had to be clever about choosing the right set of weights... otherwise the combinations might not be <i>reversible</i>.
+Aspetta un attimino... Siamo sicuri che questo metodo funzioni per qualsiasi lista? Dopo tutto per le combinazioni lineare dovevamo fare attenzione di scegliere i pesi giusti... se non la combinazione poteva anche non essere <i>reversibile</i>.
 <br>
-No worries. For Gödel numbering there is in fact a <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic">theorem</a> that garantees that the factorization is always unique, so we cannot fail with this combination: it will always be reversible. Thanks very much Gödel.
+Nessun problema! Per la numerazione di Gödel c'e' persino un <a href="https://it.wikipedia.org/wiki/Teorema_fondamentale_dell%27aritmetica">teorema</a> che ci garantisce che la fattorizzazione di un numero e' sempre unica, quindi non possiamo fallire con questa combinazione: sara' sempre reversibile. Bel lavoro Gödel.
 </p>
 
 <p>
-So Gödel numbering works like a SUPER abacus, or if your prefer, a generalization of base 10
-(see <a href="page001.html">chapter 1</a>), where multiplication and power are used instead of addition and multiplication. 
-To be precise a linear combination is an addition of multiplications. An addition
-<span class="formula">smtg + smtg + smtg</span>
-of multiplications
-<span class="formula">(smtg * smtg) + (smtg * smtg) + (smtg * smtg)</span>
-where all the <b>smtg</b> are different <i>somethings</i>, like values or variables.
+Quindi la numerazione Gödel funziona come un SUPER abaco, o se preferisci, una generalizzazione della base 10 (vedi <a href="page001.html">capitolo 1</a>), dove vengono utilizzate moltiplicazione e potenze invece che addizione e moltiplicazione.
+Per essere precisi una combinazione lineare e' un'addizione di moltiplicazioni. Un'addizione 
+<span class="formula">qlcs + qlcs + qlcs</span>
+di moltiplicazioni
+<span class="formula">(qlcs * qlcs) + (qlcs * qlcs) + (qlcs * qlcs)</span>
+dove i <b>qlcs</b> sono vari <i>qualcosa</i> diversi, come ad esempio diversi valori o variabili.
 <br>
-A Gödel numbering is instead a multiplication of powers. Multiplication
-<span class="formula">smtg * smtg * smtg</span>
-of powers
-<span class="formula">(smtg<sup>smtg</sup>) * (smtg<sup>smtg</sup>) * (smtg<sup>smtg</sup>)</span>
+Una numerazione di Gödel e' invece una moltiplicazione di potenze. Moltiplicazione
+<span class="formula">qlcs * qlcs * qlcs</span>
+di potenze
+<span class="formula">(qlcs<sup>qlcs</sup>) * (qlcs<sup>qlcs</sup>) * (qlcs<sup>qlcs</sup>)</span>
 
-Surprisingly Gödel numbering works whatever the numbers in the list are: we are not limited to pick small numbers, like in the case of linear combination (such as ordinary numbers in base 10). Gödel numbering has no problem <i>compressing</i> a list of any size, and containing arbitrary large numbers into a SINGLE (possibly humongous) number! For example, the list <b>4, 6, 7, 8, 12</b> becomes 
-<b>2<sup>4</sup>*3<sup>6</sup>*5<sup>7</sup>*7<sup>8</sup>*11<sup>12</sup></b>, which is
+Sorprendentemente la numerazione di Gödel funziona con qualsiasi lista di numeri:
+non c'e' bisognio di limitare i numeri nella lista, come invece nel caso delle combinazioni lineari (ad esempio le cifre dei numeri ordinari in base 10 non possono eccedere 9). La numerazione di Gödel non ha problemi a <i>comprimere</i> una lista di qualsiasi lunghezza e con numeri grandi a piacere; la lista viene compressa in un SINGOLO numero, eventualmente enorme! 
+Ad esempio, la lista <b>4, 6, 7, 8, 12</b> diventa
+<b>2<sup>4</sup>*3<sup>6</sup>*5<sup>7</sup>*7<sup>8</sup>*11<sup>12</sup></b>, che fa
 <span class="formula" style="margin-top:.5em;margin-bottom:.5em;">
 	<b>16'486'713'209'345'820'741'011'250'000</b>
 </span>
-and that huge number, incredibly enough, can be factorized in ONLY ONE way: precisely 
+e questo numero gigante si puo' scomporre in fattori primi in UNA SOLA MANIERA, per assurdo che possa sembrare:
 <span class="formula" style="margin-top:.5em;margin-bottom:.5em;">
 	2<sup>4</sup>*3<sup>6</sup>*5<sup>7</sup>*7<sup>8</sup>*11<sup>12</sup>
 </span>
-after eventually reordering the primes.
+dopo aver eventualmente riordinato i numeri primi.
 
 <div class="task">
-Use the playground below to make sure that the list of numbers 4, 6, 7, 8, 12 really corresponds to the Gödel number <b>16'486'713'209'345'820'741'011'250'000</b>.
-<br>To get an idea how HUGE these numbers tend to become, try lists with larger numbers, for example: 77, 0, 123, 9.
-<br>Interestingly, this number system is positional: try 1,0,2 , then 1,2 and 2,0,1.
-<br>Finally, try a long list of small numbers; try for instance these lists: 
+Usa l'area gioco qui sotto per convincerti che la lista di numeri 4, 6, 7, 8, 12 corrisponde davvero al numero di Gödel <b>16'486'713'209'345'820'741'011'250'000</b>.
+Per avere un'idea di quanto ENORMI possono diventare questi numeri, prova liste con numeri piu' grandi, ad esempio: 77, 0, 123, 9.
+E' interessante notare che questo sistema numerico e' posizionale: prova 1,0,2 , poi 1,2 e poi 2,0,1.
+<br>Per finire prova una lista lunga ma con numeri piccoli. Per esempio prova queste liste:
 <br> 3,1,4,1
 <br> 3,1,4,1,5
 <br> 3,1,4,1,5,9
 <br> ...
-<br> 3,1,4,1,5,9,2,6,5,3,5 (which are the <a href="https://introcs.cs.princeton.edu/java/data/pi-10million.txt">first few digits of PI</a>). Notice how fast the Gödel numbers grow!
+<br> 3,1,4,1,5,9,2,6,5,3,5 (che poi sono le <a href="https://introcs.cs.princeton.edu/java/data/pi-10million.txt">prime cifre di Pi greco</a>). Hai visto quanto velocemente crescono i numeri di Gödel?!
 </div>
 
 </p>
@@ -910,31 +928,31 @@ Use the playground below to make sure that the list of numbers 4, 6, 7, 8, 12 re
 
 
 <p>
-Moral of the story so far: in mathematics there many ways to repeat the same idea or process. 
-Even something basic like numbers can be seen as repetitions of adding one, starting from zero. 
-A rule to add numbers is then defined that says: 
+Morale della storia fin qua: in matematica ci sono molti modi per ripetere la stessa idea o processo. Persino una cosa di base come un numero puo' essere vista come una ripetizione dell'operazione di <i>aggiungere uno</i>, partendo dal numero zero.
+Su questa definizone di numero abbiamo definito una regola per la somma che dice:
 <span class="formula" style="margin-top:.5em;margin-bottom:.5em;">
-<b>a+b</b> <span style="font-weight: normal;">means</span> <b>a + "add one, repeated b-times"</b>
+<b>a+b</b> <span style="font-weight: normal;">vuol dire</span> <b>a + "aggiungi uno, ripetuto b volte"</b>
 </span>
-It turns out that addition has certain properties, that we can derive by the way repetitions work. Multiplication is just a repetition of additions: <b>a*b</b> is simply <b>a+...+a</b>, repeated b-times. Also multiplication has properties similar to those of the addition.
+Abbiamo poi scoperto che l'addizione ha certe proprieta', che vengono fuori dal modo in cui funzionano le ripetizioni. A sua volta la moltiplicazione e' solo una ripetizione di addizioni: <b>a*b</b> e' semplicemente <b>a+...+a</b>, ripetuto b volte. 
+E anche la moltiplicazione ha proprieta' simili a quelle dell'addizione.
 <br>
-It is also possible to combine many numbers in a single number, using a mix of addition and multiplication (in a <i>linear combination</i>), in such a way that we can reverse the process. 
-This means that linear combinations when used in a clever enough way allow to go from many numbers to one, but also backwards, from a single number to the many. And it turns out that the trick required is the same that we discussed in chapter 1 with the abacus numbers (AKA base 10, our usual notation for numbers). 
+Possiamo anche combinare piu' numeri in un unico numero, utilizzando un mix di addizione e moltiplicazione (in una <i>combinazione lineare</i>), in modo tale che il processo sia reversibile.
+E questo vuol dire che le combinazioni lineari, se utilizzate in modo furbo, consentono di passare da tanti numeri (ad esempio delle cifre) ad uno, ma funzionano anche al contrario, da un singolo numero a molti. E viene fuori che basta usare lo stesso trucco che abbiamo discusso nel capitolo 1 con i numeri dell'abaco (cioe' base 10, la nostra notazione abituale per i numeri).
 <br>
-Furthermore, changing the way we generate the weights in the linear combination, we get alternative notations for numbers; for example instead of powers of <b>10</b>, I can use powers of <b>2</b>, and that gives us numbers made of only <b>0</b>s and <b>1</b>s: the so called <i>base 2</i>, or binary numbers.
+Per di piu' cambiando il modo in cui generiamo i pesi nella combinazione lineare, possiamo ottenere notazioni alternative per i numeri; per esempio invece delle potenze di <b>10</b>, posso usare le potenze di <b>2</b> e questo mi da' dei numeri composti solo da <b>0</b> e <b>1</b>: la cosiddetta <i>base 2</i>, o numeri binari.
 <br>
-We can even go further and keep repeating: repeated multiplications give us the power operation, which also has its properties, somehow similar and related to those of addition and multiplication. 
+Ma possiamo andare oltre e continuare a ripetere: moltiplicazioni ripetute ci danno l'operazione di elevamento a potenza, che ha delle sue proprieta' in qualche modo simili e legate a quelle dell'addizione e della moltiplicazione.
 <br>
-And finally, we can even define a new kind of combinations based on a <i>multiplication of powers</i> (instead of the linear combination, that is <i>an addition of multiplications</i>): the very powerful Gödel numbering.
+E per finire in bellezza possiamo anche definire un nuovo tipo di combinazioni basate su una <i>moltiplicazione di potenze</i> (invece della combinazione lineare, che e' un'<i>addizione di moltiplicazioni</i>): la potentissima numerazione Gödel.
 </p>
 
-<h2>Puzzles</h2>
+<h2>Puzzle</h2>
 
-<h3>(1) Work with Peano numbers.</h3>
+<h3>(1) Gioca un po' con i numeri di Peano.</h3>
 <p>
-Convert all numbers in the following expressions in Peano's notation, the calculate the results of the expression, still using only Peano's notation. Only at the end, convert results from Peano number to ordinary, base 10 number.
+Converti tutti i numeri nelle seguenti espressioni in notazione di Peano, poi calcola i risultati delle espressioni, sempre usando la notazione di Peano. Alla fine converti i risultati da numeri di Peano ai numeri ordinari, in base 10.
 <ul>
-	<li>Example <b>1+2 = ?</b>
+	<li>Esempio <b>1+2 = ?</b> Vediamo un po'...
 		<br>
 		<b> 1 &rarr; SZ 
 		<br>2 &rarr; SSZ 
@@ -947,33 +965,33 @@ Convert all numbers in the following expressions in Peano's notation, the calcul
 	<li><b>4*3 = ?</b></li>
 	<li><b>2*10+1 = ?</b></li>
 </ul>
-Be sure to use a calculator if you need to.
+Usa pure una calcolatrice se ti aiuta.
 </p>
 
-<h3>(2) Count like in the cartoons.</h3>
+<h3>(2) Conta come nei cartoni animati.</h3>
 <p>
-The characters in cartoons often have only eight fingers (four per hand). It makes sense that their abaci can only have <b>0</b> to <b>7</b> beads per spike, at any moment (instead of <b>0</b> to <b>9</b> in our case). This way of counting is known as <i>base 8</i> and it works very much like base 10 or base 2. 
+I personaggi dei cartoni animati hanno spesso solo otto dita (quattro per mano). Ha senso che i loro abachi abbiamo solo da <b>0</b> a <b>7</b> palline per asta (invece che da <b>0</b> a <b>9</b> nel nostro caso). Questo modo di contare esiste ed e' noto come <i>base 8</i> e funziona in modo molto simile alla base 10 e alla base 2.
 <br>
-To convert a number of three digits in base 8 to one in base 10 you just have to use the <i>right</i> linear combination of powers of <b>8</b>:
+Per convertire un numero di tre cifre dalla base 8 alla base 10 basta usare la <i>giusta</i> combinazione lineare di potenze di <b>8</b>:
 <span class="formula">
 a * 8<sup>2</sup> + b * 8<sup>1</sup> + c * 8<sup>0</sup> 
 </span>
-where <i>a</i>, <i>b</i>, and <i>c</i> are the three base 8 digits. (NOTE: <b>8<sup>2</sup>=64</b>, and 
+dove <i>a</i>, <i>b</i>, e <i>c</i> sono tre cifre in base 8. (NOTA: <b>8<sup>2</sup>=64</b> e 
 <b>8<sup>0</sup>=1</b>)
 <br>
-Convert the following base 8 numbers to base 10:
+Converti i seguenti numeri dalla base 8 alla base 10:
 <ul>
-	<li><b><span class="open_box">7</span></b> in base 8 is <u>&nbsp;?&nbsp;</u> in base 10</li>
-	<li><b><span class="open_box">8</span></b> in base 8 is <u>&nbsp;?&nbsp;</u> in base 10</li>
-	<li><b><span class="open_box">1</span><span class="open_box">2</span><span class="open_box">3</span></b> in base 8 is <u>&nbsp;?&nbsp;</u> in base 10</li>
-	<li>And finally, the largest number that you can write with three digits in base 8 is <b>777</b>, 
-		or <b><span class="open_box">7</span><span class="open_box">7</span><span class="open_box">7</span></b>. What is that in base 10?</li>
+	<li><b><span class="open_box">7</span></b> in base 8 e' <u>&nbsp;?&nbsp;</u> in base 10</li>
+	<li><b><span class="open_box">8</span></b> in base 8 e' <u>&nbsp;?&nbsp;</u> in base 10</li>
+	<li><b><span class="open_box">1</span><span class="open_box">2</span><span class="open_box">3</span></b> in base 8 e' <u>&nbsp;?&nbsp;</u> in base 10</li>
+	<li>E per finire, il numero di tre cifre piu' grande possibile in base 8 e' <b>777</b>, 
+		cioe' <b><span class="open_box">7</span><span class="open_box">7</span><span class="open_box">7</span></b>. Che valore ha questo numero in base 10?</li>
 </ul>
 </p>
 
 <hr>
-Solution: SUPERMAN = SPUR NAME, but also MAPS RUNE, and MA PRUNES.
-<center><a href="#top">TOP</a></center>
+Soluzione: PAGNOTTINA = GONNA PIATTI, ma anche PIGNA TONTA, e NO PIGNATTA.
+<center><a href="#top">Torna all'inizio</a></center>
 </article>
 
 <script src="js/make_links.js"></script>

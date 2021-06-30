@@ -8,9 +8,9 @@ let prepare_002_01 = (playgroundId)=>{
 	let initialValue = '0';
 	let initialValue2 = '1';
 	parentDiv.innerHTML += 
-	`Type two numbers between 0 and 999, 
+	`Scrivie due numeri tra 0 e 999, 
 	a = <input id="${inputId}" type="number" size="3" value="${initialValue}">
-	and c = <input id="${inputId2}" type="number" size="3" value="${initialValue2}">
+	e c = <input id="${inputId2}" type="number" size="3" value="${initialValue2}">
 	<div width="100%" id="${outputId}"></div>`;
 
 	let div = document.getElementById(outputId);

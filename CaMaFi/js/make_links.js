@@ -1,5 +1,4 @@
 (()=>{
-
 	
 	// add the always-on-top sidebar
 	let elemDiv = document.createElement('div');

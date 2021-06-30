@@ -53,9 +53,9 @@ let prepare_002_03 = (playgroundId)=>{
 	let initialValue1 = '7';
 	let initialValue2 = '00000111';
 	parentDiv.innerHTML += 
-	`The number 
+	`Il numero 
 	 	<input id="${inputId2}" type="text" size="8" value="${initialValue2}">
-	 in base 2 is the same as 
+	 in base 2 ha lo stesso valore di
 		<input id="${inputId1}" type="number" size="3" value="${initialValue1}">
 	 in base 10.
 	<canvas class="playground" id="${canvasId}" width="1024" height="400"></canvas>`;

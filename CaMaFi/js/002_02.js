@@ -10,7 +10,7 @@ let prepare_002_02 = (playgroundId)=>{
 	let outputId2 = playgroundId+'_6';
 	let initialValue = '7';
 	parentDiv.innerHTML += 
-	`&nbsp; Linear combination: a * 
+	`&nbsp; Combinazione lineare: a * 
 	<input id="${inputId}" type="number" size="3" value="${initialValue}">
 	+ c <i><span id="${outputId2}"></span></i>
 	<div width="100%" id="${outputId}">
@@ -59,7 +59,7 @@ let prepare_002_02 = (playgroundId)=>{
 		fixSliders(n);
 
 		document.getElementById(outputId2).innerHTML = `&nbsp; &nbsp; &nbsp; 
-		With a=${_a} and c=${_b} gives <span style="color:red">${_a*n+_b}</span>`;
+		Con a=${_a} e c=${_b} da' <span style="color:red">${_a*n+_b}</span>`;
 	}
 	let n = ~~initialValue;
 	let _a = 0, _b = 0;

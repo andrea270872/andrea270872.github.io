@@ -11,7 +11,7 @@ let prepare_002_04 = (playgroundId)=>{
 	let inputId = playgroundId+'_2';
 	let initialValue = '1,2,3';
 	parentDiv.innerHTML += 
-	`Type a list of numbers, separated by comma: <input id="${inputId}" 
+	`Scrivi una lista di numeri, separati da virgole: <input id="${inputId}" 
 		type="text" size="30" value="${initialValue}">
 	<div style="margin-left:2em;" width="100%" id="${outputId}"></div>`;
 
