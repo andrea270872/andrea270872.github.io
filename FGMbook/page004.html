@@ -19,15 +19,29 @@
 </div>
 
 <h1>Chapter 4 - Fractions or "lazy divisions"</h1>
-
-<h2>I will not calculate this division!</h2>
 <p>
-We could do like the ancient Greeks and keep divisions <i>un-calculated</i> ... or at least keep them not solved as long as posible in our calculations.
-This is known as <i>lazy evaluation</i> and it will lead us to fractions.
-<br>First let's see how we can avoid calculating divisions as long as possible in a mathematical expression. Then we can give a special syntax to an un-calculated division, ... and a better name: a fraction.
+We have found out clever ways to calculate divisions in the previous chapter, but division are still complex and long...
+<br>
+Perhaps we could do like the ancient Greeks and keep divisions <i>un-calculated</i> ... or at least keep them NOT SOLVED as long as possible in our calculations. Wouldn't it be nice to postpone division, and have to do one division at the end of each math expression? 
+This is known as a <i>lazy evaluation</i> strategy, and it can summed up by the classic school math sentence <i>"I will not calculate this division!... not right now anyways"</i>.
+<br>
+First we need to find ways to avoid calculating divisions as long as possible in a math expression. 
+For example we could say that when calculating something like <b>10+(10:2)-1</b>, we could leave 
+<b>(10:2)</b> be, and instead of replacing it with its result (which is <b>5</b> by the way), do the rest of the calculation first: 
+<span class="formula">
+  10+(10:2)-1 &rarr; (10:2)+10-1 &rarr; (10:2)+9
+</span>
+Then when you really cannot avoid it, do the division, and finish the calculation:
+<span class="formula">
+  (10:2)+9 &rarr; (5)+9 &rarr; 5+9 &rarr; 14
+</span>
+And if we think about this idea a bit more, we should be able to do even better than in this simple example.
+<br>
+OK, but then we will have un-calculated division instead of numbers in our expression, and we will have to decide how to do additions, multiplications, etc, between regular numbers and these un-calculated division things. And we might get to a point where an un-calculated division starts to feel like just another KIND of number; so we could end up seeing <b>(10:2)</b> as ANOTHER WAY to write <b>5</b>.
+When that happens, we can give a special syntax to an un-calculated division, ... and a better name: a fraction!
 </p>
 
-<h3>Procrastinate... in a while</h3>
+<h2>Procrastinate... in a while</h2>
 <p>
 Let's say that I want to AVOID calculating divisions as long as possible in a mathematical expression, for example in:
 <span class="formula">(10:2) + (20:2)</span>
@@ -39,21 +53,21 @@ The usual way to go is to first calculate the two divisions (in the two brackets
 <tr><td></td><td><b>&Downarrow; +</b></td><td></td></tr>
 <tr><td></td><td> 15 </td><td></td></tr>
 </table>
-But to delay the division as much as possible, I could try to do the addition first, then the division... if I really have to. I woudl get something like:
+But to delay calculating the division as much as possible, I could try to <b>do the addition first</b>, then the division... if I really have to. It would look like this:
 <br>
 <span style="display:inline-block;margin-left: 25em;">
 <table class="centered_table" width="33%,33%,33%">
 <tr><td>(10:2)</td><td> + </td><td>(20:2)</td></tr>
 <tr><td></td><td><b>&Downarrow; +</b></td><td></td></tr>
-<tr><td></td><td> ??? </td><td></td></tr>
+<tr><td></td><td style="color:red"> ??? </td><td></td></tr>
 </table>
 </span>
 <br>
-OK, but wait a second! How can I add to divisions, before I even calculate them?
-<br>Well, I could look at what each division means: <b>10:2</b> means "take ten sheeps and divide them equally between two of my friends", and <b>20:2</b> means "take twenty sheeps and divide them equally between the same two of my friends". The two friends will get the sum of all those sheeps, divided between them. 
+The problem is that I don't know how to proceed here...How can I ADD two divisions, before I even calculate them?
+<br>Well, I could look at what each division means: <b>10:2</b> means "take ten sheep and divide them equally between two of my friends", and <b>20:2</b> means "take twenty sheep and divide them equally between the same two of my friends". The two friends will get the sum of all those sheep, divided between them. 
 <br>
-However you calculate this, it must be that each friend gets half of thirty sheeps, right?! But that means that: <b>(10:2) + (20:2) = (10+20):2 = 30:2</b>, and this is only the case because I am dividing my sheeps among the same two friends. It would not work for something like <b>(10:2) + (20:3)</b>. 
-But back to our <i>alternative way</i> to calculate the expression:
+However you calculate this, you end with each friend getting half of thirty sheep, right?! But that means that: <b>(10:2) + (20:2)</b> is also <b>(10+20):2</b> and that is <b>30:2</b>. Good, but this works only the case because I am dividing my sheep among the SAME TWO friends. It would not work for something like <b>(10:2) + (20:3)</b>. 
+But back to our <i>alternative way</i> to calculate the expression. Now I know what to do:
 <br>
 <span style="display:inline-block;margin-left: 25em;">
 <table class="centered_table" width="33%,33%,33%">
@@ -65,29 +79,58 @@ But back to our <i>alternative way</i> to calculate the expression:
 </table>
 </span>
 <br>
-Nice! It does not matter in which order I do the calculations, I stil get the same result <b>15</b>. The advantage in the second case is that I have to do only one division, which is potentially a good, lazy way to go... and perhaps I could even avoid that one!
-Would it be wrong to say: <b>(10:2) + (20:2) = 30:2</b> and stop there, without giving the final result as <b>15</b>? Can <b>30:2</b> be considered kind of like a number by itself? Not really, mainly because it is clear that thirty is divisible by two, so I should do better than stop here, and finish my calculation.
-<br>Fine, sure. But there might be other cases where I could prefer to stop at the division, like for example <b>1:2</b>. Perhaps here it would be better to leave <b>1:2</b> as a result of some expression, instead of incomodating <b>0.5</b>, which is a broken number (see the previous <a href="page003.html">chapter</a>) and not so nice to look at anyways...
-And if I decide to go this way, I need to find out what happens with I add an un-calculated division like <b>1:2</b> to a whole number, or when I multiply it by some other number or even by another un-calculated division:
+Nice! It does not matter in which order I do the calculations, I still get the same result: <b>15</b>. The advantage in the second method is that I have to do only one division, which is potentially a good, lazy way to go... and perhaps I could even avoid that one!
+Would it be wrong to say: <b>(10:2) + (20:2) = 30:2</b> and stop there, without giving the final result as <b>15</b>? Can <b>30:2</b> be considered kind of like a number by itself? Not really, mainly because it is clear that thirty is divisible by two, so I can do better than stop here, and I should really finish my calculation.
+<br>Fine, sure. But there might be other cases where I could prefer to stop at the division.
+For example if the result of calculating an expression is <b>1:2</b>, then it might be better to leave it as un-calculated division than incommodate <b>0.5</b>, which is a broken number (see the previous <a href="page003.html">chapter</a>) and not so nice to look at anyways...
+<br>
+OK, say that we decide to go this way. We need to find out what happens when we add an un-calculated division like <b>1:2</b> to a whole number, or when we multiply it by some other number, or even by another un-calculated division:
 <ul>
   <li> <b>(1:2) + 3</b> = ? </li>
   <li> <b>(1:2) * 3</b> = ?? </li>
   <li> <b>(1:2) * (3:4)</b> = ??? </li>
 </ul>
-because so far the only thing we know is that <b>(a:b) + (c:b)</b> is equal to <b>(a+c):b</b>.
+because so far the only thing we know is that 
+<b>(<span style="color:blue">a</span>:<span style="color:green">b</span>) + (<span style="color:red">c</span>:<span style="color:green">b</span>)</b> is equal to <b>(<span style="color:blue">a</span>+<span style="color:red">c</span>):<span style="color:green">b</span></b>.
 </p>
 
 <h3>The un-calculated divisions</h3>
 <p>
-The first puzzle was <b>(1:2) + 3</b>. Unfortunately I don't have a rule for this one, and so far I only know how to add a number to another number, and an un-calculated divisions to another, but only when they are <i>similar enough</i> (which means that both divide by the same number, like <b>10:2</b> and <b>20:2</b>). 
-What can I do here? If only I could rewrite three as a division by two, then I could easily calculate the addition... So I would like to rewrite <b>3</b> as <b>something:2</b>, but there is a number like that, it is <b>6</b>. Remember our idea that in mathematics we keep going back to the fact that the same meaning can be expressed in many ways (semantics versus syntax) and <b>3</b> is actually also <b>6:2</b>, or <b>9:3</b> by the way. Following this line of thought I can say that any whole number <b>m</b> is also equal to (AKA has the same meaning as) any un-calculated division that looks like <b>(m*n):n</b>, provided that <i>n</i> is not zero, which would create problems with the division.
-<br>OK, good, so the trick here could be:
-<span class="formula">(1:2) + <span style="color:blue;">3</span>
-  &rarr; (1:2) + <span style="color:blue;">((<span style="color:red;">3*2</span>):2)</span> 
-        = (1:2) + <span style="color:blue;">(<span style="color:red;">6</span>:2)</span> </span>
+The first puzzle is <b>(1:2) + 3</b>. Unfortunately I don't have a rule for this one, and so far I only know how to add a number to another number, and an un-calculated divisions to another, but only when they are <i>similar enough</i> (which means that both divide by the same number, like <b>10:2</b> and <b>20:2</b>). 
+What can I do here? 
+<br>
+If only I could rewrite that lonely <b>3</b> as <i>something divide by two</i>, then I would get:
+<span class="formula">
+ (1:2) + 3 &rarr; (1:2) + (something:2)
+</span>
+and I could easily calculate the addition of the two divisions... 
+<br>
+So we need to find a way to rewrite <b>3</b> as <b>something:2</b>. 
+We can go back to our idea that in math the same meaning can be expressed in many ways (semantics versus syntax), and <b>3</b> is actually also <b>6:2</b>, or <b>9:3</b>, or any division like:
+<span class="formula">
+ (3*n):n
+</span>
+where <i>n</i> can be any number you like, just not zero.
+
+<p>
+Even more in general, we can say that ANY whole number <i>m</i> is also equal to (AKA has the same meaning as) any un-calculated division that looks like <b>(m*n):n</b> (provided that <i>n</i> is not zero, which would create problems with the division).
+</p>
+
+OK, good, so the trick here is rewrite <b>3</b> as a <i>fake</i> division by two:
+<span class="formula">(1:2) + <span style="color:blue;">3</span> &rarr; 
+<br>
+(1:2) + <span style="color:blue;">((<span style="color:red;">3*2</span>):2)</span> =
+<br>
+(1:2) + <span style="color:blue;">(<span style="color:red;">6</span>:2)</span> </span>
 </p>
 and now I can use my rule for adding un-calculated divisions:
-<span class="formula">(1:2) + 3 = (1:2) + (6:2) = (1+6):2 = 7:2</span>
+<span class="formula">
+  (1:2) + (6:2) =
+<br> 
+  (1+6):2 = 
+<br>
+  7:2
+</span>
 which eventually would be <b>3.5</b>.
 <br>But is this the correct result? Let's see with a <i>calculation diagrams</i>:
 
@@ -111,37 +154,61 @@ which eventually would be <b>3.5</b>.
   </table>
   </td></tr>
 </table>
-good! So what is the rule in general?
-<span class="formula">(a:b) + n = (a:b) + ((n*b):b) = (a + n*b):b </span>
-with <i>a</i>, <i>b</i>, and <i>n</i> being whole numbers, and possibly <i>b</i> different from zero.
+good! So what is the rule in general? It must be:
+<span class="formula">
+  (<span style="color:blue;">a</span>:<span style="color:green;">b</span>) + <span style="color:red;">n</span> &rarr;
+<br>
+  (<span style="color:blue;">a</span>:<span style="color:green;">b</span>) + ((<span style="color:red;">n</span>*<span style="color:green;">b</span>):<span style="color:green;">b</span>) &rarr;
+<br>
+  (<span style="color:blue;">a</span> + <span style="color:red;">n</span>*<span style="color:green;">b</span>):<span style="color:green;">b</span>
+</span>
+with <span style="color:blue;"><i>a</i></span>, 
+<span style="color:green;"><i>b</i></span>, and 
+<span style="color:red;"><i>n</i></span> being any three whole numbers, with 
+<span style="color:green;"><i>b</i></span> different from zero.
 
 <p>
-The second expression <b>(1:2) * 3</b> is a bit easier, because we could try to read the multiplcation as repetition (like we did in <a href="page002.html">chapter 2</a>): 
+The second expression <b>(1:2) * 3</b> is a bit easier, because if we read the multiplication as repetition (like we did in <a href="page002.html">chapter 2</a>), we get: 
 <i>"3 times something is just something added to something added to something"</i>, 
 which translates to the mathematical expression:
-<span class="formula">(1:2) * 3 = (1:2) + (1:2) + (1:2)</span>
-and I have a way to do additions between un-calculated divisions, two by two:
-<span class="formula">(1:2) + (1:2) = (1+1):2</span>
-<span class="formula">(1:2) + (1:2) + (1:2) = (1+1):2 + (1:2) = (1+1+1):2</span>
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+(1:2) * 3 = (1:2) + (1:2) + (1:2)
+</span>
+And we have already a way to do additions between un-calculated divisions, two by two:
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+  <span style="color:blue">(1:2) + (1:2)</span> = 
+  <span style="color:#099">(1+1):2</span>
+</span>
+But here we have three to add, so we get:
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+  <span style="color:blue">(1:2) + (1:2)</span> + (1:2) = 
+  <span style="color:#099">(1+1):2</span> + (1:2) =
+     (<span style="color:#099">1+1</span>+1):2</span>
 and in a more general case, with <i>n</i> being any whole number:
 <span class="formula">(1:2) * n = <span data-bracket="n times">(1:2) + ... + (1:2)</span> = 
 (<span data-bracket="n times">1+...+1</span>):2 = (1*n):2</span>
 <br>
-OK, so in general I have a rule like:
+OK, so I think we have a rule here, and it says:
 <span class="formula">(a:b) * n = (a*n):b </span>
 which looks right, considering our examples so far.
 <br>
-Interestingly, this last rule reminds of the the inverse relation between multiplcation and division. 
+<br>
+Interestingly, this last rule shows <i>inverse relation</i> between multiplication and division. 
 Let's take for example <b>2</b>, and a division like <b>1:2</b>; if I multiply them I get <b>1</b>, because:
-<span class="formula">(1:2) * 2 = (1*2):2 = 1 </span>
-and this is true for any whole number (excluding zero, which works very badly with divisions). So I can write a general property of multiplcation (and division) that says:
-<span class="formula">(1:n) * n = 1 </span>
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+(1:2) * 2 &rarr; (1*2):2 &rarr; 1 
+</span>
+and this is true not just for <b>2</b> and <b>1:2</b>, but for ANY whole number (excluding zero, which works very badly with divisions!). 
+So I can write a general property of multiplication (and division) that says:
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+  (1:n) * n = 1 
+</span>
 for any number <i>n</i> (just not zero). 
 In our example here, <i>n</i> is <b>2</b> and <b>1:n</b> is <b>0.5</b>, so in mathematical jargon I could say that the number <b>0.5</b> is the <i>inverse</i> of the number <b>2</b>, because <b>0.5 * 2 = 1</b>!
 </p>
 
 <p>
-So far so good. Now, the third expression is: <b>(1:2) * (3:4)</b>. Well... I find this one very difficult to see. How can I read it so it even makes sense? And how could I rewrite it in the hope to solve it?
+So far so good. Now, the third expression is: <b>(1:2) * (3:4)</b>. Well... I find this one very difficult to see. How can I read it so it even makes sense? And how could I rewrite it in the hope of finding its result?
 <br>
 I might try with one of my nice calculation diagrams: on the left I do first the divisions and then the addition, and on the right I try to do the opposite...
 <table cols="2" width="100%">
@@ -158,46 +225,44 @@ I might try with one of my nice calculation diagrams: on the left I do first the
     <table class="centered_table" width="33%,33%,33%">
     <tr><td>(1:2)</td><td> * </td><td>(3:4)</td></tr>
     <tr><td></td><td><b>&Downarrow; *</b></td><td></td></tr>
-    <tr><td></td><td>?</td><td></td></tr>
+    <tr><td></td><td> <span style="color:red">?</span> </td><td></td></tr>
   </table>
   </td></tr>
 </table>
 
 <br>
-<div style="border-width:1px;border-color:lightgray;border-style:solid none solid solid;padding-left:.5em;">
-Let's stop for a second and re-consider a simpler case, for example: <b>5 * (3:4)</b>. The most direct way to calculate this is to do the division first, then the multipilcation: 
-<span class="formula">5 * (3:4) = 5 * 0.75 = 3.75</span>
+Well, I know from a bit before, than 
+<b>(<span style="color:blue">a</span>:<span style="color:green">b</span>)*<span style="color:red">c</span> = 
+  (<span style="color:blue">a</span>*<span style="color:red">c</span>):<span style="color:green">b</span>
+</b>, so I can surely use that here:
 
-In fact, thanks to the properties of multiplication and division, the brackets can be taken off, and the expression should be exactly the same (AKA it should mean the same, but look different!):
-<span class="formula">5 * (3:4) = 5 * 3 : 4 = (5*3) : 4 = 15:4 = 3.75</span>
-which gives the same result.
-So, trusting that this is true in general, I could make up a rule like this:
-<span class="formula">a * (b:c) = a * b : c = (a*b):c </span>
-which again is totally reasonable, remembering the properties of multiplication, and what we did before for <b>(1:2) * 3</b>, that can also be written <b>3 * (1:2)</b>.
-</div>
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+      (<span data-bracket="a">&nbsp;<span style="color:blue">1</span>&nbsp;</span>:<span data-bracket="b">&nbsp;<span style="color:green">2</span>&nbsp;</span>) * 
+        (<span data-bracket="c"><span style="color:red">3:4</span></span>) = 
 
+      (<span data-bracket="a">&nbsp;<span style="color:blue">1</span>&nbsp;</span>* (<span data-bracket="c"><span style="color:red">3:4</span></span>) ) : 
+      <span data-bracket="b">&nbsp;<span style="color:green">2</span>&nbsp;</span>
+</span>
 <br>
-So now that I am convinced that <b>a*(b:c) = (a*b):c</b>, I can try to use it on my expression 
-<b>(1:2) * (3:4)</b>, where <i>a</i> will be the entire first bracket <b>(1:2)</b>! If I do that I should get:
-<span class="formula"><span data-bracket="a">(1:2)</span> * 
-              (<span data-bracket="b">3</span>:<span data-bracket="c">4</span>) = 
-              ( <span data-bracket="a">(1:2)</span> 
-              *<span data-bracket="b">3</span> ):<span data-bracket="c">4</span> 
-</span><br>
-
-But <b>( <span style="color:blue;">(1:2) * 3</span> ):4</b> is made of two parts: 
-<span style="color:blue;"><b>(1:2) * 3</b></span> and <b>(<span style="color:blue;">smtg</span>):4</b>. The first part is a known kind of expression, <b>(a:b) * n = (a*n):b</b>, or if your prefer it is the multiplication of a whole number by an un-calculated division, so I know what to do:
-<span class="formula"><span style="color:blue;">(1:2) * 3</span> = 
-  <span style="color:blue;">(1*3):2</span> = 
-  <span style="color:blue;">3:2</span></span>
-and the second part becomes:
-<span class="formula">(<span style="color:blue;">smtg</span>):4 = 
-    (<span style="color:blue;">3:2</span>):4</span>
-... and I'm stuck again. What is the meaning of <b>(3:2):4</b>? I'm dividing 3 by 2 and the result by 4, right?! But what does it the mean, what situation is this division of division describing?
+Good, now the first part simplifies like this: 
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+      (&nbsp;<span style="color:blue">1</span>&nbsp;* (<span style="color:red">3:4</span>) ) = 
+      (<span style="color:red">3:4</span>)
+</span>
+because <b>1*something</b> is just the <b>something</b>, anywhere in math. And also because 
+<b>(a:b) * n = (a*n):b</b>, and <b>(a:b) * n</b> is the same as <b>n * (a:b)</b>, which is what we have here.
 <br>
-OK, let's say I take a flock of sheeps and divide them between 2 friends. Then I take whatever each friend got and divide that among four relatives; how many sheeps will each one of the four relatives get?
+So I'm left with:
+<span class="formula" style="margin-bottom:.5em">
+      (<span style="color:red">3:4</span>):<span style="color:green">2</span>
+</span>
+... and I'm stuck again. What is the meaning of <b>(3:4):2</b>? 
 <br>
-Or if your prefer the "classic" cake example: take one cake, cut it in two. Then cut each half in four parts... how small is each of the resulting slices?
+I'm dividing <b>3</b> by <b>4</b> and the result again by <b>2</b>, right?! But what does it the mean, what situation is this <i>division of division</i> describing?
+<br>
+OK, let's say I take a flock of sheep and divide them between <b>4</b> friends. Then each friend  takes whatever she's got and divides that among <b>2</b> relatives. How many sheep will each one of the relatives get?
+<br>
+Or if your prefer the "classic" cake example: take one cake, cut it in four pieces. Then cut each piece in two slices... how small is each of the resulting slices?
 </p>
 <p>
   <div class="playground" id="playground1"></div>
@@ -206,16 +271,21 @@ Or if your prefer the "classic" cake example: take one cake, cut it in two. Then
 </p>
 
 <p>
-When you think about this kind of problems for a while your will realize that surely the order in which you divide is NOT IMPORTANT, what counts is the overall effect. So dividing by <b>2</b> and then by <b>4</b> has to be the same as dividing by <b>4</b> first and by <b>2</b> later!
-After all, if I divide a cake in two and each half in four, I will get <b>2*4 = 8</b> slices, and each will be one eighth of the whole cake.
+When you think about this kind of problems for a while your will (... possibly get a headache, then...) realize that surely the order in which you divide is NOT IMPORTANT, what counts is the overall effect. So dividing by <b>4</b> and then by <b>3</b> has to be the same as dividing by 
+<b>2</b> first and by <b>4</b> later!
+After all, if I divide a cake in four and each fourth in halves, I will get <b>2*4 = 8</b> slices, and each will be <i>one eighth</i> of the whole cake.
 <br>
-And if that is true, then I can finish my calculation: <b>(3:2):4 = (3:4):2</b> and they are both equal to 
-<b>3:(2*4) = 3:8</b>. And in fact all three expressions have the same result: <b>0.375</b>.
+And if that is true in general, not just with these particular numbers, then I can finish my calculation. Because <b>(3:4):2 = (3:2):4</b> and they are both equal to 
+<b>3:(4*2)</b>, which gives <b>3:8</b>. And in fact all three expressions have the same result: <b>0.375</b>.
 <br>So putting it all together:
-<span class="formula">(1:2) * (3:4) = ( (1:2) *3 ):4 = ( (1*3):2 ):4 = 
-  <br> ( 3:2 ):4 = 3:( 2*4 ) = 3:8 = 0.375</span>
+<span class="formula">
+     (1:2) * (3:4) &rarr; 
+<br> ( 1*(3:4) ) : 2 &rarr;
+<br> (3:4) : 2 &rarr;
+<br> 3:( 4*2 ) = 3:8 = 0.375
+</span>
 
-Hence, the diagram becomes:
+Hence, our diagram becomes:
 <table cols="2" width="100%">
   <tr><td valign="top">
     <table class="centered_table" width="33%,33%,33%">
@@ -236,24 +306,37 @@ Hence, the diagram becomes:
   </table>
   </td></tr>
 </table>
-and since the diagrams gives the same result no matter which order I follow to calculate, it should mean that the two ways are equivalent. I might be wrong, but let's try to write a general rule for these kinds of expressions:
-<span class="formula">(a:b) * (c:d) = (a*c) : (b*d)</span>
-which by the way looks kind of cool! Just move some of the variables and swap the operation signs... Cool. 
+and since the diagrams gives the same result no matter which order I follow to calculate, it should mean that the two ways are EQUIVALENT. And with that in mind, I can try to write a general rule for these kinds of expressions:
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+  (<span style="color:blue">a</span>:<span style="color:green">b</span>) * 
+    (<span style="color:red">c</span>:<span style="color:darkorange">d</span>) 
+  = 
+  (<span style="color:blue">a</span>*<span style="color:red">c</span>) :
+    (<span style="color:green">b</span>*<span style="color:darkorange">d</span>)
+</span>
+which by the way looks kind of cool. Just SWAP the variables and SWAP the operations... cool! 
+<br>
 <br>
 But can I trust that it is true for any numbers <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> (eventually remembering that <i>b</i> and <i>d</i> cannot be zero)?
-<br>Well, one way could be to check that it works when b and d are equal to one, because in that case we are not really dealing with divisions anymore, so we should know what to expect. Let's see:
-<span class="formula">(a:1) * (c:1) = (a*c) : (1*1)</span>
-in other words: <b>a*c = a*c</b> which is surely correct! Good, so our rule at least does not make mistakes when numbers are involved, instead of actualy divisions. Nice.
-<br>But to build some confidence that the rule is true in general, let's play with the plaground below, change the values of <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>, and see if the two ways to write the same thing always agree, which means that hopefully <b>(a:b) * (c:d)</b> will always give the same result as 
+<br>Well, at the very least we should check that it works when <i>b</i> and <i>d</i> are equal to 
+<b>1</b>, because in that case we are not really dealing with divisions anymore, but with numbers, so we should know what to expect. Let's see:
+<span class="formula" style="margin-top:.5em;margin-bottom:.5em">
+  (a:1) * (c:1) = (a*c) : (1*1)
+</span>
+in other words we get <b>a*c = a*c</b> which is surely correct! Good, so our rule at least does not make mistakes when numbers are involved (instead of actual divisions). Nice.
+<br>But to build some confidence that the rule is true in general, let's play with the playground below, change the values of <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>, and see if the two ways to write the same thing always agree, which means that hopefully <b>(a:b) * (c:d)</b> will always give the same result as 
 <b>(a*c) : (b*d)</b>. See if you can find a counter-example!
 </p>
 
 <p>
-<span class="task">Use this playground to test the hypothesis that <b>(a:b) * (c:d) = (a*c) : (b*d)</b>
+<span class="task">Use this playground to test the hypothesis that 
+  <b>(a:b) * (c:d) = (a*c) : (b*d)</b>
 is always true.
 <br>Try for example with: (10:2) * (16:4) , which is <b>5*4</b> and should give <b>20</b> no matter how you calculate it.
 <br>You can also stress-test the playground, using the "random" button, to try different, randomly created
-values for <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>. At what point to you start believing that the rule is always true?
+values for <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>. 
+<br>
+At what point to you start believing that the rule is always true?
 </span> 
 
   <div class="playground" id="playground2"></div>
@@ -267,19 +350,45 @@ values for <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>. At what point to you start
 OK, that was a bit too long... What about a more direct, more visual way to understand what 
 <b>(a:b) * (c:d)</b> means and how to calculate it?
 <br>
-Sure, we can try with geometry. First we make up a way to draw a division, as a series of regular cuts in a rectangle, then we reason on the geometry of this representation of divisions. Finally, we can try to see what happens when we multiply two of these cuts together...
+In math, when you get lost, it's often a good idea to try looking at geometry, you know, draw stuff... (yet another take on the idea of multiple ways to express the same thing).
+<br>
+First we make up a way to draw a division, as a process of cutting slices from a rectangle, then we reason on the geometry of this representation of divisions. Finally, we can try to see what happens when we multiply two of these slices together...
 
 For example, let's consider again: <b>(1:2) * (3:4)</b>. In particular I could take 
-<span style="color:green;"><b>1:2</b></span> and draw it as half of a square (see below). Then I can draw 
-<span style="color:blue;"><b>1:2</b></span> as three parts out of four, in a similar square.
+<b style="color:blue;">1:2</b> and draw it as <b>half</b> of a square (see below). 
+Any size square would do really, but here I choose a square with side <b>4</b> because it is small, yet large enough for dividing it up a few times. You can also do this with a <i>continuous</i> square, a play-dough square for example, instead of one made of dots (like I have); that would make it even simpler to imagine cutting slices out of it, because you will never get in a situation where you have to cut a dot in half. Anyways, I can now move to the 
+<b style="color:green;">3:4</b> division: in this situation "<b>3</b> divided <b>4</b>" means that I need to cut a slice that is three parts out of four, in a similar square.
 <div>
+
+  <canvas id="canvas1_a"></canvas>
+  <script>boxGen('canvas1_a',{size:[4,4],borders:[
+    [0,0,4,1,"black",1],
+    [0,1,4,2,"black",1],
+    [0,2,4,3,"black",1],
+    [0,3,4,4,"black",1],
+    [0,0,4,2,"blue",4],
+  ]})</script>
+
+  <span style="position:relative;top:-2em;">and</span>
+
+  <canvas id="canvas2_a"></canvas>
+  <script>boxGen('canvas2_a',{size:[4,4],borders:[
+    [0,0,1,4,"black",1],
+    [1,0,2,4,"black",1],
+    [2,0,3,4,"black",1],
+    [3,0,4,4,"black",1],
+    [1,0,4,4,"green",4],
+  ]})</script>
+
+  <span style="position:relative;top:-2em;">&nbsp; &nbsp; &rarr; &nbsp; &nbsp;</span>
+
   <canvas id="canvas1"></canvas>
   <script>boxGen('canvas1',{size:[4,4],borders:[
     [0,0,4,1,"black",1],
     [0,1,4,2,"black",1],
     [0,2,4,3,"black",1],
     [0,3,4,4,"black",1],
-    [0,0,4,2,"green",4],
+    [0,0,4,2,"blue",4],
   ]})</script>
 
   <span style="position:relative;top:-2em;">*</span>
@@ -290,7 +399,7 @@ For example, let's consider again: <b>(1:2) * (3:4)</b>. In particular I could t
     [1,0,2,4,"black",1],
     [2,0,3,4,"black",1],
     [3,0,4,4,"black",1],
-    [1,0,4,4,"blue",4],
+    [1,0,4,4,"green",4],
   ]})</script>
 
   <span style="position:relative;top:-2em;">=</span>
@@ -305,12 +414,29 @@ For example, let's consider again: <b>(1:2) * (3:4)</b>. In particular I could t
 
     [1,1,4,1,"black",1],
 
-    [1,0,4,2,"blue",4],    
+    [1,0,4,2,"red",4],    
   ]})</script>
 
 </div>
-Since the square is four by four, we are really looking at <b>16 * (1:2)</b> and <b>16 * (3:4)</b>, and to the right (in the figure above) the square that repesents <b>16 * (1:2) * (3:4)</b>, which looks very much like <b>16:2 = 8</b> and then <b>(8*3):4 = 24:4 = 6</b>, and in fact the blue rectangle to the right in the figure above has six dots. 
-I could try to first calculate <b>16 * (3:4)</b>, and then divide by two...
+Since the square is four by four, we are really looking at 
+<b style="color:blue">16 * (1:2)</b> and 
+<b style="color:green">16 * (3:4)</b>, and to the right (in the figure above) the square that represents 
+<b style="color:red">16 * (1:2) * (3:4)</b>. Now, the first slice has an area of <b style="color:blue">(16*1):2 = 8</b> dots, and 
+the second is <b style="color:green">(16*3):4 = 48:4 = 12</b> dots. And I can see VISUALLY that it is so (in the squares above). What is the area of red rectangle on the far right (above)? I can SEE that it is <b>6</b>, but then <b style="color:red">16 * (1:2) * (3:4)</b> must be <b>6</b>; let's see if that is true:
+<span class="formula">
+  <u>16 * (1:2)</u> * (3:4) &rarr;
+<br>
+  (16*1):2 * (3:4) = <u>8 * (3:4)</u> &rarr;  
+<br>
+  (8*3):4 = 24:4 = <span style="color:red">6</span>
+</span><br>
+
+... and it is true. Great. 
+<br>
+As we usually do, let's change the perspective, and look at the SAME squares but calculating the operations in a different order. If we get the same result, it means that probably the operations can be applied in any order!
+<br>
+So now I want to try to first calculate <b>16 * (3:4)</b>, and then multiply by <b>1:2</b>, 
+AKA divide by two... Starting from the same four by four square, I get:
 <div>
     <canvas id="canvas4"></canvas>
   <script>boxGen('canvas4',{size:[4,4],borders:[
@@ -343,18 +469,21 @@ I could try to first calculate <b>16 * (3:4)</b>, and then divide by two...
     
     [0,1,3,1,"black",1],
 
-    [0,0,3,2,"green",4],
+    [0,0,3,2,"red",4],
   ]})</script>
 </div>
-The figure above shows the four by four square where I first calculate <b>3:4</b>, then on the remaining area I divide by two: <b>16 * (3:4) * (1:2)</b>, and I get <b>(16*3):4 = 48:4 = 12</b> and then <b>12:2 = 6</b>, and in fact the green rectangle to the right of the figure above has six dots. 
+and the area of the red rectangle is <b>16 * (3:4) * (1:2)</b> this time; the calculation here is first <b>(16*3):4 = 48:4 = <u>12</u></b>, and then <b><u>12</u>:2 = <span style="color:red">6</span></b> dots. Visually I can see that the red rectangle to the right in the figure above, really has an area of six dots. 
 
 <br>
-And six is just what our rule would give as a result: 
-<span class="formula">(a:b) * (c:d) = (a*c) : (b*d)</span>
-<span class="formula">(1:2) * (3:4) = (1*3) : (2*4) = 3:8</span>
-and
-<span class="formula">16 * (3:8) = (16*3) : 8 = 48:8 = 6</span>
-... bingo! I think.
+And six is exactly the result I would have gotten, if I used our rule from the previous section: 
+<span class="formula">
+  (a:b) * (c:d) = (a*c) : (b*d) &rarr;
+<br>  
+  (1:2) * (3:4) = (1*3) : (2*4) = 3:8 &rarr;
+<br>  
+  16 * (3:8) = (16*3) : 8 = 48:8 = 6
+</span>
+... bingo!
 
 </p>
 <h3>Enter the fraction</h3>
@@ -363,13 +492,15 @@ I know now that I can be <i>lazy</i> when calculating divisions, and instead I c
 <br>
 Since an un-calculated division like <b>7:2</b> is just two numbers grouped together, I can decide to write it down as: 
 <span class="open_box">7</span><span class="open_box">2</span>
-and remember that what I mean is "the first number divide by the second". This <i>box notation</i> can be useful later when I want to write down the rules for working with these un-calculated divisions.
+and remember that what it means is <i>"the first number divided by the second"</i>. This <i>box notation</i> can be useful to follow the way the rules for adding and multiplying divisions work.
 <br>
-Boxes are fine, but I would like to treat something like <b>a:b</b> as a single thing, as an actual number. So why not giving this things a <i>special syntax</i>... and a better name? How about calling an un-calculated divison <i>a fraction</i>?!
+Using two boxes to represent one un-calculated division is fine, but I would like to treat something like <b>a:b</b> as a SINGLE THING, as an actual number. So why not giving this things a <i>special syntax</i>... and a better name? How about calling an un-calculated division <i>a fraction</i>?!
 <br>
-OK,fine. Now: to work as if a fraction was a number, I have to define how to add, multiply (and perhaps also subtract and divide) fractions with other fractions. Luckily we just did that in this chapter, only that we did it writing fractions as un-calculated divisons. 
+If you accept that, then <b>a:b</b> can be written as <span class="frac"><sup>a</sup><sub>b</sub></span>, the way we all did in school.
 <br>
-If I rewrite the rules we found with the syntax of fractions, I get:
+OK,fine. Now: to work as if a fraction was a number, I have to define how to add, multiply (and perhaps also subtract and divide) fractions with other fractions. Luckily we just did that in this chapter, only that we did it writing fractions as un-calculated divisions. 
+<br>
+If I rewrite the rules we found with the syntax of fractions (and boxes), I am sure they will be more familiar, and perhaps even bring back school math memories:
 <ul>
   <li>
     <b>
@@ -415,7 +546,7 @@ If I rewrite the rules we found with the syntax of fractions, I get:
     <span class="frac"><sup>3</sup><sub>8</sub></span> 
     </b>
     <br>
-    Witht the boxes: 
+    With the boxes: 
     <span class="open_box">1</span><span class="open_box">2</span>*<span class="open_box">3</span><span class="open_box">4</span> = 
     <span class="open_box">1*3</span><span class="open_box">2*4</span> = 
     <span class="open_box">3</span><span class="open_box">8</span>
@@ -427,9 +558,9 @@ If I rewrite the rules we found with the syntax of fractions, I get:
 Fine, but I also have to ask the usual question: is there a <i>normal form</i> for a fraction and what are the possible transformations that would change how it looks but not what it means?
 <br>
 Let's start with our friend un-calculated division <b>1:2</b> and write it as a fraction: 
-<span class="frac"><sup>1</sup><sub>2</sub></span>. What is means is: <i>"a division between two numbers, where the dividing number (at the bottom of the fraction) is <b>two times</b> as large as the number being divided (the one on the top of the fracton)"</i>.
+<span class="frac"><sup>1</sup><sub>2</sub></span>. What is means is: <i>"a division between two numbers, where the dividing number (at the bottom of the fraction) is <b>two times</b> as large as the number being divided (the one on the top of the fraction)"</i>.
 We know that if calculated, the division <b>1:2</b> is the number <b>0.5</b>.
-And putting these two things together one could ask: are the other ways to write the same fraction?
+And putting these two things together one could ask: are there other ways to write the same fraction?
 Answer: you bet!
 <br>
 For example <span class="frac"><sup>10</sup><sub>20</sub></span> is also <b>10:20 = 0.5</b> and that means it is ALSO a way to write <span class="frac"><sup>1</sup><sub>2</sub></span>. Let's see a few other examples:
@@ -441,23 +572,29 @@ For example <span class="frac"><sup>10</sup><sub>20</sub></span> is also <b>10:2
   <span class="frac"><sup>0.1</sup><sub>0.2</sub></span> ,  
   <span class="frac"><sup>0.5</sup><sub>1</sub></span> ,
   <span class="frac"><sup>-1</sup><sub>-2</sub></span> ,
-  <span class="frac"><sup>-2</sup><sub>-4</sub></span> , ... ,
-  <span class="frac"><sup>SZ</sup><sub>SSZ</sub></span> , ...
+  <span class="frac"><sup>-2</sup><sub>-4</sub></span> , ... 
 </span>
 
-OK, so ALL of these fractions ARE <span class="frac"><sup>1</sup><sub>2</sub></span>: so to be 
-<span class="frac"><sup>1</sup><sub>2</sub></span> you just need to be a fraction with some number on top and double as much at the bottom. And by "ten twentieth IS one half" here we mean: if you were to do the division, you will get the SAME result; we are talking about same meaning (semantics), even if the look (syntax) can be very different.
+OK, so ALL of these fractions ARE <span class="frac"><sup>1</sup><sub>2</sub></span>, because 
+any fraction with some number on top and double as much at the bottom is 
+<span class="frac"><sup>1</sup><sub>2</sub></span>. 
+And by "ten twentieth IS one half" here we mean: if you were to do the division, you will get the SAME result; we are talking about same meaning (semantics), even if the look (syntax) can be very different.
 <br>
 Sure. But can I choose one way to write <span class="frac"><sup>1</sup><sub>2</sub></span> as "the official representative of the <i>one half</i>-ness"? That would be the normal form for that fraction.
-For me a normal form should be a simple, possibly beautiful way to write something, not too weird and that kind of conveys the meaning as clearly as possible.
-Here, <span class="frac"><sup>1</sup><sub>2</sub></span> seems the simplest way to write this fraction: it has after all the smallest two numbers of all the others. Well, that is not entirely true: 
-<span class="frac"><sup>0.1</sup><sub>0.2</sub></span> has smaller numbers, but... they are uglier! Mainly because of the broken numbers. So perhaps the principle here could be: the normal form of a fraction should be a fraction with the same meaning (AKA the "same" fraction), but with the two smallest possible whole numbers. That gives me simple AND beautiful (or at least "not too ugly"). 
 <br>
-<i>Note: surely I also need a fraction to never have the bottom number equal to zero, because a fraction
-is just a lazy division, and we know from the previous chapter that dividing by zero does not make sense.</i>
+In math a normal form should be a simple, possibly <i>elegant</i> way to write something, not too weird and that kind of conveys the meaning as clearly as possible.
+Here, <span class="frac"><sup>1</sup><sub>2</sub></span> seems the simplest way to write this fraction: it has after all the smallest two numbers of all the other candidates. 
 <br>
-OK, let's say that my definition of what a normal form is, makes sense. How do I check that a fraction is in normal form? And what can I do to bring a fraction to its normal form, in case it was not?
-<br>I can go back and try to find similarities among all the ways to write <span class="frac"><sup>1</sup><sub>2</sub></span>. In fact they all look like:
+Well, that is not entirely true: 
+<span class="frac"><sup>0.1</sup><sub>0.2</sub></span> has smaller numbers, but... they are UGLIER! Mainly because of the broken numbers. So perhaps the principle here could be: the normal form of a fraction should be a fraction with the same meaning (AKA the "same" fraction), but with the two smallest possible WHOLE numbers. That gives me "simple and elegant" (or at least "not too ugly"). 
+
+<p>
+<i>Note: surely I also need a fraction to never have the bottom number equal to zero, because a fraction is just a lazy division, and we know from the previous chapter that dividing by zero does not make sense. But I don't need to specify that in the definition of the normal form, because a fraction like <span class="frac"><sup>something</sup><sub>0</sub></span> is not a fraction to start with, so it cannot be in normal form for sure.</i>
+</p>
+
+OK, let's say that my definition of what a normal form is, makes sense. How do I check that a fraction is in normal form? And what can I do to bring a fraction to its normal form, in case it is not?
+<br>
+Well, I can go back and try to find similarities among all the ways to write <span class="frac"><sup>1</sup><sub>2</sub></span>. In fact they all look like:
 <span class="formula">
   <span class="frac"><sup>k * 1</sup><sub>k * 2</sub></span>
 </span>
@@ -468,24 +605,24 @@ when <b>k=3 &rarr; <span class="frac"><sup>3</sup><sub>6</sub></span></b>, and
 when <b>k=0.1 &rarr; <span class="frac"><sup>0.1</sup><sub>0.2</sub></span></b>, and finally
 when <b>k=-1 &rarr; <span class="frac"><sup>-1</sup><sub>-2</sub></span></b>.
 <br>
-Fine, this is an interesting property of fractions: <i>"a fraction stays the same if I multiply the top and bottom numbers by the same value"</i> (provided that value is NOT zero). And this property makes sense also looking at a fraction as a division, so no suprises there: in fact <b>1:2 = (1*5):(2*5) = 5:10 = 0.5</b>.
+Fine, this is an interesting property of fractions: <i>"a fraction stays the same if I multiply the top and bottom numbers by the same value"</i> (provided that value is NOT zero). And this property makes sense also looking at a fraction as a division, so no surprises there: in fact <b>1:2 = (1*5):(2*5) = 5:10 = 0.5</b>.
 </p>
 
 <p>
 Moral of the story so far: "<span class="frac"><sup>1</sup><sub>2</sub></span>" is really the <i>name</i> of any fraction in the infinite family of fractions that are THE SAME as <b>1:2</b>. 
 I can write the same fraction <span class="frac"><sup>a</sup><sub>b</sub></span>
 in infinitely many other ways, but they will all look like 
-<span class="frac"><sup>k * a</sup><sub>k * b</sub></span>, for some number <i>k</i>.
+<span class="frac"><sup>k * a</sup><sub>k * b</sub></span>, for some number <i>k</i> different from zero.
 </p>
 
-<h2>Special fractions and the <i>zoom</i> transformation</h2>
+<h2>Special fractions and the ZOOM transformation</h2>
 <p>
-I think that some fractions are special, for example: <span class="frac"><sup>5</sup><sub>1</sub></span>
+I think we should consider some fractions as <i>special</i>, for example: <span class="frac"><sup>5</sup><sub>1</sub></span>
 is a fraction but looks suspiciously like a normal whole number. 
-And in fact if I look at it as a lazy division, it must be the same as <b>5:1 = 5</b>, so a fraction with one at the bottom is a whole number. 
+And in fact if I look at it as a lazy division, it must be the same as <b>5:1 = 5</b>, so <b>a fraction with one at the bottom is a whole number</b>! 
 <br>
 Good, and what about <span class="frac"><sup>8</sup><sub>2</sub></span>? Surely that is four!
-But it is also fraction... not in normal form though. If I wanted to simplify this fraction, I could try to see it as something of the form: <span class="frac"><sup>k * a</sup><sub>k * b</sub></span>.
+But it is also a fraction... not in normal form though. If I wanted to simplify this fraction, I could try to see it as something of the form: <span class="frac"><sup>k * a</sup><sub>k * b</sub></span>.
 Or if you like, I can try to divide both top and bottom numbers by the same (whole) number and see if I get simpler (but still whole) values for both:
 <span class="formula">
   <span class="frac"><sup>8</sup><sub>2</sub></span> &rarr; I try with 2 and get  
@@ -501,12 +638,12 @@ A different way to see this process of simplification is to rewrite top and bott
 and then remove common factors from the top and the bottom at the same time. 
 Interestingly, that means that the simplification of a fraction stops when the two numbers (top and bottom) no longer have any common prime factors. In math they say that the two numbers are <i>co-primes</i>, or that they are <i>prime with respect to each other</i>.
 <br>
-So some fractions are really whole numbers, and other fractions can <i>look</i> like fractions but are really simpler fractions or even whole numbers as well.
+So some fractions are really whole numbers, and other fractions can <i>look</i> like fractions but are really simpler fractions or even whole numbers.
 
 <a class="appendix_note" href="appendixA.html#appendixA02">Proper, improper and apparent fractions</a>
 
 
-Interestingly at this point we have also worked with a transformation of fractions that changes the look but leaves the meaning unchanged: 
+Interestingly, at this point we have also worked with a transformation of fractions that changes the look but leaves the meaning unchanged: 
 <span class="formula">
   <span class="frac"><sup>a</sup><sub>b</sub></span> &rarr;
   <span class="frac"><sup>k * a</sup><sub>k * b</sub></span>
@@ -514,9 +651,30 @@ Interestingly at this point we have also worked with a transformation of fractio
 where <i>k</i> is any whole number, different from zero. 
 I propose to call this transformation "zoom", so I can say 
 <i>"<span class="frac"><sup>10</sup><sub>20</sub></span> is the fraction <span class="frac"><sup>1</sup><sub>2</sub></span> zoomed by <b>10</b>"</i>.
+The zoom transformation is a great example of meaning-preserving transformation, and in a sense we have used it without knowing in our rules. Take the rule: 
+<span class="formula">
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + c = 
+    <span class="frac"><sup>a + (c*b)</sup><sub>b</sub></span>
+</span>
+we could approach it from this angle: take <b>c</b> and <i>promote</i> it to a fraction (with the 1 at the bottom of course), then <i>zoom</i> it by <b>b</b> and add the two fractions! These steps look like:
+<span class="formula">
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + c &nbsp;-<i>promote</i>&rarr; 
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + <span class="frac"><sup>c</sup><sub>1</sub></span> 
+<br>    
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + <span class="frac"><sup>c</sup><sub>1</sub></span> 
+  &nbsp;-<i>zoom</i>&rarr; 
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + <span class="frac"><sup>c*b</sup><sub>1*b</sub></span> = 
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + <span class="frac"><sup>c*b</sup><sub>b</sub></span>
+<br> 
+  <span class="frac"><sup>a</sup><sub>b</sub></span> + <span class="frac"><sup>c*b</sup><sub>b</sub></span>
+  &nbsp;-<i>add</i>&rarr; 
+  <span class="frac"><sup>a + (c*b)</sup><sub>b</sub></span>
+</span>
 
-<br>
-An alternative way to understood fractions could be to look at them as simply pairs of numbers with some special operations associated to them. In this sense, a fraction is a pair of whole numbers 
+</p>
+
+<!--p> REPEATED FROM ABOVE
+An alternative way to understand fractions could be to look at them as simply pairs of numbers with some special operations associated to them. In this sense, a fraction is a pair of whole numbers 
 <span class="open_box">a</span><span class="open_box">b</span>, where <i>b</i> is never zero, that together represent a lazy division; it is OK to transform both numbers together like this:
 <span class="formula">
   <span class="open_box">a</span><span class="open_box">b</span> &rarr;
@@ -551,11 +709,12 @@ The operations that we normally do with numbers can be <i>extended</i> to work w
   <span class="open_box">b</span><span class="open_box">c</span> &rarr;
   <span class="open_box">a*b</span><span class="open_box">1*c</span> &rarr;
   <span class="open_box">a*b</span><span class="open_box">c</span>
-</span>
+</span-->
 
-And finally, a fraction has an <i>inverse</i> of itself, for example: 
+<p>
+And finally, a fraction has an <i>inverse</i>. For example: 
 <span class="frac"><sup>2</sup><sub>3</sub></span> is the inverse of 
-<span class="frac"><sup>3</sup><sub>2</sub></span>, becuase when I multiply the first by the second I get <b>1</b>.
+<span class="frac"><sup>3</sup><sub>2</sub></span>, because when I multiply the first by the second I get <b>1</b>.
 
 <div class="task">Check that it is the case. Use the multiplication rule to calculate  
 <b> <span class="frac"><sup>2</sup><sub>3</sub></span> * 
@@ -566,15 +725,14 @@ Whole numbers also have inverses, and those can be written as fractions; for ins
 <b><span class="frac"><sup>1</sup><sub>4</sub></span></b>, and saying "the inverse of <b>4</b> is 
 <b><span class="frac"><sup>1</sup><sub>4</sub></span></b>" is much more <i>elegant</i> and clear than using <b>0.25</b>! 
 <br>
-Note: zero is the only number that has no inverse.
-
+Note: zero is the only number that has no inverse (like we found out in the previous chapter).
 </p>
 
 <p>
-Time to play with fractions a bit. The playground below lets you manipulate fractions, create them, add, multiply and invert them (the "1/n" operator). There is also a "simplify" operatior that will reduce a fraction to its normal form. 
+Time to play with fractions a bit. The playground below lets you manipulate fractions, create them, add, multiply and invert them (the "1/n" operator). There is also a "simplify" operator that will reduce a fraction to its normal form. 
 <br>
 You can move the fractions using drag and drop. 
-If you long-press the mouse button (or your finger) on a fraction, it will show itself in a different format: the standard format is <span class="frac"><sup>a</sup><sub>b</sub></span>, and the alternative format is with visual, based on the idea that fractions are like parts of areas.
+If you long-press the mouse button (or your finger) on a fraction, it will show itself in a different format: the standard format is <span class="frac"><sup>a</sup><sub>b</sub></span>, and the alternative format shows the fraction as slices of an area (<span class="frac"><sup>a</sup><sub>b</sub></span> would be <i>b</i> empty rectangles, with <i>a</i> rectangles filled with some color).
 <br>The "new" operator creates random fractions for you, and sometimes you will get whole numbers (which we have established are just fractions with one as bottom number). 
 <br>The "zoom" operator does somehow the opposite of what "simplify" does: it transforms a fraction by a random number <i>k</i>, so that the input fraction <span class="frac"><sup>a</sup><sub>b</sub></span>
 will come out "zoomed by k", AKA looking like <span class="frac"><sup>a*k</sup><sub>b*k</sub></span>.
@@ -614,7 +772,76 @@ How does the area representation change after zooming and simplifying your fract
 
 
 <h2>Puzzles</h2>
-bla bla
+<h3>(1) Simplify divisions.</h3>
+<p>
+Simplify the following division, without calculating them. An un-calculated division is in normal form when the two numbers have no common divider (AKA when they are cop-rimes).
+<ul>
+  <li><b>(50:25) =</b> ? </li>
+  <li><b>(10:40) =</b> ? </li>
+  <li><b>(35:56) =</b> ? </li>
+  <li><b>(7:5) =</b> ? </li>
+  <li><b>(11:7) =</b> ? </li>
+</ul>
+When you are done with your simplifications, test if you did right: use a calculator to find the result of all division above, and then of your simplified versions too. 
+Did you get the same results for each calculation?
+</p>    
+
+<h3>(2) Work with un-calculated divisions.</h3>
+<p>
+Calculate the following math expressions, first by doing the divisions fist, and then calculate them a second time, avoiding as much as possible to do any division. When possibly, simplify the un-calculated division.
+<ul>
+  <li><b>(50:25) + (5:25) =</b> ? </li>
+  <li><b>(10:40) + (2:4) =</b> ? </li>
+  <li><b>(110:70) - (14:7) =</b> ? </li>
+</ul>
+Use a calculator if needed.
+<br>
+Did you get the same results for each calculation?
+</p>  
+
+
+<h3>(3) A fraction divided another fraction.</h3>
+<p>
+We have not defined how to divide fraction by another fraction in this chapter. But we have found a rule to <i>multiply</i> a fraction by another:
+<span class="formula" style="margin-bottom:.5em;margin-top:.5em">
+    <span class="frac"><sup>a</sup><sub>b</sub></span> *
+    <span class="frac"><sup>c</sup><sub>d</sub></span> = 
+    <span class="frac"><sup>a*c</sup><sub>b*d</sub></span>
+</span>
+assuming that <i>b</i> and <i>d</i> are any number, but not zero.
+However, we also have established that every number and every fraction has an inverse (excluding zero), and we also know from the previous chapter that multiplication and division are one the inverse of the other. So putting all this together we can derive a rule for dividing a fraction by another fraction:
+<span class="formula" style="margin-bottom:.5em">
+    <span class="frac"><sup>a</sup><sub>b</sub></span> :
+    <span class="frac"><sup>c</sup><sub>d</sub></span> = 
+    <span class="frac"><sup>a</sup><sub>b</sub></span> *  
+    <span class="frac"><sup>d</sup><sub>c</sub></span>
+</span>
+and here we have to assume that <i>b</i>, <i>d</i>, and also <i>c</i> are all not zero, otherwise we cannot invert the second fraction.
+<br>So instead of calculating a division between two fractions, I can simply flip the second one and calculate a nice multiplication instead.
+<br>
+Taking all that in consideration, solve the following problems.
+Note that the problems require to calculate some math expressions involving fractions.
+Remember: try to use the rules we have defined in this chapter, to solve the problems below, and not just a calculator...
+<ul>
+  <li>"Mom baked a tray of brownies. I have already eaten half of it.
+    Now mom has a bunch of rectangular tupperware containers, all the same size, which happens 
+    to be one-quarter of the tray. How many tupperware containers does she need to fit the remaining half of the brownies?"
+  <br>
+    <b><span class="frac"><sup>1</sup><sub>2</sub></span> :
+    <span class="frac"><sup>1</sup><sub>4</sub></span> =</b> ? </li>
+  <li>"I have two bottles of apple juice. I want to pour it into few glasses. 
+      The glasses in my cupboard are all the same size, and the can hold one-fifth of a bottle.
+      How many glasses will I be able to fill?"
+    <br>
+    <b> 2 : 
+    <span class="frac"><sup>1</sup><sub>5</sub></span> =</b> ? </li>
+  <li>"Three people every twenty actually understood school math. How many is that in percentage?"
+    <br>
+    <b>100 * <span class="frac"><sup>3</sup><sub>20</sub></span> =</b> ? </li>
+</ul>
+and if needed, simplify your solutions (AKA bring your results to normal form).
+</p>
+
 
 <hr>
 <center><a href="#top">TOP</a></center>

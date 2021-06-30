@@ -204,6 +204,13 @@ span.label_box > sub {
   text-align: center;
   font-weight: bold;
 }
+.formula-margins {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  margin-top:.5em;
+  margin-bottom:.5em;
+}
 
 
 
@@ -354,4 +361,33 @@ table.centered_table td {
 .blur {
    color: transparent;
    text-shadow: 0 0 2px black;
+}
+
+
+.fold_down {
+  display:inline-block;
+  animation: _rotationC 8s infinite linear;
+}
+@keyframes _rotationC {
+  15% { transform:rotate(0deg); transform-origin: bottom left;}
+  30% { transform:rotate(180deg); transform-origin: bottom left;}
+  50% { transform:rotate(180deg); transform-origin: bottom left;}  
+  80% { transform:rotate(180deg); transform-origin: bottom left;}  
+  100% { transform:rotate(0deg); transform-origin: bottom left;}
+}
+
+
+@media screen and (max-width: 1024px) {
+  #sidebar{
+    display: none;
+  }
+}
+@media screen and (min-width: 1025px) {
+  #sidebar{
+    position: fixed;
+    left: 1em;
+    top: 1em;
+    font-size: 70%;
+    background-color: white;
+  }
 }

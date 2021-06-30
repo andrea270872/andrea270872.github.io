@@ -12,7 +12,7 @@ let prepare_006_04 = (playgroundId)=>{
 	`<span style="display:inline-block;margin-left:1em;height:20em;">
 	<b>1*x+5 = 2*x+3</b><br>
 	Try substituting a few numbers around 
-	<input id="${inputId1}" type="number" step="1" size="3" value="${initialValue1}">.	
+	<input id="${inputId1}" type="number" step=".5" size="3" value="${initialValue1}">.	
 	<div width="100%" id="${outputId}"></div>
 	</span>`;
 
@@ -47,7 +47,8 @@ let prepare_006_04 = (playgroundId)=>{
 	draw();
 
 	document.getElementById(inputId1).addEventListener("input", (evt)=>{ 
-		center = ~~document.getElementById(inputId1).value;
+		console.log( evt , document.getElementById(inputId1).value );
+		center = parseFloat(document.getElementById(inputId1).value);
 		draw();
 	});
 

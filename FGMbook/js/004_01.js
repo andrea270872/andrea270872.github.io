@@ -7,8 +7,8 @@ let prepare_004_01 = (playgroundId)=>{
 	let canvasId = playgroundId+'_1';
 	let inputId = playgroundId+'_2';
 	let inputId2 = playgroundId+'_3';
-		let initialValue = '2';
-	let initialValue2 = '4';
+		let initialValue = '4';
+	let initialValue2 = '2';
 	parentDiv.innerHTML += 
 	`&nbsp; Divide the rectangle by 
 		<input id="${inputId}" type="number" size="3" value="${initialValue}"> and then by 

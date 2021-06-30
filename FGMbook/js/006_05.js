@@ -16,6 +16,7 @@ let prepare_006_05 = (playgroundId)=>{
 	let btn4 = playgroundId+'_8';
 	let btn5 = playgroundId+'_9';
 	let btn6 = playgroundId+'_10';
+	let btn7 = playgroundId+'_12';
 	let canvasId = playgroundId+'_11';
 	let initialValue1 = '1';
 	let initialValue2 = '0';
@@ -32,6 +33,7 @@ let prepare_006_05 = (playgroundId)=>{
 
 	&nbsp; &nbsp; <button id="${btn5}" style="background-color:white">*2</button>
 	<button id="${btn6}" style="background-color:white">*<span class="frac"><sup>1</sup><sub>2</sub></span></button>
+	<button id="${btn7}" style="background-color:white">*<span class="frac"><sup>1</sup><sub>-1</sub></span></span></button>	
 	&nbsp; <button id="${btn1}" style="background-color:white">+1</button>
 	<button id="${btn2}" style="background-color:white">-1</button>
 	&nbsp; <button id="${btn3}" style="background-color:white">+x</button>
@@ -133,7 +135,10 @@ let prepare_006_05 = (playgroundId)=>{
 			cx.stroke();
 			
 			x-=M/6;
-			cx.fillText(~~xI,x,y-M/2);
+			if (xI!=~~xI) 
+				cx.fillText(~~(xI*100)/100,x,y-M/2);
+			else
+				cx.fillText(~~xI,x,y-M/2);
 		}
 		if (A-C==0){
 			cx.fillStyle = 'green';
@@ -184,7 +189,13 @@ let prepare_006_05 = (playgroundId)=>{
 		D/=2; document.getElementById(inputId4).value = D;
 		draw();
 	});
-
+	document.getElementById(btn7).addEventListener("click", (evt)=>{ 
+		A*=-1; document.getElementById(inputId1).value = A;
+		B*=-1; document.getElementById(inputId2).value = B;
+		C*=-1; document.getElementById(inputId3).value = C;
+		D*=-1; document.getElementById(inputId4).value = D;
+		draw();
+	});
 
 	document.getElementById(inputId1).addEventListener("input", (evt)=>{ 
 		A = ~~document.getElementById(inputId1).value;

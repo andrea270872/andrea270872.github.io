@@ -44,11 +44,11 @@ let prepare_005_02 = (playgroundId,appleId,bananaId)=>{
 			<input id="${inputId2}" type="number" size="2" value="${initialValue2}"> bananas, 
 			<input id="${inputId3}" type="number" size="2" value="${initialValue3}"> cherries, and 
 			<input id="${inputId4}" type="number" size="2" value="${initialValue4}"> florins on the floor. 
-		And then...<br>
+		<b>And then...</b><br>
 			<input type="radio" id="${inputId5}" name="${radioButtonId}" value="1" checked>
 			<label>I bought 5 apples and 6 cheeries... what do I have now in my shop?</label><br>
 			<input type="radio" id="${inputId6}" name="${radioButtonId}" value="2">
-			<label>Somebody ordered <span class="frac"><sup>1</sup><sub>4</sub></span> the stuff in the shop...
+			<label>Somebody ordered <span class="frac"><sup>1</sup><sub>4</sub></span> of the stuff in the shop...
 			how much is that?</label><br>
 			<input type="radio" id="${inputId7}" name="${radioButtonId}" value="3">
 			<label style="width:40em;display:inline-block;vertical-align:top;">I want to make small packages

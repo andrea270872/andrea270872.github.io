@@ -64,10 +64,14 @@ let prepare_003_04 = (playgroundId)=>{
 	cx.imageSmoothingEnabled = false;
 	
 	let draw = (a,b)=>{
+		//console.log(a,b);
+
 		let result = a/~~b;
 		let tmp = (''+result).split('.');
 		let n = ~~tmp[0];
+		if ((a%10==0) && (a<100)) tmp[1]+='0'; // to fix the strange behaviour for input = 50
 		let m = ~~(tmp[1])*(1000/divideBy);
+		//console.log(tmp,n,m);
 
 		cx.resetTransform();
 		cx.clearRect(0,0,W,H);
@@ -102,7 +106,7 @@ let prepare_003_04 = (playgroundId)=>{
 	for (let i=1;i<=3;i++){
 		document.getElementById(inputId3+'_'+i).addEventListener("input", ()=>{
 			divideBy = document.querySelector(`input[name=${inputId3}]:checked`).value;
-			console.log( divideBy );
+			//console.log( divideBy );
 		draw(n,divideBy);
 		});
 	}

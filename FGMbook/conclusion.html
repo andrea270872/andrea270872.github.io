@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel=stylesheet href="book.css">
 
-  <title>Chapter 7</title>  
+  <title>Conclusion</title>  
 </head>
 <body class="fading-background">
 <article>
@@ -22,9 +22,11 @@ Hi,
 <br>
 &nbsp; &nbsp; sorry but I don't believe in prefaces. 
 <br>
-Everytime I read one I get kind of confused about the book. I don't find them very informative, because the good stuff is <i>in</i> the book, and since I have not read it yet, the author cannot really tell me much, that I would undestand. A preface feels to me like a trailer for a movie: it could easily give away too much, spoil the good parts of the movie, or if it is <i>off</i>, weird, it can make me want NOT to see the movie. Anyways... I tend to skip the preface, personally, even if sometimes I might go back AFTER I've read the whole book, and check out the preface... 
+Every time I read one I get kind of confused about the book. I don't find them very informative, because the good stuff is <i>in</i> the book, and since I have not read it yet, the author cannot really tell me much, that I would understand. A preface feels to me like a trailer for a movie: it could easily give away too much, spoil the good parts of the movie, or if it is <i>off</i>, weird, it can make me want NOT to see the movie. 
 <br>
-So here is what I want to do for this book instead: a nice, cool conclusion, to go over what was my <i>plan</i> for the book. And the good thing about a conclusion is that YOU can follow it, because you have already finished the actual book!
+Anyways... I personally tend to skip the preface in a new book...
+<br>
+So here is what I want to do for this book instead: a nice, solid conclusion, to go over what was my <i>plan</i> for the book. And the good thing about a conclusion is that YOU can follow it, because you have already finished the actual book!
 </p>
 
 <p>
@@ -34,44 +36,173 @@ I wrote this book with three main themes in mind:
 <li>Linear combinations</li>
 <li>Boxes</li>
 </ul>
+Allow me to elaborate a bit.
 </p>
+
 
 <h2>Syntax VS Semantics</h2>
 <p>
-- normal forms and transformations
+Everything in math can be written in multiple ways. It is such an evident and central thing that I was surprised when I started looking back and I realized that I was not told about it until my master. Strange right?! 
 <br>
-- multiple ways to write the same thing
+Rewriting stuff to look like other stuff is a fundamental part of what a mathematician does (and also a computer programmer, by the way), and yet it is usually only discussed in advanced math courses (or in fairly advanced and theoretical programming courses, in connection for instance with <i>rewriting systems</i> or <i>code refactoring</i>).
+<br>
+<br>
+In this book I kept coming back to the idea that expressing the same thing in multiple ways is beneficial, and often reveals how to solve problems.
+<br>
+It was an <i>eureka moment</i> when I realized that even a basic thing as a whole number has a notation and can be written in <i>right</i> and <i>wrong</i> ways. 
+For example a number like <b>27</b> is really a linear combination of <i><b>10</b></i> and 
+<i><b>1</b></i>, so it can be written as <b>2*<i>10</i>+7*<i>1</i></b>, or as <b><span class="open_box">2</span><span class="open_box">7</span></b> using boxes. These are the <i>right</i> ways to write <b>27</b>, but as soon as I am aware that <b>27</b> is BUILT by <b>2</b> and <b>7</b> and powers of ten, I can start looking at alternative ways to write it, like: <b>1*<i>10</i>+17*<i>1</i></b>, which is 
+<b><span class="open_box">1</span><span class="open_box">17</span></b>. 
+This is a transformation that alters the looks but not the meaning of my number. 
+Interestingly, these kinds of transformations are more visible with imperial units than with our usual base 10... 
+When you work with yards and feet you are always at risk of writing the wrong amount of some unit, and have to <i>correct</i> your numbers, AKA transform your representation back to normal form.
+<br>
+We found normal forms and meaning-preserving transformations everywhere in this book. 
+<br>
+For example a fraction is in normal form when the two numbers (above and below the fraction line) are whole, positive and co-primes; so a fraction like <span class="frac"><sup>2</sup><sub>4</sub></span> is not in normal form, because both numbers can be divide by <b>2</b> and still be whole. The normal form for that fraction is <span class="frac"><sup>1</sup><sub>2</sub></span>. It is also possible to <i>zoom</i> the fraction, making the two numbers larger, without altering the meaning of the fraction: 
+<span class="frac"><sup>10</sup><sub>20</sub></span> is the same fraction, only zoomed by <b>10</b>.
+Zooming and simplifying are opposite operations, and are both useful when <i>preparing</i> or 
+<i>cleaning up</i> a fraction in between operations. But I found surprising that zooming is not usually discussed in school math textbooks, even if it helps a lot when explaining things like addition of two fractions with different denominator.
+<br>
+We even found that a linear equation has a normal form too, and that its normal form is the solution to the equation! So <b>x=5</b> is an equation in normal form, but the normal form here is so clear and simple, that you can read the solution out of it, directly without calculations. And that is cool. Solving an equation becomes a matter of using (meaning-preserving) transformations to rewrite the syntax of the equation step-by-step, until it becomes its own solution (AKA it is in normal form).
+I think that this idea of incrementally moving something towards its normal form, is very powerful and appealing. And it is not my invention: it is in fact precisely the way linear algebra textbooks explain 
+<a href="https://en.wikipedia.org/wiki/Row_echelon_form">the process of row reduction</a> to bring a system of linear equations to the so called <i>reduced row echelon form</i>... Of course linear algebra is a much more complex subject than school math, but why not taking advantage of the highly visual ways of explaining certain solving techniques?!
+<br>
+Finally, in <a href="">chapter 7</a> we found that looking at geometrical structures from different points of views is very beneficial, and it helped us in defining formulas to count parts or measure properties of those structures. The same square of dots was cut in different ways, and almost any time we got insights from the resulting subdivisions.
 </p>
 
 <h2>Linear combinations</h2>
 <p>
-I believe that a weighted sum is one the most common concept in math, but it is not usualy presented in this way, especially in elementary math courses. (Perhaps it is more evident in stuff like <i>linear algebra</i>...). An a weighted sum is also a very direct thing to "see": on a balance scale, when reasoning about money (with all the different coins to combine to reach a certain amount), even in the way the numbers are built in the decimal system.
-Polynomials, one of the central pillars of school math, are a linear combination of <b>x</b> and some <i>weights</i>.
+I believe that a weighted sum is one the most important and common concept in math, but too often this fact is not acknowledged, especially in elementary math courses. Perhaps it is more evident in stuff like <i>linear algebra</i>, where a weighted sum is usually called a linear combination... 
+I find that a weighted sum is also a very direct thing to "see": on a balance scale, when reasoning about money (with all the different coins to combine to reach a certain amount), even in the way the numbers are built in the decimal system (on an abacus for instance).
+Polynomials, one of the central pillars of school math, are a linear combination of powers of <b>x</b> and some <i>weights</i>.
 <br>
-- III -> on the abacus _|_|_ -> and base 10 = 0*10^1+3*10^0
-<br>
-- (2*a+b)*5 + 3*b = ? ...
-<br>
-- 2*x+5 = 3*x-2
+In this book we encountered linear combinations...
+<ul>
+	<li>when looking for a more compact notation for unary numbers. The result was the introduction of base 10 whole numbers, and a way to represent numbers on the abacus. Base 10 numbers are shorter and easier to write, but we lost the nice and <i>obvious</i> definition of addition that we had with unary numbers; we were forced to redefine addition to make sense on the abacus.
+	<br>
+	The number <i>III</i> on the abacus becomes something like:
+	<pre style="font-size:.75em;line-height:.65em;font-weight:1000">
+	     100  10  1
+
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |  [-]
+	      |   |  [-]
+	      |   |  [-]
+	</pre>
+	and in base 10 it becomes a linear combination of powers of ten: 
+	<span class="formula-margins">0*10^2 + 0*10^1 + 3*10^0</span>
+	</li>
+	<li>Math expressions are linear combinations of variables (or products of variables) and constant numbers. Operations like addition and product can be extended to work for entire expressions.
+	For example consider:
+	<span class="formula-margins">
+		(2*a+b)*(5*c) + 3*b
+	</span>
+	where the expression <b>(2*a+b)</b> is multiplied by another expression <b>(5*c)</b>, and the result will be added to <b>3*b</b>, yet another expression. The result will be a new polynomial (AKA a new linear combination of variables and constants).
+	<span class="formula-margins">
+		(2*a+b)*(5*c) + 3*b &nbsp;&rarr;<br>
+		(2*a*5*c + b*5*c) + 3*b &nbsp;&rarr;<br>
+		10*a*c + 5*b*c + 3*b
+	</span>
+	Surprisingly the properties of addition and multiplication are the same for expressions than they were for ordinary numbers.	
+	</li>	
+	<li>
+	Finally, it turns out that equations are comparisons of polynomials (AKA comparisons of linear combinations of variables <i>weighted</i> by constants). For example:
+	<span class="formula-margins">
+		2*x+5 = 3*x-2
+	</span>
+	can be solved in many ways, but a possible way is to look for a value of <b>x</b> that will make the two linear combinations <b>2*x+5</b> and <b>3*x-2</b> become equal. To find the <i>right</i> value for <b>x</b> we have sometimes made a table, using some clever technique to avoid writing too many numbers in the table, and in some other cases we <b>plotted</b> a diagram with two lines and looked for intersections... and it turns out that in math straight lines too can be described by weighted sums.
+	</li>
+</ul>	
 </p>
 
 <h2>Boxes</h2>
 <p>
-It's like data: in Computer Science these things are called tuples (a general name for couples, triplets, ect.). I find that many of the properties of math things become more clear using a concrete, mechanical representation. Take geometry on paper: the ruler and the compass have their own limitations and ways of working, that helped <a href="https://en.wikipedia.org/wiki/Euclid">Euclid</a> <img class="face" src="faces/Euklid-from-Alexandria.jpg"></span> working out geometrical theorems.
+In many places in the book we got stuck because the numbers (or math entities) we wanted to work with where too complex to SEE. Often the solution was to expand our notations, make things more explicit and more visible by adding a bit of structure. For example to keep apples and bananas separated, but together, we came out with the rather simple solution of having two boxes, one for each kind of fruit. 
 <br>
-- <span class="open_box">2</span><span class="open_box">7</span> -> abacus _|2_|7_
+At some point we needed to keep track of sheep, owned and owed, and for that we were forced to extend the whole numbers to include negative numbers. One of the solutions for that was also to have two boxes, a black and a red one, and redefine the addition to work with positive and negative numbers.
 <br>
-- <span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span> = 3*a + 2*b + 5
+I find that many of the properties of math things and operations become more clear using a concrete, mechanical representation. Take geometry on paper: the ruler and the compass have their own limitations and ways of working, that helped <a href="https://en.wikipedia.org/wiki/Euclid">Euclid</a> <img class="face" src="faces/Euklid-from-Alexandria.jpg"></span> working out geometrical theorems.
 <br>
-- <span class="open_box">7</span><span class="open_box">2</span> -> <span class="frac"><sup>7</sup><sub>2</sub></span>
+In the book I tried to use boxes as a mechanical representation of information about numbers and other math things...
+In computer science box-like things are called <a href="https://en.wikipedia.org/wiki/Tuple">tuples</a>, a generalization of <i>"couples, triplets, quadruplets, ..."</i>, and they are very useful to define what data is in a program and how it should be changed by various operations.
+(One of the most diffused programming paradigm, Object Oriented Programming, is largely based on custom definitions of tuples and their operations)
 <br>
-- |<span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>|<span class="label_box"><sup>x</sup><sub>3</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>-2</sub></span>| &rarr; 2*x+5 = 3*x-2
+We encountered boxes more or less in a chapters, in many different contexts. For instance:
+<ul>
+	<li>The abacus is basically just a bunch of boxes, each box <i>named</i> after a power of ten, so that 
+		a number like <b>27</b> is really 
+		<span class="open_box">2</span><span class="open_box">7</span>, and in the abacus it becomes
 
-The operations (involving numbers, or fractions, or linear combinatiosn) were defined on the boxes, to make them more concrete, more <i>algorithmic</i>, in the hope to better see how they work.
+	<pre style="font-size:.75em;line-height:.65em;font-weight:1000">
+	     100  10  1
+
+	      |   |   |
+	      |   |   |
+	      |   |   |
+	      |   |  (-)
+	      |   |  (-)
+	      |   |  [-]
+	      |   |  [-]
+	      |   |  [-]
+	      |  [-] [-]
+	      |  [-] [-]
+	</pre>
+	</li>
+	<li>In other case we needed to give a name to our boxes. 
+	For example if you have <b>3</b> apples and <b>5</b> bananas and want to keep them separated (and not just count them all up as <b>8</b> <i>fruits</i>), you can use two boxes with labels:
+	<span class="formula-margins">
+		<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span> &nbsp;&rarr;&nbsp; 3*a + 2*b
+	</span>
+	and the boxes turned out to be equivalent to math expressions. Addition of expressions has a nice and natural rule when using labeled boxes, for example:
+	<span class="formula-margins">
+		<span class="label_box"><sup>a</sup><sub>3</sub></span><span class="label_box"><sup>b</sup><sub>2</sub></span> + 
+		<span class="label_box"><sup>a</sup><sub>2</sub></span><span class="label_box"><sup>b</sup><sub>1</sub></span> 	 &nbsp;&rarr;&nbsp; 
+		<span class="label_box"><sup>a</sup><sub>3+2</sub></span><span class="label_box"><sup>b</sup><sub>2+1</sub></span> 
+	</span>	
+	</li>
+	<li>We can also decide to use a pair of boxes to represent fractions (seen as un-calculated divisions):
+		<span class="formula-margins">
+	 		<span class="open_box">22</span><span class="open_box">7</span> &nbsp;&rarr;&nbsp; 
+	 		(22:7)
+	 		&nbsp;&rarr;&nbsp;  <span class="frac"><sup>22</sup><sub>7</sub></span> 
+		</span>
+		And also in this case operations defined with boxes are nice and <i>positional</i>... For instance addition looks like this:
+		<span class="formula-margins">
+	 		<span class="open_box">1</span><span class="open_box">5</span> +
+	 		<span class="open_box">2</span><span class="open_box">5</span> &nbsp;&rarr;&nbsp; 
+	 		<span class="open_box">1+2</span><span class="open_box">5</span> 
+		</span>
+		and it stands for:
+		<span class="formula-margins">
+			<span class="frac"><sup>1</sup><sub>5</sub></span> +
+			<span class="frac"><sup>2</sup><sub>5</sub></span> &nbsp;&rarr;&nbsp; 
+			<span class="frac"><sup>1+2</sup><sub>5</sub></span> 
+		</span>
+		
+	</li>
+	<li>Two-pans balances can also be represented by boxes, one per pan. For example the equation:
+		<span class="formula-margins">
+			2*x+5 = 3*x-2
+		</span>
+		can be represented as <i>boxes within boxes</i>:
+		<span class="formula-margins">
+			|<span class="label_box"><sup>x</sup><sub>2</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>5</sub></span>|<span class="label_box"><sup>x</sup><sub>3</sub></span><span class="label_box"><sup>&nbsp;</sup><sub>-2</sub></span>|
+		</span>
+		with two boxes, each containing one part of the equation. Each part of the equation is in turn expressed as labeled boxes (AKA linear combinations of <b>x</b> and numbers).
+	</li>
+</ul>
+And as far as possible all operations in the book (involving entities like numbers, or fractions, or linear combinations) were defined on boxes, to make them more concrete, more <i>mechanical</i>, in the hope to better see how they work.
 </p>
 
-<br><br>
-
+<br>
+<br>
 
 <p>
 Thanks for reading this far,
