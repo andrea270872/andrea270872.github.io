@@ -53,6 +53,12 @@ class GuessRobot{
 		return this;
 	}
 
+	ifLast_turnCW(item){
+		//# "salad"
+		this._code.push( ['ifLast_turnCW', item ] );
+		return this;
+	}	
+
     // ************************************
 
     _prettyPrint(code,nesting=0){

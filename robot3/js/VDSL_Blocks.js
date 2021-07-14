@@ -72,3 +72,27 @@ Blockly.Blocks['repeat4times'] = {
     this.setHelpUrl('');
 	  }
 	};
+
+Blockly.Blocks['ifLast_turnCW'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('ifLast');
+
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown([
+            ['tomato', '"tomato"'],
+            ['salad', '"salad"'],
+            ['ham', '"ham"']
+        ]), 'item');
+
+    this.appendDummyInput()
+        .appendField('turnCW \u21bb');
+
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('ifLast item turnCW \u21bb');
+    this.setHelpUrl('');
+    }
+  };

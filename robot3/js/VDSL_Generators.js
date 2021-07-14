@@ -36,3 +36,11 @@ Blockly.JavaScript['repeat4times'] = function(block) {
    code +=    ')';
    return code;
 };
+
+
+Blockly.JavaScript['ifLast_turnCW'] = function(block) {
+   let code = '   .ifLast_turnCW(';
+   code += block.getFieldValue('item')
+   code +=    ')';
+   return code;
+};

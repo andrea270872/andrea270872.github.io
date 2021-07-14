@@ -37,22 +37,24 @@
 			<td> <a class="levelButton" href="level5.html">Level 5</a> </td>
 			<td> <a class="levelButton" href="level6.html">Level 6</a> </td>
 		</tr>
+		<tr>
+			<td> </td>
+			<td> <a class="levelButton" href="level10.html">Level 10</a> </td>
+			<td> </td>
+		</tr>		
 	</table>
 	</center>
 
 <script>
 	let xhr = new XMLHttpRequest();
-	//xhr.open('GET', 'http://ip-api.com/json');
-	xhr.open('GET','https://api.ipify.org?format=json');
+	xhr.open('GET', 'http://ip-api.com/json');
 	xhr.setRequestHeader('Content-Type', 'application/json');
 	xhr.onload = function() {
 		if (xhr.status === 200) {
 			//console.log( xhr.responseText );
 			//console.log( JSON.parse(xhr.responseText).query );
 		    //alert( JSON.parse(xhr.responseText).query  );
-
-		    //let id = JSON.parse(xhr.responseText).query;
-		    let id = JSON.parse(xhr.responseText).ip;
+		    let id = JSON.parse(xhr.responseText).query;
 
 		    let userId = localStorage.getItem('userId');
 		    if (userId==null){
