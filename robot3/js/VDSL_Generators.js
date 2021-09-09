@@ -1,4 +1,6 @@
 Blockly.JavaScript['GuessRobot'] = function(block) {
+   //console.log('---->',block);
+   //console.log('---->',block.id);
   let code = 'new GuessRobot()\n';
   return code;
 };
