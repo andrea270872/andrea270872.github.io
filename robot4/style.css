@@ -1,0 +1,101 @@
+.levelButton {
+   padding: 1.2em;
+   background-color: #9E4F28;
+   color: #DBD09C;
+   height:50px;
+   width: 50px;
+   cursor:pointer;
+   text-decoration: none;
+}
+
+.levelButton:hover {
+   background-color: #B8714D;
+   color: #DBD09C;
+}
+
+.title {
+  font-size: 180%;
+}
+
+
+
+
+div#preloaded-images {
+   position: absolute;
+   overflow: hidden;
+   left: -9999px; 
+   top: -9999px;
+   height: 1px;
+   width: 1px;
+}
+
+body {
+  background-color: #DBD09C;
+  font-family: sans-serif;
+  color: #472412;
+}
+h1 {
+  font-weight: normal;
+  font-size: 140%;
+}
+
+.smartButton {
+ padding: .5em;
+ background-color: #9E4F28;
+ color: #DBD09C;
+ height:50px;
+ width:50px;
+ cursor:pointer;
+ text-decoration: none;
+}
+
+.smartButton:hover {
+ background-color: #B8714D;
+ color: #DBD09C;
+}
+
+.guiButton {
+border: none;
+background-color: #9E4F28;
+color: #DBD09C;
+cursor:pointer;
+/*
+background-color: #e4e4e4;
+color: darkblue;*/
+height:30px;
+}
+.guiButton:disabled {
+border: none;
+background-color: darkgray;
+color: #e4e4e4;
+height:30px;
+}   
+
+#loading {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 50px;
+width: 50%;
+text-align: center;
+font-size: 5em;
+color: white;
+background-color: green;
+z-index: 1000;
+}
+
+
+.confetti {
+  width:   8px;
+  height: 21px;
+  position: absolute;
+  background-color: gold;
+  display: block;
+}
+.rotate {
+ animation: rotate .75s linear infinite; 
+}
+@keyframes rotate{
+ to{ transform: rotate(360deg); }
+}

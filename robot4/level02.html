@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<head>
+  <title>Sandwich Robot</title>  
+  <script src="js/blockly_compressed.js"></script>
+  <script src="js/blocks_compressed.js"></script>
+  <script src="js/en.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!--p>[created with <a href="https://developers.google.com/blockly/">Blockly</a>]</p-->
+
+  <div id="loading">LOADING...</div>
+  <div id="confettis" style="display: inline;">
+  </div>
+
+  <div>
+  <center>
+  <table cols="3" style="width:70%;padding-bottom:2em;">
+    <tr>
+      <td> <a class="smartButton" href="index.html">HOME</a> </td>
+      <td> <b><span id="LEVEL_NUMBER">Level</span></b> </td>
+      <td> <a class="smartButton" href="level03.html">-NEXT LEVEL-></a> </td>
+    </tr>
+  </table>
+  </center>
+  </div>    
+
+  <div id="glassPanel" 
+    style="display:none;position:absolute;z-index:1000;background:rgba(100,100,255,0.05);"></div>
+
+  <div style="float:left;margin-left:100px;">
+
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <div style="padding-top:.3em;">
+      <button class="guiButton" id="loadBlocks">load</button>
+      <button class="guiButton" id="saveBlocks">save</button>
+      &nbsp &nbsp
+      &nbsp &nbsp &nbsp &nbsp
+      <button class="guiButton" id="genCode">RUN CODE</button>
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      <span class="slidecontainer">
+        <input type="range" min="1" max="3" value="2" 
+              step="1" list="ticks"
+              class="slider" id="speedSlider">
+        <datalist id="ticks">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </datalist>              
+      </span>
+      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      <button class="guiButton" id="helpBtn">HELP</button>
+    </div>
+  </div>
+  <div id="theOutputDiv" style="margin-left:100px;height:600px;width:500px;float:left;">
+    <canvas id="theCanvas" width="500" height="600"></canvas>
+    <div id="theOutputDivText"></div>
+
+  </div>
+
+  <div id="PC_ARROW" class="PC_ARROWS" style="display:none;position:absolute;">🡆</div>
+
+  <div id="preloaded-images">
+     <img width="1" height="1" alt="" id="empty" src="imgs/empty.png">
+     <img width="1" height="1" alt="" id="robot" src="imgs/robot.png">
+     <img width="1" height="1" alt="" id="arrow" src="imgs/arrow.png">
+     <img width="1" height="1" alt="" id="breadleft" src="imgs/bread-1.png">
+     <img width="1" height="1" alt="" id="breadright" src="imgs/bread-2.png">
+
+     <img width="1" height="1" alt="" id="salad" src="imgs/salad.png">
+     <img width="1" height="1" alt="" id="tomatoes" src="imgs/tomatoes.png">
+     <img width="1" height="1" alt="" id="ham" src="imgs/ham.png">
+
+     <img width="1" height="1" alt="" id="saladleaf" src="imgs/salad-leaf.png">
+     <img width="1" height="1" alt="" id="tomatoslice" src="imgs/tomato-slice.png">
+     <img width="1" height="1" alt="" id="hamslice" src="imgs/ham-slice.png">
+
+     <img width="1" height="1" alt="" id="wall" src="imgs/wall.png">
+  </div>
+
+
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<block type="start"></block>
+<block type="forward">
+</block>
+<block type="turnCW">
+</block>
+<block type="turnACW">
+</block>
+<block type="ifLast_turnCW">
+   <field name="item">"salad"</field>
+</block>
+<block type="repeatNtimes">
+   <field name="times">4</field>
+</block>
+<block type="whileLastNot">
+   <field name="item">"ham"</field>
+</block>
+</xml>
+
+  <script src="js/VDSL_Blocks.js"></script>
+  <script>
+    var toolbox = document.getElementById("toolbox");
+    var options = { 
+      toolbox : toolbox, 
+      collapse : false, 
+      comments : false, 
+      disable : false, 
+      maxBlocks : Infinity, 
+      trashcan : true, 
+      horizontalLayout : false, 
+      toolboxPosition : 'start', 
+      css : true, 
+      media : 'media/', 
+      rtl : false, 
+      scrollbars : false, 
+      sounds : true, 
+      oneBasedIndex : true, 
+      grid : {
+        spacing : 20, 
+        length : 1, 
+        colour : '#888', 
+        snap : true
+      }, 
+    };
+    var demoWorkspace = Blockly.inject('blocklyDiv',options);
+    demoWorkspace.addChangeListener(Blockly.Events.disableOrphans);
+  </script> 
+  
+  <script src="js/level02_def.js"></script>
+  <script src="js/main_game.js"></script>
+
+</body>
+</html>
