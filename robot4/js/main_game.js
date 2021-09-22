@@ -272,7 +272,7 @@ const canvas = document.getElementById('theCanvas');
 
 // wait until all images have loaded...
 document.getElementById('loading').style.display = "block";
-let images = new Array(11).fill(null);
+let images = new Array(20).fill(null); // remember: number of images is important!
 let allImagesLoaded = false;
 while (!allImagesLoaded){
   images = [
@@ -280,7 +280,7 @@ while (!allImagesLoaded){
     images[ 1] || document.getElementById('tomatoes'),     // # 1
     images[ 2] || document.getElementById('salad'),        // # 2
     images[ 3] || document.getElementById('ham'),          // # 3
-    images[ 4] || document.getElementById('robot'),        // # 4
+    true,                                                  // # 4 obsolete!!!!!!
     images[ 5] || document.getElementById('arrow'),        // 22x34 pixels, # 5
     images[ 6] || document.getElementById('breadleft'),    // # 6
     images[ 7] || document.getElementById('breadright'),   // # 7
@@ -288,6 +288,15 @@ while (!allImagesLoaded){
     images[ 9] || document.getElementById('saladleaf'),    // # 9
     images[10] || document.getElementById('hamslice'),     // # 10
     images[11] || document.getElementById('wall'),         // # 11
+
+    images[12] || document.getElementById('robotbluen'),   // # 12
+    images[13] || document.getElementById('robotbluee'),   // # 13
+    images[14] || document.getElementById('robotblues'),   // # 14
+    images[15] || document.getElementById('robotbluew'),   // # 15
+    images[16] || document.getElementById('robotorangen'),   // # 16
+    images[17] || document.getElementById('robotorangee'),   // # 17
+    images[18] || document.getElementById('robotoranges'),   // # 18
+    images[19] || document.getElementById('robotorangew'),   // # 19
   ];
   allImagesLoaded = images.indexOf(null)==-1;
   console.log("loading...");
@@ -299,7 +308,7 @@ document.getElementById('loading').style.display = "none";
 let numOfBlocksUsed = 0;
 let numberOfStars = null;
 
-let drawLevel = (robot_level,numberOfStars=null)=>{
+let drawLevel = (robot_level,WHICH_ROBOT_IS_THIS,numberOfStars=null)=>{
   let env = robot_level.ENV;
   for (let r=0;r<robot_level.ROWS;r++){
     for (let c=0;c<robot_level.COLS;c++){
@@ -379,19 +388,34 @@ let drawLevel = (robot_level,numberOfStars=null)=>{
 
   }
 
+  let robotImg = null;
   // arrow showing facing
   ctx.save();
   ctx.translate( (env.pos[1]+.5)*robot_level.kx+robot_level.dx,
                   (env.pos[0]+.5)*robot_level.ky+robot_level.dy );
-  if (env.facing=="S") ctx.rotate( 0 );
-  if (env.facing=="N") ctx.rotate( Math.PI );
-  if (env.facing=="E") ctx.rotate( Math.PI*3/2 );
-  if (env.facing=="W") ctx.rotate( Math.PI/2 );
+  if (env.facing=="S"){ 
+    ctx.rotate( 0 );
+    robotImg = images[14 + WHICH_ROBOT_IS_THIS*4]; // facing south
+    //  + WHICH_ROBOT_IS_THIS*4  => blue or orange robot!
+  }
+  if (env.facing=="N"){
+    ctx.rotate( Math.PI );
+    robotImg = images[12 + WHICH_ROBOT_IS_THIS*4];
+  }
+  if (env.facing=="E"){ 
+    ctx.rotate( Math.PI*3/2 );
+    robotImg = images[13 + WHICH_ROBOT_IS_THIS*4];
+  }
+  if (env.facing=="W"){ 
+    ctx.rotate( Math.PI/2 );
+    robotImg = images[15 + WHICH_ROBOT_IS_THIS*4];
+  }
+  // draw arrow
   ctx.drawImage(images[5],
       -robot_level.kx/2+5,robot_level.ky*1/4,
       robot_level.kx-4,robot_level.ky-4); // arrow
   ctx.restore();
-  ctx.drawImage(images[4],
+  ctx.drawImage(robotImg,
       env.pos[1]*robot_level.kx+robot_level.dx+10,env.pos[0]*robot_level.ky+robot_level.dy,
       robot_level.kx*2/3-4,robot_level.ky-4); // robot
 
@@ -436,8 +460,10 @@ let drawLevel = (robot_level,numberOfStars=null)=>{
 
 function drawMultiLevels(param=null){
   ctx.clearRect(0,0,ctx._W,ctx._H);
+  let WHICH_ROBOT_IS_THIS = 0;
   for (let robLev of ROBOT_LEVELS){
-    drawLevel(robLev,param);
+    drawLevel(robLev,WHICH_ROBOT_IS_THIS,param);
+    WHICH_ROBOT_IS_THIS++;
   }
 }
 drawMultiLevels();
@@ -493,14 +519,22 @@ let MAX_STEPS = 100; // stop every this-many
 
 let progCounts = []; // one per robot
 let COUNTERS_STACKS = []; // one per robot
-const PC_ARROWS_PALETTE = ["blue","red","green","black"]; // up to 4 robots!
+const PC_ARROWS_PALETTE = ["#00ffff","#ff9900","green","black"]; // up to 4 robots!
 
 let pcArrows = [];
 let robNumber = 0;
+// clean up old pc_arrows
+let toBeDeleted = document.querySelectorAll('.PC_ARROW_CLONE') || [];
+// debug console.log( toBeDeleted );
+for (let i=0;i<toBeDeleted.length;i++){
+  toBeDeleted[i].remove();
+}
+// create new pc_arrows
 for (let robLev of ROBOT_LEVELS){
   COUNTERS_STACKS.push([]);
   pcArrows.push(document.getElementById('PC_ARROW').cloneNode(true));  
   pcArrows[pcArrows.length-1].style.color = PC_ARROWS_PALETTE[robNumber];
+  pcArrows[pcArrows.length-1].className += " PC_ARROW_CLONE"
   document.body.appendChild(pcArrows[pcArrows.length-1]);
   robNumber++;
 }
@@ -519,6 +553,11 @@ for (let robLev of ROBOT_LEVELS){
 
 // --- move of 1 step all robots (one or 2 usually) ---
 let step = (code)=>{
+  if (canvas.className!=""){
+    wait(.5);
+    canvas.className = ""; // just to reset the possible shaking
+  }
+
   STEPS++;
   if (STEPS%MAX_STEPS==0){
     let answer = window.confirm(`Your code has been running for a bit...
@@ -556,6 +595,17 @@ Do you want to CONTINUE RUNNING the code?`);
     if (progCount>=code.length){
       // this robot is done executing, skip to next robot
       console.log("robot ",WHICH_ROBOT," is done executing");
+
+      // place pc_arrow at the end of the code blocks!
+      if (pcArrows[WHICH_ROBOT].style.doneAlready!="true"){
+        let lastYPos = parseInt(pcArrows[WHICH_ROBOT].style.top);
+        //console.log( "lastYPos=",lastYPos );
+// *********************************************************************************        
+// TO DO ... it should not be 100 pixels below, it should be below the last block ! 
+// *********************************************************************************
+        pcArrows[WHICH_ROBOT].style.top = (lastYPos+100+8*WHICH_ROBOT)  + "px";
+        pcArrows[WHICH_ROBOT].style.doneAlready = "true";
+      }
       continue;
     }
 
@@ -584,15 +634,27 @@ Do you want to CONTINUE RUNNING the code?`);
           let [x,y] = ROBOT_LEVEL.ENV.pos;
           x += dx;
           y += dy;
+          /*
+          // implements toroidal movements *************
           if (x<0) x+=ROBOT_LEVEL.ROWS;
           if (x>=ROBOT_LEVEL.ROWS) x-=ROBOT_LEVEL.ROWS;
           if (y<0) y+=ROBOT_LEVEL.COLS;
           if (y>=ROBOT_LEVEL.COLS) y-=ROBOT_LEVEL.COLS;
+          */
 
   //            console.log( ROBOT_LEVEL.level,x,y );
+          // blocks the robot when edge of the world is reached
+          // Collision with edge of the world
+          if ((x<0) || (x>=ROBOT_LEVEL.ROWS) || 
+              (y<0) || (y>=ROBOT_LEVEL.COLS)) {
+            // don'n walk, just stay
+            canvas.className = "shaker";
+            break;
+          }
           // wall collision
           if (ROBOT_LEVEL.level[x][y]==11){ // the wall!
             // don'n walk, just stay
+            canvas.className = "shaker";
             break;
           } 
 
