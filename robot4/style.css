@@ -1,3 +1,25 @@
+#empty { background: url(imgs/empty.png) no-repeat -9999px -9999px; }
+#arrow { background: url(imgs/arrow.png) no-repeat -9999px -9999px; }
+#breadleft { background: url(imgs/bread-1.png) no-repeat -9999px -9999px; }
+#breadright { background: url(imgs/bread-2.png) no-repeat -9999px -9999px; }
+#salad { background: url(imgs/salad.png) no-repeat -9999px -9999px; }
+#tomatoes { background: url(imgs/tomatoes.png) no-repeat -9999px -9999px; }
+#ham { background: url(imgs/ham.png) no-repeat -9999px -9999px; }
+#saladleaf { background: url(imgs/salad-leaf.png) no-repeat -9999px -9999px; }
+#tomatoslice { background: url(imgs/tomato-slice.png) no-repeat -9999px -9999px; }
+#hamslice { background: url(imgs/ham-slice.png) no-repeat -9999px -9999px; }
+#wall { background: url(imgs/wall.png) no-repeat -9999px -9999px; }
+
+#robotbluen { background: url(imgs/robot-blue-n.png) no-repeat -9999px -9999px; }
+#robotbluee { background: url(imgs/robot-blue-e.png) no-repeat -9999px -9999px; }
+#robotblues { background: url(imgs/robot-blue-s.png) no-repeat -9999px -9999px; }
+#robotbluew { background: url(imgs/robot-blue-w.png) no-repeat -9999px -9999px; }
+#robotorangen { background: url(imgs/robot-orange-n.png) no-repeat -9999px -9999px; }
+#robotorangee { background: url(imgs/robot-orange-e.png) no-repeat -9999px -9999px; }
+#robotoranges { background: url(imgs/robot-orange-s.png) no-repeat -9999px -9999px; }
+#robotorangew { background: url(imgs/robot-orange-w.png) no-repeat -9999px -9999px; }
+
+
 .levelButton {
    padding: .9em;
    background-color: #9E4F28;
@@ -77,8 +99,8 @@ height:30px;
 .guiButtonHighlighted {
 margin-left: -2px;
 border: 2px solid white;
-background-color: red;
-color: white;
+background-color: red; //#DBD09C;
+color: white; // #9E4F28;
 height:30px;
 }   
 

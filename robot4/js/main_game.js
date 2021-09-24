@@ -272,38 +272,46 @@ const canvas = document.getElementById('theCanvas');
 
 // wait until all images have loaded...
 document.getElementById('loading').style.display = "block";
-let images = new Array(20).fill(null); // remember: number of images is important!
-let allImagesLoaded = false;
-while (!allImagesLoaded){
-  images = [
-    images[ 0] || document.getElementById('empty'),        // # 0
-    images[ 1] || document.getElementById('tomatoes'),     // # 1
-    images[ 2] || document.getElementById('salad'),        // # 2
-    images[ 3] || document.getElementById('ham'),          // # 3
-    true,                                                  // # 4 obsolete!!!!!!
-    images[ 5] || document.getElementById('arrow'),        // 22x34 pixels, # 5
-    images[ 6] || document.getElementById('breadleft'),    // # 6
-    images[ 7] || document.getElementById('breadright'),   // # 7
-    images[ 8] || document.getElementById('tomatoslice'),  // # 8
-    images[ 9] || document.getElementById('saladleaf'),    // # 9
-    images[10] || document.getElementById('hamslice'),     // # 10
-    images[11] || document.getElementById('wall'),         // # 11
+let images = [
+  document.getElementById('empty'),        // # 0
+  document.getElementById('tomatoes'),     // # 1
+  document.getElementById('salad'),        // # 2
+  document.getElementById('ham'),          // # 3
+  null,                                                  // # 4 obsolete!!!!!!
+  document.getElementById('arrow'),        // 22x34 pixels, # 5
+  document.getElementById('breadleft'),    // # 6
+  document.getElementById('breadright'),   // # 7
+  document.getElementById('tomatoslice'),  // # 8
+  document.getElementById('saladleaf'),    // # 9
+  document.getElementById('hamslice'),     // # 10
+  document.getElementById('wall'),         // # 11
 
-    images[12] || document.getElementById('robotbluen'),   // # 12
-    images[13] || document.getElementById('robotbluee'),   // # 13
-    images[14] || document.getElementById('robotblues'),   // # 14
-    images[15] || document.getElementById('robotbluew'),   // # 15
-    images[16] || document.getElementById('robotorangen'),   // # 16
-    images[17] || document.getElementById('robotorangee'),   // # 17
-    images[18] || document.getElementById('robotoranges'),   // # 18
-    images[19] || document.getElementById('robotorangew'),   // # 19
-  ];
-  allImagesLoaded = images.indexOf(null)==-1;
-  console.log("loading...");
-  wait(100); // ms
-}
+  document.getElementById('robotbluen'),   // # 12
+  document.getElementById('robotbluee'),   // # 13
+  document.getElementById('robotblues'),   // # 14
+  document.getElementById('robotbluew'),   // # 15
+  document.getElementById('robotorangen'),   // # 16
+  document.getElementById('robotorangee'),   // # 17
+  document.getElementById('robotoranges'),   // # 18
+  document.getElementById('robotorangew'),   // # 19
+];
 
-document.getElementById('loading').style.display = "none";
+//console.log(images);
+let loadingTimer = setInterval(()=>{
+  let allImagesLoaded = true;
+  images.forEach((img)=>{
+    if (img!=null) 
+      if (!img.complete)
+        allImagesLoaded = false;
+  });
+  console.log( allImagesLoaded , images+'');
+  if (allImagesLoaded){
+    clearInterval(loadingTimer);
+    document.getElementById('loading').style.display = "none";  
+    drawMultiLevels(); // first time !!!  
+  } 
+},50);
+
 
 let numOfBlocksUsed = 0;
 let numberOfStars = null;
@@ -466,7 +474,7 @@ function drawMultiLevels(param=null){
     WHICH_ROBOT_IS_THIS++;
   }
 }
-drawMultiLevels();
+//drawMultiLevels();
 ////////////////////////////////////////////////////////////////////////////
 
 let runButton = document.getElementById('genCode');
