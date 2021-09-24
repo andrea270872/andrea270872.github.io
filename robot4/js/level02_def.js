@@ -37,7 +37,7 @@ function makeLevel(){
 to put between two slices of bread.
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] Try using the clockwise turn block: turnCW`;
+[HINT] To get more stars, try using REPEAT instructions to make your code shorter...`;
 
 
    ///////////////////////////////////////////////////////////////

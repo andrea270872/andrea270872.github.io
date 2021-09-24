@@ -934,9 +934,13 @@ STEPS = 0; // start executing the code...
 timer = setTimeout(()=>{ step(THE_CODE); }, 100); 
 });
 
-
-document.getElementById('helpBtn').addEventListener('click' , ()=>{
-  alert(HELP_MESSAGE);
+let helpButton = document.getElementById('helpBtn');
+helpButton.addEventListener('click' , ()=>{
+  helpButton.className = "guiButtonHighlighted";
+  setTimeout( ()=>{
+    alert(HELP_MESSAGE);
+    helpButton.className = "guiButton";
+  },10);
 });
 
 // save workspace blocks to file

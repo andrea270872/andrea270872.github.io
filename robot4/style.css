@@ -73,6 +73,13 @@ border: none;
 background-color: darkgray;
 color: #e4e4e4;
 height:30px;
+}
+.guiButtonHighlighted {
+margin-left: -2px;
+border: 2px solid white;
+background-color: red; //#DBD09C;
+color: white; // #9E4F28;
+height:30px;
 }   
 
 #loading {

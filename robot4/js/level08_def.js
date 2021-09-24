@@ -63,13 +63,13 @@ function makeLevel(){
                               // 3 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
-   `In this level there are 2 robots moving at the same time. They should prepare a sandwich with these ingredients:
-      ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-   to put between two slices of bread.
-   Help the 2 robots visit the right ingredients in the right sequence :)
-   Be careful because now you control BOTH robots!
+`In this level there are 2 robots moving at the same time. 
+They should prepare a sandwich with these ingredients:
+   ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
+Help the robots visit the right ingredients in the right sequence :)
+Remember: now you control BOTH robots!
 
-   [HINT] Try to go forward a bit, then use the ifLast instruction to make the 2 robots behave differently... Click the "RUN CODE" button`;
+[HINT] To collect more stars, consider using WHILE blocks...`;
 
 
 

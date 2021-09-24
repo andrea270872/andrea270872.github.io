@@ -32,12 +32,11 @@ function makeLevel(){
                          // 4 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
-`In this level the robot should prepare a sandwich with these ingredients:
+`The robot should prepare a sandwich with these ingredients:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
 Help the robot visit the right ingredients in the right sequence :)
 
-There are 3 hams that the robot could reach... choose wisely!`;
+[HINT] To get more stars, try using REPEAT instructions to make your code shorter...`;
 
 
    ///////////////////////////////////////////////////////////////

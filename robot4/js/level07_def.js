@@ -31,18 +31,19 @@ function makeLevel(){
    const LEVEL_NR = 7;
    const GOAL = [1,2,1]; // 1 tomatoes, 2 salad, 3 ham
    let ACTUAL_GOAL = GOAL.map( n=>n+7 ); // 1->8 salad-leaf, ...
-   const NBLOCKS_STARS = [9,7]; // you get 1 star for winning
-                           // 9 or less blocks gets you the second star
-                           // 7 or less blocks gets you the third star
+   const NBLOCKS_STARS = [15,9]; // you get 1 star for winning
+                           // 15 or less blocks gets you the second star
+                           // 9 or less blocks gets you the third star
 
 
    const HELP_MESSAGE = 
-`In this level the robot should prepare a sandwich with these ingredients:
+`The robot should prepare a sandwich with these ingredients:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] What happens when the robot reaches the end of the board?`;
+[HINT] What happens when the robot reaches the end of the board or walks into a wall?
+This level is large: use the speed slider to make your robot run faster!
+To collect more stars, consider using REPEAT or WHILE blocks...`;
 
 
    ///////////////////////////////////////////////////////////////

@@ -33,12 +33,11 @@ function makeLevel(){
 
 
    const HELP_MESSAGE = 
-`In this level the robot should prepare a sandwich with these ingredients:
+`In this level looks like the previous one, but the goal is different:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] What happens when the robot reaches the end of the board?`;
+[HINT] To collect more stars, consider using a WHILE block...`;
 
 
    ///////////////////////////////////////////////////////////////

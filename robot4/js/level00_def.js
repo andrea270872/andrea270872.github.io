@@ -32,9 +32,8 @@ function makeLevel(){
                            // 6 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
-`In this level the robot move around and pick up ingredients.
-Its goal is to prepare a very simple sandwich with a slide of tomato. 
-The slice will be put between two slices of bread.
+`In this level the robot's goal is to prepare a simple sandwich with a slice of tomato. 
+The tomato will be put between two slices of bread. 
 Help the robot visit the right ingredients in the right sequence :)
 
 But have also some fun exploring how the robot moves forward, turns one way or the other.

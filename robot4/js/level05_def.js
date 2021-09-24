@@ -35,12 +35,10 @@ function makeLevel(){
    const HELP_MESSAGE = 
 `In this level the robot should prepare a sandwich with these ingredients:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] Try forward and turn, many times, like in level 3.
-            There are at least 2 pairs of ingredients the robot could reach...
-            Consider using REPEAT blocks.`;
+[HINT] What happens when the robot steps on an ingredient, and then rotates?
+To collect more stars, consider using REPEAT blocks...`;
 
 
    ///////////////////////////////////////////////////////////////

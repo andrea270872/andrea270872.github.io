@@ -34,10 +34,11 @@ function makeLevel(){
    const HELP_MESSAGE = 
 `In this level the robot should prepare a sandwich with these ingredients:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
+but there are many alternatives. Choose wisely!
+
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] Try with: forward and forward; click the "RUN CODE" button...`;
+[HINT] Shorter code will get you more stars...`;
 
 
    ///////////////////////////////////////////////////////////////

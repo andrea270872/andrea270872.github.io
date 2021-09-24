@@ -54,13 +54,14 @@ function makeLevel(){
                               // 5 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
-`In this level the robot should prepare a sandwich with these ingredients:
+`In this level both robots should prepare their sandwichs using:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
-Help the robot visit the right ingredients in the right sequence :)
+Both robot will follow the SAME instructions... so be careful: 
+the kitchens are a bit different!
+Help the robots visit the right ingredients in the right sequence :)
 
-[HINT] Try going forward then turn clockwise, many times... 
-           or perhaps consider the REPEAT blocks...`;
+[HINT] Both robots should go forward, but then one should turn while the other should continue...
+Consider that IF a robot does not pick a tomato up, then it should turn...`;
 
 
    ///////////////////////////////////////////////////////////////

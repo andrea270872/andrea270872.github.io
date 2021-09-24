@@ -32,12 +32,13 @@ function makeLevel(){
                                // 8 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
-`In this level the robot should prepare a sandwich with these ingredients:
+`The robot should prepare a BIG sandwich this time, using:
    ${GOAL.map(i=>[null,'tomatoes','salad','ham'][i]).join(', ')}
-to put between two slices of bread.
+
+Be careful and avoid bumping into walls!
 Help the robot visit the right ingredients in the right sequence :)
 
-[HINT] Try using the clockwise turn block: turnCW`;
+[HINT] Can you make a path for your robot, and then REPEAT it?`;
 
 
    ///////////////////////////////////////////////////////////////
