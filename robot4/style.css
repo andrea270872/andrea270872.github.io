@@ -77,8 +77,8 @@ height:30px;
 .guiButtonHighlighted {
 margin-left: -2px;
 border: 2px solid white;
-background-color: red; //#DBD09C;
-color: white; // #9E4F28;
+background-color: red;
+color: white;
 height:30px;
 }   
 
