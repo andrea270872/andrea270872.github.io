@@ -76,7 +76,9 @@ function compile(code,compiledCode){
         compiledCode.push( ["PUSH",instr[2],blockId] ); 
         let K = compiledCode.length; // back-patching step 1
 
-        compile(instr[3],compiledCode); // list of nested statements
+        // debug console.log( "nested code:" ,instr[3]);
+        if (instr[3]!=null)
+          compile(instr[3],compiledCode); // list of nested statements
 
         compiledCode.push( ["DECR_TOP",-1,null] ); // no id for this instructions, tau-execute!
         compiledCode.push( ["IF_TOP_NOT_0_JMP",K,blockId] ); // back-patching step 2
@@ -89,7 +91,11 @@ function compile(code,compiledCode){
         //                                 ham              jmp out of loop
         compiledCode.push( ["IF_LAST_JMP",instr[2],blockId,null] );
         let label1 = compiledCode.length; // back-patching step 1
-        compile(instr[3],compiledCode); // list of nested statements
+
+        // debug console.log( "nested code:" ,instr[3]);
+        if (instr[3]!=null)
+          compile(instr[3],compiledCode); // list of nested statements
+        
         compiledCode.push( ["JMP",label1-1,null] ); // tau-instruction
         let label2 = compiledCode.length; // back-patching step 2
         compiledCode[label1-1][3] = label2; // back-patching step 3        
@@ -136,10 +142,17 @@ function blocksToList(){
         blockList.push( [blockId,type] );
       } break;
       case "repeatNtimes": {
-        blockList.push( [blockId,type,
-                      ~~names["FIELD"].innerText ,
-                      visit(names["STATEMENT"].children[0])
-                    ]);
+        if (names["STATEMENT"]!=null){
+          blockList.push( [blockId,type,
+                        ~~names["FIELD"].innerText ,
+                        visit(names["STATEMENT"].children[0])
+                      ]);
+        } else { // this repeat has no nested code!
+          blockList.push( [blockId,type,
+                        ~~names["FIELD"].innerText ,
+                        null
+                      ]);
+        }
       } break;
       case "ifLast_turnCW": {
         blockList.push( [blockId,type,
@@ -147,10 +160,17 @@ function blocksToList(){
                       ]);
       } break;
       case "whileLastNot": {
-        blockList.push( [blockId,type,
+        if (names["STATEMENT"]!=null){
+          blockList.push( [blockId,type,
                       JSON.parse(names["FIELD"].innerText) ,
                       visit(names["STATEMENT"].children[0])
                     ]);
+        } else { // this whileLastNot has no nested code!
+          blockList.push( [blockId,type,
+                        JSON.parse(names["FIELD"].innerText) ,
+                        null
+                      ]);
+        }        
       } break;
     }
 
@@ -304,7 +324,7 @@ let loadingTimer = setInterval(()=>{
       if (!img.complete)
         allImagesLoaded = false;
   });
-  console.log( allImagesLoaded , images+'');
+  //console.log( allImagesLoaded , images+'');
   if (allImagesLoaded){
     clearInterval(loadingTimer);
     document.getElementById('loading').style.display = "none";  
@@ -335,8 +355,8 @@ let drawLevel = (robot_level,WHICH_ROBOT_IS_THIS,numberOfStars=null)=>{
   // show the number of instructions used
   //console.log( "----->" , listAllBlocks() );
   if (numOfBlocksUsed>0){
-	ctx.font = "16px Arial";
-    	ctx.fillStyle = "black";	  	
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "black";	  	
   	ctx.fillText(`${numOfBlocksUsed} blocks used`,350,52);     
   }
 

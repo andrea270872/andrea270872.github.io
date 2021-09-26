@@ -46,7 +46,7 @@ Blockly.Blocks['turnACW'] = {
     this.setHelpUrl('');
       }
     };    
-
+/*
 Blockly.Blocks['repeat2times'] = {
   init: function() {
     this.appendDummyInput()
@@ -72,6 +72,7 @@ Blockly.Blocks['repeat4times'] = {
     this.setHelpUrl('');
 	  }
 	};
+*/
 
 Blockly.Blocks['ifLast_turnCW'] = {
   init: function() {
