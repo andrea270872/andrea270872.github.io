@@ -1,4 +1,5 @@
 #empty { background: url(imgs/empty.png) no-repeat -9999px -9999px; }
+#empty_green { background: url(imgs/empty-green.png) no-repeat -9999px -9999px; }
 #arrow { background: url(imgs/arrow.png) no-repeat -9999px -9999px; }
 #breadleft { background: url(imgs/bread-1.png) no-repeat -9999px -9999px; }
 #breadright { background: url(imgs/bread-2.png) no-repeat -9999px -9999px; }

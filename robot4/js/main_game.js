@@ -314,6 +314,8 @@ let images = [
   document.getElementById('robotorangee'),   // # 17
   document.getElementById('robotoranges'),   // # 18
   document.getElementById('robotorangew'),   // # 19
+
+  document.getElementById('empty_green'),    // # 20
 ];
 
 //console.log(images);
@@ -340,12 +342,21 @@ let drawLevel = (robot_level,WHICH_ROBOT_IS_THIS,numberOfStars=null)=>{
   let env = robot_level.ENV;
   for (let r=0;r<robot_level.ROWS;r++){
     for (let c=0;c<robot_level.COLS;c++){
-      const tile = robot_level.level[r][c];
-      if (tile!=0){
-        ctx.drawImage(images[0],
+      let tile = robot_level.level[r][c];
+
+      let emptyTile = 0;
+      if ((c+r)%2){
+        emptyTile = 20; // green empty tile
+      }
+
+      if (tile!=0){ // not an empty tile
+        ctx.drawImage(images[emptyTile],
               c*robot_level.kx+robot_level.dx,r*robot_level.ky+robot_level.dy, 
             robot_level.kx,robot_level.ky);
+      } else {
+        tile = emptyTile;
       }
+
       ctx.drawImage(images[tile],
         c*robot_level.kx+robot_level.dx,r*robot_level.ky+robot_level.dy,
         robot_level.kx,robot_level.ky);
