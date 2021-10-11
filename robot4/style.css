@@ -30,6 +30,15 @@
    text-decoration: none;   
 }
 
+.levelButtonLogout{
+    color: white;
+    background-color: red;
+    height: 50px;
+    width:  80px;
+    cursor:pointer;
+    text-decoration: none;
+}
+
 .levelButton:hover {
    background-color: #B8714D;
    color: #DBD09C;   

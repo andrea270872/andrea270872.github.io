@@ -3,11 +3,11 @@ function makeLevel(){
    // level A ///////////////////////////////////
 
    let ROBOT_LEVEL_A = {
-      robotPos: [0,1], // row,col
+      robotPos: [0,3], // row,col
       level: [    [0,0,0,0,0],
-                  [0,1,0,0,0],
+                  [0,0,0,1,0],
                   [0,0,0,0,0],
-                  [0,2,0,0,0],
+                  [0,0,0,2,0],
 
                   [0,0,3,0,0],
                   [0,0,1,0,0],
@@ -27,13 +27,13 @@ function makeLevel(){
 
    // level B ///////////////////////////////////
    let ROBOT_LEVEL_B = {
-      robotPos: [0,1], // row,col
+      robotPos: [0,3], // row,col
       level: [    [0,0,0,0,0],
-                  [0,1,0,0,0],
+                  [0,0,0,1,0],
                   [0,0,0,0,0],
                   [0,0,0,0,0],
 
-                  [0,2,0,0,0],
+                  [0,0,0,2,0],
                   [0,0,0,0,0],
                   [0,0,0,0,0],
                   [0,0,3,0,0],
@@ -58,9 +58,9 @@ function makeLevel(){
    const LEVEL_NR = 8; // level 10
    const GOAL = [1,2,3]; // 1 tomatoes, 2 salad
    let ACTUAL_GOAL = GOAL.map( n=>n+7 ); // 1->8 salad-leaf, ...
-   const NBLOCKS_STARS = [5,3]; // you get 1 star for winning
-                              // 5 or less blocks gets you the second star
-                              // 3 or less blocks gets you the third star
+   const NBLOCKS_STARS = [10,7]; // you get 1 star for winning
+                              // 10 or less blocks gets you the second star
+                              // 7 or less blocks gets you the third star
 
    const HELP_MESSAGE = 
 `In this level there are 2 robots moving at the same time. 

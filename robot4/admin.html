@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+	<div id="user_list"></div>
+	<div id="details"></div>
+
+<script>
+/*
+  let data = {"userId": userId,
+                  "timeStamp": Date.now(),
+                  "timeStampReadable": new Date().toGMTString(),
+                  "XMLcode": text,
+                  "code": listAllBlocks(),
+                  "level":LEVEL_NR,
+                  "victory":victory,
+                  "nr_stars":numberOfStars|0,
+                  "click_times": JSON.stringify(mouseSpy.clicksAt)
+                 };
+*/
+
+  let dataByUserId = {};
+
+  // 
+  function showLevelSolution(userId,userName,rowNumber){
+  	let levelData = dataByUserId[userId][rowNumber];
+  	console.log(userId,userName,rowNumber,levelData);
+
+  	// to do
+  	// draw the level in a canvas
+  	// show the code-solution
+  	// show the clicks and somehow the timing between them...
+  	// if won -> show how many stars 
+  }
+
+  // ---> https://restdb.io/docs/rest-api#restdb
+  function showAllFromUser(userId,userName){
+  	//console.log( userId, dataByUserId[userId] );
+
+  	// sort by level (incr)
+  	// internally sory by time
+  	dataByUserId[userId].sort( (a,b)=>{
+  		let delta = a.level - b.level;
+  		if (delta == 0){
+  			delta = a.timeStamp - b.timeStamp;
+  		}
+  		return delta;
+  	});
+
+	let tmp = '<ul>User '+userName;
+	let date;
+ 	for (let i=0;i<dataByUserId[userId].length;i++){
+ 		let previousRow = dataByUserId[userId][i-1];
+ 		let row = dataByUserId[userId][i];
+ 		date = new Date(row.timeStampReadable);
+		if ((previousRow) && (previousRow.level!=row.level))
+			tmp += '<br>';
+		tmp += `<li>level ${row.level} at time ${date.toISOString().slice(0,19)} (${row.s?'Won':'Lost'}) - 
+			<button onclick="showLevelSolution('${userId}','user_${i}',${i});">show</button></li>`;
+	}
+	tmp+='</ul>'
+	document.getElementById('details').innerHTML = tmp;
+  }
+
+  // AJAX call to cloud-DB
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = false;
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+      console.log("data loaded from cloud DB");
+      //console.log(this.responseText);
+      let data = JSON.parse(this.responseText);
+	  // debug console.log(data);
+
+	  // group data by userId
+	  dataByUserId = {};
+	  data.forEach( (d)=>{
+	  	if (dataByUserId[d.userId]==undefined){
+	  		dataByUserId[d.userId] = [];	  		
+	  	}
+	  	dataByUserId[d.userId].push(d);
+	  });
+
+	  // find all distinct userId
+	  let userIds = Object.keys(dataByUserId);
+
+	  // debug console.log( "all distinct userIds " , userIds);
+	  let tmp = '<ul>All users:';
+	  let i=0;
+	  for (let userId of userIds){
+	  	i++;
+	  	tmp += `<li>user_${i} - <button onclick="showAllFromUser('${userId}','user_${i}');">details</button> </li><br>`;
+	  }
+	  tmp+='</ul>'
+	  document.getElementById('user_list').innerHTML = tmp;
+    }
+  });
+  xhr.open("GET", "https://guessrobot-2e5c.restdb.io/rest/users-solutions");
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.setRequestHeader("x-apikey", "60801f0928bf9b609975a4b5");
+  xhr.setRequestHeader("cache-control", "no-cache");
+  xhr.send();  
+
+</script>
+
+</body>
+</html>
