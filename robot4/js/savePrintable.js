@@ -152,7 +152,7 @@ button.addEventListener('click' , (e)=>{
 		pCtx.fillStyle = "blue";
 	  	pCtx.fillText('repeat ___ ',500+i*8*16 +16-5,150 +16+2 +32*row);
 
-		// whileLastNot 
+		// untilStepOn
 	  	row++;
 	  	row++;	  		  	
 		pCtx.strokeRect(500+i*8*16,150 +32*row, 
@@ -163,7 +163,7 @@ button.addEventListener('click' , (e)=>{
 		pCtx.fillRect(500+i*8*16+1,150 +32*row+32-1, 
 						3*16-2,2);
 		pCtx.fillStyle = "blue";
-	  	pCtx.fillText('whileLastNot __ ',500+i*8*16 +16-5,150 +16+2 +32*row);
+	  	pCtx.fillText('untilStepOn __ ',500+i*8*16 +16-5,150 +16+2 +32*row);
 	}
 
 	// DEBUG 	document.body.appendChild(printableCanvas);

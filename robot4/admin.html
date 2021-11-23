@@ -28,7 +28,10 @@
   // 
   function showLevelSolution(userId,userName,rowNumber){
   	let levelData = dataByUserId[userId][rowNumber];
-  	console.log(userId,userName,rowNumber,levelData);
+  	console.log(userId,userName,rowNumber,levelData);  	
+  	document.getElementById('details').innerHTML += 
+  					userId+'/'+userName
+  							+'/'+rowNumber+'/'+JSON.stringify(levelData);
 
   	// to do
   	// draw the level in a canvas

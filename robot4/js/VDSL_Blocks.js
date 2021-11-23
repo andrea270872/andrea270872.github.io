@@ -46,33 +46,6 @@ Blockly.Blocks['turnACW'] = {
     this.setHelpUrl('');
       }
     };    
-/*
-Blockly.Blocks['repeat2times'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField('repeat2times');this.appendStatementInput('P');
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip('repeat2times P');
-    this.setHelpUrl('');
-	  }
-	};
-
-Blockly.Blocks['repeat4times'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField('repeat4times');this.appendStatementInput('P');
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
-    this.setTooltip('repeat4times P');
-    this.setHelpUrl('');
-	  }
-	};
-*/
 
 Blockly.Blocks['ifLast_turnCW'] = {
   init: function() {
@@ -125,10 +98,10 @@ Blockly.Blocks['repeatNtimes'] = {
     }
   };
 
-Blockly.Blocks['whileLastNot'] = {
+Blockly.Blocks['untilStepOn'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('whileLastNot');
+        .appendField('untilStepOn');
 
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([
@@ -142,7 +115,7 @@ Blockly.Blocks['whileLastNot'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
-    this.setTooltip('whileLastNot P');
+    this.setTooltip('untilStepOn ingredient P');
     this.setHelpUrl('');
     }
 };

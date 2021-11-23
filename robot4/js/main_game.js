@@ -87,7 +87,7 @@ function compile(code,compiledCode){
       case "ifLast_turnCW": {
         compiledCode.push( [type,instr[2],blockId] );
       } break;
-      case "whileLastNot": {
+      case "untilStepOn": {
         //                                 ham              jmp out of loop
         compiledCode.push( ["IF_LAST_JMP",instr[2],blockId,null] );
         let label1 = compiledCode.length; // back-patching step 1
@@ -159,7 +159,7 @@ function blocksToList(){
                       JSON.parse(names["FIELD"].innerText)
                       ]);
       } break;
-      case "whileLastNot": {
+      case "untilStepOn": {
         if (names["STATEMENT"]!=null){
           blockList.push( [blockId,type,
                       JSON.parse(names["FIELD"].innerText) ,
