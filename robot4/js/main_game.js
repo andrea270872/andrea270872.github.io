@@ -2,6 +2,7 @@ let [ROBOT_LEVELS,LEVEL_NR,GOAL,ACTUAL_GOAL,NBLOCKS_STARS,HELP_MESSAGE] = makeLe
 document.getElementById('LEVEL_NUMBER').innerHTML = 'Level '+LEVEL_NR;
 
 let glassPanel = document.getElementById('glassPanel');
+let hasJustRun = false; // set by clicking the run button
 
 const move = {"S":[+1,0],  // row,col
               "N":[-1,0],
@@ -24,9 +25,11 @@ let SPEED = 800;
 document.getElementById('speedSlider').addEventListener('change' , (evt)=>{  
   // DEBUG console.log( parseInt(evt.target.value) );
   let spd = parseInt(evt.target.value);
-  if (spd==3) SPEED = 200;
-  if (spd==2) SPEED = 800;
-  if (spd==1) SPEED = 1800;
+  setTimeout( ()=>{
+    if (spd==3) SPEED = 200;
+    if (spd==2) SPEED = 800;
+    if (spd==1) SPEED = 1800;
+  },150);
 });
 // execution speed --------------------------------------------------------------
 
@@ -73,7 +76,7 @@ function compile(code,compiledCode){
         compiledCode.push( [type,-1,blockId] );
       } break;
       case "repeatNtimes": {
-        compiledCode.push( ["PUSH",instr[2],blockId] ); 
+        compiledCodes.push( ["PUSH",instr[2],blockId] ); 
         let K = compiledCode.length; // back-patching step 1
 
         // debug console.log( "nested code:" ,instr[3]);
@@ -279,6 +282,18 @@ if (userId==null){
   window.location.replace("index.html"); // redirect if no userId
 }
 //console.log( userId );
+
+// used while stepping thru the code
+function resetAll(){
+    runButton.textContent = 'RUN CODE';
+    runButton.className = 'guiButton';
+    glassPanel.style.display = "none";
+    runButton.disabled = false;
+    // unselect all blocks!
+    Blockly.getMainWorkspace().getAllBlocks().forEach(b=>b.unselect());
+    // hide pc_arrows 
+    document.querySelectorAll('.PC_ARROWS').forEach(el=>el.style.display="none");
+}
 
 ////////////////////////////////////////////////////////////////////////////
 // draw on canvas, implement movements ...
@@ -510,6 +525,8 @@ function drawMultiLevels(param=null){
 
 let runButton = document.getElementById('genCode');
 runButton.addEventListener('click' , ()=>{
+  hasJustRun = true;
+
   if (timer!=null) clearTimeout(timer); // stop execution if it's running
 
   {
@@ -524,14 +541,20 @@ runButton.addEventListener('click' , ()=>{
 
   // unselect all blocks!
   Blockly.getMainWorkspace().getAllBlocks().forEach(b=>b.unselect());
-  runButton.disabled = true;
+  if (runButton.textContent=='RUN CODE'){
+    runButton.textContent = '* STOP *';
+    runButton.className = 'guiButtonHighlighted';
+    glassPanel.style.display = "block";
+  } else {
+    resetAll();
+    return; // there is nothing to do!
+  } 
 
   // DEBUG console.log( "======>" , blocksToList() );
 
   let THE_CODE = blocksToList();
   if (THE_CODE.length==0){
-    runButton.disabled = false;
-    glassPanel.style.display="none";
+    resetAll();
     return; // there is nothing to do!
   }
 
@@ -597,23 +620,18 @@ let step = (code)=>{
     canvas.className = ""; // just to reset the possible shaking
   }
 
-  STEPS++;
+  STEPS++;  
   if (STEPS%MAX_STEPS==0){
     let answer = window.confirm(`Your code has been running for a bit...
 Are you sure that your code is not stuck in an infinite loop?!
 
-Do you want to CONTINUE RUNNING the code?`);
-    if (!answer) {
+Do you want to STOP RUNNING the code? [OK to STOP]`);
+
+    if (answer) {
       // reset all!
       if (timer!=null) clearTimeout(timer); // stop execution if it's running
-      glassPanel.style.display="none";
-      document.getElementById('genCode').disabled = false;
-      // unselect all blocks!
-      Blockly.getMainWorkspace().getAllBlocks().forEach(b=>b.unselect());
-      // hide pc_arrows 
-      document.querySelectorAll('.PC_ARROWS').forEach(el=>el.style.display="none");
-
-      return; // stop the execution and reset;
+        resetAll();
+        return; // stop the execution and reset;
     }
   }
     
@@ -835,7 +853,7 @@ Do you want to CONTINUE RUNNING the code?`);
         }
       }
       _t_ += .04;
-    }, ~~(SPEED/50));//15); 
+    }, ~~(SPEED**.5 /10)); //~~(SPEED/200)); //15); 
   };  // end of thenDo
 
 
@@ -858,7 +876,8 @@ Do you want to CONTINUE RUNNING the code?`);
       drawMultiLevels();
     }
     _t_ += .1;
-  }, ~~(SPEED/50));//15); 
+  //}, ~~(SPEED/200));//15); 
+}, ~~(SPEED**.5 /10));
   // **************************************
   }
 
@@ -958,11 +977,20 @@ Do you want to CONTINUE RUNNING the code?`);
       // draw the stars, juice them up!!
       drawMultiLevels(numberOfStars);
       
-      document.getElementById('genCode').disabled = false;
-      glassPanel.style.display="none";
+      // reset all
+      runButton.textContent = 'RUN CODE';
+      runButton.className = 'guiButton';
+      glassPanel.style.display = "none";
+      runButton.disabled = false;
+      // unselect all blocks!
+      Blockly.getMainWorkspace().getAllBlocks().forEach(b=>b.unselect());
+      // hide pc_arrows 
+      document.querySelectorAll('.PC_ARROWS').forEach(el=>el.style.display="none");
 
 
-      setTimeout(()=>alert("Execution terminated ..." + victory),800);
+
+      //setTimeout(()=>alert("Execution terminated ..." + victory),800);
+      setTimeout(()=>openModalPopup("Execution terminated ..." + victory),800);      
     },SPEED);
   
   }
@@ -977,11 +1005,14 @@ let helpButton = document.getElementById('helpBtn');
 helpButton.addEventListener('click' , ()=>{
   helpButton.className = "guiButtonHighlighted";
   setTimeout( ()=>{
-    alert(HELP_MESSAGE);
-    helpButton.className = "guiButton";
+    //alert(HELP_MESSAGE);
+    openModalPopup(HELP_MESSAGE,()=>{
+      helpButton.className = "guiButton"
+    });    
   },10);
 });
 
+/*
 // save workspace blocks to file
 document.getElementById('saveBlocks').addEventListener('click' , ()=>{    
   let blocklyXml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());      
@@ -1023,15 +1054,82 @@ document.getElementById('loadBlocks').addEventListener('click' , ()=>{
   Blockly.Xml.domToWorkspace(blocklyXml, workspace);
   //Blockly.Xml.appendDomToWorkspace(blocklyXml, workspace);
 });
+*/
 
+// auto-save/auto-load current blocks *******************
+window.addEventListener("beforeunload",(evt)=>{
+  // auto-save
+  let blocklyXml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());      
+  let xmlText = new XMLSerializer().serializeToString(blocklyXml);
+  // DEGUB console.log( xmlText );  
+  let name = 'level_'+LEVEL_NR+'_savedXML';
+  localStorage.setItem(name,xmlText);
+  console.log('Saved');
+});
+
+window.addEventListener('load', (evt)=>{
+  // auto-load ... if previous blocks exist
+  let name = 'level_'+LEVEL_NR+'_savedXML';
+  let xmlText = localStorage.getItem(name); 
+  if (xmlText==null){
+    console.log('There is nothing saved to reload...');
+  } else {    
+    console.log( 'loading ... ' ); // DEBUG + xmlText);
+    let blocklyXml = Blockly.Xml.textToDom(xmlText);
+    // DEGUB console.log( blocklyXml);  
+
+    let workspace = Blockly.getMainWorkspace();
+    // DEGUB console.log( workspace );    
+    workspace.clear();
+    Blockly.Xml.domToWorkspace(blocklyXml, workspace);
+  }
+
+});
+
+// ******************************************************
 
 // ************** spy every mouse click *****************
 let mouseSpy = {
     clicksAt: [],
     lastClickTime: new Date().getTime()};
-document.body.addEventListener("click",(evt)=>{
+
+Blockly.getMainWorkspace().addChangeListener((evt)=>{
+  //console.log("mouse spy -> " , evt.type);
+  if ( (evt.type == Blockly.Events.BLOCK_CHANGE)|| 
+       (evt.type == Blockly.Events.BLOCK_MOVE) ){
+
     let t = new Date().getTime();
     let dt = t - mouseSpy.lastClickTime;
     mouseSpy.clicksAt.push([dt/1000,[evt.clientX,evt.clientY]]);
     mouseSpy.lastClickTime = t;
+
+    //console.log("------>",hasJustRun);
+    if (hasJustRun){
+      //console.log("reset all robots, because you clicked");
+      hasJustRun = false;
+
+      // reset all robots
+      for (let robLev of ROBOT_LEVELS){
+        robLev.ENV = {facing:"S",pos:robLev.robotPos,thinking:[],line:null};
+      }
+      drawMultiLevels();
+    }
+  }
 });
+
+// ********* managing the modal popup ******** 
+let modal = document.getElementById("myModal");
+let modalText = document.getElementById("modal-text");
+let OKButton = document.getElementsByClassName("modal-button")[0];
+let modalThenDo = null;
+
+function openModalPopup(msg,thenDo=null) {
+  modalText.innerText = msg;
+  modal.style.display = "block";
+  modalThenDo = thenDo;
+}
+
+OKButton.onclick = function() {
+  modal.style.display = "none"; // closes ModalPopup
+  if (modalThenDo) modalThenDo(); // continuation
+}

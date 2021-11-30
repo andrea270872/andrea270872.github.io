@@ -31,7 +31,7 @@ That surely is the weirdest operation we have encountered so far.
 <br>
 But, OK. We can try to make things more regular by deciding that a division ALWAYS returns two results: the actual result of the division and a leftover (in math they are called <i>quotient</i> and <i>remainder</i>). So now we have an operation that takes two positive whole numbers and gives back two whole numbers.
 <br>
-However, we could also take another road and insist that division returns a single number as result. If we do that, then what number would be the result of <b>7</b> divided by <b>2</b>? It cannot be a whole number, because <b>3</b> is too little and <b>4</b> is too much, to be the results. So we have to invent yet another family of numbers, the <i>broken numbers</i>, that live in between regular, whole numbers. (spoiler! the result of this division is <b>3.5</b>, but in this book we don't know yet what <b>3.5</b> means...)
+However, we could also take another road and insist that division returns a single number as result. If we do that, then what number would be the result of <b>7</b> divided by <b>2</b>? It cannot be a whole number, because <b>3</b> is too little and <b>4</b> is too much, to be the results. So we have to invent yet another family of numbers, the <i>broken numbers</i>, that live in between regular, whole numbers. (spoiler! the result of this division is <b>3.5</b>, but at this point in the book we don't know yet what <b>3.5</b> means...)
 <br>
 Broken numbers are weird in their own way, and we will have to find a way to place them on an abacus, to make sense of what they ARE. Then we have to redefine all our operations, so that they can work with whole (positive and negative) and broken numbers as well. In math these families of numbers have <i>fancy</i>, historical names: <i>natural numbers</i> (zero and the positive, whole numbers), <i>integers</i> (naturals and negative numbers), and <i>real numbers<sup style="color:deeppink;font-size:80%"><b>(*)</b></sup></i> (integers and broken numbers).
 
@@ -138,7 +138,7 @@ and since I cannot continue the process anymore, I can stop. The result is indee
 
 <br>
 So just to be sure that this approach makes sense, let me try with the subtraction <b>II-IIIII</b>.
-First I will change the operation from subtraction to addition (by changing the second number to negative), then I will do the addition box-by-box (that is: the black numbers add together, and the red numbers add together), and finally, I will transform my number to normal form.
+First I will change the operation from subtraction to addition (by changing the second number to negative), then I will do the addition box-by-box (that is: the black numbers add together, and the red numbers add together), and finally, I will fix the resulting number so that it is in normal form.
 Let's go:
 <span class="formula">
 	<span class="open_box">II</span><span class="open_box" style="color:red">&nbsp;</span> 
@@ -171,26 +171,24 @@ Moral of the story so far: to define how the subtraction works, we had to invent
 extending a single number to be a pair of numbers, a black and a red one. 
 Since positive and negative numbers <i>cancel each other out</i>, we realized that adding a positive and a negative number has the same meaning that subtracting the second number from the first. Knowing that, we could redefine addition, and as a bonus we got a definition of subtraction that works with any combination of positive and negative numbers.
 <br>
-Finally, we found out that every positive number has a negative counterpart, called its "opposite", and that adding together two opposite numbers gives zero. And zero does not have an opposite.
+Finally, we can note that every positive number must have a negative counterpart, called its "opposite" in math, and that adding together two opposite numbers gives zero; zero does not have an opposite.
 </p> 
 
 <h2>From subtraction to division</h2>
 <p>
-One way to look at a division is to see it as many subtractions, repeated. Take for example: <b>8:2</b>, which we can read as "eight divided by two", or "I have eight sheep, and I want to give them to two friends, so each gets the same number of sheep". So to calculate the result, I could do like this: start with my sheep and try to give one sheep to each friend; then I can repeat the process until there are zero sheep, or until there are less sheep than friends, in which case I will have some leftover sheep. Here I would start with:
+One way to look at a division is to see it as many subtractions, repeated. Take for example: <b>8:2</b>, which we can read as "eight divided by two", or "I have eight sheep, and I want to give them to two friends, so each gets the same number of sheep". So to calculate the result, I could do like this: start with my sheep and try to give one sheep to each friend; then I can repeat the process until there are zero sheep, or until there are less sheep than friends, in which case I will have some leftover sheep. To calculate <b>8:2</b> I would start with:
 <span class="formula">
-my sheep = 10 &nbsp; and &nbsp; friend1 sheep = 0 &nbsp; and &nbsp; friend2 sheep = 0
+my sheep = 8 &nbsp; and &nbsp; friend1 sheep = 0 &nbsp; and &nbsp; friend2 sheep = 0
 </span>
 I give one sheep to each friend, and I get:
 <span class="formula">
-my sheep = 8 &nbsp; and &nbsp; friend1 sheep = 1 &nbsp; and &nbsp; friend2 sheep = 1
+my sheep = 6 &nbsp; and &nbsp; friend1 sheep = 1 &nbsp; and &nbsp; friend2 sheep = 1
 <br>
-my sheep = 6 &nbsp; and &nbsp; friend1 sheep = 2 &nbsp; and &nbsp; friend2 sheep = 2
+my sheep = 4 &nbsp; and &nbsp; friend1 sheep = 2 &nbsp; and &nbsp; friend2 sheep = 2
 <br>
-my sheep = 4 &nbsp; and &nbsp; friend1 sheep = 3 &nbsp; and &nbsp; friend2 sheep = 3
+my sheep = 2 &nbsp; and &nbsp; friend1 sheep = 3 &nbsp; and &nbsp; friend2 sheep = 3
 <br>
-my sheep = 2 &nbsp; and &nbsp; friend1 sheep = 4 &nbsp; and &nbsp; friend2 sheep = 4
-<br>
-my sheep = 0
+my sheep = 0 &nbsp; and &nbsp; friend1 sheep = 4 &nbsp; and &nbsp; friend2 sheep = 4
 </span>
 and I have to stop, because I cannot "give one sheep to each friend" anymore. The result is that both my friends get 4 sheep each and there are no sheep left: so <b>8:2 = 4</b> and no <i>reminder</i> (which is the math name for <i>leftover</i> sheep).
 <br>
@@ -220,7 +218,7 @@ I think the method for dividing is clear, but of course it is too long (or too s
 But what can we do about it? <i>Repeated subtraction</i> is just what it is... how can it be expressed in a  different way?
 <br>
 Well, we could try to see if there is any way to connect division to some other operation, that we already know. After all subtraction is the <i>opposite</i> of addition, multiplication is <i>repeated</i> addition, and division is <i>repeated</i> subtraction. 
-It makes sense to think that division might be <span style="color:red">the <i>opposite</i> of multiplication</span>. (spoiler! And it is true too.)
+It makes sense to think that division might be <span style="color:red">the <i>opposite</i> of multiplication</span>. (spoiler! And it is true too)
 <center>
 <table width="50%" style="line-height:1em;font-weight:1000">
 	<tr>
@@ -252,7 +250,7 @@ then <b>24:<span style="color:blue">6</span> = <span style="color:green">4</span
 <br>
 <br>
 Yet another way to see division is as a way to rewrite a number as DEPENDENT on another, a transformation that preserves the meaning of a number, but it rewrites it to <i>look more like</i> another.
-For example in the playground above, you have that <b>13</b> is also <b>3 * 4 + 1</b>, so <b>13</b> rewritten as a number <i>multiple of <b>4</b></i> is <b>3</b>, with a leftover of <b>1</b>. 
+For example in the playground above, you have that the number <b>13</b> is also <b>3 * 4 + 1</b>, so <b>13</b> rewritten as a number <i>multiple of <b>4</b></i> is <b>3</b>, with a leftover of <b>1</b>. 
 The meaning of this is <i>"thirteen is the same as three times four, and then you have to add one"</i>.
 <br>
 <pre>
@@ -262,23 +260,23 @@ The meaning of this is <i>"thirteen is the same as three times four, and then yo
 </pre>	
 <br>
 
-Interesting... it is like trying to rearrange a number, to FIT it into a <i>template</i>: rewrite <b>n</b> as <b>q * m + r</b>, where all numbers are whole, and I only know <b>n</b> and <b>m</b>; also <b>r</b> should be less than <b>m</b>.
+Interesting... it is like trying to rearrange the number <b>13</b>, to FIT it into a <i>template</i>: rewrite <b>n</b> as <b>q * m + r</b>, where all numbers are whole, and I only know <b>n</b> and <b>m</b>; also <b>r</b> should be less than <b>m</b>.
 
 
 <br>
 <br>
 <div class="task">Why? Why can I be sure that <b>r</b> will always be less than <b>m</b>? What would happen to my division if <b>r</b> was the same or more than <b>m</b>?
+<br>	
+Try to find a few examples and see what happens in the possible cases...
 </div>
 <br>
 This "fitting a template" looks like we are trying to find a linear combination, but BACKWARDS! 
 Like when I have a number in base 10 and I would like to find its digits in base 2 (as we did in <a href="page002.html">chapter 2</a>). And in fact <b>n = q * m + r</b> tells me that I want my number <i>n</i> rewritten to be a linear combination of two other numbers, <i>q</i> and <i>r</i>, with the weight being the number <i>m</i>.
 <br>
-A question that we keep asking in this book is: are there many ways to write something? (AKA different 
-look but same meaning?)
-Here I want to see if the are many ways to write my number <i>n</i>, as a linear combination, with respect to 
-the number <i>m</i>?
+A question that we keep asking in this book is: are there many ways to write something? (AKA different look but same meaning?)
+Here I want to see if the are many ways to write my number <i>n</i>, as a linear combination, with respect to the number <i>m</i>?
 <br>
-Well surely there are many ways to write <b>13</b> in this format <b><span style="color:goldenrod">q</span> * 4 + <span style="color:magenta">r</span></b>:
+Well surely there are many ways to write <b>13</b> in the form <b><span style="color:goldenrod">q</span> * 4 + <span style="color:magenta">r</span></b>, let's consider some:
 <span class="formula">
 13 = <span style="color:goldenrod">0</span> * 4 + <span style="color:magenta">13</span>
 <br>
@@ -334,7 +332,13 @@ away from <b>13</b>, and add it as
 	<span style="font-weight:1000;color:goldenrod">1</span> * 4 + 
 		<span style="font-weight:1000;color:magenta">9</span>
 </span>
-And I can continue doing that:
+and I would get
+<span class="formula">
+13 = <span style="font-weight:1000;color:goldenrod">1</span> * 4 + 
+		<span style="font-weight:1000;color:magenta">9</span>
+</span>
+which is still true: nice. 
+And the good news is that I can keep doing this:
 <span class="formula">
 	13 = <span style="font-weight:1000;color:goldenrod">1</span> * 4 + 
 		<span style="font-weight:1000;color:magenta">9</span> &rarr; 		

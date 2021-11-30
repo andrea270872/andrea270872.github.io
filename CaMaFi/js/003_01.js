@@ -11,9 +11,9 @@ let prepare_003_01 = (playgroundId,sheepId)=>{
 	let initialValue1 = '13';
 	let initialValue2 = '4';
 	parentDiv.innerHTML += 
-	`What is the result of <input id="${inputId1}" type="number" size="3" value="${initialValue1}">
-	divide by <input id="${inputId2}" type="number" size="2" value="${initialValue2}">
-	&nbsp; &nbsp; <button id="${inputId3}" style="color:white;background:black;height:2EM;" type="button">go</button>
+	`Il risultato di <input id="${inputId1}" type="number" size="3" value="${initialValue1}">
+	diviso <input id="${inputId2}" type="number" size="2" value="${initialValue2}"> e'...
+	<button id="${inputId3}" style="color:white;background:black;height:2EM;" type="button">go</button>
 	&nbsp; <span id="${outputId}"></span>
 	<canvas class="playground" id="${canvasId}" width="1024" height="400"></canvas>`;
 
@@ -139,7 +139,7 @@ let prepare_003_01 = (playgroundId,sheepId)=>{
 			if (m==0) {
 				draw(n,m);
 				cx.font = M+'px Arial';
-				cx.fillText('How can I divide my sheeps among 0 friends?',W/4,H*3/4);
+				cx.fillText('Come faccio a dividere le mie pecore tra 0 amici?',W/4,H*3/4);
 				return;
 			}
 

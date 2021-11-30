@@ -11,9 +11,9 @@ let prepare_003_01 = (playgroundId,sheepId)=>{
 	let initialValue1 = '13';
 	let initialValue2 = '4';
 	parentDiv.innerHTML += 
-	`What is the result of <input id="${inputId1}" type="number" size="3" value="${initialValue1}">
-	divide by <input id="${inputId2}" type="number" size="2" value="${initialValue2}">
-	&nbsp; &nbsp; <button id="${inputId3}" style="color:white;background:black;height:2EM;" type="button">go</button>
+	`The result of <input id="${inputId1}" type="number" size="3" value="${initialValue1}">
+	divided by <input id="${inputId2}" type="number" size="2" value="${initialValue2}"> is...
+	&nbsp; <button id="${inputId3}" style="color:white;background:black;height:2EM;" type="button">go</button>
 	&nbsp; <span id="${outputId}"></span>
 	<canvas class="playground" id="${canvasId}" width="1024" height="400"></canvas>`;
 
