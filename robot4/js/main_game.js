@@ -7,7 +7,7 @@ let hasJustRun = false; // set by clicking the run button
 const move = {"S":[+1,0],  // row,col
               "N":[-1,0],
               "E":[0,+1],
-              "W":[0,-1] }
+              "W":[0,-1] } 
 
 function wait(ms) {
     var start = new Date();
