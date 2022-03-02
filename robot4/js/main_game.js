@@ -76,7 +76,7 @@ function compile(code,compiledCode){
         compiledCode.push( [type,-1,blockId] );
       } break;
       case "repeatNtimes": {
-        compiledCodes.push( ["PUSH",instr[2],blockId] ); 
+        compiledCode.push( ["PUSH",instr[2],blockId] ); 
         let K = compiledCode.length; // back-patching step 1
 
         // debug console.log( "nested code:" ,instr[3]);
