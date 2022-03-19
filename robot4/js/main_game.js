@@ -7,7 +7,7 @@ let hasJustRun = false; // set by clicking the run button
 const move = {"S":[+1,0],  // row,col
               "N":[-1,0],
               "E":[0,+1],
-              "W":[0,-1] } 
+              "W":[0,-1] }
 
 function wait(ms) {
     var start = new Date();
@@ -1091,7 +1091,10 @@ window.addEventListener('load', (evt)=>{
 // ************** spy every mouse click *****************
 let mouseSpy = {
     clicksAt: [],
-    lastClickTime: new Date().getTime()};
+    lastClickTime: new Date().getTime(),
+    mouseX:0,mouseY:0};
+
+window.onmousemove = (e)=>{mouseSpy.mouseX = e.clientX; mouseSpy.mouseY = e.clientY;}
 
 Blockly.getMainWorkspace().addChangeListener((evt)=>{
   //console.log("mouse spy -> " , evt.type);
@@ -1100,7 +1103,7 @@ Blockly.getMainWorkspace().addChangeListener((evt)=>{
 
     let t = new Date().getTime();
     let dt = t - mouseSpy.lastClickTime;
-    mouseSpy.clicksAt.push([dt/1000,[evt.clientX,evt.clientY]]);
+    mouseSpy.clicksAt.push([dt/1000,[mouseSpy.mouseX,mouseSpy.mouseY]]);
     mouseSpy.lastClickTime = t;
 
     //console.log("------>",hasJustRun);
