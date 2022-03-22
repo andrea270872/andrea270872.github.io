@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<div id="user_list"></div>
+	<div id="user_list">LOADING...</div>
 	<div id="details"></div>
 
 <script>
@@ -25,13 +25,37 @@
 
   let dataByUserId = {};
 
-  // 
-  function showLevelSolution(userId,userName,rowNumber){
+  distance = (p1,p2)=>{
+  	return ( (p1[0]-p2[0])**2 + (p1[1]-p2[1])**2 )**.5;
+  }
+
+  //   
+  function showLevelSolution(userId,userName,rowNumber){  	
   	let levelData = dataByUserId[userId][rowNumber];
-  	console.log(userId,userName,rowNumber,levelData);  	
-  	document.getElementById('details').innerHTML += 
+
+  	let totalMovement = 0;
+  	let position = [0,0];
+		levelData.click_times.forEach(elem => {
+			// debug console.log( position, elem[1]);
+			totalMovement += distance(position,elem[1]);
+			position = elem[1];
+		});
+		totalMovement = Math.floor(totalMovement);
+
+ 		let totalTimeSec = 0;
+ 		levelData.click_times.forEach(elem => totalTimeSec += elem[0] );
+ 		totalTimeSec = Math.round(totalTimeSec * 100)/100;
+
+ 		let speed = totalMovement/totalTimeSec;
+ 		speed = Math.round(speed * 100)/100;
+
+  	console.log(userId,userName,rowNumber,levelData,totalMovement);
+  	document.getElementById('details').innerHTML += '<hr>'+
   					userId+'/'+userName
-  							+'/'+rowNumber+'/'+JSON.stringify(levelData);
+  							+'/'+rowNumber+'/'+JSON.stringify(levelData) + 
+  							'/ moved: '+totalMovement+' pixels / activityLVL: '+speed+' pixelPerSec';
+
+
 
   	// to do
   	// draw the level in a canvas
@@ -60,9 +84,14 @@
  		let previousRow = dataByUserId[userId][i-1];
  		let row = dataByUserId[userId][i];
  		date = new Date(row.timeStampReadable);
+
+ 		let totalTimeSec = 0;
+ 		row.click_times.forEach(elem => totalTimeSec += elem[0] );
+ 		totalTimeSec = Math.round(totalTimeSec * 100)/100;
+
 		if ((previousRow) && (previousRow.level!=row.level))
 			tmp += '<br>';
-		tmp += `<li>level ${row.level} at time ${date.toISOString().slice(0,19)} (${row.s?'Won':'Lost'}) - 
+		tmp += `<li>level ${row.level} at time ${date.toISOString().slice(0,19)} for ${totalTimeSec} secs, (${row.victory?'Won':'Lost'}) - 
 			<button onclick="showLevelSolution('${userId}','user_${i}',${i});">show</button></li>`;
 	}
 	tmp+='</ul>'
