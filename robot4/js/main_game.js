@@ -26,7 +26,7 @@ document.getElementById('speedSlider').addEventListener('change' , (evt)=>{
   // DEBUG console.log( parseInt(evt.target.value) );
   let spd = parseInt(evt.target.value);
   setTimeout( ()=>{
-    if (spd==3) SPEED = 200;
+    if (spd==3) SPEED = 300;
     if (spd==2) SPEED = 800;
     if (spd==1) SPEED = 1800;
   },150);
@@ -521,6 +521,23 @@ function drawMultiLevels(param=null){
   }
 }
 //drawMultiLevels();
+
+// when you finish executing but you have lost! :(
+function drawRedRectAroundSandwich(){
+  let x = 320;
+  let y = 35;
+  let size = 16 * (ROBOT_LEVELS.length);
+  ctx.lineWidth = 10;
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+      ctx.moveTo(x - size, y);
+      ctx.lineTo(x + size, y + size*2);
+      ctx.moveTo(x + size, y);
+      ctx.lineTo(x - size, y + size*2);
+    ctx.stroke();
+  ctx.lineWidth = 1;
+}
+
 ////////////////////////////////////////////////////////////////////////////
 
 let runButton = document.getElementById('genCode');
@@ -853,7 +870,7 @@ Do you want to STOP RUNNING the code? [OK to STOP]`);
         }
       }
       _t_ += .04;
-    }, ~~(SPEED**.5 /10)); //~~(SPEED/200)); //15); 
+    }, ~~(SPEED/60)); //~~(SPEED**.5 /10)); //~~(SPEED/200)); //15); 
   };  // end of thenDo
 
 
@@ -877,7 +894,7 @@ Do you want to STOP RUNNING the code? [OK to STOP]`);
     }
     _t_ += .1;
   //}, ~~(SPEED/200));//15); 
-}, ~~(SPEED**.5 /10));
+}, ~~(SPEED/50));
   // **************************************
   }
 
@@ -988,9 +1005,11 @@ Do you want to STOP RUNNING the code? [OK to STOP]`);
       document.querySelectorAll('.PC_ARROWS').forEach(el=>el.style.display="none");
 
 
-
-      //setTimeout(()=>alert("Execution terminated ..." + victory),800);
-      setTimeout(()=>openModalPopup("Execution terminated ..." + victory),800);      
+      if (victory == "you WON! ^_^ "){
+        setTimeout(()=>openModalPopup("Execution terminated ..." + victory),800);
+      } else {
+        setTimeout(()=>drawRedRectAroundSandwich(),900);
+      }
     },SPEED);
   
   }
