@@ -1,166 +1,43 @@
 <!DOCTYPE html>
 <html>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<meta content="utf-8" http-equiv="encoding">
 <head>
-  <title>Sandwich Robot</title>  
-  <link rel="stylesheet" href="style.css">
-  <style>
-  label	{
-	    display: block;
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Robot sandwich</title>
+
+	<style>
+	.zoom-in-out-box {
+	  margin: auto;
+	  border-left: 10px solid #f50057;
+	  width: 24em;
+	  background: #f50057;
+	  color: white;
+	  animation: zoom-in-zoom-out 5s ease infinite;
 	}
 
-	label span	{
-	    display: inline-block;
-	    text-align: right;
-	    width: 100px;
+	@keyframes zoom-in-zoom-out {
+	  0% {
+	    transform: scale(1, 1);
+	  }
+	  50% {
+	    transform: scale(1.5, 1.5);
+	  }
+	  100% {
+	    transform: scale(1, 1);
+	  }
 	}
-
 	</style>
 </head>
 <body>
-	<center>
-		<div class="title">Sandwich Robot</div>
-	</center>
-	
-	<center>
-	<div style="width:50%;text-align: justify;text-justify: inter-word">
-		<b>Instructions:</b><br>
-		Hi, this robot <img src="imgs/robot-blue-s.png" style="width:1.2em;"> lives in a kitchen, 	
-		where it can collect tomatoes <img src="imgs/tomatoes.png" style="width:1.6em;">, 
-		salad <img src="imgs/salad.png" style="width:1.6em;"> and 
-		ham <img src="imgs/ham.png" style="width:1.6em;"> to prepare delicious sandwiches.
-		To prepeare a sandwich the robot should move from ingredient to ingredient, collecting a slice from each.
-		<br>
-		In each level the robot has to prepare a different sandwich (its <b>goal</b>): help the robot collect all the ingredients it needs, and in the right sequence!
-	</div>
-	</center>
 
-	<br>
-	<div id="registration_form" style="display:none;">
-		<center>
-			<h3>Please enter</h3>
-			<form>
-				<label>
-					<input type="text" id="username" placeholder="Name">
-					</label>
-				<label>
-					<input type="number" id="userage" placeholder="age" min="1" max="120">
-				</label>
-				<br>
-				<label>
-					<span>Programming experience</span><br>
-					none
-					<input type="radio" name="likert" value="1" checked/>
-					<input type="radio" name="likert" value="2"/>
-					<input type="radio" name="likert" value="3"/>
-					<input type="radio" name="likert" value="4"/>
-					<input type="radio" name="likert" value="5"/>
-					expert
-					<br>
-					<textarea rows="4" cols="25" id="details" placeholder="explain"></textarea>
-				</label>
-			</form>
-
-			<br>
-			<button id="playBTN1" class="levelButton">Play</button>
-		</center>
-	</div>
-
-	<div id="welcome_panel" style="display:none;">
-		<center>
-			<h2>Welcome back <span id="playername">Player123</span></h2>
-			<button id="playBTN2" class="levelButton">Play</button>
-			<br><br><br>
-			<button id="leaveBTN" class="levelButtonLogout">Logout</button>
-		</center>
-	</div>
-
-<script>
-	let b1 = document.getElementById('playBTN1');
-	let b2 = document.getElementById('playBTN2');
-	
-	b1.addEventListener('click' , ()=>{
-		// reset form
-		registration_form.className = "";
-		document.getElementById("username").style.removeProperty('border');
-		document.getElementById("userage").style.removeProperty('border');
-
-  	let data = {
-  		username: document.getElementById("username").value,
-  		age: parseInt(document.getElementById("userage").value),
-  		'programming-experience': parseInt(document.querySelector('input[name="likert"]:checked').value),
-  		'programming-experience-details': document.getElementById("details").value,
-  		timestamp: Date.now()
-  	};
-  	console.log( data );
-
-  	// validate obligatory fields!
-  	let validFields = [true,true]; // name,age
-		if (data.username==""){
-			validFields[0] = false;
-			document.getElementById("username").style.border = "2px solid red";
-		}
-		if ((""+data.age=="NaN") || (data.age<1) || (data.age>110)){
-			validFields[1] = false;
-			document.getElementById("userage").style.border = "2px solid red";
-		}
-
-		console.log( "errors:" , validFields)
-
-		if (validFields.indexOf(false)!=-1){
-			// errors!
-			registration_form.className = "shaker";
-		} else {
-
-			// no errors, proceed to add in DB
-
-		  // AJAX call to cloud-DB
-		  let xhr = new XMLHttpRequest();
-		  xhr.withCredentials = false;
-		  xhr.addEventListener("readystatechange", function () {
-		    if (this.readyState === 4) {
-					// alert( this.responseText );
-					let insertedObject = JSON.parse(this.responseText);
-					let newId = insertedObject["assigned-id"];
-					// console.log( newId );
-			  	localStorage.setItem('userId',newId);
-
-			  	window.location.assign("levels.html");
-		    }
-		  });
-		  xhr.open("POST", "https://guessrobot-2e5c.restdb.io/rest/users-data");
-		  xhr.setRequestHeader("content-type", "application/json");
-		  xhr.setRequestHeader("x-apikey", "60801f0928bf9b609975a4b5");
-		  xhr.setRequestHeader("cache-control", "no-cache");
-		  xhr.send(JSON.stringify(data));
-		}
-
-	});
-
-	b2.addEventListener('click' , ()=>{
-    window.location.assign("levels.html");
-	});
-
-
-	let logoutB = document.getElementById('leaveBTN');
-	logoutB.addEventListener('click' , ()=>{
-		localStorage.removeItem('userId');
-		window.location.reload();
-	});
-
-
-// **************************************************
-
- 	let userId = localStorage.getItem('userId');
-  if (userId==null){
-  	// show the registration form
-  	document.getElementById("registration_form").style.display = "block";
-  } else {
-		// show the welcome panel
-		document.getElementById("playername").innerHTML = "Player"+userId;
-		document.getElementById("welcome_panel").style.display = "block";
-  }
-</script>	
+<div class="zoom-in-out-box">
+	<h1>Robot sandwich moved...</h1>
+</div>
+<p>
+<h2>Please go <a href="https://learninggames.sdu.dk/">here</a> to play the game.</h2>
+<br>
+You might have to create a new user, if you played our game before.
+<br>Sorry for the inconvenience :)
+</p>
 </body>
 </html>
