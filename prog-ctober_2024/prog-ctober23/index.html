@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <link href="rpgui/rpgui.min.css" rel="stylesheet" type="text/css" >
+    <script src="rpgui/rpgui.min.js"></script>
+    
+    <style>
+        body
+        {
+            background: #aaf;
+        }
+      
+        .rpgui-container {
+            width:400px;
+            height:600px;
+        }
+
+
+          /* Standard syntax */
+          @keyframes shake {
+            10%, 90% {
+              transform: translate3d(-1px, 0, 0);
+            }
+
+            20%, 80% {
+              transform: translate3d(2px, 0, 0);
+            }
+
+            30%, 50%, 70% {
+              transform: translate3d(-4px, +2px, 0);
+            }
+
+            40%, 60% {
+              transform: translate3d(4px, 0, 0);
+            }
+          }
+
+          .apply-shake {
+              animation: shake 1s cubic-bezier(.36,.07,.19,.97) both;
+          }        
+    </style>
+    
+  </head>
+  <body>      
+    <div id="main" class="rpgui-content">
+ 
+        <!-- golden frame, with brown background -->
+        <div id="page1" class="rpgui-container framed-golden" style="display:block;">
+          <h1>Gallant Sir Galahad</h1>
+          <h1>-The Game-</h1>
+
+            <br><br><br>
+            <center>
+            <div class="rpgui-icon sword"></div>
+            <div class="rpgui-icon shield"></div>
+            <div class="rpgui-icon exclamation"></div>
+            <br><br><br><br><br><br>
+
+            <div class="rpgui-icon potion-red"></div>
+            <div class="rpgui-icon potion-green"></div>
+            <div class="rpgui-icon potion-blue"></div>
+          </center>
+
+          <br><br><br><br><br><br><br>
+          <button id="button1" class="rpgui-button" type="button" style="width:98%"><p>PLAY</p></button>
+              
+      </div>
+          
+        <div id="page2" class="rpgui-container framed-golden">
+          <h1>Gallant Sir Galahad</h1>
+          <h1>-Thine character-</h1>
+
+          <p>Weapon:
+          <input class="rpgui-radio" checked type="radio" name="weap"><label>None</label>
+          <input class="rpgui-radio" type="radio" name="weap"><label>Sword</label>
+          </p>
+          
+          <p><label>Select class:</label>
+            <select class="rpgui-dropdown">
+                <option value="Warrior" selected>Warrior</option>
+                <option value="Mage">Mage</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Ranger">Ranger</option>
+            </select>
+          </p>
+
+          <label>Stats:</label>
+          <br>
+          <center>Strength</center> 
+          <input class="rpgui-slider" type="range" min="1" max="10" value="4" style="width:90%"/>
+          <center>Dexterity</center>
+          <input class="rpgui-slider" type="range" min="1" max="10" value="6" style="width:90%"/>
+          <center>Intelligence</center>
+          <input class="rpgui-slider" type="range" min="1" max="10" value="7" style="width:90%"/>
+          <center>Charisma</center>
+          <input class="rpgui-slider" type="range" min="1" max="10" value="4" style="width:90%"/>
+        
+          <br><br>
+            <button id="button2" class="rpgui-button golden" type="button" style="width:98%"><p>Next</p></button>
+        </div>
+
+        <div id="page3" class="rpgui-container framed-golden">
+            <h1>Gallant Sir Galahad</h1>
+            <h1>-Choose settings-</h1>
+            <hr>
+
+            <center><p>Easy - Difficult</p></center> 
+              <input class="rpgui-slider golden" type="range" min="1" max="8" value="2" style="width:90%"/>
+            <hr>
+            <div style="float:left; width:50%">
+              <input class="rpgui-checkbox" type="checkbox" checked="" data-rpguitype="checkbox"><label>Fantasy</label>
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>Historical</label>
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>Horror</label>
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>Science Fiction</label>
+            </div>
+            <div style="float:left; width:50%">
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>Forest</label>
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>Planet Y</label>
+              <input class="rpgui-checkbox" type="checkbox" checked=""  data-rpguitype="checkbox"><label>Desert</label>
+              <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox"><label>City</label>
+            </div>
+            
+            <div style="clear:both"> </div>
+            <hr>
+
+            <p><label>Style:</label>
+              <select class="rpgui-dropdown">
+                  <option>basic</option>
+                  <option selected>campaign</option>
+                  <option>against AI</option>
+                  <option>impossible</option>
+              </select>
+            </p>
+
+              <button id="button3" class="rpgui-button golden" type="button" style="width:98%"><p>Next</p></button>
+          </div>
+
+          <div id="page4" class="rpgui-container framed-golden" style="display:none;">
+            <img id="glitch" src="glitch.gif" 
+            style="display: none;width:120%;height: 120%;z-index:100;position:absolute;top:-50px;left: -50px;px;"/>
+
+            <h1>Gallant Sir Galahad</h1>
+            <h1>-The Game-</h1>
+            
+  
+            <br><br><br><br><br><br><br><br>
+            <label>loading</label>
+              <div id="load-bar" class="rpgui-progress green"></div>
+          </div>          
+  </div>      
+
+  <audio id="metallic-file-select">
+    <source src="audio/metallic-file-select.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <audio id="glitchedtones">
+    <source src="audio/glitchedtones__glitch-element-09.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+
+    <script>
+      let old = window.onload;
+      window.onload=function(){
+        document.getElementById("page1").style.display = "block";
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page4").style.display = "none";
+
+        if (old!=null) old();
+
+        /*
+        let progress = document.getElementById("hp-bar");
+        RPGUI.set_value(progress, 0.9);
+        //console.log(RPGUI.get_value(progress));
+        */
+      }
+
+      let audio1 = document.getElementById("metallic-file-select");
+      let audio2 = document.getElementById("glitchedtones");
+      
+      document.getElementById("button1").onclick=function(){
+        audio1.play();
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "block";
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page4").style.display = "none";
+      }
+
+      document.getElementById("button2").onclick=function(){
+        audio1.play();
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page3").style.display = "block";
+        document.getElementById("page4").style.display = "none";
+      }
+
+      document.getElementById("button3").onclick=function(){
+        audio1.play();
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page4").style.display = "block";
+
+        let delay = Math.random()*2000+2000;
+        setTimeout( ()=>{
+          document.getElementById("glitch").style.display = "block";
+          document.getElementById("main").classList.add("apply-shake");
+          audio2.play();          
+        },  delay);
+
+        let p = 0;
+        let progress = document.getElementById("load-bar");
+        let increase = ()=>{
+          RPGUI.set_value(progress, p+=Math.random()/4);
+          //console.log(p);
+          if (p<.5)
+            setTimeout(increase,500);
+        }
+        increase();
+        
+
+        setTimeout( ()=>{
+          document.getElementById("glitch").style.display = "none";
+          document.getElementById("main").classList.remove("apply-shake");
+
+          if (Math.random()*2<=1){
+            document.getElementById("button1").click();
+          } else {
+            document.getElementById("button2").click();
+          }
+        },  delay+2000);
+      }      
+      
+    </script>
+
+  </body>
+</html>
