@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Greenfoot_JS</title>	
+</head>
+<body style="background-color: rgb(84, 130, 77);color: white">
+	<h1>Greenfoot_JS</h1>
+
+	<p>
+		Greenfoot (<a href="https://www.greenfoot.org/">link</a>) is a great environment to learn Java.
+		<br>
+		<div><i>
+		Greenfoot is a project in the Programming Education Tools Group, part of the Computing Education Research Group at the School of Computing, University of Kent in Canterbury, UK. The Greenfoot Team currently includes Michael Kölling, Ian Utting, Davin McCall, Neil Brown, Philip Stevens and Michael Berry. A related project developed by our group is BlueJ. 
+		</i></div>
+	</p>
+	<p>
+		Greenfoot was created for Java, to work with OOP in visual way, leveraging direct-manipulation and Java's excellent <a hre="https://www.oracle.com/technical-resources/articles/java/javareflection.html">reflection</a>.
+		<br><br>
+		<b>Question:<br>
+		Would it be possible to re-create the Greenfoot environment and experience, but for JavaScript?</b>
+		<br>
+		After all, modern JavaScript has classes, some form of reflection, and it runs natively in the browser...
+		<br>
+		And it would be great if the entire editor/environment would work without a backend, i.e. purely in the client.
+	</p>
+
+	<h2>A simple attempt</h2>
+	<p>
+		Here (<a href="greenfoot_js.html">link</a>) you can see a simple, initial attempt at re-implementing Greenfoot in JavaScript, for JavaScript: <b>Greenfoot_JS</b>.
+		<br>
+		<ul>What is implemented:
+			<li>World class and Actor class</li>
+			<li>World class has:
+				<ul>
+					<li>getWidth, getHeight, getCellSize, setBackground, getBackground</li>
+					<li>repaint, addObject, getObjectsAt, removeObject</li>
+					<li>setActOrder, setPaintOrder</li>
+				</ul>
+			</li>			
+			<li>Actor class has:
+				<ul>
+					<li>act,getImage</li>
+					<li>setLocation, getX, getY, setRotation, getRotation, move</li>
+					<li>getWorld, getOneObjectAtOffset</li>
+				</ul>
+			</li>			
+			<li>A few basic static methods of the Greenfoot class:
+				<ul>
+					<li>start, and stop</li>
+					<li>setWorld, setSpeed, getRandomNumber</li>
+					<li>a rudimentary version of the getKey method</li>
+					<li>isPointInsideRect, very useful when checking collisions</li>
+				</ul>
+			</li>
+			<li>Drag-drop of actors in the canvas (when GreenFoot is paused)</li>
+			<li>Rotation methods, facing attribute for actors</li>
+			<li>setting image for classes: every subclass of Actor has a getImage() method that returns an HTML imgElement</li>
+
+			<li>Tree-like visualization of classes and subclasses</li>
+			<li>Right-click on class names: allows to edit or create subclasses</li>
+			<li>Right-click on main canvas: shows all methods of the current object, including all superclasses' methods.
+				<br>All methods can be invoked, and the user is prompted to enter the appropriate parameters; 
+				<br>The results of the method invocation are shown with rudimentary visualization
+			</li>
+			<li>Right-click on main canvas: if no actor is selected, the World's methods are shown.</li>
+			<li>Classes and subclasses of Actor and World are represented as a tree-like datastructure.</li>
+			<li>JSON is used to save and load the whole scenario: all subclasses of World and Actor will be downloaded in a JSON file.
+				<br>
+				The same JSON file can be loaded, to continue working on the scenario</li>
+		</ul>
+		<br>
+		<i>Please refer to the official Greenfoot <a href="https://www.greenfoot.org/files/javadoc/greenfoot/package-summary.html">documentation</a>, to see signatures and behavior of methods.</i>
+	</p>
+
+	<h2>Try it :)</h2>
+	<p>
+		[<a href="greenfoot_js.html">Greenfoot_JS</a>]
+	</p>
+
+</body>
+</html>

@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.parent {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			grid-template-rows: repeat(8, 1fr);
+			grid-column-gap: 0px;
+			grid-row-gap: 0px;
+		}
+
+		.main_area { 
+			grid-area: 1 / 1 / 8 / 5; 
+			border: 1px solid black;
+		    
+		    margin: auto;
+  			width: 70%;
+		}
+
+		.controls { 
+			grid-area: 8 / 1 / 9 / 5; 
+			border: 1px solid black;
+		}
+		.right_header { 
+			grid-area: 1 / 5 / 2 / 7; 
+			border: 1px solid blue;
+		}
+		.classes_area { 
+			grid-area: 2 / 5 / 8 / 7; 
+			border: 1px solid blue;			
+		}
+		.right_footer { 
+			grid-area: 8 / 5 / 9 / 7; 
+			border: 1px solid blue;
+		}
+
+		.controls div {
+			display: inline;
+		}
+
+		ul.classesList { 
+			list-style-position: inside;
+			list-style-type: "^--"; 
+		}
+
+		ul.classesList li {
+			margin: 5px 5px 5px 0px;
+			padding: 5px 5px 5px 0px;
+		}
+
+		.class_name {
+			margin: 6px;
+			padding: 2px;
+			border: 1px solid black;
+			background-color: beige;
+		}
+
+		.controls button { 
+			width: 8em;
+		}
+		
+
+
+		#right_click_menu {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+
+			border: 1px solid black;
+			background-color: lightblue;
+			margin: 5px;
+			padding: 5px;			
+		}
+
+		#right_click_menu.hide {
+			display: none;
+		}
+
+
+		#right_click_canvas_menu {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+
+			border: 1px solid black;
+			background-color: lightblue;
+			margin: 5px;
+			padding: 5px;			
+		}
+
+		#right_click_canvas_menu.hide {
+			display: none;
+		}
+
+
+		#main_canvas {
+			width: 100%;
+			height: 100%;
+		}
+
+		#inheritedMethodsMenu {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+
+			border: 1px solid black;
+			background-color: lightskyblue;
+			margin: 5px;
+			padding: 5px;
+
+			display: none;
+		}
+
+
+		 /* The Modal (background) */
+		.modal {
+		  display: none; /* Hidden by default */
+		  position: fixed; /* Stay in place */
+		  z-index: 1; /* Sit on top */
+		  left: 0;
+		  top: 0;
+		  width: 100%; /* Full width */
+		  height: 100%; /* Full height */
+		  overflow: auto; /* Enable scroll if needed */
+		  background-color: rgb(0,0,0); /* Fallback color */
+		  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+		  background-color: #fefefe;
+		  margin: 15% auto; /* 15% from the top and centered */
+		  padding: 20px;
+		  border: 1px solid #888;
+		  width:  80%; /* Could be more or less, depending on screen size */
+		}
+
+		.editorArea {
+			font-family: monospace;
+			width: 100%;
+			height: 100%;
+		}
+
+		/* The Close Button */
+		.close {
+		  color: #aaa;
+		  float: right;
+		  font-size: 28px;
+		  font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+		  color: black;
+		  text-decoration: none;
+		  cursor: pointer;
+		} 
+
+		/* -------------------------- */
+
+		.scenario_button {
+			margin-left: 2em; 
+			width: 8em;
+			height: 3em;
+		}
+	</style>
+	<title>Greenfoot main</title>
+</head>
+<body>
+	<div style="display:none">
+		<img id="img_sand_tile" src="images/sand_tile.png">
+		<img id="img_wombat" src="images/wombat.png">
+		<img id="img_wombat2" src="images/wombat2.png">
+		<img id="img_leaf" src="images/leaf.png">
+		<img id="img_rock" src="images/rock.gif">
+		<img id="img_generic_icon" src="images/generic_icon.png">		
+	</div>
+
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	  	<b>Editor</b>
+	    <span class="close">&times;</span>
+	    <textarea class="editorArea" rows="20" cols="80" spellcheck="false">/* code goes here */</textarea>
+	    <div>
+	    	<button id="save_changes_">Save Changes</button>
+	    </div>
+	  </div>
+	</div>
+
+
+	 <div class="parent">
+		<div class="main_area">
+			<canvas id="main_canvas">
+		</div>
+		<div class="controls" style="padding:1em;display:flex;justify-content:space-between;">
+			<button id="act_" disabled>act</button>
+			<button id="run_">run</button>
+			<button disabled>reset</button>
+
+			<input id="speed_" type="range" min="1" max="5" value="2" list="steplist">
+			<datalist id="steplist">
+			    <option>1</option>
+			    <option>3</option>
+			    <option>5</option>
+			</datalist>
+		</div>
+
+		<div class="right_header"> 
+			<br>
+			<button id="load_scenario_" class="scenario_button">Load Scenario</button>
+			<button id="save_scenario_" class="scenario_button">Save Scenario</button>
+		</div>
+		<div class="classes_area">
+			<div>
+				<h1>World classes</h1>
+				<ul style="list-style-type: none" id="world_classes_list">				
+				</ul>
+			</div>
+			<div>
+				<h1>Actor classes</h1>
+				<ul style="list-style-type: none" id="actor_classes_list">
+				</ul>
+			</div>
+		</div>
+		<div class="right_footer"> 
+			<br>
+			<button id="instructions_" style="margin: 0 auto;display:block;width: 8em;height: 3em;">Instructions</button>
+		</div>
+	</div> 
+
+	<div id="right_click_menu" class="hide">
+		<span id="selectedClassName_" style="display:none;" name="theClassName"></span>
+		<button id="new_">new Class()</button><br>
+		<hr>
+		<button id="edit_">edit class</button><br>
+		<hr>
+		<button id="new_subclass_">new subclass</button><br>
+	</div>
+
+	<div id="right_click_canvas_menu" class="hide">s</div>
+
+	<div id="inheritedMethodsMenu"></div>
+
+
+	<script>
+		const instuctionButton = document.querySelector("#instructions_");
+		instuctionButton.addEventListener("click",()=>{
+			location.href = "instructions.html";
+		});
+
+
+		///////////////////////////////////////////////
+
+		// return: an empty array, or a list of names of the parameters of a method
+		// ! does now work for constructors !
+		function getParameterListOfMethodOfClass(methodName,className){
+			// DEBUG console.log( `new ${className}()["${methodName}"].toString()` );
+			// DEBUG console.log( `new ${className}()["${methodName}"].toString().match(/\(([^\)]*)\)/)` );
+
+			//let methodDesciption = eval( `new ${className}()["${methodName}"].toString()` );
+			// get method signature without creating any instance:
+			let methodDesciption = eval( `Object.getOwnPropertyDescriptors(${className}.prototype)["${methodName}"].value.toString()` );
+
+			let paramList = methodDesciption.match(/\(([^\)]*)\)/);
+			// DEBUG console.log("paramList = " , paramList);
+			if (paramList[1].length==0){
+			    paramList=[]
+			} else {
+			    paramList=paramList[1].split(",");
+			}
+			return paramList; // -> a list of the parameters
+		}
+
+		// returns: ["Object","Actor"]; // sorted from top to bottom
+		// it works also for subclasses of World!
+		function getSuperClassesOf(subClassName){
+			// ActorSubClassName is the name of a class "under" Actor
+			// DEBUG console.log( "subClassName " , subClassName);
+			let superClassesList = [];
+
+			let currentClassName = subClassName;
+			while (currentClassName!="Object"){
+				// DEBUG console.log("looking at ... " , currentClassName, `${currentClassName}.__proto__.name` );
+				let superClassName = eval(`${currentClassName}.__proto__.name`);
+				if (superClassName==""){ // current class has no superclass, so it has Object as a superclass!
+					superClassName = "Object";
+				}
+				superClassesList.unshift( superClassName );
+				currentClassName = superClassName;		
+			}
+			// DEBUG console.log("superClassesList" , superClassesList);
+			return superClassesList;
+		}
+
+		function serializeAllClassesIn(listOfClasses){
+			let flatClassList = [];
+			let text = "";
+
+			// exclude World and Actor ...
+			if (listOfClasses.codeText!=null){
+				text +=  `// --- ${listOfClasses.className} ---
+${listOfClasses.codeText}
+
+
+`;
+			}
+
+			flatClassList.push( listOfClasses.className );
+
+			if (listOfClasses.subClasses.length>0){
+				// then add the subclasses, recursively
+				for (let subClass of listOfClasses.subClasses){
+					let [subClassText,subList] = serializeAllClassesIn(subClass);
+					text += subClassText;
+					flatClassList = flatClassList.concat(subList);
+				}
+				text += "\n";
+			}
+			return [text,flatClassList];
+		}
+
+		// for every class in flatListOfClassNames, returns: 
+		//     addClassToExtend(WombatWorld,"World");
+		// or
+		//     addClassToExtend(Wombat,"Actor");
+		function serializeDeclarations(flatListOfClassNames){
+			// DEBUG console.log("====> " , flatListOfClassNames)
+			let text = "";
+			for (let className of flatListOfClassNames){
+				if (!primitiveClasses.includes(className)){ // now World, nor Actor ;)
+					let superClassName = eval(`${className}.__proto__.name`);
+					text += `addClassToExtend(${className},"${superClassName}");\n`;
+				}
+			}
+			return text; // `addClassToExtend(WombatWorld,"World");\n`;
+		}
+
+		//////////////////////////////////////////////////
+
+		// modal editor window ---------------------------------- 
+		let modalEditor = document.getElementById("myModal");
+		// Get the <span> element that closes the modal
+		let span = document.getElementsByClassName("close")[0];
+		// To open the modalEditor:
+		//    modalEditor.style.display = "block";
+
+		// When the user clicks on <span> (x), close the modalEditor
+		span.addEventListener( "click", function(e) {
+		  modalEditor.style.display = "none";
+		});
+		// When the user clicks anywhere outside of the modalEditor, close it
+		window.addEventListener( "click", function(e) {
+		  if (event.target == modalEditor) {
+		    modalEditor.style.display = "none";
+		  }
+		});
+		document.querySelector("#save_changes_").addEventListener( "click", function(e) {
+			let selectedClassName = document.querySelector("#selectedClassName_").name;
+			let classDescriptor = findByClassName(actorClassesCode,selectedClassName);
+			if (classDescriptor!=null){ // save the code 
+				classDescriptor.codeText = document.querySelector(".editorArea").value;
+				// re-generate the class, and all its instances...
+				regenerateAll(); // like "compile!" in the original Greenfoot
+			} else { // it was perhaps a World-subclass
+				classDescriptor = findByClassName(worldClassesCode,selectedClassName);
+				if (classDescriptor!=null){ // save the code for this World subclass!
+					classDescriptor.codeText = document.querySelector(".editorArea").value;
+					regenerateAll(); // like "compile!" in the original Greenfoot
+				}
+			}
+
+			modalEditor.style.display = "none"; // close
+
+		});
+		// ------------------------------------------------------- 
+
+		const speedSlider = document.querySelector("#speed_");
+		speedSlider.addEventListener("input",()=>{
+			// DEBUG console.log(~~(speedSlider.value))
+
+			const wasRunning = Greenfoot.hasStarted();
+
+			if (wasRunning) Greenfoot.stop();			
+			Greenfoot.setSpeed( ~~(speedSlider.value) );			
+			if (wasRunning) Greenfoot.start();
+		});
+
+		// Load Scenario		
+		const loadScenarioButton = document.querySelector("#load_scenario_"); 
+		loadScenarioButton.addEventListener("click", () => {
+			const input = document.createElement('input');
+			input.type = 'file';
+			input.accept = "application/json";
+			input.onchange = function () {
+				input.files[0].arrayBuffer().then(function (arrayBuffer) {
+				    // DEBUG console.log(new TextDecoder().decode(arrayBuffer));
+				    let readText = new TextDecoder().decode(arrayBuffer);
+				    let readData = JSON.parse(readText);
+
+				    // ["greenfootjs saved project",worldClassesCode,actorClassesCode,mainClass]
+				    // DEBUG console.log( readData );
+				    let [signature,worldClses,actorClses,mainCls] = readData;
+				    if (signature=="greenfootjs saved project"){
+				    	worldClassesCode = worldClses;
+				    	actorClassesCode = actorClses;
+				    	mainClass = mainCls;
+
+				    	// re-compile!
+				    	regenerateAll();
+				    } else {
+				    	throw new Error("File is not a GreenfootJS project!");
+				    }				    
+				});
+			}
+			input.click();
+		});		
+
+		// Save Scenario		
+		const saveScenarioButton = document.querySelector("#save_scenario_"); 
+		saveScenarioButton.addEventListener("click", () => {
+			// simplest way:
+			let theWholeScenario = JSON.stringify(["greenfootjs saved project",worldClassesCode,actorClassesCode,mainClass]);
+			// DEBUG console.log( "==>"+ theWholeScenario  + "<==");
+			let blobdtMIME = new Blob([theWholeScenario], { type: "application/json" });
+		    let url = URL.createObjectURL(blobdtMIME);
+		    let downloadAnchor = document.createElement("a");
+		    downloadAnchor.setAttribute("download", `saved_project_${Date.now()}.JSON`);
+		    downloadAnchor.href = url;
+		    downloadAnchor.click();
+		    downloadAnchor.remove();
+
+
+/*
+			// !!!FANCY VERSION OF SAVE SCENARIO!!!
+			// generate the code for the new "project.js" file!
+			//        Save all classes (in case new subclasses of Actor have been created)
+			const [worldClassesSerialized,flatWorldClasses] = serializeAllClassesIn(worldClassesCode);
+			const [actorClassesSerialized,flatActorClasses] = serializeAllClassesIn(actorClassesCode);
+		    let fileText = `
+///// classes /////////////////////////////////////////////////////////////
+
+${worldClassesSerialized}
+
+${actorClassesSerialized}
+
+///// declarations /////////////////////////////////////////////////////////////
+
+${serializeDeclarations(flatWorldClasses)}
+
+${serializeDeclarations(flatActorClasses)}
+
+let mainClass = "${mainClass}";
+`;
+
+			// DEBUG console.log(fileText);
+
+		    let blobdtMIME = new Blob([fileText], { type: "text/javascript" });
+		    let url = URL.createObjectURL(blobdtMIME);
+		    let downloadAnchor = document.createElement("a");
+		    downloadAnchor.setAttribute("download", "saved_project.js");
+		    downloadAnchor.href = url;
+		    downloadAnchor.click();
+		    downloadAnchor.remove();
+		    // DEBUG console.log(blobdtMIME);
+*/
+		});
+
+
+		const right_click_menu = document.querySelector("#right_click_menu");
+		const right_click_canvas_menu = document.querySelector("#right_click_canvas_menu");
+
+		document.addEventListener( "click", function(e) {
+			if (right_click_menu.classList!="hide"){
+				right_click_menu.classList.add("hide");
+			}
+			if (right_click_canvas_menu.classList!="hide"){
+				right_click_canvas_menu.classList.add("hide");
+				document.querySelector('#inheritedMethodsMenu').style.display='none';
+			}			
+		});
+
+		document.querySelector("#new_").addEventListener( "click", function(e) {
+			//console.log("-->" , this.innerHTML);
+			let className = this["data-className"];
+			let TheSelectedClass = eval( className );
+			//console.log( TheSelectedClass );
+			//console.log( TheSelectedClass.prototype instanceof World );
+			if (!(TheSelectedClass.prototype instanceof World)){ // skip all World-derived classes!
+				let obj = new TheSelectedClass();
+				let world = Greenfoot.currentWorld;
+				world.addObject(obj,2,3);
+				world.repaint();
+			} // no effect when you create new world subclass!
+		});
+
+		document.querySelector("#new_subclass_").addEventListener( "click", function(e) {
+			// DEBUG console.log("-->" , document.querySelector("#selectedClassName_").name );
+
+			// Exclude Worlds subclasses from this menu...
+
+			let selectedClassName = document.querySelector("#selectedClassName_").name;
+			// find classs in actorClassesCode
+			// add a sub_class -> call it  ClassName'
+			// then it could be renamed
+			let classDescriptor = findByClassName(actorClassesCode,selectedClassName);
+			// DEBUG console.log( classDescriptor );
+			if (classDescriptor!=null){
+				let newSubClassName = prompt("Enter the name of the new subclass: ", selectedClassName+'_1');
+				classDescriptor.subClasses.push( { className: newSubClassName, subClasses: [], codeText: 
+`class ${newSubClassName} extends ${selectedClassName}{
+	getImage(){
+		return document.querySelector("#img_generic_icon");
+	}	
+}` // class template
+			} );
+				// partial reset, less than full "re-compile"
+				createAllClassesInList(actorClassesCode);
+				refreshAllClassesLists();
+			}
+		});
+
+		document.querySelector("#edit_").addEventListener( "click", function(e) {
+			let selectedClassName = document.querySelector("#selectedClassName_").name;
+			//DEBUG console.log("edit ", selectedClassName) ;
+
+			let classDescriptor = findByClassName(actorClassesCode,selectedClassName);
+			// DEBUG console.log( classDescriptor );
+			if (classDescriptor!=null){
+				document.querySelector(".editorArea").value = classDescriptor.codeText;	
+			} else { // try to see if the class is subclass of World
+				classDescriptor = findByClassName(worldClassesCode,selectedClassName);
+				if (classDescriptor!=null){
+					document.querySelector(".editorArea").value = classDescriptor.codeText;
+				}
+			}
+			modalEditor.style.display = "block";
+		});
+
+		// used in the right-click menu, on the canvas
+		function showInheritedMethodsMenu(parentElement,superClassName){
+			// DEBUG console.log( parentElement.getBoundingClientRect().top );
+
+			let rightClickCanvasMenu = document.querySelector("#right_click_canvas_menu");
+			let theStyle = getComputedStyle(rightClickCanvasMenu);
+			let parentX = parseInt( theStyle.left );
+			let parentY = parentElement.getBoundingClientRect().top; // parseInt( theStyle.top );
+			let parentW = parseInt( theStyle.width );
+
+			let inheritedMethodsMenu = document.querySelector("#inheritedMethodsMenu");
+			inheritedMethodsMenu.innerHTML = "... bla ...";
+			inheritedMethodsMenu.style.left = (parentX+parentW)+"px";
+			inheritedMethodsMenu.style.top = (parentY)+"px";
+			inheritedMethodsMenu.style.display = "block";
+
+
+			// DEBUG console.log("showInheritedMethodsMenu ..." , superClassName); // TO DO
+
+			if (superClassName!="Object"){
+				let methodDescrList = eval(`Object.getOwnPropertyDescriptors(${superClassName}.prototype)`);
+				let methodList = Object.keys(methodDescrList);
+
+				inheritedMethodsMenu.innerHTML = `<div>- ${superClassName} methods -<br>`;
+				for (let method of methodList){
+					if (method!="constructor"){
+						let params = getParameterListOfMethodOfClass(method,superClassName);
+						let callMethodOnObject = '';
+						let paramsArrayWithSingleQuotes = JSON.stringify(params).replace(/"/g,'\'');
+						inheritedMethodsMenu.innerHTML += 
+							`<button onclick="callMethodOnObjectWithParams('${method}',${paramsArrayWithSingleQuotes})">${method}(${params.join(",")})</button><br>`;
+						anyMethods = true;
+					}
+				}
+				if (anyMethods==false){
+					inheritedMethodsMenu.innerHTML += `<b>No methods</b>`;
+				}
+				inheritedMethodsMenu.innerHTML += "</div>";
+			} else { // for Object class, show no methods...
+				inheritedMethodsMenu.innerHTML = `<div>- ${superClassName} methods -<br>`;
+				inheritedMethodsMenu.innerHTML += `<b>Native methods</b>`;
+				inheritedMethodsMenu.innerHTML += "</div>";				
+			}
+		}
+
+
+		// GLOBAL variables
+		let right_click_menu_SelectedObject = null;
+		let deletingObjectFromCanvas;
+
+		function callMethodOnObjectWithParams(methodName,params){
+			let paramValues = [];
+			for (let param of params){
+				let value = prompt(`Enter parameter ${param}: `);
+				paramValues.push( value );
+			}
+			/*
+			// DEBUG
+			console.log("parameters are:", params);
+			console.log("parameters values are:", paramValues);
+			console.log( right_click_menu_SelectedObject[methodName] );*/
+			let f = right_click_menu_SelectedObject[methodName];
+			let result = f.apply(right_click_menu_SelectedObject, paramValues);
+			if (result!=null){
+				alert("result = " + result + "\n   or: " + JSON.stringify(result));
+			}
+			right_click_menu_SelectedObject = null;
+			Greenfoot.currentWorld.repaint();
+		}
+
+		// right-click
+		document.addEventListener( "contextmenu", function(e) {
+			if (right_click_menu.classList!="hide"){
+				right_click_menu.classList.add("hide");
+			}
+			if (right_click_canvas_menu.classList!="hide"){
+				right_click_canvas_menu.classList.add("hide");
+				document.querySelector('#inheritedMethodsMenu').style.display='none'; // hide inheritedMethodsMenu
+			}	
+
+			if ( (e.target.className=="class_name") && 
+				(!primitiveClasses.includes(e.target.innerHTML)) ){ // clicked on a label with the name of class
+																	// ... but not Actor nor World!
+				// DEBUG console.log(e.target.innerHTML);
+				let selectedClassName = e.target.innerHTML;
+				document.querySelector("#selectedClassName_").name = selectedClassName;
+
+				const newSubclassButton = document.querySelector("#new_subclass_");
+				newSubclassButton.style.display = "inline";
+				let classDescriptor = findByClassName(actorClassesCode,selectedClassName);
+				if (classDescriptor==null){ // the selected class is subclass of World (and not of Actor)
+					newSubclassButton.style.display = "none";
+				}
+
+				let new_Button = document.querySelector("#new_");
+				new_Button.style.display = "inline";
+				new_Button.innerHTML = `new ${selectedClassName}()`;
+				new_Button["data-className"] = selectedClassName;
+
+				right_click_menu.style.left = (e.clientX-8) + "px";
+				right_click_menu.style.top = (e.clientY-8) + "px";
+				right_click_menu.classList.toggle("hide");
+			}
+
+			// right-click menu on the canvas, only if GreenFoot is NOT running
+			if ((e.target.id=="main_canvas") && (runButton.innerHTML=="run")){
+				let mainCanvas = document.querySelector("#main_canvas");
+				let canvasOffset=mainCanvas.getBoundingClientRect();
+		    	let offsetX=canvasOffset.left;
+		    	let offsetY=canvasOffset.top;
+		    	let canvasWidth=mainCanvas.clientWidth;   // clientWidth
+		    	let canvasHeight=mainCanvas.clientHeight; // clientHeight
+		    	let canvasW = mainCanvas.width;           // logical width
+		    	let canvasH = mainCanvas.height;           // logical width
+
+				let clientX = e.clientX-offsetX;
+				let clientY = e.clientY-offsetY;
+				let logicalX = ~~( clientX/canvasWidth*canvasW );
+				let logicalY = ~~( clientY/canvasHeight*canvasH );
+
+				let world = Greenfoot.currentWorld;
+				let actorsList = world.getObjectsAt(
+										~~(logicalX/world.getCellSize()), 
+										~~(logicalY/world.getCellSize()),
+										Actor);
+				// DEBUG console.log("actorsList " , actorsList);
+				if (actorsList.length>0){
+					let clickedObjectClass = actorsList[0].constructor.name; // className
+					let clickedObject = actorsList[0];
+
+					// DEBUG console.log("->",clickedObjectClass);
+					//console.log("->", `Object.getOwnPropertyDescriptors(${clickedObjectClass}.prototype)` );
+					let methodDescrList = eval(`Object.getOwnPropertyDescriptors(${clickedObjectClass}.prototype)`);
+					let attributeDesctList = eval(`Object.getOwnPropertyDescriptors(new ${clickedObjectClass}())`);
+
+					let methodList = Object.keys(methodDescrList);
+					let attributeList = Object.keys(attributeDesctList);
+					let anyMethods = false;
+					right_click_canvas_menu.innerHTML = "";
+					
+					// get all superclasses names
+					let allSuperclasses = getSuperClassesOf(clickedObjectClass); //	["Object","Actor"]; // sorted from top to bottom
+					for (let superClassName of allSuperclasses){
+						right_click_canvas_menu.innerHTML += 
+						  `<a onmouseover="showInheritedMethodsMenu(this,'${superClassName}')">inherited from <i>${superClassName}</i> -&gt;</a><hr>`;
+						anyMethods = true;
+					}
+
+					right_click_canvas_menu.innerHTML += `<div 
+						onmouseover="document.querySelector('#inheritedMethodsMenu').style.display='none';"
+						>- ${clickedObjectClass} methods -<br>`;
+					right_click_menu_SelectedObject = clickedObject; // global, for the button handler
+					for (let method of methodList){
+						if (method!="constructor"){
+							let params = getParameterListOfMethodOfClass(method,clickedObjectClass);
+							// DEBUG console.log("--->", params);
+
+							// TO DO: ask user params in input, then call the method
+							let callMethodOnObject = '';
+							let paramsArrayWithSingleQuotes = JSON.stringify(params).replace(/"/g,'\'');
+							// DEBUG console.log( `<button onclick="callMethodOnObjectWithParams('${method}',${paramsArrayWithSingleQuotes})">${method}(${params.join(",")})</button><br>` );
+							right_click_canvas_menu.innerHTML += 
+								`<button onclick="callMethodOnObjectWithParams('${method}',${paramsArrayWithSingleQuotes})">${method}(${params.join(",")})</button><br>`;
+							anyMethods = true;
+						}
+					}
+
+					// create a new closure and ...
+					deletingObjectFromCanvas = function(){
+						world.removeObject( right_click_menu_SelectedObject );
+						world.repaint();
+					}
+					// connect the closure to the Delete button
+					right_click_canvas_menu.innerHTML += `<hr><button style="color:red;"
+					onclick="deletingObjectFromCanvas()">Delete</button>`;
+
+					if (anyMethods==false){
+						right_click_canvas_menu.innerHTML += `<b>No methods</b>`;
+					}
+					right_click_canvas_menu.innerHTML += "</div>";
+				} else { // user clicked on the "world" -> show current world methods
+					let clickedObjectClass = world.constructor.name;
+					let clickedObject = world;
+					// DEBUG console.log("user clicked on the <world>",clickedObjectClass);
+					// DEBUG console.log( `Object.getOwnPropertyDescriptors(${clickedObjectClass}.prototype)` );
+					let methodDescrList = eval(`Object.getOwnPropertyDescriptors(${clickedObjectClass}.prototype)`);
+					//let attributeDesctList = eval(`Object.getOwnPropertyDescriptors(new ${clickedObjectClass}())`);
+
+					let methodList = Object.keys(methodDescrList);
+					let anyMethods = false;
+					right_click_canvas_menu.innerHTML = "";
+					
+					// get all superclasses names
+					let allSuperclasses = getSuperClassesOf(clickedObjectClass); //	["Object","Actor"]; // sorted from top to bottom
+					// DEBUG console.log(clickedObjectClass , "-->>" , allSuperclasses);
+					for (let superClassName of allSuperclasses){
+						right_click_canvas_menu.innerHTML += 
+						  `<a onmouseover="showInheritedMethodsMenu(this,'${superClassName}')">inherited from <i>${superClassName}</i> -&gt;</a><hr>`;
+						anyMethods = true;
+					}
+
+					right_click_canvas_menu.innerHTML += `<div 
+						onmouseover="document.querySelector('#inheritedMethodsMenu').style.display='none';"
+						>- ${clickedObjectClass} methods -<br>`;
+					right_click_menu_SelectedObject = clickedObject; // global, for the button handler
+
+					for (let method of methodList){
+						if (method!="constructor"){
+							let params = getParameterListOfMethodOfClass(method,clickedObjectClass);
+							// DEBUG console.log("--->", params);
+
+							// TO DO: ask user params in input, then call the method
+							let callMethodOnObject = '';
+							let paramsArrayWithSingleQuotes = JSON.stringify(params).replace(/"/g,'\'');
+							// DEBUG console.log( `<button onclick="callMethodOnObjectWithParams('${method}',${paramsArrayWithSingleQuotes})">${method}(${params.join(",")})</button><br>` );
+							right_click_canvas_menu.innerHTML += 
+								`<button onclick="callMethodOnObjectWithParams('${method}',${paramsArrayWithSingleQuotes})">${method}(${params.join(",")})</button><br>`;
+							anyMethods = true;
+						}
+					}
+					if (anyMethods==false){
+						right_click_canvas_menu.innerHTML += `<b>No methods</b>`;
+
+					}
+				}
+
+				right_click_canvas_menu.style.left = (e.clientX-8) + "px";
+				right_click_canvas_menu.style.top = (e.clientY-8) + "px";				
+				right_click_canvas_menu.classList.toggle("hide");
+			}
+
+			e.preventDefault();			//DEBUG console.log(e);
+		});
+</script>
+
+<script src="js/greenfoot.js"></script>
+
+<script>		
+		function findByClassName(listOfClasses,classNameToFind){
+			if (listOfClasses.className==classNameToFind){
+				return listOfClasses;
+			} 
+			if (listOfClasses.subClasses.length==0){
+				return null;
+			} 
+			for (let subClass of listOfClasses.subClasses){
+				let found = findByClassName(subClass,classNameToFind);
+				if (found!=null){
+					return found;
+				}
+			}
+			return null;
+		}
+
+		// automatic creation of all classes in the actorClassesCode list
+		function createClassFromCode(className,codeText){
+			if ((codeText!=null) && (codeText!="")){
+				// DEBUG console.log( `createClassFromCode =>  ${className} = ${codeText};`  );
+				eval( `${className} = ${codeText};` ); // creation of the class in JS
+			}
+		}
+		function createAllClassesInList(listOfClasses){
+			if (!primitiveClasses.includes(listOfClasses.className)){ // excludes Actor
+				createClassFromCode(listOfClasses.className,listOfClasses.codeText);
+			}
+
+			if (listOfClasses.subClasses.length>0){
+				// then visit all subclasses, recursively
+				for (let subClass of listOfClasses.subClasses){
+					createAllClassesInList(subClass);
+				}
+			}
+		}
+
+		// generate the lists (on the right)
+		function populateList(listOfClasses){
+			let text = "";
+
+			if (listOfClasses.subClasses.length==0){
+				text += `<li><span class="class_name">${listOfClasses.className}</span></li>`;
+			} else {
+				text += `<li><span class="class_name">${listOfClasses.className}</span><ul class="classesList">`;
+				// then add the subclasses, recursively
+				for (let subClass of listOfClasses.subClasses){
+					text += populateList(subClass);
+				}
+				text += `</ul></li>`;
+			}
+			return text;
+		}
+
+		function refreshAllClassesLists(){
+			let worldClassesList = document.querySelector("#world_classes_list");
+			worldClassesList.innerHTML = populateList( worldClassesCode );
+			let actorClassesList = document.querySelector("#actor_classes_list");
+			actorClassesList.innerHTML = populateList( actorClassesCode );
+		}
+
+		// automatic creation of all classes in the actorClassesCode list,
+		// then generate the lists (on the right)
+		function regenerateAll(){
+			createAllClassesInList(worldClassesCode);
+			createAllClassesInList(actorClassesCode);
+			refreshAllClassesLists();
+
+			// re-gen also the world and all instances
+			let w = eval(`new ${mainClass}()`);
+			Greenfoot.setWorld( w );			
+			w.repaint();
+		}
+
+
+		// representation of classes and their code -----------------------------
+		let primitiveClasses = [ "World", "Actor" ];
+		let worldClassesCode = { className: "World" , subClasses: []};
+		let actorClassesCode = { className: "Actor" , subClasses: []};		
+
+		function addClassToExtendWithCode(className,superClassName,classCode){
+			let worldSubClass = findByClassName(worldClassesCode,superClassName);
+			let actorSubClass = findByClassName(actorClassesCode,superClassName);
+
+			if (worldSubClass!=null){ // the new class is a subclass of the World family
+				findByClassName(worldClassesCode,superClassName).subClasses.push(
+									{ className: className , subClasses: []} );
+				findByClassName(worldClassesCode,className).codeText = classCode;
+			} else { // the new class is a subclass of the Actor family
+				findByClassName(actorClassesCode,superClassName).subClasses.push(
+								{ className: className , subClasses: []} );
+				findByClassName(actorClassesCode,className).codeText = classCode;
+
+			}
+		}
+
+		function addClassToExtend(cls,superClassName){
+			addClassToExtendWithCode(cls.prototype.constructor.name,superClassName, 
+										cls.toString());
+		}
+			
+</script>
+<script src="js/project1.js"></script>
+<script>
+		regenerateAll();
+
+		// ----------------------------------------------------------------------
+
+		let runButton = document.querySelector("#run_");
+		runButton.addEventListener( "click", function(e) {
+			if (runButton.innerHTML=="run"){
+				runButton.innerHTML="stop";
+				Greenfoot.start();
+			} else {
+				runButton.innerHTML="run";				
+				Greenfoot.stop();
+			}
+		});
+
+		// drag-n-drop for items inside the canvas
+		let mainCanvas = document.querySelector("#main_canvas");
+		let dragging = {isDragging:false,x:0,y:0,selectedActor:null};
+		let isDragging = false;
+		let canvasOffset=mainCanvas.getBoundingClientRect();
+    	let offsetX=canvasOffset.left;
+    	let offsetY=canvasOffset.top;
+    	let canvasWidth=mainCanvas.clientWidth;   // clientWidth
+    	let canvasHeight=mainCanvas.clientHeight; // clientHeight
+    	let canvasW = mainCanvas.width;           // logical width
+    	let canvasH = mainCanvas.height;           // logical width
+    	// DEBUG console.log("canvas size: " , mainCanvas.width,mainCanvas.height, canvasOffset);
+		mainCanvas.addEventListener( "mousedown", function(e) {
+			e.preventDefault();
+			if (e.button!=0){ // not the main (left) mouse button
+				return;
+			}
+
+			/* // DEBUG
+			console.log("mouse on canvas pos: " , ~~(e.clientX-offsetX) , ~~(e.clientY-offsetY) );
+			let logicalX = ~~( (e.clientX-offsetX)/canvasWidth*canvasW );
+			let logicalY = ~~( (e.clientY-offsetY)/canvasHeight*canvasH );
+			let world = Greenfoot.currentWorld;
+			world.ctx.strokeRect( logicalX,logicalY , 10,10);
+			*/		
+
+			if (runButton.innerHTML=="run"){ // if Greenfoot is not running...
+				let clientX = e.clientX-offsetX;
+				let clientY = e.clientY-offsetY;
+				let logicalX = ~~( clientX/canvasWidth*canvasW );
+				let logicalY = ~~( clientY/canvasHeight*canvasH );			
+				dragging.x=logicalX;
+				dragging.y=logicalY;
+				dragging.isDragging=true;
+				// DEBUG console.log("dragStart->logical ", dragging.x,dragging.y);
+			} else {
+				dragging.isDragging=false;
+			}			
+		});
+		mainCanvas.addEventListener( "mousemove", function(e) {
+			if (dragging.isDragging){
+				let clientX = e.clientX-offsetX;
+				let clientY = e.clientY-offsetY;
+				let logicalX = ~~( clientX/canvasWidth*canvasW );
+				let logicalY = ~~( clientY/canvasHeight*canvasH );			
+				dragging.x=logicalX;
+				dragging.y=logicalY;
+				//console.log( dragging );
+				if (dragging.selectedActor==null){
+					let world = Greenfoot.currentWorld;
+					let actorsList = world.getObjectsAt(
+										~~(dragging.x/world.getCellSize()), 
+										~~(dragging.y/world.getCellSize()),
+										Actor);
+					// DEBUG console.log("actorsList " , actorsList)
+					if (actorsList.length>0){
+						dragging.selectedActor = actorsList[0];
+						dragging.selectedOffsetX = dragging.x - dragging.selectedActor.getX()*world.getCellSize();
+						dragging.selectedOffsetY = dragging.y - dragging.selectedActor.getY()*world.getCellSize();
+						Greenfoot.currentWorld.removeObject(dragging.selectedActor);
+						Greenfoot.currentWorld.repaint();
+					}
+				} else { // an actor is selected
+					let world = Greenfoot.currentWorld;
+					world.repaint();
+
+					let selX = ~~(dragging.x/world.getCellSize())*world.getCellSize();
+					let selY = ~~(dragging.y/world.getCellSize())*world.getCellSize();
+					world.ctx.save();
+					world.ctx.translate(selX+world.cellSize*.5, selY+world.cellSize*.5);
+					world.ctx.rotate( dragging.selectedActor.getRotation()*Math.PI/180 );
+					world.ctx.drawImage( dragging.selectedActor.getImage(), 
+						world.cellSize*(-.5), world.cellSize*(-.5),
+						world.cellSize,world.cellSize);
+					world.ctx.restore();
+
+				}
+			}
+		});
+		mainCanvas.addEventListener( "mouseup", function(e) {
+			let clientX = e.clientX-offsetX;
+			let clientY = e.clientY-offsetY;
+			let logicalX = ~~( clientX/canvasWidth*canvasW );
+			let logicalY = ~~( clientY/canvasHeight*canvasH );			
+			dragging.x=logicalX;
+			dragging.y=logicalY;
+
+			// drop
+			if (dragging.selectedActor!=null){
+				let world = Greenfoot.currentWorld;
+				world.addObject( dragging.selectedActor ,
+									~~(dragging.x/world.getCellSize()), 
+									~~(dragging.y/world.getCellSize()),
+							   );
+				world.repaint();
+				// DEBUG console.log("dragEnd->logical ", dragging.x,dragging.y);
+			}
+
+			dragging.isDragging = false;
+			dragging.selectedActor = null;			
+		});
+
+
+	</script>
+
+</body>
+</html>
