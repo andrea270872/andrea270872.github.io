@@ -28,6 +28,9 @@
     </div>
 
 <script>
+const DEBUG = false;
+
+
 const canvas2 = document.querySelector("#resultCanvas");
 const ctx2 = canvas2.getContext("2d");
 const canvasRect2 = canvas2.getBoundingClientRect();
@@ -40,6 +43,8 @@ const canvas = document.querySelector("#theCanvas");
 const ctx = canvas.getContext("2d");
 const canvasRect = canvas.getBoundingClientRect();
 
+let latestClickedPoint = null;
+
 ctx.fillStyle = "rgb(250 250 250)";
 ctx.fillRect(0,0,canvasRect.width,canvasRect.height);
 
@@ -51,6 +56,21 @@ let currentTriangle = null;
 let Ws = []; // affine transforms
 let drawingMode = null;
 
+
+canvas.onmousemove = function(evt){
+    if (latestClickedPoint!=null){
+        const x = evt.clientX - canvasRect.left;
+        const y = evt.clientY - canvasRect.top;
+
+        redraw();
+        ctx.strokeStyle = "red";
+        ctx.beginPath();
+            ctx.moveTo(latestClickedPoint.x,latestClickedPoint.y);
+            ctx.lineTo(x,y);
+        ctx.stroke();
+    }
+}
+
 canvas.onclick = function(event){
     const x = event.clientX - canvasRect.left;
     const y = event.clientY - canvasRect.top;
@@ -58,20 +78,24 @@ canvas.onclick = function(event){
 
     if (drawingMode == 1){
         mainTriangle.push( {x:x,y:y} );
+        latestClickedPoint = {x:x,y:y};
         if (mainTriangle.length==3){
             drawingMode = 0;
             document.querySelector("#b1").className="";
             document.querySelector("#b2").disabled = false;
+            latestClickedPoint = null;
         }
     }
     if (drawingMode == 2){
         currentTriangle.push( {x:x,y:y} );
+        latestClickedPoint = {x:x,y:y};
         if (currentTriangle.length==3){
             drawingMode = 0;
             document.querySelector("#b2").className="";
 
             //DEBUG console.log(...mainTriangle , ...currentTriangle);
             Ws.push( calculateTransform( ...mainTriangle , ...currentTriangle ) );
+            latestClickedPoint = null;
         }
     }
     redraw();
@@ -83,18 +107,21 @@ document.querySelector("#recursion").oninput = function(evt){
 }
 
 document.querySelector("#b1").onclick = function(){    
+    
+    if (!DEBUG){
+        document.querySelector("#b1").className="selected";
+        drawingMode = 1;
+        mainTriangle = [];
+    }
 
-    document.querySelector("#b1").className="selected";
-    drawingMode = 1;
-    mainTriangle = [];
-/*
-    // DEBUG
-    mainTriangle = [];
-    mainTriangle.push({x:100,y:350});
-    mainTriangle.push({x:175,y:80});
-    mainTriangle.push({x:250,y:350});
-    document.querySelector("#b2").disabled = false;
-*/
+    if (DEBUG){
+        // DEBUG
+        mainTriangle = [];
+        mainTriangle.push({x:100,y:350});
+        mainTriangle.push({x:175,y:80});
+        mainTriangle.push({x:250,y:350});
+        document.querySelector("#b2").disabled = false;
+    }
     redraw();
 }
 
@@ -151,7 +178,7 @@ document.querySelector("#b4").onclick = function(){
 document.querySelector("#b3").onclick = function(){
     triangles = [];
     Ws = []; // affine transforms
-    redraw();   
+    redraw();  
 }
 
 function redraw(){
@@ -167,13 +194,14 @@ function redraw(){
         ctx.fillRect(p.x-1,p.y-1,3,3);
         ctx.fillText(i, p.x,p.y);
     }
-    if (mainTriangle.length==3){
+    if (mainTriangle.length>=1){
         ctx.fillStyle = "rgb(80 250 80)";
         ctx.strokeStyle = "ligthgreen";
         ctx.beginPath();
         ctx.moveTo(mainTriangle[0].x,mainTriangle[0].y);
-        ctx.lineTo(mainTriangle[1].x,mainTriangle[1].y);
-        ctx.lineTo(mainTriangle[2].x,mainTriangle[2].y);
+        for (let p of mainTriangle){
+            ctx.lineTo(p.x,p.y);
+        }
         ctx.closePath();
         ctx.stroke();
         ctx.fill();
@@ -190,11 +218,19 @@ function redraw(){
         
             for (let p of t){
                 i++;
+                ctx.fillStyle = "lightblue";
                 ctx.fillRect(p.x-1,p.y-1,3,3);
+                ctx.fillStyle = "blue";
                 ctx.fillText(i, p.x,p.y);
 
                 ctx.lineTo(p.x,p.y);
             }
+        }
+        if (t.length==1){
+            ctx.fillStyle = "lightblue";
+            ctx.fillRect(t[0].x-1,t[0].y-1,3,3);
+            ctx.fillStyle = "blue";
+            ctx.fillText(1, t[0].x,t[0].y);
         }
         ctx.closePath();
         ctx.stroke();
