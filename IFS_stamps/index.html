@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>IFS stamps</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        .selected {
+            background-color: lightgreen;
+        }
+    </style>
+    <script src="./saveToFile.js"></script>
+</head>
+<body>
+
+    <div>
+        <button id="b1">Main triangle</button>
+        <button id="b2" disabled="true">Add transform</button>
+        <button id="b3">Reset triangles</button>
+        &nbsp;
+        <input type="range" id="recursion"  min="2" max="8" />
+        &nbsp; &nbsp;
+        <button id="b4">Save</button>
+        <br>
+
+        <canvas id="theCanvas" width="600" height="480"></canvas>
+        <canvas id="resultCanvas" width="600" height="480"></canvas>
+    </div>
+
+<script>
+const canvas2 = document.querySelector("#resultCanvas");
+const ctx2 = canvas2.getContext("2d");
+const canvasRect2 = canvas2.getBoundingClientRect();
+
+ctx2.fillStyle = "rgb(250 250 250)";
+ctx2.fillRect(0,0,canvasRect2.right,canvasRect2.bottom);
+
+
+const canvas = document.querySelector("#theCanvas");
+const ctx = canvas.getContext("2d");
+const canvasRect = canvas.getBoundingClientRect();
+
+ctx.fillStyle = "rgb(250 250 250)";
+ctx.fillRect(0,0,canvasRect.width,canvasRect.height);
+
+
+let recursionLevel=3;
+let mainTriangle = [];
+let triangles = [];
+let currentTriangle = null;
+let Ws = []; // affine transforms
+let drawingMode = null;
+
+canvas.onclick = function(event){
+    const x = event.clientX - canvasRect.left;
+    const y = event.clientY - canvasRect.top;
+    console.log(x,y);
+
+    if (drawingMode == 1){
+        mainTriangle.push( {x:x,y:y} );
+        if (mainTriangle.length==3){
+            drawingMode = 0;
+            document.querySelector("#b1").className="";
+            document.querySelector("#b2").disabled = false;
+        }
+    }
+    if (drawingMode == 2){
+        currentTriangle.push( {x:x,y:y} );
+        if (currentTriangle.length==3){
+            drawingMode = 0;
+            document.querySelector("#b2").className="";
+
+            //DEBUG console.log(...mainTriangle , ...currentTriangle);
+            Ws.push( calculateTransform( ...mainTriangle , ...currentTriangle ) );
+        }
+    }
+    redraw();
+}
+
+document.querySelector("#recursion").oninput = function(evt){
+    recursionLevel = event.target.value;
+    drawIFS();
+}
+
+document.querySelector("#b1").onclick = function(){    
+    /*
+    document.querySelector("#b1").className="selected";
+    drawingMode = 1;
+    mainTriangle = [];*/
+
+    // DEBUG
+    mainTriangle = [];
+    mainTriangle.push({x:100,y:350});
+    mainTriangle.push({x:175,y:80});
+    mainTriangle.push({x:250,y:350});
+    document.querySelector("#b2").disabled = false;
+
+    redraw();
+}
+
+document.querySelector("#b2").onclick = function(){
+    document.querySelector("#b2").className="selected";
+    drawingMode = 2;
+    triangles.push( [] );
+    currentTriangle = triangles[triangles.length-1];
+    
+    /*
+    // DEBUG
+    currentTriangle = [];
+    currentTriangle.push({x:100+5,y:350});
+    currentTriangle.push({x:100+5,y:80});
+    currentTriangle.push({x:250+5,y:350});
+    triangles.push( currentTriangle );
+    Ws.push( calculateTransform( ...mainTriangle , ...currentTriangle ) );
+    */
+    redraw();
+}
+
+document.querySelector("#b4").onclick = function(){
+    // save ... 
+    // to do
+    
+    let content = "";
+    // create the SVG path for a shape
+    let text = createPathSVG(mainTriangle,"st0",{x:0,y:0});
+    console.log(text);
+    content+=text;
+
+    for (let t of triangles){
+        text = createPathSVG(t,"st1",{x:300,y:0});
+        console.log(text);
+        content+=text;
+    }
+
+    // turn into a complete SVG file
+    content = 
+`<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 566.93 1077.17" xml:space="preserve">
+<style type="text/css" id="style1">
+	.st0{fill:none;stroke:#E30613;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:#009640;stroke-miterlimit:10;}
+	.st2{fill:#E94E1B;}
+</style>`    
++ content +
+`</svg>`;
+
+    downloadFile(content);
+}
+
+document.querySelector("#b3").onclick = function(){
+    triangles = [];
+    redraw();   
+}
+
+function redraw(){
+    ctx.fillStyle = "rgb(250 250 250)";
+    ctx.fillRect(0,0,canvasRect.right,canvasRect.bottom);
+
+    ctx.font = "16px serif";
+    ctx.fillStyle = "green";
+    ctx.strokeStyle = "green";
+    let i=0;
+    for (let p of mainTriangle){
+        i++;
+        ctx.fillRect(p.x-1,p.y-1,3,3);
+        ctx.fillText(i, p.x,p.y);
+    }
+    if (mainTriangle.length==3){
+        ctx.fillStyle = "rgb(80 250 80)";
+        ctx.strokeStyle = "ligthgreen";
+        ctx.beginPath();
+        ctx.moveTo(mainTriangle[0].x,mainTriangle[0].y);
+        ctx.lineTo(mainTriangle[1].x,mainTriangle[1].y);
+        ctx.lineTo(mainTriangle[2].x,mainTriangle[2].y);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    ctx.font = "16px serif";
+    for (let t of triangles){
+        ctx.fillStyle = "lightblue";
+        ctx.strokeStyle = "cyan";
+        ctx.beginPath();
+        i=0;
+        if (t.length>1){
+            ctx.moveTo(t[0].x,t[0].y);
+        
+            for (let p of t){
+                i++;
+                ctx.fillRect(p.x-1,p.y-1,3,3);
+                ctx.fillText(i, p.x,p.y);
+
+                ctx.lineTo(p.x,p.y);
+            }
+        }
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    drawIFS();
+}
+
+
+
+// Cramer and 3x3 determinants
+// https://www.chilimath.com/lessons/advanced-algebra/cramers-rule-with-three-variables/
+// https://www.geeksforgeeks.org/maths/determinant-of-3x3-matrix/
+function solve3X3(a1,b1,c1,d1,
+                 a2,b2,c2,d2,
+                 a3,b3,c3,d3){
+
+
+    let D = determinant(a1,b1,c1, 
+                        a2,b2,c2,
+                        a3,b3,c3);
+
+    let Dx = determinant(d1,b1,c1, 
+                         d2,b2,c2,
+                         d3,b3,c3);
+    
+    let Dy = determinant(a1,d1,c1, 
+                         a2,d2,c2,
+                         a3,d3,c3);
+
+    let Dz = determinant(a1,b1,d1, 
+                         a2,b2,d2,
+                         a3,b3,d3);
+
+    let x = Dx / D;
+    let y = Dy / D;
+    let z = Dz / D;
+
+    return [x,y,z];
+}
+
+function determinant(a,b,c, 
+                     d,e,f,
+                     g,h,i){
+    return a*(e*i-f*h) - b*(d*i-f*g) + c*(d*h-e*g);
+}
+
+/*  a c e 
+    b d f 
+    0 0 1
+*/
+function calculateTransform(p1,p2,p3,    q1,q2,q3){
+    console.log(p1,p2,p3, " => " , q1,q2,q3);
+    let [a,b,e] = solve3X3(p1.x,p1.y,1   , q1.x,
+                             p2.x,p2.y,1   , q2.x,
+                             p3.x,p3.y,1   , q3.x
+                            );
+
+    let [c,d,f] = solve3X3(p1.x,p1.y,1   , q1.y,
+                             p2.x,p2.y,1   , q2.y,
+                             p3.x,p3.y,1   , q3.y
+                            );
+                            
+    return [a,b,c,d,e,f];
+}
+
+
+const palette = [
+  "rgb(128, 255, 0)",
+  "rgb(255, 255, 0)",
+  "rgb(255, 192, 0)",
+  "rgb(255, 64, 0)",
+  "rgb(255, 0, 0)",
+  "rgb(255, 128, 128)",
+  "rgb(0, 0, 32)",
+  "rgb(0, 0, 128)",
+  "rgb(0, 64, 255)",
+  "rgb(0, 192, 255)",
+  "rgb(0, 255, 128)",
+  "rgb(0, 255, 0)",
+
+];
+
+function drawIFS(){
+    /*
+    // DEBUG 
+    for (let w of Ws){
+        console.table(w);
+    }
+    */
+
+    let tri = JSON.parse(JSON.stringify(mainTriangle)); // deep-clone!
+
+    ctx2.resetTransform();
+    ctx2.fillStyle = "rgb(250 250 250)";
+    ctx2.fillRect(0,0,canvasRect2.width,canvasRect2.height);    
+
+    ctx2.fillStyle = "green";
+    ctx2.strokeStyle = "green";
+    let i=0;
+    for (let p of tri){
+        i++;
+        ctx2.fillRect(p.x-1,p.y-1,3,3);
+    }
+
+    ctx2.resetTransform();
+    drawRecursively(tri,recursionLevel); // shape, levels
+}
+
+// NOT WORKING ... 
+function drawRecursively(shape,level){
+    if (level<=1){
+        drawSingleTriangle( shape, "lightgreen" );
+    } else {
+        let which=0;
+        for (let w of Ws){
+            drawSingleTriangle( shape, "lightgreen" );
+            let [a,b,c,d,e,f] = w;
+            ctx2.save();
+                // DEBUG  console.log( ".....".substr(5-level) ,"transform W",which++);
+                ctx2.transform(a,c,b,d,e,f);
+                drawRecursively(shape,level-1);
+            ctx2.restore();
+        }
+    }
+}
+
+function drawSingleTriangle(tri,color){
+    ctx2.fillStyle = color;
+    ctx2.strokeStyle = color
+    ctx2.beginPath();
+    i=0;
+    if (tri.length>1){
+        ctx2.moveTo(tri[0].x,tri[0].y);
+    
+        for (let p of tri){
+            i++;
+            ctx2.fillRect(p.x-1,p.y-1,3,3);
+            //ctx.fillText(i, p.x,p.y);
+
+            ctx2.lineTo(p.x,p.y);
+        }
+    }
+    ctx2.closePath();
+    ctx2.fill();
+}
+
+function drawPoints(tri,color){
+    ctx2.fillStyle = color;
+    ctx2.strokeStyle = color
+    ctx2.beginPath();
+    i=0;
+    for (let p of tri){
+        i++;
+        ctx2.fillRect(p.x-1,p.y-1,3,3);
+    }
+}
+
+
+/*
+// testing
+
+determinant(2,1,3  ,4,0,1,   2,-1,2) =>  -16 
+
+determinant(2,0,1,    3,4,6,  1,5,2) =>  -33 
+
+
+*/
+
+
+// relative to initial pos
+function createPathSVG(polyline,className,translateP){
+    let output = `<path class="${className}" d="`;
+    for (let i=0;i<polyline.length;i++){
+        let p = polyline[i];
+        if (i==0){
+            output += `m ${ p.x + translateP.x },${ p.y + translateP.y }\n`;
+        } else {
+            output += `l ${ p.x-polyline[i-1].x },${ p.y-polyline[i-1].y }\n`;
+        }
+    }
+    output += `Z\n`; // to close the shape
+    output += '"/>';
+
+    return output;
+}
+</script>
+</body>
+</html>
